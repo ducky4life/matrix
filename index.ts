@@ -42,7 +42,7 @@ function getRandomMatrix(max: number = 10) {
     return M;
 }
 
-function generateExercise(type: number = 2; max: number = 10) {
+function generateExercise(type: number = 2, max: number = 10) {
     const M1 = getRandomMatrix(max);
     const M2 = getRandomMatrix(max);
 
@@ -82,7 +82,7 @@ function generateExercise(type: number = 2; max: number = 10) {
         'M2': M2,
         'answer': answer,
         'ex_type': ex_type,
-        'operator': operator;
+        'operator': operator,
     };
     return generated_exercise;
 }

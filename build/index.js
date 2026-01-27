@@ -1,59 +1,45 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 class Matrix {
-    a: number;
-    b: number;
-    c: number;
-    d: number;
-
-    constructor(a=0,b=0,c=0,d=0) {
+    constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a = a;
         this.b = b;
         this.c = c;
         this.d = d;
     }
-
-    display(): Array<number> {
-        return([this.a,this.b,this.c,this.d]);
+    display() {
+        return ([this.a, this.b, this.c, this.d]);
     }
-
-    displayToString(): string {
-        return(`[${this.a}, ${this.b}, ${this.c}, ${this.d}]`)
+    displayToString() {
+        return (`[${this.a}, ${this.b}, ${this.c}, ${this.d}]`);
     }
-
-    add(M: Matrix): Matrix {
-        return new Matrix(this.a+M.a, this.b+M.b, this.c+M.c, this.d+M.d);
+    add(M) {
+        return new Matrix(this.a + M.a, this.b + M.b, this.c + M.c, this.d + M.d);
     }
-
-    minus(M: Matrix): Matrix {
-        return new Matrix(this.a-M.a, this.b-M.b, this.c-M.c, this.d-M.d);
+    minus(M) {
+        return new Matrix(this.a - M.a, this.b - M.b, this.c - M.c, this.d - M.d);
     }
-
-    multiply(M: Matrix): Matrix {
-        return new Matrix(this.a*M.a+this.b*M.c, this.a*M.b+this.b*M.d, this.c*M.a+this.d*M.c, this.c*M.b+this.d*M.d);
+    multiply(M) {
+        return new Matrix(this.a * M.a + this.b * M.c, this.a * M.b + this.b * M.d, this.c * M.a + this.d * M.c, this.c * M.b + this.d * M.d);
     }
 }
-
-function getRandomMatrix(max: number = 10) {
+function getRandomMatrix(max = 10) {
     const a = Math.floor(Math.random() * max);
     const b = Math.floor(Math.random() * max);
     const c = Math.floor(Math.random() * max);
     const d = Math.floor(Math.random() * max);
-
-    const M = new Matrix(a,b,c,d);
+    const M = new Matrix(a, b, c, d);
     return M;
 }
-
-function generateExercise(type: number = 2, max: number = 10) {
+function generateExercise(type = 2, max = 10) {
     const M1 = getRandomMatrix(max);
     const M2 = getRandomMatrix(max);
-
     const sum = M1.add(M2); // type == 0
     const difference = M1.minus(M2); // type == 1
     const product = M1.multiply(M2); // type == 2
-
     let ex_type = 2;
-    let answer = new Matrix(0,0,0,0);
+    let answer = new Matrix(0, 0, 0, 0);
     let operator = '*';
-
     // if random: choose
     if (type == 3) {
         ex_type = Math.floor(Math.random() * 2);
@@ -61,7 +47,6 @@ function generateExercise(type: number = 2, max: number = 10) {
     else {
         ex_type = type;
     }
-
     switch (ex_type) {
         case 0: // sum
             answer = sum;
@@ -77,11 +62,10 @@ function generateExercise(type: number = 2, max: number = 10) {
             break;
         default: // default to product
             answer = product;
-            operator = '*'
+            operator = '*';
             break;
     }
-
-    const generated_exercise: { M1: Matrix; M2: Matrix; answer: Matrix; ex_type: number; operator: string } = {
+    const generated_exercise = {
         M1: M1,
         M2: M2,
         answer: answer,
@@ -90,12 +74,11 @@ function generateExercise(type: number = 2, max: number = 10) {
     };
     return generated_exercise;
 }
-
-function displayExercise(type: number = 2, max: number = 10) {
-    const output = document.querySelector('#output')!;
+function displayExercise(type = 2, max = 10) {
+    const output = document.querySelector('#output');
     output.innerHTML = '';
-    const amount: string = (document.querySelector('#amount') as HTMLTextAreaElement).value;
-    let num_amount: number = 1;
+    const amount = document.querySelector('#amount').value;
+    let num_amount = 1;
     if (!amount) {
         num_amount = 1;
     }
@@ -105,19 +88,16 @@ function displayExercise(type: number = 2, max: number = 10) {
         //     num_amount = 1;
         // }
     }
-
-    for (let i=0; i<num_amount; i++) {
+    for (let i = 0; i < num_amount; i++) {
         const exercise = generateExercise(type, max);
         const M1 = exercise['M1'];
         const M2 = exercise['M2'];
         const answer = exercise['answer'];
         const ex_type = exercise['ex_type'];
         const operator = exercise['operator'];
-
         const expression = M1.displayToString() + operator + M2.displayToString();
         console.log(expression);
         output.innerHTML += `<h3>${expression}</h3><br>`;
     }
 }
-
-(document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayExercise(2, 10));
+document.querySelector('#submit').addEventListener('click', () => displayExercise(2, 10));

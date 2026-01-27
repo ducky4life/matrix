@@ -88,8 +88,17 @@ function generateExercise(type: number = 2; max: number = 10) {
 }
 
 function displayExercise(type: number = 2, max: number = 10) {
-    const amount = (document.querySelector('#amount') as HTMLTextAreaElement).value;
-    for (let i=0; i<amount; i++) {
+    const amount: string = (document.querySelector('#amount') as HTMLTextAreaElement).value;
+    if (!amount) {
+        const num_amount: number = 1;
+    }
+    else {
+        const num_amount: number = Number(amount);
+        if (num_amount == NaN) {
+            num_amount = 1;
+        }
+    }
+    for (let i=0; i<num_amount; i++) {
         const exercise = generateExercise(type, max);
         const M1 = exercise['M1'];
         const M2 = exercise['M2'];

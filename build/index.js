@@ -24,6 +24,7 @@ class Matrix {
     }
 }
 function getRandomMatrix(max = 10) {
+    max = max + 1;
     const a = Math.floor(Math.random() * max);
     const b = Math.floor(Math.random() * max);
     const c = Math.floor(Math.random() * max);
@@ -42,7 +43,7 @@ function generateExercise(type = 2, max = 10) {
     let operator = '*';
     // if random: choose
     if (type == 3) {
-        ex_type = Math.floor(Math.random() * 2);
+        ex_type = Math.floor(Math.random() * 3);
     }
     else {
         ex_type = type;
@@ -78,6 +79,7 @@ function displayExercise(type = 2, max = 10) {
     const output = document.querySelector('#output');
     output.innerHTML = '';
     const amount = document.querySelector('#amount').value;
+    type = Number(document.querySelector('#type').value);
     let num_amount = 1;
     if (!amount) {
         num_amount = 1;
@@ -95,7 +97,7 @@ function displayExercise(type = 2, max = 10) {
         const answer = exercise['answer'];
         const ex_type = exercise['ex_type'];
         const operator = exercise['operator'];
-        const expression = M1.displayToString() + operator + M2.displayToString();
+        const expression = M1.displayToString() + operator + M2.displayToString() + " = " + answer.displayToString();
         console.log(expression);
         output.innerHTML += `<h3>${expression}</h3><br>`;
     }

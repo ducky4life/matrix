@@ -15,17 +15,27 @@
     </div>
     
 <section class="wrapper">
-
+    <div class="bg-fixed" aria-hidden="true"></div>
     <form>
-        <h2>NationStates API web interface</h2><br>
+        <h2>Matrix operation exercises generator</h2><br>
         <a class="codebadges" href="https://github.com/ducky4life/matrix"><img src="https://img.shields.io/badge/Source Code-181717?logo=github&logoColor=fff&style=for-the-badge" alt="GitHub Badge"></a>
+        <p style="padding-top: 10px;">al</p>
+        <br>
         
-        <div style="display: flex; place-content: center; padding-top: 30px;">
+        <div class="textboxes">
             <div style="padding-right: 30px;">
                 <p for="amount">amount:</p><br>
                 <textarea id="amount" style="height: 5vh;"></textarea>
             </div>
-            
+            <div>
+                <p for="type">type:</p><br>
+                <select id="type" class="button button3">
+                    <option value="2">multiplication</option>
+                    <option value="0">addition</option>
+                    <option value="1">subtraction</option>
+                    <option value="3">random</option>
+                </select>
+            </div>
         </div><br>
         
         <input type="button" id="submit" value="Submit" class="button button3">

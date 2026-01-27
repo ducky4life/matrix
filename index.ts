@@ -136,7 +136,7 @@ function displayExercise(type: number = 2, max: number = 10) {
         output.innerHTML += `<div style="display: inline-flex;
     align-items: center; vertical-align: middle;">
     ${M1.displayToHTML()} ${operator} ${M2.displayToHTML()} = ${answer.displayToHTML()}
-    </div><br>`;
+    </div><br><br>`;
     }
 }
 

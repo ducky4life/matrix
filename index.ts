@@ -38,11 +38,34 @@ function getRandomMatrix(max: number = 10) {
     return M;
 }
 
-function generateExercise(max: number = 10) {
+function generateExercise(type: number = 2; max: number = 10) {
     const M1 = getRandomMatrix(max);
     const M2 = getRandomMatrix(max);
 
-    const sum = M1.add(M2);
-    const difference = M1.minus(M2);
-    const product = M1.multiply(M2);
+    const sum = M1.add(M2); // type == 0
+    const difference = M1.minus(M2); // type == 1
+    const product = M1.multiply(M2); // type == 2
+
+    // if random: choose
+    if (type == 3) {
+        const ex_type = Math.floor(Math.random() * 2);
+    }
+    else {
+        const ex_type = type;
+    }
+
+    switch (ex_type) {
+        case 0: // sum
+            const answer = sum;
+            break;
+        case 1: // difference
+            const answer = difference;
+            break;
+        case 2: // product
+            const answer = product;
+            break;
+        default: // default to product
+            const answer = product;
+            break;
+    }
 }

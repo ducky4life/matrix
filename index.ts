@@ -68,4 +68,7 @@ function generateExercise(type: number = 2; max: number = 10) {
             const answer = product;
             break;
     }
+
+    const output: Array<Matrix> = [M1, M2, answer];
+    return output;
 }

@@ -314,3 +314,26 @@ input:checked + .slider:before {
 }
 
 /* #endregion */
+
+.matrix-container {
+    display: inline-flex;
+    align-items: center;
+    font-size: 20px;
+}
+.matrix-container::before,
+.matrix-container::after {
+    content: "(";
+    font-size: 4em;
+    vertical-align: middle;
+    line-height: 0.5;
+    padding: 0 0.1em;
+}
+.matrix-container::after {
+    content: ")";
+}
+.matrix {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 0.5em 1em;
+    padding: 0.5em 0;
+}

@@ -13,6 +13,18 @@ class Matrix {
     displayToString() {
         return (`[${this.a}, ${this.b}, ${this.c}, ${this.d}]`);
     }
+    displayToLaTeX() {
+        return (`\\begin{pmatrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{pmatrix}`);
+    }
+    displayToHTML() {
+        return (`
+            <div class="matrix-container">
+                <div class="matrix">
+                    <div>${this.a}</div><div>${this.b}</div>
+                    <div>${this.c}</div><div>${this.d}</div>
+                </div>
+            </div>`);
+    }
     add(M) {
         return new Matrix(this.a + M.a, this.b + M.b, this.c + M.c, this.d + M.d);
     }
@@ -99,7 +111,10 @@ function displayExercise(type = 2, max = 10) {
         const operator = exercise['operator'];
         const expression = M1.displayToString() + operator + M2.displayToString() + " = " + answer.displayToString();
         console.log(expression);
-        output.innerHTML += `<h3>${expression}</h3><br>`;
+        output.innerHTML += `<div style="display: inline-flex;
+    align-items: center; vertical-align: middle;">
+    ${M1.displayToHTML()} ${operator} ${M2.displayToHTML()} = ${answer.displayToHTML()}
+    </div><br>`;
     }
 }
 document.querySelector('#submit').addEventListener('click', () => displayExercise(2, 10));

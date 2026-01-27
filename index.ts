@@ -50,30 +50,34 @@ function generateExercise(type: number = 2, max: number = 10) {
     const difference = M1.minus(M2); // type == 1
     const product = M1.multiply(M2); // type == 2
 
+    const ex_type = 2;
+    const answer = new Matrix(0,0,0,0);
+    const operator = '*';
+
     // if random: choose
     if (type == 3) {
-        const ex_type = Math.floor(Math.random() * 2);
+        ex_type = Math.floor(Math.random() * 2);
     }
     else {
-        const ex_type = type;
+        ex_type = type;
     }
 
     switch (ex_type) {
         case 0: // sum
-            const answer = sum;
-            const operator = '+';
+            answer = sum;
+            operator = '+';
             break;
         case 1: // difference
-            const answer = difference;
-            const operator = '-';
+            answer = difference;
+            operator = '-';
             break;
         case 2: // product
-            const answer = product;
-            const operator = '*';
+            answer = product;
+            operator = '*';
             break;
         default: // default to product
-            const answer = product;
-            const operator = '*'
+            answer = product;
+            operator = '*'
             break;
     }
 

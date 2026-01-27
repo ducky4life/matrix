@@ -69,6 +69,11 @@ function generateExercise(type: number = 2; max: number = 10) {
             break;
     }
 
-    const output: Array<Matrix> = [M1, M2, answer];
-    return output;
+    const generated_exercise: Record<string, Matrix> = {
+        'M1': M1,
+        'M2': M2,
+        'answer': answer,
+        'ex_type' = ex_type,
+    };
+    return generated_exercise;
 }

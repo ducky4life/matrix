@@ -27,3 +27,13 @@ class Matrix {
         return Matrix(a*M.a+b*M.c, a*M.b+b*M.d, c*M.a+d*M.c, c*M.b+d*M.d);
     }
 }
+
+function getRandomMatrix(max) {
+    const a = Math.floor(Math.random() * max);
+    const b = Math.floor(Math.random() * max);
+    const c = Math.floor(Math.random() * max);
+    const d = Math.floor(Math.random() * max);
+
+    const M = new Matrix(a,b,c,d);
+    return M.display();
+}

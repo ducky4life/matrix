@@ -15,6 +15,10 @@ class Matrix {
         return([a,b,c,d]);
     }
 
+    displayToString(): string {
+        return(`[${a}, ${b}, ${c}, ${d}]`)
+    }
+
     add(M: Matrix): Matrix {
         return Matrix(a+M.a, b+M.b, c+M.c, d+M.d);
     }
@@ -57,23 +61,42 @@ function generateExercise(type: number = 2; max: number = 10) {
     switch (ex_type) {
         case 0: // sum
             const answer = sum;
+            const operator = '+';
             break;
         case 1: // difference
             const answer = difference;
+            const operator = '-';
             break;
         case 2: // product
             const answer = product;
+            const operator = '*';
             break;
         default: // default to product
             const answer = product;
+            const operator = '*'
             break;
     }
 
-    const generated_exercise: Record<string, Matrix> = {
+    const generated_exercise: Record<string, Matrix|number|string> = {
         'M1': M1,
         'M2': M2,
         'answer': answer,
-        'ex_type' = ex_type,
+        'ex_type': ex_type,
+        'operator': operator;
     };
     return generated_exercise;
+}
+
+function displayExercise(num: number = 1, type: number = 2, max: number = 10) {
+    for (let i=0; i<num; i++) {
+        const exercise = generateExercise(type, max);
+        const M1 = exercise['M1'];
+        const M2 = exercise['M2'];
+        const answer = exercise['answer'];
+        const ex_type = exercise['ex_type'];
+        const operator = exercise['operator'];
+
+        const expression = M1.displayToString() + operator + M2.displayToString;
+        output.innerHTML += `<h3>${expression}</h3><br>`;
+    }
 }

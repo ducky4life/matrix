@@ -28,12 +28,21 @@ class Matrix {
     }
 }
 
-function getRandomMatrix(max) {
+function getRandomMatrix(max: number = 10) {
     const a = Math.floor(Math.random() * max);
     const b = Math.floor(Math.random() * max);
     const c = Math.floor(Math.random() * max);
     const d = Math.floor(Math.random() * max);
 
     const M = new Matrix(a,b,c,d);
-    return M.display();
+    return M;
+}
+
+function generateExercise(max: number = 10) {
+    const M1 = getRandomMatrix(max);
+    const M2 = getRandomMatrix(max);
+
+    const sum = M1.add(M2);
+    const difference = M1.minus(M2);
+    const product = M1.multiply(M2);
 }

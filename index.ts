@@ -12,23 +12,23 @@ class Matrix {
     }
 
     display(): Array<number> {
-        return([a,b,c,d]);
+        return([this.a,this.b,this.c,this.d]);
     }
 
     displayToString(): string {
-        return(`[${a}, ${b}, ${c}, ${d}]`)
+        return(`[${this.a}, ${this.b}, ${this.c}, ${this.d}]`)
     }
 
     add(M: Matrix): Matrix {
-        return Matrix(a+M.a, b+M.b, c+M.c, d+M.d);
+        return new Matrix(this.a+M.a, this.b+M.b, this.c+M.c, this.d+M.d);
     }
 
     minus(M: Matrix): Matrix {
-        return Matrix(a-M.a, b-M.b, c-M.c, d-M.d);
+        return new Matrix(this.a-M.a, this.b-M.b, this.c-M.c, this.d-M.d);
     }
 
     multiply(M: Matrix): Matrix {
-        return Matrix(a*M.a+b*M.c, a*M.b+b*M.d, c*M.a+d*M.c, c*M.b+d*M.d);
+        return new Matrix(this.a*M.a+this.b*M.c, this.a*M.b+this.b*M.d, this.c*M.a+this.d*M.c, this.c*M.b+this.d*M.d);
     }
 }
 

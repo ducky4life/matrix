@@ -50,9 +50,9 @@ function generateExercise(type: number = 2, max: number = 10) {
     const difference = M1.minus(M2); // type == 1
     const product = M1.multiply(M2); // type == 2
 
-    const ex_type = 2;
-    const answer = new Matrix(0,0,0,0);
-    const operator = '*';
+    let ex_type = 2;
+    let answer = new Matrix(0,0,0,0);
+    let operator = '*';
 
     // if random: choose
     if (type == 3) {

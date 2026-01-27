@@ -12,3 +12,4 @@ an exercise generator for basic operations for matrices.
 - [ ] reveal all answers
 - [ ] more operations
 - [ ] customise max element in matrix
+- [ ] github actions to build?

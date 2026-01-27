@@ -93,14 +93,15 @@ function generateExercise(type: number = 2, max: number = 10) {
 
 function displayExercise(type: number = 2, max: number = 10) {
     const amount: string = (document.querySelector('#amount') as HTMLTextAreaElement).value;
+    let num_amount: number = 1;
     if (!amount) {
-        const num_amount: number = 1;
+        num_amount = 1;
     }
     else {
-        const num_amount: number = Number(amount);
-        if (num_amount == NaN) {
-            num_amount = 1;
-        }
+        num_amount = Number(amount);
+        // if (num_amount == NaN) {
+        //     num_amount = 1;
+        // }
     }
     for (let i=0; i<num_amount; i++) {
         const exercise = generateExercise(type, max);
@@ -111,6 +112,7 @@ function displayExercise(type: number = 2, max: number = 10) {
         const operator = exercise['operator'];
 
         const expression = M1.displayToString() + operator + M2.displayToString;
+        const output = document.querySelector('#output');
         output.innerHTML += `<h3>${expression}</h3><br>`;
     }
 }

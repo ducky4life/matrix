@@ -87,8 +87,9 @@ function generateExercise(type: number = 2; max: number = 10) {
     return generated_exercise;
 }
 
-function displayExercise(num: number = 1, type: number = 2, max: number = 10) {
-    for (let i=0; i<num; i++) {
+function displayExercise(type: number = 2, max: number = 10) {
+    const amount = (document.querySelector('#amount') as HTMLTextAreaElement).value;
+    for (let i=0; i<amount; i++) {
         const exercise = generateExercise(type, max);
         const M1 = exercise['M1'];
         const M2 = exercise['M2'];

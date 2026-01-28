@@ -2,6 +2,8 @@
 
 an exercise generator for basic operations for matrices.
 
+made to practice my typescript skills and learn how to use classes.
+
 ## todo
 
 - [ ] add latex mode

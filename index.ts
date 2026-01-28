@@ -170,7 +170,7 @@ function revealAnswerAll() {
     
     const answers = document.querySelectorAll('.matrix-answer');
     answers.forEach((answer) => {
-        answer.classList.add('hidden');
+        answer.classList.remove('hidden');
     });
 }
 
@@ -182,7 +182,7 @@ function hideAnswerAll() {
     
     const answers = document.querySelectorAll('.matrix-answer');
     answers.forEach((answer) => {
-        answer.classList.remove('hidden');
+        answer.classList.add('hidden');
     });
 }
 

@@ -11,6 +11,7 @@ an exercise generator for basic operations for matrices.
 - [ ] reveal individual answers
 - [ ] reveal all answers
 - [ ] more operations
+- [ ] verify user input answers
 - [ ] matrix calculator
 - [ ] customise max element in matrix
 - [ ] github actions to build?

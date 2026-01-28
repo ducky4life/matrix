@@ -143,7 +143,7 @@ function displayExercise(type: number = 2, max: number = 10) {
             </div>
             <div>
                 <label class="switch">
-                    <input type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" checked>
+                    <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" checked>
                     <span class="slider round"></span>
                 </label>
             </div>
@@ -157,9 +157,26 @@ function revealAnswer(index: number) {
 }
 
 function revealAnswerAll() {
+    const ans_toggles = document.querySelectorAll('.answer-toggle');
+    ans_toggles.forEach((ans_toggle) => {
+        ans_toggle.checked = true;
+    });
+    
     const answers = document.querySelectorAll('.matrix-answer');
     answers.forEach((answer) => {
-        answer.classList.toggle('hidden');
+        answer.classList.add('hidden');
+    });
+}
+
+function hideAnswerAll() {
+    const ans_toggles = document.querySelectorAll('.answer-toggle');
+    ans_toggles.forEach((ans_toggle) => {
+        ans_toggle.checked = false;
+    });
+    
+    const answers = document.querySelectorAll('.matrix-answer');
+    answers.forEach((answer) => {
+        answer.classList.remove('hidden');
     });
 }
 
@@ -169,14 +186,12 @@ const revealAll = (document.querySelector('#reveal_all') as HTMLInputElement);
 
 const handleRevealAnswer = (event: Event) => {
 
-    revealAnswerAll();
-
-    // const target = event.target as HTMLInputElement;
-    // if (target.checked) {
-    //     revealAnswer();
-    // } else {
-    //     console.log('Toggle is OFF');
-    // }
+    const target = event.target as HTMLInputElement;
+    if (target.checked) {
+        revealAnswerAll();
+    } else {
+        hideAnswerAll();
+    }
 };
 
 revealAll.addEventListener('change', handleRevealAnswer);

@@ -111,9 +111,11 @@ function displayExercise(type: number = 2, max: number = 10) {
     output.innerHTML = '';
 
     const reveal = (document.querySelector('#reveal_all') as HTMLInputElement);
-    const hidden_class = '';
+    let hidden_class = '';
+    let checked_value = 'checked';
     if (!reveal.checked) {
         hidden_class = 'hidden';
+        checked_value = '';
     }
     const amount: string = (document.querySelector('#amount') as HTMLTextAreaElement).value;
     type = Number((document.querySelector('#type') as HTMLSelectElement).value);
@@ -149,7 +151,7 @@ function displayExercise(type: number = 2, max: number = 10) {
             </div>
             <div>
                 <label class="switch">
-                    <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" checked>
+                    <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" ${checked_value}>
                     <span class="slider round"></span>
                 </label>
             </div>
@@ -165,7 +167,7 @@ function revealAnswer(index: number) {
 function revealAnswerAll() {
     const ans_toggles = document.querySelectorAll('.answer-toggle');
     ans_toggles.forEach((ans_toggle) => {
-        ans_toggle.checked = true;
+        (ans_toggle as HTMLInputElement).checked = true;
     });
     
     const answers = document.querySelectorAll('.matrix-answer');
@@ -177,7 +179,7 @@ function revealAnswerAll() {
 function hideAnswerAll() {
     const ans_toggles = document.querySelectorAll('.answer-toggle');
     ans_toggles.forEach((ans_toggle) => {
-        ans_toggle.checked = false;
+        (ans_toggle as HTMLInputElement).checked = false;
     });
     
     const answers = document.querySelectorAll('.matrix-answer');

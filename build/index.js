@@ -90,6 +90,13 @@ function generateExercise(type = 2, max = 10) {
 function displayExercise(type = 2, max = 10) {
     const output = document.querySelector('#output');
     output.innerHTML = '';
+    const reveal = document.querySelector('#reveal_all');
+    let hidden_class = '';
+    let checked_value = 'checked';
+    if (!reveal.checked) {
+        hidden_class = 'hidden';
+        checked_value = '';
+    }
     const amount = document.querySelector('#amount').value;
     type = Number(document.querySelector('#type').value);
     let num_amount = 1;
@@ -117,11 +124,11 @@ function displayExercise(type = 2, max = 10) {
                 <span style="margin: 0 10px;">${operator}</span>
                 ${M2.displayToHTML()}
                 <span style="margin: 0 10px;">= </span>
-                <div class="matrix-answer" id="answer_${i + 1}">${answer.displayToHTML()}</div>
+                <div class="matrix-answer ${hidden_class}" id="answer_${i + 1}">${answer.displayToHTML()}</div>
             </div>
             <div>
                 <label class="switch">
-                    <input type="checkbox" id="reveal_${i + 1}" onclick="revealAnswer(${i + 1})" checked>
+                    <input class="answer-toggle" type="checkbox" id="reveal_${i + 1}" onclick="revealAnswer(${i + 1})" ${checked_value}>
                     <span class="slider round"></span>
                 </label>
             </div>
@@ -133,20 +140,34 @@ function revealAnswer(index) {
     answer.classList.toggle('hidden');
 }
 function revealAnswerAll() {
+    const ans_toggles = document.querySelectorAll('.answer-toggle');
+    ans_toggles.forEach((ans_toggle) => {
+        ans_toggle.checked = true;
+    });
     const answers = document.querySelectorAll('.matrix-answer');
     answers.forEach((answer) => {
-        answer.classList.toggle('hidden');
+        answer.classList.remove('hidden');
+    });
+}
+function hideAnswerAll() {
+    const ans_toggles = document.querySelectorAll('.answer-toggle');
+    ans_toggles.forEach((ans_toggle) => {
+        ans_toggle.checked = false;
+    });
+    const answers = document.querySelectorAll('.matrix-answer');
+    answers.forEach((answer) => {
+        answer.classList.add('hidden');
     });
 }
 document.querySelector('#submit').addEventListener('click', () => displayExercise(2, 10));
 const revealAll = document.querySelector('#reveal_all');
 const handleRevealAnswer = (event) => {
-    revealAnswerAll();
-    // const target = event.target as HTMLInputElement;
-    // if (target.checked) {
-    //     revealAnswer();
-    // } else {
-    //     console.log('Toggle is OFF');
-    // }
+    const target = event.target;
+    if (target.checked) {
+        revealAnswerAll();
+    }
+    else {
+        hideAnswerAll();
+    }
 };
 revealAll.addEventListener('change', handleRevealAnswer);

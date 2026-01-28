@@ -349,3 +349,15 @@ input:checked + .slider:before {
 .hidden {
   visibility: hidden;
 }
+
+.matrix-output {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.matrix-output .switch {
+    margin-left: auto;
+}

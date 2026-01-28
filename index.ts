@@ -133,23 +133,21 @@ function displayExercise(type: number = 2, max: number = 10) {
 
         const expression = M1.displayToString() + operator + M2.displayToString() + " = " + answer.displayToString();
         console.log(expression);
-        output.innerHTML += `<div style="display: inline-flex;
-            align-items: center; vertical-align: middle;">
-                ${M1.displayToHTML()} ${operator} ${M2.displayToHTML()} = 
+        output.innerHTML += `<div class="matrix-output">
+            <div style="display: flex; align-items: center;">
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">${operator}</span>
+                ${M2.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+                <div class="matrix-answer" id="answer_${i+1}">${answer.displayToHTML()}</div>
             </div>
-            <div class="matrix-answer" id="answer_${i+1}">
-                ${answer.displayToHTML()}
+            <div>
+                <label class="switch">
+                    <input type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" checked>
+                    <span class="slider round"></span>
+                </label>
             </div>
-            <div style="display: inline-flex;
-            align-items: center; vertical-align: middle;">
-                <div class="toggles">
-                    <label class="switch">
-                        <input type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" checked>
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-            </div>
-            <br><br>`;
+        </div>`;
     }
 }
 

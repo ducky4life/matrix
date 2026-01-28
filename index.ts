@@ -109,6 +109,12 @@ function generateExercise(type: number = 2, max: number = 10) {
 function displayExercise(type: number = 2, max: number = 10) {
     const output = document.querySelector('#output')!;
     output.innerHTML = '';
+
+    const reveal = (document.querySelector('#reveal_all') as HTMLInputElement);
+    const hidden_class = '';
+    if (!reveal.checked) {
+        hidden_class = 'hidden';
+    }
     const amount: string = (document.querySelector('#amount') as HTMLTextAreaElement).value;
     type = Number((document.querySelector('#type') as HTMLSelectElement).value);
 
@@ -139,7 +145,7 @@ function displayExercise(type: number = 2, max: number = 10) {
                 <span style="margin: 0 10px;">${operator}</span>
                 ${M2.displayToHTML()}
                 <span style="margin: 0 10px;">= </span>
-                <div class="matrix-answer" id="answer_${i+1}">${answer.displayToHTML()}</div>
+                <div class="matrix-answer ${hidden_class}" id="answer_${i+1}">${answer.displayToHTML()}</div>
             </div>
             <div>
                 <label class="switch">

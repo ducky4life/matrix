@@ -89,6 +89,8 @@ p {
 .textboxes {
   display: flex;
   justify-content: center;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
 }
 
 .textbox {
@@ -109,7 +111,6 @@ p {
     grid-template-columns: auto auto;
     justify-content: center;
     align-items: center;
-    height: 20vh;
   }
 
   ::placeholder {

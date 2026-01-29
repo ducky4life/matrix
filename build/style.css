@@ -358,10 +358,15 @@ input:checked + .slider:before {
     align-items: center;
     justify-content: space-between;
     margin-bottom: 20px;
+    width: max-content;
 }
 
 .matrix-output .switch {
     margin-left: auto;
+}
+
+.matrix-output .slider {
+    width: 60px;
 }
 
 .copy-button {

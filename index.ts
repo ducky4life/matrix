@@ -20,7 +20,7 @@ class Matrix {
     }
 
     displayToLaTeX(): string {
-        return(`\\begin{matrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{matrix}`)
+        return(`\\begin{pmatrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{pmatrix}`)
     }
 
     displayToHTML(): string {
@@ -163,16 +163,27 @@ function displayExercise(type: number = 2, max: number = 10) {
                     </label>
                 </div>
                 <div>
-                    <button class="copy-button" id="copy_${i+1}" onclick="copyExpression(${latex_expression})">C</button>
+                    <button class="copy-button" id="copy_${i+1}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 4H6a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-3M9 3h6v4H9V3z"/></svg>
+                    </button>
                 </div>
             </div>`;
+            const copyButton = (document.querySelector(`#copy_${i+1}`) as HTMLInputElement);
+            copyButton.addEventListener('click', (event) => { 
+                event.preventDefault(); // Prevent default behavior
+                copyExpression(latex_expression);
+            });
         }
     }
 }
 
-function copyExpression(expression: string) {
-    navigator.clipboard.writeText(expression);
-}
+const copyExpression = async (text: string): Promise<void> => {
+    try {
+        await navigator.clipboard?.writeText(text);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
 function revealAnswer(index: number) {
     const answer = document.querySelector(`#answer_${index}`)!;

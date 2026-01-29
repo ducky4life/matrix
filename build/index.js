@@ -1,3 +1,14 @@
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 class Matrix {
     constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a = a;
@@ -12,7 +23,7 @@ class Matrix {
         return (`[${this.a}, ${this.b}, ${this.c}, ${this.d}]`);
     }
     displayToLaTeX() {
-        return (`\\begin{matrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{matrix}`);
+        return (`\\begin{pmatrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{pmatrix}`);
     }
     displayToHTML() {
         return (`
@@ -137,15 +148,28 @@ function displayExercise(type = 2, max = 10) {
                     </label>
                 </div>
                 <div>
-                    <button class="copy-button" id="copy_${i + 1}" onclick="copyExpression(${latex_expression})">C</button>
+                    <button class="copy-button" id="copy_${i + 1}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 4H6a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-3M9 3h6v4H9V3z"/></svg>
+                    </button>
                 </div>
             </div>`;
+            const copyButton = document.querySelector(`#copy_${i + 1}`);
+            copyButton.addEventListener('click', (event) => {
+                event.preventDefault(); // Prevent default behavior
+                copyExpression(latex_expression);
+            });
         }
     }
 }
-function copyExpression(expression) {
-    navigator.clipboard.writeText(expression);
-}
+const copyExpression = (text) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        yield ((_a = navigator.clipboard) === null || _a === void 0 ? void 0 : _a.writeText(text));
+    }
+    catch (error) {
+        console.error(error);
+    }
+});
 function revealAnswer(index) {
     const answer = document.querySelector(`#answer_${index}`);
     answer.classList.toggle('hidden');

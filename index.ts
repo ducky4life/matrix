@@ -163,7 +163,7 @@ function displayExercise(type: number = 2, max: number = 10) {
                     </label>
                 </div>
                 <div>
-                    <button class="copy-button" id="copy_${i+1}" onclick="copyExpression(${latex_expression})" style="padding-left: 10px;">Copy</button>
+                    <button class="copy-button" id="copy_${i+1}" onclick="copyExpression(${latex_expression})" style="padding-left: 10px;">C</button>
                 </div>
             </div>`;
         }

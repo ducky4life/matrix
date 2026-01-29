@@ -375,7 +375,7 @@ input:checked + .slider:before {
   display: inline-block;
   margin: 4px 2px;
   cursor: pointer;
-  width: fit-content;
+  width: auto;
   font-size: min(1.5vw, 20px);
 }
 

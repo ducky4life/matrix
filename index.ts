@@ -148,7 +148,7 @@ function displayExercise(type: number = 2, max: number = 10) {
             output.innerHTML += latex_expression + '<br><br>';
         }
         else {
-            output.innerHTML += `<div class="matrix-output" style="min-width: fit-content;">
+            output.innerHTML += `<div class="matrix-output">
                 <div style="display: flex; align-items: center;">
                     ${M1.displayToHTML()}
                     <span style="margin: 0 10px;">${operator}</span>
@@ -171,7 +171,7 @@ function displayExercise(type: number = 2, max: number = 10) {
 }
 
 function copyExpression(expression: string) {
-    navigator.clipboard.write(expression);
+    navigator.clipboard.writeText(expression);
 }
 
 function revealAnswer(index: number) {

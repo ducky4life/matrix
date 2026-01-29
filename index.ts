@@ -142,7 +142,7 @@ function displayExercise(type: number = 2, max: number = 10) {
         const operator = exercise['operator'];
 
         const expression = M1.displayToString() + operator + M2.displayToString() + " = " + answer.displayToString();
-        const latex_expression = M1.displayToLaTeX() + " $" + operator + "$ " + M2.displayToLaTeX()  + " $=$ " + answer.displayToLaTeX();
+        const latex_expression = M1.displayToLaTeX() + operator + M2.displayToLaTeX()  + " = " + answer.displayToLaTeX();
         console.log(expression);
         if (latex_mode.checked) {
             output.innerHTML += latex_expression + '<br><br>';

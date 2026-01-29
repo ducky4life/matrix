@@ -127,7 +127,7 @@ function displayExercise(type = 2, max = 10) {
         const ex_type = exercise['ex_type'];
         const operator = exercise['operator'];
         const expression = M1.displayToString() + operator + M2.displayToString() + " = " + answer.displayToString();
-        const latex_expression = M1.displayToLaTeX() + " $" + operator + "$ " + M2.displayToLaTeX() + " $=$ " + answer.displayToLaTeX();
+        const latex_expression = M1.displayToLaTeX() + operator + M2.displayToLaTeX() + " = " + answer.displayToLaTeX();
         console.log(expression);
         if (latex_mode.checked) {
             output.innerHTML += latex_expression + '<br><br>';

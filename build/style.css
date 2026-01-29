@@ -369,7 +369,7 @@ input:checked + .slider:before {
   background-color: var(--secondary-color);
   border: none;
   color: var(--main-color);
-  padding: 1vh;
+  padding: 0.5vh;
   text-align: center;
   text-decoration: none;
   display: inline-block;

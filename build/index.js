@@ -141,18 +141,17 @@ function displayExercise(type = 2, max = 10) {
                     <span style="margin: 0 10px;">= </span>
                     <div class="matrix-answer ${hidden_class}" id="answer_${i + 1}">${answer.displayToHTML()}</div>
                 </div>
-                <div>
-                    <label class="switch" style="padding-right: 10px;">
+                <div style="margin-left: auto; margin-right: 5vw;">
+                    <label class="switch">
                         <input class="answer-toggle" type="checkbox" id="reveal_${i + 1}" onclick="revealAnswer(${i + 1})" ${checked_value}>
                         <span class="slider round"></span>
                     </label>
                 </div>
-                <div>
                     <button class="copy-button" id="copy_${i + 1}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 4H6a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-3M9 3h6v4H9V3z"/></svg>
                     </button>
                 </div>
-            </div>`;
+            </div><br>`;
             const copyButton = document.querySelector(`#copy_${i + 1}`);
             copyButton.addEventListener('click', (event) => {
                 event.preventDefault(); // Prevent default behavior

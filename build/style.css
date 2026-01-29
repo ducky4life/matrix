@@ -356,13 +356,22 @@ input:checked + .slider:before {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
     margin-bottom: 20px;
-    width: max-content;
+    width: 60vw;
+    justify-content: flex-end;
+    margin-left: 10vw;
+}
+
+@media all and (orientation: portrait) {
+  .matrix-output {
+    width: 100vw;
+  }
 }
 
 .matrix-output .switch {
     margin-left: auto;
+    margin-right: 0;
+    
 }
 
 .matrix-output .slider {
@@ -370,7 +379,9 @@ input:checked + .slider:before {
 }
 
 .copy-button {
-  margin-left: auto;
+  /* margin-left: auto; */
+  margin-right: 10vw;
+  display: block;
   background-color: var(--secondary-color);
   border: none;
   color: var(--main-color);
@@ -378,7 +389,6 @@ input:checked + .slider:before {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 4px 2px;
   cursor: pointer;
   width: fit-content;
   font-size: min(1.5vw, 20px);

@@ -147,7 +147,7 @@ function displayExercise(type = 2, max = 10) {
                         <span class="slider round"></span>
                     </label>
                 </div>
-                    <button class="copy-button" id="copy_${i + 1}">
+                    <button class="copy-button" id="copy_${i + 1}" title="Copy as LaTeX">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 4H6a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-3M9 3h6v4H9V3z"/></svg>
                     </button>
                 </div>

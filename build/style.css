@@ -363,3 +363,30 @@ input:checked + .slider:before {
 .matrix-output .switch {
     margin-left: auto;
 }
+
+.copy-button {
+  margin-left: auto;
+  background-color: var(--secondary-color);
+  border: none;
+  color: var(--main-color);
+  padding: 1vh 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  width: fit-content;
+  font-size: min(1.5vw, 20px);
+}
+
+.copy-button:hover {
+  background-color: var(--main-color);
+  color: var(--secondary-color);
+  transition: 0.2s;
+}
+
+@media all and (orientation: portrait) {
+  .copy-button {
+    font-size: 3vw;
+  }
+}

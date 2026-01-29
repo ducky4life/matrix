@@ -145,7 +145,7 @@ function displayExercise(type: number = 2, max: number = 10) {
         const latex_expression = M1.displayToLaTeX() + " $" + operator + "$ " + M2.displayToLaTeX()  + " $=$ " + answer.displayToLaTeX();
         console.log(expression);
         if (latex_mode.checked) {
-            output.innerHTML += latex_expression + '<br>';
+            output.innerHTML += latex_expression + '<br><br>';
         }
         else {
             output.innerHTML += `<div class="matrix-output">
@@ -162,9 +162,16 @@ function displayExercise(type: number = 2, max: number = 10) {
                         <span class="slider round"></span>
                     </label>
                 </div>
+                <div>
+                    <button class="copy-button" id="copy_${i+1}" onclick="copyExpression(${latex_expression})">Copy</button>
+                </div>
             </div>`;
         }
     }
+}
+
+function copyExpression(expression: string) {
+    navigator.clipboard.write(expression);
 }
 
 function revealAnswer(index: number) {

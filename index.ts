@@ -20,7 +20,7 @@ class Matrix {
     }
 
     displayToLaTeX(): string {
-        return(`\\begin{pmatrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{pmatrix}`)
+        return(`\\begin{matrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{matrix}`)
     }
 
     displayToHTML(): string {
@@ -110,6 +110,8 @@ function displayExercise(type: number = 2, max: number = 10) {
     const output = document.querySelector('#output')!;
     output.innerHTML = '';
 
+    const latex_mode = (document.querySelector('#latex_mode') as HTMLInputElement);
+
     const reveal = (document.querySelector('#reveal_all') as HTMLInputElement);
     let hidden_class = '';
     let checked_value = 'checked';
@@ -140,22 +142,28 @@ function displayExercise(type: number = 2, max: number = 10) {
         const operator = exercise['operator'];
 
         const expression = M1.displayToString() + operator + M2.displayToString() + " = " + answer.displayToString();
+        const latex_expression = M1.displayToLaTeX() + " $" + operator + "$ " + M2.displayToLaTeX()  + " $=$ " + answer.displayToLaTeX();
         console.log(expression);
-        output.innerHTML += `<div class="matrix-output">
-            <div style="display: flex; align-items: center;">
-                ${M1.displayToHTML()}
-                <span style="margin: 0 10px;">${operator}</span>
-                ${M2.displayToHTML()}
-                <span style="margin: 0 10px;">= </span>
-                <div class="matrix-answer ${hidden_class}" id="answer_${i+1}">${answer.displayToHTML()}</div>
-            </div>
-            <div>
-                <label class="switch">
-                    <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" ${checked_value}>
-                    <span class="slider round"></span>
-                </label>
-            </div>
-        </div>`;
+        if (latex_mode == "on") {
+            output.innerHTML += latex_expression + '<br>';
+        }
+        else {
+            output.innerHTML += `<div class="matrix-output">
+                <div style="display: flex; align-items: center;">
+                    ${M1.displayToHTML()}
+                    <span style="margin: 0 10px;">${operator}</span>
+                    ${M2.displayToHTML()}
+                    <span style="margin: 0 10px;">= </span>
+                    <div class="matrix-answer ${hidden_class}" id="answer_${i+1}">${answer.displayToHTML()}</div>
+                </div>
+                <div>
+                    <label class="switch">
+                        <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" ${checked_value}>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>`;
+        }
     }
 }
 

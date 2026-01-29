@@ -157,13 +157,13 @@ function displayExercise(type: number = 2, max: number = 10) {
                     <div class="matrix-answer ${hidden_class}" id="answer_${i+1}">${answer.displayToHTML()}</div>
                 </div>
                 <div>
-                    <label class="switch">
+                    <label class="switch" style="padding-right: 10px;">
                         <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" ${checked_value}>
                         <span class="slider round"></span>
                     </label>
                 </div>
                 <div>
-                    <button class="copy-button" id="copy_${i+1}" onclick="copyExpression(${latex_expression})" style="padding-left: 10px;">C</button>
+                    <button class="copy-button" id="copy_${i+1}" onclick="copyExpression(${latex_expression})">C</button>
                 </div>
             </div>`;
         }

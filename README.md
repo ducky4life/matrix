@@ -2,6 +2,8 @@
 
 an exercise generator for basic operations for matrices.
 
+link: https://ducky.is-a.dev/matrix/
+
 made to practice my typescript skills and learn how to use classes.
 
 ## todo

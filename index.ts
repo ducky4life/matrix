@@ -175,7 +175,7 @@ function generateExercise2(type: number = 2, max: number = 10) {
     let operator = '*';
 
     // if random: choose
-    if (type == 3) {
+    if (type == -1) {
         ex_type = Math.floor(Math.random() * 3);
     }
     else {
@@ -224,7 +224,7 @@ function generateExercise3(type: number = 2, max: number = 10) {
     let operator = '*';
 
     // if random: choose
-    if (type == 3) {
+    if (type == -1) {
         ex_type = Math.floor(Math.random() * 3);
     }
     else {

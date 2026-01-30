@@ -24,24 +24,48 @@
             <p style="padding-top: 10px;"></p>
             <br><br><br>
                 
-            <div style="display: flex; justify-content: center; align-items: center; height: 10vh; transform: scale(2);">
-            <div class="matrix-container">
-                <div class="matrix-2">
-                    <div><input></input></div> <div><input></input></div>
-                    <div><input></input></div> <div><input></input></div>
+            <div style="display: flex; justify-content: center; align-items: stretch; transform: scale(2);">
+
+            <div style="display: flex; flex-direction: column;">
+                <div class="matrix-container">
+                    <div class="matrix-2">
+                        <div><input></input></div> <div><input></input></div>
+                        <div><input></input></div> <div><input></input></div>
+                    </div>
+                </div>
+
+                <div style="transform: scale(0.5);">
+                    <select id="type" class="button" style="padding: 1vh;">
+                        <option value="3">det</option>
+                        <option value="4">minor</option>
+                        <option value="5">cofactor</option>
+                    </select>
                 </div>
             </div>
 
             <div style="transform: scale(0.5);">
                 <select id="type" class="button" style="padding: 1vh;">
                     <option value="2">*</option>
+                    <option value="0">+</option>
+                    <option value="1">-</option>
                 </select>
             </div>
-
-            <div class="matrix-container">
-                <div class="matrix-2">
-                    <div><input></input></div> <div><input></input></div>
-                    <div><input></input></div> <div><input></input></div>
+            
+            <div style="display: flex; flex-direction: column;">
+                
+                <div class="matrix-container">
+                    <div class="matrix-2">
+                        <div><input></input></div> <div><input></input></div>
+                        <div><input></input></div> <div><input></input></div>
+                    </div>
+                </div>
+                
+                <div style="transform: scale(0.5);">
+                    <select id="type" class="button" style="padding: 1vh;">
+                        <option value="3">det</option>
+                        <option value="4">minor</option>
+                        <option value="5">cofactor</option>
+                    </select>
                 </div>
             </div>
 

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,15 +7,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const matrix_1 = require("./matrix");
+import { Matrix2, Matrix3 } from "./matrix.js";
 function getRandomMatrix2(max = 10) {
     max = max + 1;
     const a = Math.floor(Math.random() * max);
     const b = Math.floor(Math.random() * max);
     const c = Math.floor(Math.random() * max);
     const d = Math.floor(Math.random() * max);
-    const M = new matrix_1.Matrix2(a, b, c, d);
+    const M = new Matrix2(a, b, c, d);
     return M;
 }
 function getRandomMatrix3(max = 10) {
@@ -30,7 +28,7 @@ function getRandomMatrix3(max = 10) {
     const c1 = Math.floor(Math.random() * max);
     const c2 = Math.floor(Math.random() * max);
     const c3 = Math.floor(Math.random() * max);
-    const M = new matrix_1.Matrix3(a1, a2, a3, b1, b2, b3, c1, c2, c3);
+    const M = new Matrix3(a1, a2, a3, b1, b2, b3, c1, c2, c3);
     return M;
 }
 function generateExercise2(type = 2, max = 10) {
@@ -40,7 +38,7 @@ function generateExercise2(type = 2, max = 10) {
     const difference = M1.minus(M2); // type == 1
     const product = M1.multiply(M2); // type == 2
     let ex_type = 2;
-    let answer = new matrix_1.Matrix2(0, 0, 0, 0);
+    let answer = new Matrix2(0, 0, 0, 0);
     let operator = '*';
     // if random: choose
     if (type == -1) {
@@ -83,7 +81,7 @@ function generateExercise3(type = 2, max = 10) {
     const difference = M1.minus(M2); // type == 1
     const product = M1.multiply(M2); // type == 2
     let ex_type = 2;
-    let answer = new matrix_1.Matrix3(0, 0, 0, 0);
+    let answer = new Matrix3(0, 0, 0, 0);
     let operator = '*';
     // if random: choose
     if (type == -1) {

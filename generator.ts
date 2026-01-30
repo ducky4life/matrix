@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3 } from "./matrix";
+import { Matrix2, Matrix3 } from "./matrix.js";
 
 function getRandomMatrix2(max: number = 10) {
     max = max + 1;

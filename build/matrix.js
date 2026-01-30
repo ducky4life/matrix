@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Matrix3 = exports.Matrix2 = void 0;
-class Matrix2 {
+export class Matrix2 {
     constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a = a;
         this.b = b;
@@ -39,8 +36,7 @@ class Matrix2 {
         return (this.a * this.d - this.b * this.c);
     }
 }
-exports.Matrix2 = Matrix2;
-class Matrix3 {
+export class Matrix3 {
     constructor(a1 = 0, a2 = 0, a3 = 0, b1 = 0, b2 = 0, b3 = 0, c1 = 0, c2 = 0, c3 = 0) {
         this.a1 = a1;
         this.a2 = a2;
@@ -86,4 +82,3 @@ class Matrix3 {
             this.a3 * (this.b1 * this.c2 - this.b2 * this.c1));
     }
 }
-exports.Matrix3 = Matrix3;

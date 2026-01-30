@@ -269,10 +269,10 @@ function displayExercise(matrix_dimension = 2, type = 2, max = 10) {
                 </div>
             </div><br>`;
             const copyButton = document.querySelector(`#copy_${i + 1}`);
-            copyButton.addEventListener('click', (event) => {
+            copyButton.addEventListener('click', (event) => __awaiter(this, void 0, void 0, function* () {
                 event.preventDefault(); // Prevent default behavior
-                copyExpression(latex_expression);
-            });
+                yield copyExpression(latex_expression);
+            }));
         }
     }
 }

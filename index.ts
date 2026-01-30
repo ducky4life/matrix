@@ -332,9 +332,9 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
                 </div>
             </div><br>`;
             const copyButton = (document.querySelector(`#copy_${i+1}`) as HTMLInputElement);
-            copyButton.addEventListener('click', (event) => { 
+            copyButton.addEventListener('click', async (event) => { 
                 event.preventDefault(); // Prevent default behavior
-                copyExpression(latex_expression);
+                await copyExpression(latex_expression);
             });
         }
     }

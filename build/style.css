@@ -320,10 +320,17 @@ input:checked + .slider:before {
 .matrix-container {
     display: inline-flex;
     align-items: center;
-    font-size: 20px;
+    font-size: min(1.5vw, 20px);
     font-family: 'Lato', sans-serif;
     font-weight: 100;
 }
+
+@media all and (orientation: portrait) {
+  .matrix-container {
+    font-size: 2vw;
+  }
+}
+
 .matrix-container::before,
 .matrix-container::after {
     content: "[";
@@ -363,7 +370,6 @@ input:checked + .slider:before {
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
-    width: max-content;
     justify-content: flex-end;
     margin-left: 10vw;
 }

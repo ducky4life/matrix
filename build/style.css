@@ -335,9 +335,15 @@ input:checked + .slider:before {
 .matrix-container::after {
     content: "]";
 }
-.matrix {
+.matrix-2 {
     display: grid;
     grid-template-columns: auto auto;
+    gap: 0.5em 1em;
+    padding: 0.5em 0;
+}
+.matrix-3 {
+    display: grid;
+    grid-template-columns: auto auto auto;
     gap: 0.5em 1em;
     padding: 0.5em 0;
 }
@@ -357,7 +363,7 @@ input:checked + .slider:before {
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
-    width: 60vw;
+    width: max-content;
     justify-content: flex-end;
     margin-left: 10vw;
 }

@@ -7,7 +7,6 @@ function getInputMatrix2(name) {
     return new Matrix2(Number(a1), Number(a2), Number(b1), Number(b2));
 }
 function displayOutput(matrix_dimension = 2) {
-    console.log("e");
     const output = document.querySelector('#output');
     output.innerHTML = '';
     const M1 = getInputMatrix2('m1');
@@ -35,8 +34,7 @@ function displayOutput(matrix_dimension = 2) {
             answer = M1.multiply(M2);
             break;
     }
-    console.log(answer.displayToHTML());
-    output.innerHTML += `<div class="matrix-output">
+    output.innerHTML += `<div class="matrix-output" style="margin: 0;">
             <div style="display: flex; align-items: center;">
                 <div class="matrix-answer">${answer.displayToHTML()}</div>
             </div><br>`;

@@ -10,7 +10,7 @@ function getInputMatrix2(name: string) {
 }
 
 function displayOutput(matrix_dimension: number = 2) {
-    console.log("e");
+
     const output = document.querySelector('#output')!;
     output.innerHTML = '';
 
@@ -45,9 +45,7 @@ function displayOutput(matrix_dimension: number = 2) {
             break;
     }
 
-    console.log(answer.displayToHTML());
-
-    output.innerHTML += `<div class="matrix-output">
+    output.innerHTML += `<div class="matrix-output" style="margin: 0;">
             <div style="display: flex; align-items: center;">
                 <div class="matrix-answer">${answer.displayToHTML()}</div>
             </div><br>`

@@ -126,7 +126,7 @@ function generateExercise2(type = 2, max = 10) {
     let answer = new Matrix2(0, 0, 0, 0);
     let operator = '*';
     // if random: choose
-    if (type == 3) {
+    if (type == -1) {
         ex_type = Math.floor(Math.random() * 3);
     }
     else {
@@ -169,7 +169,7 @@ function generateExercise3(type = 2, max = 10) {
     let answer = new Matrix3(0, 0, 0, 0);
     let operator = '*';
     // if random: choose
-    if (type == 3) {
+    if (type == -1) {
         ex_type = Math.floor(Math.random() * 3);
     }
     else {
@@ -229,9 +229,11 @@ function displayExercise(matrix_dimension = 2, type = 2, max = 10) {
     for (let i = 0; i < num_amount; i++) {
         let exercise = {};
         if (matrix_dimension == 2) {
+            max = 10;
             exercise = generateExercise2(type, max);
         }
         else {
+            max = 7; // pls dont get too big
             exercise = generateExercise3(type, max);
         }
         const M1 = exercise['M1'];

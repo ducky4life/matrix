@@ -291,9 +291,11 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
     for (let i=0; i<num_amount; i++) {
         let exercise: any = {};
         if (matrix_dimension == 2) {
+            max = 10;
             exercise = generateExercise2(type, max);
         }
         else {
+            max = 7; // pls dont get too big
             exercise = generateExercise3(type, max);
         }
         const M1 = exercise['M1'];

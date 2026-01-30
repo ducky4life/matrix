@@ -34,9 +34,17 @@ function displayOutput(matrix_dimension = 2) {
             answer = M1.multiply(M2);
             break;
     }
-    output.innerHTML += `<div class="matrix-output" style="margin: 0;">
+    output.innerHTML += `<div class="matrix-output" style="margin: 0; justify-content: center;">
             <div style="display: flex; align-items: center;">
                 <div class="matrix-answer">${answer.displayToHTML()}</div>
             </div><br>`;
+    output.innerHTML += `
+            <div style="justify-content: center;">
+                <p>chosen properties:</p><br>
+                <p style="justify-content: center; display: flex; padding-top: 0;">M1: ${m1_property_output},
+                M2: ${m2_property_output}
+                </p>
+            </div>
+            <br>`;
 }
 document.querySelector('#submit').addEventListener('click', () => displayOutput(2));

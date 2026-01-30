@@ -355,6 +355,11 @@ input:checked + .slider:before {
     padding: 0.5em 0;
 }
 
+.matrix-2 input, .matrix-3 input {
+    width: 1vw;
+    height: 1.5vw;
+}
+
 .matrix-answer {
   display: inline-flex;
   align-items: center;
@@ -416,4 +421,10 @@ input:checked + .slider:before {
   .copy-button {
     font-size: 3vw;
   }
+}
+
+.matrix-form {
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
 }

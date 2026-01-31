@@ -169,7 +169,6 @@ export class Matrix3 {
         else {
             coefficient = -1;
         }
-        console.log(coefficient)
 
         return this.minor(row, column)*coefficient;
     }

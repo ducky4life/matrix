@@ -38,6 +38,22 @@ function clearInput() {
     (document.getElementById(`2x2_m2_b2`) as HTMLInputElement).value = '';
 }
 
+function getPropertyName(property_id: number) {
+    switch (property_id) {
+        case 3:
+            return "determinant";
+
+        case 4:
+            return "minor";
+
+        case 5:
+            return "cofactor";
+        
+        default:
+            return "determinant";
+    }
+}
+
 function displayOutput(matrix_dimension: number = 2) {
 
     const output = document.querySelector('#output')!;
@@ -47,14 +63,19 @@ function displayOutput(matrix_dimension: number = 2) {
     const M2 = getInputMatrix2('m2');
 
 
-    const m1_property = Number((document.getElementById('m1_property') as HTMLSelectElement).value);
-    const m2_property = Number((document.getElementById('m2_property') as HTMLSelectElement).value);
+    let m1_property = Number((document.getElementById('m1_property') as HTMLSelectElement).value);
+    let m2_property = Number((document.getElementById('m2_property') as HTMLSelectElement).value);
     let m1_property_output, m2_property_output;
 
     if (matrix_dimension == 2) {
+        m1_property = 3;
+        m2_property = 3;
         m1_property_output = M1.determinant();
         m2_property_output = M2.determinant();
     }
+
+    const m1_property_name: string = getPropertyName(m1_property);
+    const m2_property_name: string = getPropertyName(m2_property);
 
     const operation = Number((document.getElementById('operation') as HTMLSelectElement).value);
     let answer;
@@ -81,9 +102,11 @@ function displayOutput(matrix_dimension: number = 2) {
 
     output.innerHTML += `
             <div style="justify-content: center;">
-                <p>chosen properties:</p><br>
-                <p style="justify-content: center; display: flex; padding-top: 0;">M1: ${m1_property_output},
-                M2: ${m2_property_output}
+                <p style="justify-content: center; display: flex; padding-top: 0;">
+                    ${m1_property_name} of M1: ${m1_property_output}
+                </p>
+                <p style="justify-content: center; display: flex; padding-top: 0;">
+                    ${m2_property_name} of M2: ${m2_property_output}
                 </p>
             </div>
             <br>`

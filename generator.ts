@@ -121,9 +121,9 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
     }
     else {
         num_amount = Number(amount);
-        // if (num_amount == NaN) {
-        //     num_amount = 1;
-        // }
+        if (Number.isNaN(num_amount)) {
+            num_amount = 1;
+        }
     }
 
     for (let i=0; i<num_amount; i++) {
@@ -133,7 +133,7 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
             exercise = generateExercise2(type, max);
         }
         else {
-            max = 7; // pls dont get too big
+            max = 9; // pls dont get too big
             exercise = generateExercise3(type, max);
         }
         const M1 = exercise['M1'];

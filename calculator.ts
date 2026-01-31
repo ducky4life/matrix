@@ -338,3 +338,7 @@ dimensionInput.addEventListener('input', () => toggleDimension());
 
 let curr_dimension = 2;
 changeDimension(2);
+
+document.addEventListener('touchend', function(event) {
+    event.preventDefault();
+}, { passive: false });

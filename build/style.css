@@ -86,6 +86,7 @@ p {
 ::placeholder {
   /* padding-left: 5px; */
   font-size: 1.5vw;
+  text-align: center;
 }
 
 .textboxes {
@@ -117,8 +118,7 @@ p {
 
   ::placeholder {
     font-size: 3vw;
-    padding-left: 1vw;
-    padding-top: 1vw;
+    text-align: center;
   }
 }
 
@@ -487,6 +487,7 @@ input[id$="_column"] {
   input[id$="_row"],
   input[id$="_column"] {
     width: 7vw;
+    font-size: 4vw;
   }
 
   .calculator-input-box {

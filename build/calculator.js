@@ -17,6 +17,17 @@ function randomiseInput() {
     const M2 = getRandomMatrix2(10);
     setInputMatrix2('m1', M1.a, M1.b, M1.c, M1.d);
     setInputMatrix2('m2', M2.a, M2.b, M2.c, M2.d);
+    displayOutput(2);
+}
+function clearInput() {
+    document.getElementById(`2x2_m1_a1`).value = '';
+    document.getElementById(`2x2_m1_a2`).value = '';
+    document.getElementById(`2x2_m1_b1`).value = '';
+    document.getElementById(`2x2_m1_b2`).value = '';
+    document.getElementById(`2x2_m2_a1`).value = '';
+    document.getElementById(`2x2_m2_a2`).value = '';
+    document.getElementById(`2x2_m2_b1`).value = '';
+    document.getElementById(`2x2_m2_b2`).value = '';
 }
 function displayOutput(matrix_dimension = 2) {
     const output = document.querySelector('#output');
@@ -60,4 +71,10 @@ function displayOutput(matrix_dimension = 2) {
             <br>`;
 }
 document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
-document.querySelector('#submit').addEventListener('click', () => displayOutput(2));
+document.querySelector('#clear').addEventListener('click', () => clearInput());
+// (document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayOutput(2));
+const inputElementIds = ['2x2_m1_a1', '2x2_m1_a2', '2x2_m1_b1', '2x2_m1_b2', '2x2_m2_a1', '2x2_m2_a2', '2x2_m2_b1', '2x2_m2_b2', 'm1_property', 'm2_property', 'operation'];
+inputElementIds.forEach((id) => {
+    const element = document.getElementById(id);
+    element.addEventListener('input', () => displayOutput(2));
+});

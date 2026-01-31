@@ -85,7 +85,7 @@ p {
 
 ::placeholder {
   /* padding-left: 5px; */
-  font-size: 1vw;
+  font-size: 1.5vw;
 }
 
 .textboxes {
@@ -117,7 +117,7 @@ p {
 
   ::placeholder {
     font-size: 3vw;
-    padding-left: 2vw;
+    padding-left: 1vw;
     padding-top: 1vw;
   }
 }
@@ -334,6 +334,9 @@ input:checked + .slider:before {
 
 @media all and (orientation: portrait) {
   .matrix-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     font-size: 2vw;
   }
 }
@@ -466,5 +469,31 @@ input:checked + .slider:before {
 @media all and (orientation: landscape) {
   .operation-3 {
     margin-top: 2vh;
+  }
+}
+
+input[id$="_row"],
+input[id$="_column"] {
+  width: 3vw;
+}
+
+.matrix-input-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media all and (orientation: portrait) {
+  input[id$="_row"],
+  input[id$="_column"] {
+    width: 7vw;
+  }
+
+  .calculator-input-box {
+    max-width: 56vw;
+  }
+
+  .matrix-input-box {
+    max-width: 22vw;
   }
 }

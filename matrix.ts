@@ -131,4 +131,45 @@ export class Matrix3 {
             this.a3*(this.b1*this.c2-this.b2*this.c1)
         );
     }
+
+    minor(row: string, column: string): number {
+        const rows = ["a", "b", "c"];
+        const columns = ["1", "2", "3"];
+
+        const submatrix_rows = [];
+        const submatrix_columns = [];
+        for (let i=0; i<3; i++) {
+            if (rows[i] != row) {
+                submatrix_rows.push(rows[i]);
+            }
+
+            if (columns[i] != column) {
+                submatrix_columns.push(columns[i]);
+            }
+        }
+
+        const a1: number = (this as any)[submatrix_rows[0] + submatrix_columns[0]];
+        const a2: number = (this as any)[submatrix_rows[0] + submatrix_columns[1]];
+        const b1: number = (this as any)[submatrix_rows[1] + submatrix_columns[0]];
+        const b2: number = (this as any)[submatrix_rows[1] + submatrix_columns[1]];
+
+        const submatrix: Matrix2 = new Matrix2(a1, a2, b1, b2);
+
+        return submatrix.determinant();
+    }
+
+    cofactor(row: string, column: string): number {
+        const element = row + column;
+        const even_elements = ["a1", "a3", "b2", "c1", "c3"];
+        let coefficient: number;
+
+        if (element in even_elements) {
+            coefficient = 1;
+        }
+        else {
+            coefficient = -1;
+        }
+
+        return this.minor(row, column)*coefficient;
+    }
 }

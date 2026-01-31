@@ -160,7 +160,7 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
                 </div>
                 <div style="margin-left: auto; margin-right: 5vw;">
                     <label class="switch">
-                        <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" onclick="revealAnswer(${i+1})" ${checked_value}>
+                        <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" ${checked_value}>
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -169,6 +169,10 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
                     </button>
                 </div>
             </div><br>`;
+            const answerToggle = (document.querySelector(`#reveal_${i+1}`) as HTMLInputElement);
+            answerToggle.addEventListener('change', (event: Event) => {
+                revealAnswer(i+1);
+            })
             const copyButton = (document.querySelector(`#copy_${i+1}`) as HTMLInputElement);
             copyButton.addEventListener('click', async (event) => { 
                 event.preventDefault(); // Prevent default behavior

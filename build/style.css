@@ -84,7 +84,8 @@ p {
 }
 
 ::placeholder {
-  padding-left: 10px;
+  /* padding-left: 5px; */
+  font-size: 1vw;
 }
 
 .textboxes {
@@ -348,6 +349,12 @@ input:checked + .slider:before {
 .matrix-container::after {
     content: "]";
 }
+
+.matrix-property::placeholder {
+  font-size: 1vw;
+  padding: 0;
+}
+
 .matrix-2 {
     display: grid;
     grid-template-columns: auto auto;

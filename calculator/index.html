@@ -24,25 +24,31 @@
             <h2>Matrix operation calculator</h2><br>
             <a class="codebadges" href="https://github.com/ducky4life/matrix"><img src="https://img.shields.io/badge/Source Code-181717?logo=github&logoColor=fff&style=for-the-badge" alt="GitHub Badge"></a>
             <p style="padding-top: 10px;">note that minors and cofactors are only available for 3x3 matrices</p>
-            <p style="padding-top: 10px; padding-bottom: 90px;">idk why safari transform is so blurry, use chrome</p>
+            <p style="padding-top: 10px;">you must include a row (a,b,c) and column (1,2,3) for calculating minors and cofactors</p>
+            <p style="padding-top: 10px;">idk why safari transform is so blurry, use chrome</p>
             <br>
+
+            <div style="padding-bottom: 90px;">
+                <select id="dimension" class="button">
+                    <option value="2">2x2</option>
+                    <option value="3">3x3</option>
+                </select>
+            </div><br>
             
             <div style="display: flex; justify-content: center; align-items: stretch; transform: scale(2);">
 
-            <div style="display: flex; flex-direction: column;">
-                <div class="matrix-container">
-                    <div class="matrix-2">
-                        <div><input id="2x2_m1_a1"></input></div> <div><input id="2x2_m1_a2"></input></div>
-                        <div><input id="2x2_m1_b1"></input></div> <div><input id="2x2_m1_b2"></input></div>
-                    </div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="matrix-container" id="m1_box">
                 </div>
 
-                <div style="transform: scale(0.5);">
-                    <select id="m1_property" class="button unblur" style="padding: 1vh;">
+                <div style="transform: scale(0.5); display: flex;">
+                    <select id="m2_property" class="button unblur" style="padding: 1vh;">
                         <option value="3">det</option>
                         <option value="4">minor</option>
                         <option value="5">cofactor</option>
                     </select>
+                    <input id="m1_row" style="width: 2vw;" placeholder="row"></input>
+                    <input id="m1_column" style="width: 2vw;" placeholder="col"></input>
                 </div>
             </div>
 
@@ -54,21 +60,19 @@
                 </select>
             </div>
             
-            <div style="display: flex; flex-direction: column;">
+            <div style="display: flex; flex-direction: column; align-items: center;">
                 
-                <div class="matrix-container">
-                    <div class="matrix-2">
-                        <div><input id="2x2_m2_a1"></input></div> <div><input id="2x2_m2_a2"></input></div>
-                        <div><input id="2x2_m2_b1"></input></div> <div><input id="2x2_m2_b2"></input></div>
-                    </div>
+                <div class="matrix-container" id="m2_box">
                 </div>
                 
-                <div style="transform: scale(0.5);">
+                <div style="transform: scale(0.5); display: flex;">
                     <select id="m2_property" class="button unblur" style="padding: 1vh;">
                         <option value="3">det</option>
                         <option value="4">minor</option>
                         <option value="5">cofactor</option>
                     </select>
+                    <input id="m2_row" style="width: 2vw;" placeholder="row"></input>
+                    <input id="m2_column" style="width: 2vw;" placeholder="col"></input>
                 </div>
             </div>
 

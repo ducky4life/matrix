@@ -162,13 +162,14 @@ export class Matrix3 {
         const element = row + column;
         const even_elements = ["a1", "a3", "b2", "c1", "c3"];
         let coefficient: number;
-
-        if (element in even_elements) {
+        
+        if (even_elements.includes(element)) {
             coefficient = 1;
         }
         else {
             coefficient = -1;
         }
+        console.log(coefficient)
 
         return this.minor(row, column)*coefficient;
     }

@@ -23,6 +23,32 @@ function getInputMatrix3(name: string) {
     return new Matrix3(Number(a1), Number(a2), Number(a3), Number(b1), Number(b2), Number(b3), Number(c1), Number(c2), Number(c3));
 }
 
+function getInputRow(name: string) {
+    const row = (document.getElementById(`${name}_row`) as HTMLInputElement).value;
+
+    switch (row) {
+        case "1":
+            return "a";
+        case "2":
+            return "b";
+        case "3":
+            return "c";
+
+        default:
+            return "a";
+    }
+}
+
+function getInputColumn(name: string) {
+    const column = (document.getElementById(`${name}_column`) as HTMLInputElement).value;
+
+    if (!(["1", "2", "3"].includes(column))) {
+        return "1";
+    }
+    
+    return column;
+}
+
 function setInputMatrix2(name: string, a1: number, a2: number, b1: number, b2: number) {
     (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value = String(a1);
     (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value = String(a2);
@@ -168,6 +194,7 @@ function setInputEventListener() {
 
         case 3:
             inputElementIds = ['3x3_m1_a1', '3x3_m1_a2', '3x3_m1_a3', '3x3_m1_b1', '3x3_m1_b2', '3x3_m1_b3', '3x3_m1_c1', '3x3_m1_c2', '3x3_m1_c3',
+                'm1_row', 'm1_column', 'm2_row', 'm2_column',
                 'm1_property', 'm2_property', 'operation'
             ];
             break;
@@ -202,6 +229,10 @@ function displayOutput(matrix_dimension: number = 2) {
 
     let m1_property = Number((document.getElementById('m1_property') as HTMLSelectElement).value);
     let m2_property = Number((document.getElementById('m2_property') as HTMLSelectElement).value);
+    let m1_row = getInputRow('m1');
+    let m1_column = getInputColumn('m1');
+    let m2_row = getInputRow('m2');
+    let m2_column = getInputColumn('m2');
     let m1_property_output, m2_property_output;
 
     if (matrix_dimension == 2) {
@@ -211,8 +242,8 @@ function displayOutput(matrix_dimension: number = 2) {
         m2_property_output = M2!.determinant();
     }
     else {
-        m1_property_output = getPropertyValue3(M1 as any, m1_property, "a", "1");
-        m2_property_output = getPropertyValue3(M2 as any, m2_property, "a", "1");
+        m1_property_output = getPropertyValue3(M1 as any, m1_property, m1_row, m1_column);
+        m2_property_output = getPropertyValue3(M2 as any, m2_property, m2_row, m2_column);
     }
 
     const m1_property_name: string = getPropertyName(m1_property);

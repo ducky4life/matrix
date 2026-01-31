@@ -19,6 +19,7 @@
   text-wrap: wrap;
   word-wrap: break-word;
   overflow-x: hidden;
+  touch-action: manipulation;
 }
 
 *::selection {

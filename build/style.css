@@ -488,7 +488,7 @@ input[id$="_column"] {
 }
 
   textarea[id="amount"] {
-    height: 4.5vw;
+    height: 4em;
   }
 
 @media all and (orientation: portrait) {

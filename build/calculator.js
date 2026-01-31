@@ -78,7 +78,7 @@ function displayOutput(matrix_dimension = 2) {
                 <div class="matrix-answer">${answer.displayToHTML()}</div>
             </div><br>`;
     output.innerHTML += `
-            <div style="justify-content: center; text-align: left;">
+            <div style="justify-content: center;">
                 <p style="justify-content: center; display: flex; padding-top: 0;">
                     ${m1_property_name} of M1: ${m1_property_output}
                 </p>

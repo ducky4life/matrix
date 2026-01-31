@@ -74,14 +74,36 @@ function randomiseInput() {
     displayOutput();
 }
 function clearInput() {
-    document.getElementById(`2x2_m1_a1`).value = '';
-    document.getElementById(`2x2_m1_a2`).value = '';
-    document.getElementById(`2x2_m1_b1`).value = '';
-    document.getElementById(`2x2_m1_b2`).value = '';
-    document.getElementById(`2x2_m2_a1`).value = '';
-    document.getElementById(`2x2_m2_a2`).value = '';
-    document.getElementById(`2x2_m2_b1`).value = '';
-    document.getElementById(`2x2_m2_b2`).value = '';
+    if (curr_dimension == 2) {
+        document.getElementById(`2x2_m1_a1`).value = '';
+        document.getElementById(`2x2_m1_a2`).value = '';
+        document.getElementById(`2x2_m1_b1`).value = '';
+        document.getElementById(`2x2_m1_b2`).value = '';
+        document.getElementById(`2x2_m2_a1`).value = '';
+        document.getElementById(`2x2_m2_a2`).value = '';
+        document.getElementById(`2x2_m2_b1`).value = '';
+        document.getElementById(`2x2_m2_b2`).value = '';
+    }
+    else {
+        document.getElementById(`3x3_m1_a1`).value = '';
+        document.getElementById(`3x3_m1_a2`).value = '';
+        document.getElementById(`3x3_m1_a3`).value = '';
+        document.getElementById(`3x3_m1_b1`).value = '';
+        document.getElementById(`3x3_m1_b2`).value = '';
+        document.getElementById(`3x3_m1_b3`).value = '';
+        document.getElementById(`3x3_m1_c1`).value = '';
+        document.getElementById(`3x3_m1_c2`).value = '';
+        document.getElementById(`3x3_m1_c3`).value = '';
+        document.getElementById(`3x3_m2_a1`).value = '';
+        document.getElementById(`3x3_m2_a2`).value = '';
+        document.getElementById(`3x3_m2_a3`).value = '';
+        document.getElementById(`3x3_m2_b1`).value = '';
+        document.getElementById(`3x3_m2_b2`).value = '';
+        document.getElementById(`3x3_m2_b3`).value = '';
+        document.getElementById(`3x3_m2_c1`).value = '';
+        document.getElementById(`3x3_m2_c2`).value = '';
+        document.getElementById(`3x3_m2_c3`).value = '';
+    }
 }
 function getPropertyValue3(M, property_id, row, column) {
     switch (property_id) {
@@ -132,6 +154,14 @@ function changeDimension(matrix_dimension) {
     const m2_box = document.getElementById('m2_box');
     m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
     m2_box.innerHTML = getMatrixHTML('m2', matrix_dimension);
+    if (matrix_dimension == 3) {
+        m1_box.classList.add('matrix-container-3');
+        m2_box.classList.add('matrix-container-3');
+    }
+    else {
+        m1_box.classList.remove('matrix-container-3');
+        m2_box.classList.remove('matrix-container-3');
+    }
     curr_dimension = matrix_dimension;
     setInputEventListener();
 }

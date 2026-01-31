@@ -94,15 +94,40 @@ function randomiseInput() {
 }
 
 function clearInput() {
-    (document.getElementById(`2x2_m1_a1`) as HTMLInputElement).value = '';
-    (document.getElementById(`2x2_m1_a2`) as HTMLInputElement).value = '';
-    (document.getElementById(`2x2_m1_b1`) as HTMLInputElement).value = '';
-    (document.getElementById(`2x2_m1_b2`) as HTMLInputElement).value = '';
 
-    (document.getElementById(`2x2_m2_a1`) as HTMLInputElement).value = '';
-    (document.getElementById(`2x2_m2_a2`) as HTMLInputElement).value = '';
-    (document.getElementById(`2x2_m2_b1`) as HTMLInputElement).value = '';
-    (document.getElementById(`2x2_m2_b2`) as HTMLInputElement).value = '';
+    if (curr_dimension == 2) {
+        (document.getElementById(`2x2_m1_a1`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_m1_a2`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_m1_b1`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_m1_b2`) as HTMLInputElement).value = '';
+
+        (document.getElementById(`2x2_m2_a1`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_m2_a2`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_m2_b1`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_m2_b2`) as HTMLInputElement).value = '';
+    }
+
+    else {
+        (document.getElementById(`3x3_m1_a1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_a2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_a3`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_b1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_b2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_b3`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_c1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_c2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m1_c3`) as HTMLInputElement).value = '';
+
+        (document.getElementById(`3x3_m2_a1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_a2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_a3`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_b1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_b2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_b3`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_c1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_c2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_m2_c3`) as HTMLInputElement).value = '';
+    }
 }
 
 function getPropertyValue3(M: Matrix3, property_id: number, row: string, column: string) {
@@ -167,6 +192,15 @@ function changeDimension(matrix_dimension: number) {
 
     m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
     m2_box.innerHTML = getMatrixHTML('m2', matrix_dimension);
+
+    if (matrix_dimension == 3) {
+        m1_box.classList.add('matrix-container-3');
+        m2_box.classList.add('matrix-container-3');
+    }
+    else {
+        m1_box.classList.remove('matrix-container-3');
+        m2_box.classList.remove('matrix-container-3');
+    }
 
     curr_dimension = matrix_dimension;
     setInputEventListener();

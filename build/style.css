@@ -350,6 +350,11 @@ input:checked + .slider:before {
     content: "]";
 }
 
+.matrix-container-3::before,
+.matrix-container-3::after {
+    font-size: 6em;
+}
+
 .matrix-property::placeholder {
   font-size: 1vw;
   padding: 0;
@@ -438,7 +443,6 @@ input:checked + .slider:before {
 
 .matrix-form {
     margin: 0 auto;
-    padding: 20px;
     border-radius: 10px;
 }
 

@@ -128,6 +128,10 @@ nav {
   nav {
     padding-left: 4vw;
   }
+
+  nav h2 {
+    font-size: 3vw;
+  }
 }
 
 .bigtextarea {

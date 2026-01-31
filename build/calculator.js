@@ -275,6 +275,3 @@ const dimensionInput = document.getElementById('dimension');
 dimensionInput.addEventListener('input', () => toggleDimension());
 let curr_dimension = 2;
 changeDimension(2);
-document.querySelector('#randomise').addEventListener('touchend', function (event) {
-    event.preventDefault();
-}, { passive: false });

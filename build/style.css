@@ -111,9 +111,13 @@ p {
   
   .textboxes {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     justify-content: center;
     align-items: center;
+  }
+
+  .small-textbox {
+    width: 18vw;
   }
 
   ::placeholder {
@@ -483,11 +487,19 @@ input[id$="_column"] {
   align-items: center;
 }
 
+  textarea[id="amount"] {
+    height: 4.5vw;
+  }
+
 @media all and (orientation: portrait) {
   input[id$="_row"],
   input[id$="_column"] {
     width: 7vw;
     font-size: 4vw;
+  }
+
+  textarea[id="amount"] {
+    height: 7vw;
   }
 
   .calculator-input-box {

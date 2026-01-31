@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3 } from "./matrix.js";
+import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3 } from "./matrix.js";
 
 function getInputMatrix2(name: string) {
     const a1 = (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value;

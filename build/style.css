@@ -456,3 +456,15 @@ input:checked + .slider:before {
     -webkit-font-smoothing: antialiased;
     image-rendering: crisp-edges;
 }
+
+@media all and (orientation: portrait) {
+  .operation-2 {
+    margin-bottom: 3vh;
+  }
+}
+
+@media all and (orientation: landscape) {
+  .operation-3 {
+    margin-top: 2vh;
+  }
+}

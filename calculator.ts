@@ -189,6 +189,7 @@ function getMatrixHTML(name: string, matrix_dimension: number) {
 function changeDimension(matrix_dimension: number) {
     const m1_box = document.getElementById('m1_box')!;
     const m2_box = document.getElementById('m2_box')!;
+    const operation_box = (document.getElementById('operation_box') as HTMLSelectElement);
 
     m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
     m2_box.innerHTML = getMatrixHTML('m2', matrix_dimension);
@@ -196,10 +197,14 @@ function changeDimension(matrix_dimension: number) {
     if (matrix_dimension == 3) {
         m1_box.classList.add('matrix-container-3');
         m2_box.classList.add('matrix-container-3');
+        operation_box.classList.remove('operation-2');
+        operation_box.classList.add('operation-3');
     }
     else {
         m1_box.classList.remove('matrix-container-3');
         m2_box.classList.remove('matrix-container-3');
+        operation_box.classList.add('operation-2');
+        operation_box.classList.remove('operation-3');
     }
 
     curr_dimension = matrix_dimension;

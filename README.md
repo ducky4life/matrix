@@ -1,8 +1,10 @@
 # matrix
 
-an exercise generator for basic operations for matrices.
+an exercise generator and calculator for basic operations for matrices.
 
-link: https://ducky.is-a.dev/matrix/
+link to generator: https://ducky.is-a.dev/matrix/
+
+link to calculator: https://ducky.is-a.dev/matrix/calculator/
 
 made to practice my typescript skills and learn how to use classes.
 

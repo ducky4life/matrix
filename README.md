@@ -1,6 +1,6 @@
 # matrix
 
-an exercise generator and calculator for basic operations for matrices.
+an exercise generator and calculator for basic operations of matrices.
 
 link to generator: https://ducky.is-a.dev/matrix/
 

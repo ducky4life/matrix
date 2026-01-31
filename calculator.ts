@@ -9,6 +9,21 @@ function getInputMatrix2(name: string) {
     return new Matrix2(Number(a1), Number(a2), Number(b1), Number(b2));
 }
 
+function setInputMatrix2(name: string, a1: number, a2: number, b1: number, b2: number) {
+    (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value = String(a1);
+    (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value = String(a2);
+    (document.getElementById(`2x2_${name}_b1`) as HTMLInputElement).value = String(b1);
+    (document.getElementById(`2x2_${name}_b2`) as HTMLInputElement).value = String(b2);
+}
+
+function randomiseInput() {
+    const M1 = getRandomMatrix2(10);
+    const M2 = getRandomMatrix2(10);
+
+    setInputMatrix2('m1', M1.a, M1.b, M1.c, M1.d);
+    setInputMatrix2('m2', M2.a, M2.b, M2.c, M2.d);
+}
+
 function displayOutput(matrix_dimension: number = 2) {
 
     const output = document.querySelector('#output')!;
@@ -60,4 +75,5 @@ function displayOutput(matrix_dimension: number = 2) {
             <br>`
 }
 
+(document.querySelector('#randomise')as HTMLButtonElement)!.addEventListener('click', () => randomiseInput());
 (document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayOutput(2));

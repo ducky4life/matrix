@@ -1,10 +1,22 @@
-import { Matrix2 } from "./matrix.js";
+import { Matrix2, getRandomMatrix2 } from "./matrix.js";
 function getInputMatrix2(name) {
     const a1 = document.getElementById(`2x2_${name}_a1`).value;
     const a2 = document.getElementById(`2x2_${name}_a2`).value;
     const b1 = document.getElementById(`2x2_${name}_b1`).value;
     const b2 = document.getElementById(`2x2_${name}_b2`).value;
     return new Matrix2(Number(a1), Number(a2), Number(b1), Number(b2));
+}
+function setInputMatrix2(name, a1, a2, b1, b2) {
+    document.getElementById(`2x2_${name}_a1`).value = String(a1);
+    document.getElementById(`2x2_${name}_a2`).value = String(a2);
+    document.getElementById(`2x2_${name}_b1`).value = String(b1);
+    document.getElementById(`2x2_${name}_b2`).value = String(b2);
+}
+function randomiseInput() {
+    const M1 = getRandomMatrix2(10);
+    const M2 = getRandomMatrix2(10);
+    setInputMatrix2('m1', M1.a, M1.b, M1.c, M1.d);
+    setInputMatrix2('m2', M2.a, M2.b, M2.c, M2.d);
 }
 function displayOutput(matrix_dimension = 2) {
     const output = document.querySelector('#output');
@@ -47,4 +59,5 @@ function displayOutput(matrix_dimension = 2) {
             </div>
             <br>`;
 }
+document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
 document.querySelector('#submit').addEventListener('click', () => displayOutput(2));

@@ -479,6 +479,7 @@ input:checked + .slider:before {
 input[id$="_row"],
 input[id$="_column"] {
   width: 3vw;
+  font-size: 1.5vw;
 }
 
 .matrix-input-box {

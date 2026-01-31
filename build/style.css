@@ -19,7 +19,6 @@
   text-wrap: wrap;
   word-wrap: break-word;
   overflow-x: hidden;
-  touch-action: manipulation;
 }
 
 *::selection {
@@ -309,7 +308,6 @@ input:checked + .slider:before {
   cursor: pointer;
   width: fit-content;
   font-size: min(1.5vw, 20px);
-  touch-action: manipulation;
 }
 
 .button:hover {

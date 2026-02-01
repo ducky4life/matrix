@@ -388,6 +388,7 @@ input:checked + .slider:before {
   .matrix-2 input, .matrix-3 input {
     width: 1.26vw;
     height: 2vw;
+    font-size: inherit;
   }
 }
 

@@ -385,6 +385,13 @@ input:checked + .slider:before {
     height: 1.5vw;
 }
 
+@media all and (orientation: portrait) {
+  .matrix-2 input, .matrix-3 input {
+    width: 1.26vw;
+    height: 2vw;
+  }
+}
+
 .matrix-answer {
   display: inline-flex;
   align-items: center;

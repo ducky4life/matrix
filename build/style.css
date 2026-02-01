@@ -509,9 +509,9 @@ input[id$="_column"] {
     height: 7vw;
   }
 
-  .calculator-input-box {
+  /* .calculator-input-box {
     max-width: 56vw;
-  }
+  } */
 
   .matrix-input-box {
     max-width: 22vw;

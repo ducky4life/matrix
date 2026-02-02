@@ -292,10 +292,33 @@ input:checked + .slider:before {
   margin: 0;
   text-align: left;
   flex: 1;
+  padding-top: 0;
 }
 
 .toggles label {
   margin-left: auto;
+}
+
+.toggles-padding-right {
+  padding-right: 50px;
+}
+
+.toggles-padding-left {
+  padding-left: 50px;
+}
+
+@media all and (orientation: portrait) {
+  .switch {
+    transform: scale(0.9);
+  }
+
+  .toggles-padding-right {
+    padding-right: 4vw;
+  }
+
+  .toggles-padding-left {
+    padding-left: 0;
+  }
 }
 /* #endregion */
 
@@ -323,6 +346,7 @@ input:checked + .slider:before {
 @media all and (orientation: portrait) {
   .button {
     font-size: 3vw;
+    padding: 1vh 3vw;
   }
 }
 
@@ -411,9 +435,18 @@ input:checked + .slider:before {
     margin-left: 10vw;
 }
 
+.matrix-output-toggle-box {
+  margin-left: auto;
+  margin-right: 5vw;
+}
+
 @media all and (orientation: portrait) {
   .matrix-output {
     width: 100vw;
+  }
+
+  .matrix-output-toggle-box {
+    margin-right: 0.5vw;
   }
 }
 
@@ -452,6 +485,7 @@ input:checked + .slider:before {
 @media all and (orientation: portrait) {
   .copy-button {
     font-size: 3vw;
+    transform: scale(0.9);
   }
 }
 

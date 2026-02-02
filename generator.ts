@@ -158,7 +158,7 @@ function displayExercise(matrix_dimension: number = 2, type: number = 2, max: nu
                     <span style="margin: 0 10px;">= </span>
                     <div class="matrix-answer ${hidden_class}" id="answer_${i+1}">${answer.displayToHTML()}</div>
                 </div>
-                <div style="margin-left: auto; margin-right: 5vw;">
+                <div class="matrix-output-toggle-box">
                     <label class="switch">
                         <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" ${checked_value}>
                         <span class="slider round"></span>

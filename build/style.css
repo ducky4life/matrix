@@ -492,6 +492,10 @@ input:checked + .slider:before {
 .matrix-form {
     margin: 0 auto;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .unblur {
@@ -549,7 +553,7 @@ input[id$="_column"] {
   }
 
   .calculator-input-box {
-    max-width: 56vw;
+    max-width: 53vw;
   }
 
   /* .matrix-input-box {

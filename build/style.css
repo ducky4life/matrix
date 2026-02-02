@@ -374,10 +374,12 @@ input:checked + .slider:before {
     font-size: 4em;
     font-weight: 100;
     vertical-align: middle;
-    padding: 0 0.1em;
+    padding-right: 0.1em;
 }
 .matrix-container::after {
     content: "]";
+    padding-right: 0;
+    padding-left: 0.1em;
 }
 
 .matrix-container-3::before,
@@ -410,9 +412,9 @@ input:checked + .slider:before {
 
 @media all and (orientation: portrait) {
   .matrix-2 input, .matrix-3 input {
-    width: 1.26vw;
+    width: 1.3vw;
     height: 2vw;
-    font-size: inherit;
+    font-size: 1.7vw;
   }
 }
 

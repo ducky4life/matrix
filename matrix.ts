@@ -52,6 +52,8 @@ export class Matrix2 {
     }
 
     minor(row: number, column: number): number {
+        // get the element with diff row and column than input element
+        // if input 1 then 2, if 2 then 1
         const element = getRowName(3-row) + getColumnName(3-column);
         return((this as any)[element]);
     }
@@ -87,9 +89,13 @@ export class Matrix2 {
     }
 
     
-    inverse(): Matrix2 {
+    inverse(round_elements: boolean = true): Matrix2 {
         const detScalingMatrix: Matrix2 = scalarToMatrix2(1/this.determinant());
-        return detScalingMatrix.multiply(this.adjoint());
+        const inverseMatrix: Matrix2 = detScalingMatrix.multiply(this.adjoint());
+        if (round_elements) {
+            return roundMatrix2(inverseMatrix);
+        }
+        return inverseMatrix;
     }
 }
 
@@ -161,7 +167,7 @@ export class Matrix3 {
                 this.b1*M.a3 + this.b2*M.b3 + this.b3*M.c3,
                 this.c1*M.a1 + this.c2*M.b1 + this.c3*M.c1,
                 this.c1*M.a2 + this.c2*M.b2 + this.c3*M.c2,
-            this.c1*M.a3 + this.c2*M.b3 + this.c3*M.c3
+                this.c1*M.a3 + this.c2*M.b3 + this.c3*M.c3
         );
     }
 
@@ -252,9 +258,13 @@ export class Matrix3 {
         return cofactorMatrix.transpose();
     }
 
-    inverse(): Matrix3 {
+    inverse(round_elements: boolean = true): Matrix3 {
         const detScalingMatrix: Matrix3 = scalarToMatrix3(1/this.determinant());
-        return detScalingMatrix.multiply(this.adjoint());
+        const inverseMatrix: Matrix3 = detScalingMatrix.multiply(this.adjoint());
+        if (round_elements) {
+            return roundMatrix3(inverseMatrix);
+        }
+        return inverseMatrix;
     }
 }
 
@@ -271,6 +281,48 @@ export function scalarToMatrix3(scalar: number) {
         0, scalar, 0,
         0, 0, scalar
     );
+}
+
+export function arrayToMatrix2(A: Array<number>) {
+    if (A.length == 4) {
+        return new Matrix2(A[0], A[1], A[2], A[3]);
+    }
+    console.log("length of array is not 4");
+    return new Matrix2();
+}
+
+export function arrayToMatrix3(A: Array<number>) {
+    if (A.length == 9) {
+        return new Matrix3(
+            A[0], A[1], A[2],
+            A[3], A[4], A[5],
+            A[6], A[7], A[8]
+        );
+    }
+    console.log("length of array is not 9");
+    return new Matrix3();
+}
+
+export function roundMatrix2(M: Matrix2) {
+    const matrixArray = M.display();
+    const roundedMatrixArray: Array<number> = [];
+
+    matrixArray.forEach((matrixElement) => {
+        roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
+    })
+
+    return arrayToMatrix2(roundedMatrixArray);
+}
+
+export function roundMatrix3(M: Matrix3) {
+    const matrixArray = M.display();
+    const roundedMatrixArray: Array<number> = [];
+
+    matrixArray.forEach((matrixElement) => {
+        roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
+    })
+
+    return arrayToMatrix3(roundedMatrixArray);
 }
 
 export function getRowName(row: number) {

@@ -107,7 +107,7 @@ function getPropertyValue(M, property_id, row, column) {
             if (M.isInvertible()) {
                 return `
                 <div class="matrix-inverse-output">
-                    <math style="font-size: 4vh; padding-right: 1vw;">
+                    <math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
                         <mfrac>
                         <mn>1</mn>
                         <mn>${M.determinant()}</mfrac>

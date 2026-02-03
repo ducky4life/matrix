@@ -305,12 +305,12 @@ function displayOutput(matrix_dimension: number = 2) {
     let m1_property_output, m2_property_output;
 
     if (matrix_dimension == 2) {
-        m1_property_output = getPropertyValue2(M1, m1_property);
-        m2_property_output = getPropertyValue2(M2, m2_property);
+        m1_property_output = getPropertyValue2(M1 as any, m1_property);
+        m2_property_output = getPropertyValue2(M2 as any, m2_property);
     }
     else {
-        m1_property_output = getPropertyValue3(M1, m1_property, m1_row, m1_column);
-        m2_property_output = getPropertyValue3(M2, m2_property, m2_row, m2_column);
+        m1_property_output = getPropertyValue3(M1 as any, m1_property, m1_row, m1_column);
+        m2_property_output = getPropertyValue3(M2 as any, m2_property, m2_row, m2_column);
     }
 
     const m1_property_name: string = getPropertyName(m1_property);

@@ -1,10 +1,4 @@
 export class Matrix2 {
-    // a b
-    // c d
-    a;
-    b;
-    c;
-    d;
     constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a = a;
         this.b = b;
@@ -59,18 +53,6 @@ export class Matrix2 {
     }
 }
 export class Matrix3 {
-    // a1 a2 a3
-    // b1 b2 b3
-    // c1 c2 c3
-    a1;
-    a2;
-    a3;
-    b1;
-    b2;
-    b3;
-    c1;
-    c2;
-    c3;
     constructor(a1 = 0, a2 = 0, a3 = 0, b1 = 0, b2 = 0, b3 = 0, c1 = 0, c2 = 0, c3 = 0) {
         this.a1 = a1;
         this.a2 = a2;
@@ -186,6 +168,8 @@ export function getRowName(row) {
             return "b";
         case 3:
             return "c";
+        default:
+            return "a";
     }
 }
 export function getColumnName(column) {

@@ -51,7 +51,7 @@ export class Matrix2 {
         return(this.a*this.d - this.b*this.c);
     }
 
-    isInvertible(): bool {
+    isInvertible(): boolean {
         if (this.determinant() == 0) {
             return false;
         }
@@ -200,7 +200,7 @@ export class Matrix3 {
         return this.minor(row, column)*coefficient;
     }
     
-    isInvertible(): bool {
+    isInvertible(): boolean {
         if (this.determinant() == 0) {
             return false;
         }
@@ -265,6 +265,9 @@ export function getRowName(row: number) {
             return "b";
         case 3:
             return "c";
+
+        default:
+            return "a";
     }
 }
 

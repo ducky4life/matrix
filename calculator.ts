@@ -126,9 +126,12 @@ function getPropertyValue2(M: Matrix2, property_id: number) {
             return M.determinant();
 
         case 4:
-            return M.transpose().displayToHTML();
+            return M.inverse().displayToHTML();
 
         case 5:
+            return M.transpose().displayToHTML();
+
+        case 6:
             return M.adjoint().displayToHTML();
 
         default:
@@ -142,15 +145,18 @@ function getPropertyValue3(M: Matrix3, property_id: number, row: string, column:
             return M.determinant();
 
         case 4:
-            return M.transpose().displayToHTML();
+            return M.inverse().displayToHTML();
 
         case 5:
-            return M.adjoint().displayToHTML();
+            return M.transpose().displayToHTML();
 
         case 6:
-            return M.minor(row, column);
+            return M.adjoint().displayToHTML();
 
         case 7:
+            return M.minor(row, column);
+
+        case 8:
             return M.cofactor(row, column);
 
         default:
@@ -162,17 +168,20 @@ function getPropertyName(property_id: number) {
     switch (property_id) {
         case 3:
             return "determinant";
-
+        
         case 4:
+            return "inverse";
+
+        case 5:
             return "transpose";
         
-        case 5:
+        case 6:
             return "adjoint matrix";
         
-        case 6:
+        case 7:
             return "minor";
         
-        case 7:
+        case 8:
             return "cofactor";
             
         default:

@@ -1,54 +1,68 @@
 export class Matrix2 {
-    // a b
-    // c d
-    a: number;
-    b: number;
-    c: number;
-    d: number;
+    // a1 a1
+    // b1 b2
+    a1: number;
+    a2: number;
+    b1: number;
+    b2: number;
 
     constructor(a=0,b=0,c=0,d=0) {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-        this.d = d;
+        this.a1 = a;
+        this.a2 = b;
+        this.b1 = c;
+        this.b2 = d;
     }
 
     display(): Array<number> {
-        return([this.a,this.b,this.c,this.d]);
+        return([this.a1,this.a2,this.b1,this.b2]);
     }
 
     displayToString(): string {
-        return(`[${this.a}, ${this.b}, ${this.c}, ${this.d}]`)
+        return(`[${this.a1}, ${this.a2}, ${this.b1}, ${this.b2}]`)
     }
 
     displayToLaTeX(): string {
-        return(`\\begin{pmatrix}${this.a} & ${this.b} \\\\ ${this.c} & ${this.d} \\end{pmatrix}`)
+        return(`\\begin{pmatrix}${this.a1} & ${this.a2} \\\\ ${this.b1} & ${this.b2} \\end{pmatrix}`)
     }
 
     displayToHTML(): string {
         return(`
             <div class="matrix-container">
                 <div class="matrix-2">
-                    <div>${this.a}</div><div>${this.b}</div>
-                    <div>${this.c}</div><div>${this.d}</div>
+                    <div>${this.a1}</div><div>${this.a2}</div>
+                    <div>${this.b1}</div><div>${this.b2}</div>
                 </div>
             </div>`)
     }
 
     add(M: Matrix2): Matrix2 {
-        return new Matrix2(this.a+M.a, this.b+M.b, this.c+M.c, this.d+M.d);
+        return new Matrix2(this.a1+M.a1, this.a2+M.a2, this.b1+M.b1, this.b2+M.b2);
     }
 
     minus(M: Matrix2): Matrix2 {
-        return new Matrix2(this.a-M.a, this.b-M.b, this.c-M.c, this.d-M.d);
+        return new Matrix2(this.a1-M.a1, this.a2-M.a2, this.b1-M.b1, this.b2-M.b2);
     }
 
     multiply(M: Matrix2): Matrix2 {
-        return new Matrix2(this.a*M.a+this.b*M.c, this.a*M.b+this.b*M.d, this.c*M.a+this.d*M.c, this.c*M.b+this.d*M.d);
+        return new Matrix2(this.a1*M.a1+this.a2*M.b1, this.a1*M.a2+this.a2*M.b2, this.b1*M.a1+this.b2*M.b1, this.b1*M.a2+this.b2*M.b2);
     }
 
     determinant(): number {
-        return(this.a*this.d - this.b*this.c);
+        return(this.a1*this.b2 - this.a2*this.b1);
+    }
+
+    minor(row: number, column: number): number {
+        const element = getRowName(3-row) + getColumnName(3-column);
+        return((this as any)[element]);
+    }
+
+    cofactor(row: number, column: number): number {
+        let coefficient = 1;
+        if ((row+column)%2 != 0) {
+            coefficient = -1;
+        }
+
+        return(this.minor(row, column)*coefficient)
     }
 
     isInvertible(): boolean {
@@ -60,15 +74,15 @@ export class Matrix2 {
 
     transpose(): Matrix2 {
         return new Matrix2(
-            this.a, this.c,
-            this.b, this.d
+            this.a1, this.b1,
+            this.a2, this.b2
         );
     }
 
     adjoint(): Matrix2 {
         return new Matrix2(
-            this.d, -this.b,
-            -this.c, this.a
+            this.b2, -this.a2,
+            -this.b1, this.a1
         );
     }
 
@@ -121,11 +135,11 @@ export class Matrix3 {
     displayToHTML(): string {
         return(`
             <div class="matrix-container">
-            <div class="matrix-3">
-            <div>${this.a1}</div><div>${this.a2}</div><div>${this.a3}</div>
-            <div>${this.b1}</div><div>${this.b2}</div><div>${this.b3}</div>
-            <div>${this.c1}</div><div>${this.c2}</div><div>${this.c3}</div>
-            </div>
+                <div class="matrix-3">
+                <div>${this.a1}</div><div>${this.a2}</div><div>${this.a3}</div>
+                <div>${this.b1}</div><div>${this.b2}</div><div>${this.b3}</div>
+                <div>${this.c1}</div><div>${this.c2}</div><div>${this.c3}</div>
+                </div>
             </div>`);
         }
         
@@ -159,14 +173,16 @@ export class Matrix3 {
         );
     }
     
-    minor(row: string, column: string): number {
+    minor(row: number, column: number): number {
+        const row_name = getRowName(row);
+
         const rows = ["a", "b", "c"];
-        const columns = ["1", "2", "3"];
+        const columns = [1, 2, 3];
         
         const submatrix_rows = [];
         const submatrix_columns = [];
         for (let i=0; i<3; i++) {
-            if (rows[i] != row) {
+            if (rows[i] != row_name) {
                 submatrix_rows.push(rows[i]);
             }
             
@@ -185,8 +201,8 @@ export class Matrix3 {
         return submatrix.determinant();
     }
 
-    cofactor(row: string, column: string): number {
-        const element = row + column;
+    cofactor(row: number, column: number): number {
+        const element = getRowName(row) + getColumnName(column);
         const even_elements = ["a1", "a3", "b2", "c1", "c3"];
         let coefficient: number;
         
@@ -221,7 +237,7 @@ export class Matrix3 {
         for (let row=1; row<=3; row++) {
 
             for (let column=1; column<=3; column++) {
-                const elementCofactor = this.cofactor(getRowName(row), getColumnName(column));
+                const elementCofactor = this.cofactor(row, column);
                 cofactorArray.push(elementCofactor);
             }
             
@@ -302,4 +318,22 @@ export function getRandomMatrix3(max: number = 10) {
 
     const M = new Matrix3(a1,a2,a3,b1,b2,b3,c1,c2,c3);
     return M;
+}
+
+export function getAnswerMatrix(M1: Matrix2|Matrix3, M2: Matrix2|Matrix3, operation: number): Matrix2|Matrix3 {
+
+    switch (operation) {
+        case 0:
+            return (M1 as any).add(M2);
+
+        case 1:
+            return (M1 as any).minus(M2);
+
+        case 2:
+            return (M1 as any).multiply(M2);
+
+        default:
+            return (M1 as any).multiply(M2);
+
+    }
 }

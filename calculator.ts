@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getRowName } from "./matrix.js";
+import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix } from "./matrix.js";
 
 function getInputMatrix2(name: string) {
     const a1 = (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value;
@@ -23,17 +23,21 @@ function getInputMatrix3(name: string) {
     return new Matrix3(Number(a1), Number(a2), Number(a3), Number(b1), Number(b2), Number(b3), Number(c1), Number(c2), Number(c3));
 }
 
-function getInputRow(name: string) {
-    const row = (document.getElementById(`${name}_row`) as HTMLInputElement).value;
+function getInputRow(name: string): number {
+    const row = Number((document.getElementById(`${name}_row`) as HTMLInputElement).value);
 
-    return getRowName(Number(row));
+    if (!([1,2,3].includes(row))) {
+        return 1;
+    }
+
+    return row;
 }
 
-function getInputColumn(name: string) {
-    const column = (document.getElementById(`${name}_column`) as HTMLInputElement).value;
+function getInputColumn(name: string): number {
+    const column = Number((document.getElementById(`${name}_column`) as HTMLInputElement).value);
 
-    if (!(["1", "2", "3"].includes(column))) {
-        return "1";
+    if (!([1,2,3].includes(column))) {
+        return 1;
     }
     
     return column;
@@ -66,8 +70,8 @@ function randomiseInput() {
             M1 = getRandomMatrix2(10);
             M2 = getRandomMatrix2(10);
         
-            setInputMatrix2('m1', M1.a, M1.b, M1.c, M1.d);
-            setInputMatrix2('m2', M2.a, M2.b, M2.c, M2.d);
+            setInputMatrix2('m1', M1.a1, M1.a2, M1.b1, M1.b2);
+            setInputMatrix2('m2', M2.a1, M2.a2, M2.b1, M2.b2);
             break;
 
         case 3:
@@ -120,32 +124,18 @@ function clearInput() {
     }
 }
 
-function getPropertyValue2(M: Matrix2, property_id: number) {
+function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number, column: number): string | number {
     switch (property_id) {
         case 3:
             return M.determinant();
 
         case 4:
-            return M.inverse().displayToHTML();
-
-        case 5:
-            return M.transpose().displayToHTML();
-
-        case 6:
-            return M.adjoint().displayToHTML();
-
-        default:
-            return M.determinant();
-    }
-}
-
-function getPropertyValue3(M: Matrix3, property_id: number, row: string, column: string) {
-    switch (property_id) {
-        case 3:
-            return M.determinant();
-
-        case 4:
-            return M.inverse().displayToHTML();
+            if (M.isInvertible()) {
+                return M.inverse().displayToHTML();
+            }
+            else {
+                return "does not exist";
+            }
 
         case 5:
             return M.transpose().displayToHTML();
@@ -303,36 +293,22 @@ function displayOutput(matrix_dimension: number = 2) {
     let m2_row = getInputRow('m2');
     let m2_column = getInputColumn('m2');
     let m1_property_output, m2_property_output;
+    
+    m1_property_output = getPropertyValue(M1 as any, m1_property, m1_row, m1_column);
+    m2_property_output = getPropertyValue(M2 as any, m2_property, m2_row, m2_column);
 
-    if (matrix_dimension == 2) {
-        m1_property_output = getPropertyValue2(M1 as any, m1_property);
-        m2_property_output = getPropertyValue2(M2 as any, m2_property);
-    }
-    else {
-        m1_property_output = getPropertyValue3(M1 as any, m1_property, m1_row, m1_column);
-        m2_property_output = getPropertyValue3(M2 as any, m2_property, m2_row, m2_column);
-    }
+    // if (matrix_dimension == 2) {
+    //     m1_property_output = getPropertyValue2(M1 as any, m1_property);
+    //     m2_property_output = getPropertyValue2(M2 as any, m2_property);
+    // }
+    // else {
+    // }
 
     const m1_property_name: string = getPropertyName(m1_property);
     const m2_property_name: string = getPropertyName(m2_property);
 
     const operation = Number((document.getElementById('operation') as HTMLSelectElement).value);
-    let answer;
-
-    switch (operation) {
-        case 0: // addition
-            answer = (M1 as any).add(M2);
-            break;
-        case 1: // subtraction
-            answer = (M1 as any).minus(M2);
-            break;
-        case 2: // multiplication
-            answer = (M1 as any).multiply(M2);
-            break;
-        default:
-            answer = (M1 as any).multiply(M2);
-            break;
-    }
+    const answer = getAnswerMatrix(M1!, M2!, operation);
 
     output.innerHTML += `<div class="matrix-output" style="margin: 0; justify-content: center;">
             <div style="display: flex; align-items: center;">

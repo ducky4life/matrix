@@ -131,7 +131,15 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
 
         case 4:
             if (M.isInvertible()) {
-                return M.inverse().displayToHTML();
+                return `
+                <div class="matrix-inverse-output">
+                    <math style="font-size: 4vh; padding-right: 1vw;">
+                        <mfrac>
+                        <mn>1</mn>
+                        <mn>${M.determinant()}</mfrac>
+                    </math>
+                    ${M.adjoint().displayToHTML()} = ${M.inverse().displayToHTML()}
+                </div>`;
             }
             else {
                 return "does not exist";

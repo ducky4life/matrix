@@ -128,6 +128,8 @@ function displayExercise(matrix_dimension: number = 2, max: number = 10) {
     }
 }
 
+
+
 const copyExpression = async (text: string): Promise<void> => {
     try {
         await navigator.clipboard?.writeText(text);
@@ -165,12 +167,8 @@ function hideAnswerAll() {
     });
 }
 
-(document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayExercise(3, 10));
-
-const revealAll = (document.querySelector('#reveal_all') as HTMLInputElement);
-
 const handleRevealAnswer = (event: Event) => {
-
+    
     const target = event.target as HTMLInputElement;
     if (target.checked) {
         revealAnswerAll();
@@ -178,5 +176,11 @@ const handleRevealAnswer = (event: Event) => {
         hideAnswerAll();
     }
 };
+
+
+
+(document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayExercise(3, 10));
+
+const revealAll = (document.querySelector('#reveal_all') as HTMLInputElement);
 
 revealAll.addEventListener('change', handleRevealAnswer);

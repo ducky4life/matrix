@@ -151,8 +151,6 @@ function hideAnswerAll() {
         answer.classList.add('hidden');
     });
 }
-document.querySelector('#submit').addEventListener('click', () => displayExercise(3, 10));
-const revealAll = document.querySelector('#reveal_all');
 const handleRevealAnswer = (event) => {
     const target = event.target;
     if (target.checked) {
@@ -162,4 +160,6 @@ const handleRevealAnswer = (event) => {
         hideAnswerAll();
     }
 };
+document.querySelector('#submit').addEventListener('click', () => displayExercise(3, 10));
+const revealAll = document.querySelector('#reveal_all');
 revealAll.addEventListener('change', handleRevealAnswer);

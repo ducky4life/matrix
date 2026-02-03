@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3 } from "./matrix.js";
+import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getRowName } from "./matrix.js";
 function getInputMatrix2(name) {
     const a1 = document.getElementById(`2x2_${name}_a1`).value;
     const a2 = document.getElementById(`2x2_${name}_a2`).value;
@@ -20,16 +20,7 @@ function getInputMatrix3(name) {
 }
 function getInputRow(name) {
     const row = document.getElementById(`${name}_row`).value;
-    switch (row) {
-        case "1":
-            return "a";
-        case "2":
-            return "b";
-        case "3":
-            return "c";
-        default:
-            return "a";
-    }
+    return getRowName(Number(row));
 }
 function getInputColumn(name) {
     const column = document.getElementById(`${name}_column`).value;
@@ -105,14 +96,32 @@ function clearInput() {
         document.getElementById(`3x3_m2_c3`).value = '';
     }
 }
+function getPropertyValue2(M, property_id) {
+    switch (property_id) {
+        case 3:
+            return M.determinant();
+        case 4:
+            return M.transpose().displayToHTML();
+        case 5:
+            return M.adjoint().displayToHTML();
+        default:
+            return M.determinant();
+    }
+}
 function getPropertyValue3(M, property_id, row, column) {
     switch (property_id) {
         case 3:
             return M.determinant();
         case 4:
-            return M.minor(row, column);
+            return M.transpose().displayToHTML();
         case 5:
+            return M.adjoint().displayToHTML();
+        case 6:
+            return M.minor(row, column);
+        case 7:
             return M.cofactor(row, column);
+        default:
+            return M.determinant();
     }
 }
 function getPropertyName(property_id) {
@@ -120,8 +129,12 @@ function getPropertyName(property_id) {
         case 3:
             return "determinant";
         case 4:
-            return "minor";
+            return "transpose";
         case 5:
+            return "adjoint matrix";
+        case 6:
+            return "minor";
+        case 7:
             return "cofactor";
         default:
             return "determinant";
@@ -223,10 +236,8 @@ function displayOutput(matrix_dimension = 2) {
     let m2_column = getInputColumn('m2');
     let m1_property_output, m2_property_output;
     if (matrix_dimension == 2) {
-        m1_property = 3;
-        m2_property = 3;
-        m1_property_output = M1.determinant();
-        m2_property_output = M2.determinant();
+        m1_property_output = getPropertyValue2(M1, m1_property);
+        m2_property_output = getPropertyValue2(M2, m2_property);
     }
     else {
         m1_property_output = getPropertyValue3(M1, m1_property, m1_row, m1_column);

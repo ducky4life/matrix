@@ -1,4 +1,10 @@
 export class Matrix2 {
+    // a b
+    // c d
+    a;
+    b;
+    c;
+    d;
     constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a = a;
         this.b = b;
@@ -35,8 +41,36 @@ export class Matrix2 {
     determinant() {
         return (this.a * this.d - this.b * this.c);
     }
+    isInvertible() {
+        if (this.determinant() == 0) {
+            return false;
+        }
+        return true;
+    }
+    transpose() {
+        return new Matrix2(this.a, this.c, this.b, this.d);
+    }
+    adjoint() {
+        return new Matrix2(this.d, -this.b, -this.c, this.a);
+    }
+    inverse() {
+        const detScalingMatrix = scalarToMatrix2(this.determinant());
+        return detScalingMatrix.multiply(this.adjoint());
+    }
 }
 export class Matrix3 {
+    // a1 a2 a3
+    // b1 b2 b3
+    // c1 c2 c3
+    a1;
+    a2;
+    a3;
+    b1;
+    b2;
+    b3;
+    c1;
+    c2;
+    c3;
     constructor(a1 = 0, a2 = 0, a3 = 0, b1 = 0, b2 = 0, b3 = 0, c1 = 0, c2 = 0, c3 = 0) {
         this.a1 = a1;
         this.a2 = a2;
@@ -60,11 +94,11 @@ export class Matrix3 {
     displayToHTML() {
         return (`
             <div class="matrix-container">
-                <div class="matrix-3">
-                    <div>${this.a1}</div><div>${this.a2}</div><div>${this.a3}</div>
-                    <div>${this.b1}</div><div>${this.b2}</div><div>${this.b3}</div>
-                    <div>${this.c1}</div><div>${this.c2}</div><div>${this.c3}</div>
-                </div>
+            <div class="matrix-3">
+            <div>${this.a1}</div><div>${this.a2}</div><div>${this.a3}</div>
+            <div>${this.b1}</div><div>${this.b2}</div><div>${this.b3}</div>
+            <div>${this.c1}</div><div>${this.c2}</div><div>${this.c3}</div>
+            </div>
             </div>`);
     }
     add(M) {
@@ -113,6 +147,49 @@ export class Matrix3 {
         }
         return this.minor(row, column) * coefficient;
     }
+    isInvertible() {
+        if (this.determinant() == 0) {
+            return false;
+        }
+        return true;
+    }
+    transpose() {
+        return new Matrix3(this.a1, this.b1, this.c1, this.a2, this.b2, this.c2, this.a3, this.b3, this.c3);
+    }
+    adjoint() {
+        const cofactorArray = [];
+        for (let row = 1; row <= 3; row++) {
+            for (let column = 1; column <= 3; column++) {
+                const elementCofactor = this.cofactor(getRowName(row), getColumnName(column));
+                cofactorArray.push(elementCofactor);
+            }
+        }
+        const cofactorMatrix = new Matrix3(cofactorArray[0], cofactorArray[1], cofactorArray[2], cofactorArray[3], cofactorArray[4], cofactorArray[5], cofactorArray[6], cofactorArray[7], cofactorArray[8]);
+        return cofactorMatrix.transpose();
+    }
+    inverse() {
+        const detScalingMatrix = scalarToMatrix3(this.determinant());
+        return detScalingMatrix.multiply(this.adjoint());
+    }
+}
+export function scalarToMatrix2(scalar) {
+    return new Matrix2(scalar, 0, 0, scalar);
+}
+export function scalarToMatrix3(scalar) {
+    return new Matrix3(scalar, 0, 0, 0, scalar, 0, 0, 0, scalar);
+}
+export function getRowName(row) {
+    switch (row) {
+        case 1:
+            return "a";
+        case 2:
+            return "b";
+        case 3:
+            return "c";
+    }
+}
+export function getColumnName(column) {
+    return column.toString();
 }
 export function getRandomMatrix2(max = 10) {
     max = max + 1;

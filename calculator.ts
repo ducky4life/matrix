@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3 } from "./matrix.js";
+import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getRowName } from "./matrix.js";
 
 function getInputMatrix2(name: string) {
     const a1 = (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value;
@@ -26,17 +26,7 @@ function getInputMatrix3(name: string) {
 function getInputRow(name: string) {
     const row = (document.getElementById(`${name}_row`) as HTMLInputElement).value;
 
-    switch (row) {
-        case "1":
-            return "a";
-        case "2":
-            return "b";
-        case "3":
-            return "c";
-
-        default:
-            return "a";
-    }
+    return getRowName(Number(row));
 }
 
 function getInputColumn(name: string) {
@@ -130,16 +120,41 @@ function clearInput() {
     }
 }
 
+function getPropertyValue2(M: Matrix2, property_id: number) {
+    switch (property_id) {
+        case 3:
+            return M.determinant();
+
+        case 4:
+            return M.transpose().displayToHTML();
+
+        case 5:
+            return M.adjoint().displayToHTML();
+
+        default:
+            return M.determinant();
+    }
+}
+
 function getPropertyValue3(M: Matrix3, property_id: number, row: string, column: string) {
     switch (property_id) {
         case 3:
             return M.determinant();
 
         case 4:
-            return M.minor(row, column);
+            return M.transpose().displayToHTML();
 
         case 5:
+            return M.adjoint().displayToHTML();
+
+        case 6:
+            return M.minor(row, column);
+
+        case 7:
             return M.cofactor(row, column);
+
+        default:
+            return M.determinant();
     }
 }
 
@@ -149,11 +164,17 @@ function getPropertyName(property_id: number) {
             return "determinant";
 
         case 4:
-            return "minor";
-
-        case 5:
-            return "cofactor";
+            return "transpose";
         
+        case 5:
+            return "adjoint matrix";
+        
+        case 6:
+            return "minor";
+        
+        case 7:
+            return "cofactor";
+            
         default:
             return "determinant";
     }
@@ -275,14 +296,12 @@ function displayOutput(matrix_dimension: number = 2) {
     let m1_property_output, m2_property_output;
 
     if (matrix_dimension == 2) {
-        m1_property = 3;
-        m2_property = 3;
-        m1_property_output = M1!.determinant();
-        m2_property_output = M2!.determinant();
+        m1_property_output = getPropertyValue2(M1, m1_property);
+        m2_property_output = getPropertyValue2(M2, m2_property);
     }
     else {
-        m1_property_output = getPropertyValue3(M1 as any, m1_property, m1_row, m1_column);
-        m2_property_output = getPropertyValue3(M2 as any, m2_property, m2_row, m2_column);
+        m1_property_output = getPropertyValue3(M1, m1_property, m1_row, m1_column);
+        m2_property_output = getPropertyValue3(M2, m2_property, m2_row, m2_column);
     }
 
     const m1_property_name: string = getPropertyName(m1_property);

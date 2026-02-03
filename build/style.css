@@ -353,11 +353,12 @@ input:checked + .slider:before {
 /* #endregion */
 
 .matrix-container {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     font-size: min(1.5vw, 20px);
     font-family: 'Lato', sans-serif;
     font-weight: 100;
+    justify-content: center;
 }
 
 @media all and (orientation: portrait) {

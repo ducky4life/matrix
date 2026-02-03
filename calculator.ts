@@ -310,7 +310,7 @@ function displayOutput(matrix_dimension: number = 2) {
     const operation = Number((document.getElementById('operation') as HTMLSelectElement).value);
     const answer = getAnswerMatrix(M1!, M2!, operation);
 
-    output.innerHTML += `<div class="matrix-output" style="margin: 0; justify-content: center;">
+    output.innerHTML += `<div class="matrix-output" style="margin: 0; justify-content: center; padding-bottom: 2vh;">
             <div style="display: flex; align-items: center;">
                 <div class="matrix-answer">${answer.displayToHTML()}</div>
             </div><br>`

@@ -88,7 +88,7 @@ export class Matrix2 {
 
     
     inverse(): Matrix2 {
-        const detScalingMatrix: Matrix2 = scalarToMatrix2(this.determinant());
+        const detScalingMatrix: Matrix2 = scalarToMatrix2(1/this.determinant());
         return detScalingMatrix.multiply(this.adjoint());
     }
 }
@@ -253,7 +253,7 @@ export class Matrix3 {
     }
 
     inverse(): Matrix3 {
-        const detScalingMatrix: Matrix3 = scalarToMatrix3(this.determinant());
+        const detScalingMatrix: Matrix3 = scalarToMatrix3(1/this.determinant());
         return detScalingMatrix.multiply(this.adjoint());
     }
 }

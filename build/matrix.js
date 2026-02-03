@@ -59,7 +59,7 @@ export class Matrix2 {
         return new Matrix2(this.b2, -this.a2, -this.b1, this.a1);
     }
     inverse() {
-        const detScalingMatrix = scalarToMatrix2(this.determinant());
+        const detScalingMatrix = scalarToMatrix2(1 / this.determinant());
         return detScalingMatrix.multiply(this.adjoint());
     }
 }
@@ -162,7 +162,7 @@ export class Matrix3 {
         return cofactorMatrix.transpose();
     }
     inverse() {
-        const detScalingMatrix = scalarToMatrix3(this.determinant());
+        const detScalingMatrix = scalarToMatrix3(1 / this.determinant());
         return detScalingMatrix.multiply(this.adjoint());
     }
 }

@@ -28,9 +28,9 @@ export class Vector {
             </div>`)
     }
 
-    roundElements(): Vector {
-        const a1 = Number(this.a1.toFixed(2));
-        const b1 = Number(this.b1.toFixed(2));
+    roundElements(digits: number = 2): Vector {
+        const a1 = Number(this.a1.toFixed(digits));
+        const b1 = Number(this.b1.toFixed(digits));
 
         return new Vector(a1, b1);
     }
@@ -73,12 +73,12 @@ export class Matrix2 {
             </div>`)
     }
 
-    roundElements(): Matrix2 {
+    roundElements(digits: number = 2): Matrix2 {
         const matrixArray = this.display();
         const roundedMatrixArray: Array<number> = [];
 
         matrixArray.forEach((matrixElement) => {
-            roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
+            roundedMatrixArray.push(Number(matrixElement.toFixed(digits)));
         })
 
         return arrayToMatrix2(roundedMatrixArray);
@@ -253,7 +253,7 @@ export class Matrix2 {
         const eigenbasisInverse = eigenbasis.inverse();
 
         // basis^(-1) * matrix * basis
-        const changedBasis = this.changeBasis(eigenbasis);
+        const changedBasis = this.changeBasis(eigenbasis).roundElements(4);
 
         if (changedBasis.isDiagonal()) {
 
@@ -262,13 +262,17 @@ export class Matrix2 {
             const exponentiatedArray: Array<number> = [];
 
             changedBasisArray.forEach((element) => {
-                exponentiatedArray.push(Math.pow(element, power));
+                exponentiatedArray.push(Math.pow(element, Math.abs(power)));
             })
 
             const exponentiatedMatrix: Matrix2 = arrayToMatrix2(exponentiatedArray);
             
             // undo changing basis: basis * changedBasis * basis^(-1)
             const initialBasis = exponentiatedMatrix.changeBasis(eigenbasisInverse);
+
+            if (power < 0) { // A^(-n) = (A^n)^(-1)
+                return initialBasis.inverse();
+            }
             return initialBasis;
         }
 
@@ -277,11 +281,12 @@ export class Matrix2 {
     }
 }
 
-// const testMatrix = new Matrix2(5,1,0,7);
+// const testMatrix = new Matrix2(1,2,3,2);
 // const testBasis = testMatrix.eigenbasis();
 
 // console.log(testMatrix.eigenvectors());
-// console.log(testMatrix.changeOfBasisExponentiation(testBasis, 3))
+// console.log(testMatrix.inverse().multiply(testMatrix.inverse()).roundElements())
+// console.log(testMatrix.changeOfBasisExponentiation(testBasis, -2))
 // console.log(testMatrix.multiply(testMatrix).multiply(testMatrix))
 // console.log(new Matrix2(1, 2, 0, 1).numberOfEigenvalues());
 
@@ -335,12 +340,12 @@ export class Matrix3 {
             </div>`);
     }
 
-    roundElements(): Matrix3 {
+    roundElements(digits: number = 2): Matrix3 {
         const matrixArray = this.display();
         const roundedMatrixArray: Array<number> = [];
 
         matrixArray.forEach((matrixElement) => {
-            roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
+            roundedMatrixArray.push(Number(matrixElement.toFixed(digits)));
         })
 
         return arrayToMatrix3(roundedMatrixArray);

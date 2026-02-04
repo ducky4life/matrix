@@ -134,7 +134,10 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
                 case -2:
                     return M.eigenvectors().toString();
                 case -3:
-                    return M.eigenbasis().displayToHTML();
+                    if (M.eigenvalueNumber() == 2) {
+                        return M.eigenbasis().displayToHTML();
+                    }
+                    return "no eigenbasis";
                 default:
                     return "";
             }
@@ -184,6 +187,15 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
 
 function getPropertyName(property_id: number) {
     switch (property_id) {
+        case -1:
+            return "eigenvalues";
+
+        case -2:
+            return "eigenvectors";
+
+        case -3:
+            return "eigenbasis";
+
         case 3:
             return "determinant";
         

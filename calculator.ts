@@ -168,7 +168,14 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
                 case -4:
                     if (M.numberOfEigenvalues() == 2) {
                         const eigenbasisMatrix = M.eigenbasis();
-                        return M.changeOfBasisExponentiation(eigenbasisMatrix, power).displayToHTML();
+                        
+                        if (M.changeBasis(eigenbasisMatrix).isDiagonal()) {
+                            const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power);
+                            return exponentiatedMatrix.displayToHTML();
+                        }
+                        
+                        // probably floating point error such that changed matrix isn't diagonal
+                        return "cannot be calculated due to floating points";
                     }
                     return "no eigenbasis, cannot change basis";
                 default:

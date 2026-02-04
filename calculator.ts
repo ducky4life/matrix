@@ -124,8 +124,20 @@ function clearInput() {
     }
 }
 
+const eigenPropertyId: Array<number> = [-1, -2, -3];
+
+function getInputProperty(name: string): number {
+    let property_id = Number((document.getElementById(`${name}_property`) as HTMLSelectElement).value);
+
+    if (curr_dimension == 3 && eigenPropertyId.includes(property_id)) {
+        property_id = 3;
+    }
+
+    return property_id;
+}
+
 function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number, column: number): string | number {
-    if ([-1, -2, -3].includes(property_id)) {
+    if (eigenPropertyId.includes(property_id)) {
         if (M instanceof Matrix2) {
             M = M as Matrix2;
             switch (property_id) {
@@ -326,8 +338,8 @@ function displayOutput(matrix_dimension: number = 2) {
             break;
     }
 
-    let m1_property = Number((document.getElementById('m1_property') as HTMLSelectElement).value);
-    let m2_property = Number((document.getElementById('m2_property') as HTMLSelectElement).value);
+    let m1_property = getInputProperty('m1');
+    let m2_property = getInputProperty('m2');
     let m1_row = getInputRow('m1');
     let m1_column = getInputColumn('m1');
     let m2_row = getInputRow('m2');

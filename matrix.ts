@@ -1,3 +1,20 @@
+export class Vector {
+    // a1
+    // b1
+
+    a1: number;
+    b1: number;
+
+    constructor(a=0,b=0) {
+        this.a1 = a;
+        this.b1 = b;
+    }
+
+    display(): Array<number> {
+        return [this.a1, this.b1];
+    }
+}
+
 export class Matrix2 {
     // a1 a1
     // b1 b2
@@ -97,7 +114,67 @@ export class Matrix2 {
         }
         return inverseMatrix;
     }
+
+    eigenvalueNumber() {
+        const discriminant = (this.a1 + this.b2) - 4*(this.determinant());
+        if (discriminant > 0) {
+            return 2;
+        }
+        else if (discriminant == 0) {
+            return 1;
+        }
+        return 0;
+    }
+
+    eigenvalues(): Array<number> {
+        const discriminant = (this.a1 + this.b2) - 4*(this.determinant());
+        let eigenvalueArray: Array<number> = [];
+        if (discriminant > 0) {
+            eigenvalueArray = [
+                ((this.a1+this.b2) + Math.sqrt(discriminant))/2,
+                ((this.a1+this.b2) - Math.sqrt(discriminant))/2,
+            ];
+        }
+        else if (discriminant == 0) {
+            eigenvalueArray = [
+                ((this.a1+this.b2)/2)
+            ]
+        }
+        return eigenvalueArray;
+    }
+
+    eigenvectors(): Array<Vector> {
+
+        const eigenvaluesArray = this.eigenvalues();
+        let eigenvectorsArray: Array<Vector> = [];
+
+        eigenvaluesArray.forEach((eigenvalue) => {
+            eigenvectorsArray.push(normalizeEigenvector(new Vector(this.a1-eigenvalue, this.b1)));
+        })
+
+        return eigenvectorsArray;
+    }
+
+    eigenbasis(): Matrix2 {
+
+        const eigenvectorsArray = this.eigenvectors();
+
+        if (eigenvectorsArray.length == 2) {
+            const eigenvector_1 = eigenvectorsArray[0];
+            const eigenvector_2 = eigenvectorsArray[1];
+
+            return new Matrix2(
+                eigenvector_1.a1, eigenvector_2.a1,
+                eigenvector_1.b1, eigenvector_2.b1
+            );
+        }
+
+        console.log("no eigenbasis");
+        return new Matrix2();
+    }
 }
+
+console.log(new Matrix2(-7, -18, 3, 8).eigenvectors());
 
 export class Matrix3 {
     // a1 a2 a3
@@ -266,6 +343,28 @@ export class Matrix3 {
         }
         return inverseMatrix;
     }
+}
+
+export function normalizeEigenvector(eigenvector: Vector): Vector {
+    let a = eigenvector.a1;
+    let b = eigenvector.b1;
+
+    if (a<0 && b<0) {
+        a = -a;
+        b = -b;
+    }
+
+    const smaller = Math.min(Math.abs(a),Math.abs(b));
+
+    for (let i=smaller; i>1; i--) {
+        if (a%i == b%i && a%i == 0) {
+            a = a/i;
+            b = b/i;
+            break;
+        }
+    }
+
+    return new Vector(a, b);
 }
 
 export function scalarToMatrix2(scalar: number): Matrix2 {

@@ -268,11 +268,11 @@ export class Matrix2 {
     }
 }
 
-// const testMatrix = new Matrix2(3,1,0,2);
+// const testMatrix = new Matrix2(5,1,0,7);
 // const testBasis = testMatrix.eigenbasis();
 
 // console.log(testMatrix.eigenvectors());
-// console.log(testMatrix.changeOfBasisExponentiation(new Matrix2(1, -1, 0, 1), 3))
+// console.log(testMatrix.changeOfBasisExponentiation(testBasis, 3))
 // console.log(testMatrix.multiply(testMatrix).multiply(testMatrix))
 // console.log(new Matrix2(1, 2, 0, 1).numberOfEigenvalues());
 

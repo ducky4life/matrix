@@ -43,6 +43,15 @@ function getInputColumn(name: string): number {
     return column;
 }
 
+function getInputPower(name: string): number {
+    const power = Number((document.getElementById(`${name}_power`) as HTMLInputElement).value);
+
+    if (Number.isNaN(power)) {
+        return 1;
+    }
+    return power;
+}
+
 function setInputMatrix2(name: string, a1: number, a2: number, b1: number, b2: number) {
     (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value = String(a1);
     (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value = String(a2);
@@ -124,7 +133,7 @@ function clearInput() {
     }
 }
 
-const eigenPropertyId: Array<number> = [-1, -2, -3];
+const eigenPropertyId: Array<number> = [-1, -2, -3, -4];
 
 function getInputProperty(name: string): number {
     let property_id = Number((document.getElementById(`${name}_property`) as HTMLSelectElement).value);
@@ -136,7 +145,7 @@ function getInputProperty(name: string): number {
     return property_id;
 }
 
-function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number, column: number): string | number {
+function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number, column: number, power: number): string | number {
     if (eigenPropertyId.includes(property_id)) {
         if (M instanceof Matrix2) {
             M = M as Matrix2;
@@ -156,6 +165,12 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
                         return M.eigenbasis().displayToHTML();
                     }
                     return "no eigenbasis";
+                case -4:
+                    if (M.numberOfEigenvalues() == 2) {
+                        const eigenbasisMatrix = M.eigenbasis();
+                        return M.changeOfBasisExponentiation(eigenbasisMatrix, power).displayToHTML();
+                    }
+                    return "no eigenbasis, cannot change basis";
                 default:
                     return "";
             }
@@ -213,6 +228,9 @@ function getPropertyName(property_id: number) {
 
         case -3:
             return "eigenbasis";
+
+        case -4:
+            return "raised power";
 
         case 3:
             return "determinant";
@@ -305,6 +323,8 @@ function setInputEventListener() {
     switch (curr_dimension) {
         case 2:
             inputElementIds = ['2x2_m1_a1', '2x2_m1_a2', '2x2_m1_b1', '2x2_m1_b2', '2x2_m2_a1', '2x2_m2_a2', '2x2_m2_b1', '2x2_m2_b2',
+                'm1_row', 'm1_column', 'm2_row', 'm2_column',
+                'm1_power', 'm2_power',
                 'm1_property', 'm2_property', 'operation'
             ];
             break;
@@ -346,14 +366,19 @@ function displayOutput(matrix_dimension: number = 2) {
 
     let m1_property = getInputProperty('m1');
     let m2_property = getInputProperty('m2');
+
     let m1_row = getInputRow('m1');
     let m1_column = getInputColumn('m1');
+    let m1_power = getInputPower('m1');
+
     let m2_row = getInputRow('m2');
     let m2_column = getInputColumn('m2');
+    let m2_power = getInputPower('m2');
+
     let m1_property_output, m2_property_output;
     
-    m1_property_output = getPropertyValue(M1 as any, m1_property, m1_row, m1_column);
-    m2_property_output = getPropertyValue(M2 as any, m2_property, m2_row, m2_column);
+    m1_property_output = getPropertyValue(M1 as any, m1_property, m1_row, m1_column, m1_power);
+    m2_property_output = getPropertyValue(M2 as any, m2_property, m2_row, m2_column, m2_power);
 
     
 

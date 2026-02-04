@@ -550,7 +550,8 @@ math, mfrac, mn {
 }
 
 input[id$="_row"],
-input[id$="_column"] {
+input[id$="_column"],
+input[id$="_power"] {
   width: 3vw;
   font-size: 1.5vw;
 }

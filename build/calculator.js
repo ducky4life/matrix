@@ -32,6 +32,13 @@ function getInputColumn(name) {
     }
     return column;
 }
+function getInputPower(name) {
+    const power = Number(document.getElementById(`${name}_power`).value);
+    if (Number.isNaN(power)) {
+        return 1;
+    }
+    return power;
+}
 function setInputMatrix2(name, a1, a2, b1, b2) {
     document.getElementById(`2x2_${name}_a1`).value = String(a1);
     document.getElementById(`2x2_${name}_a2`).value = String(a2);
@@ -99,7 +106,7 @@ function clearInput() {
         document.getElementById(`3x3_m2_c3`).value = '';
     }
 }
-const eigenPropertyId = [-1, -2, -3];
+const eigenPropertyId = [-1, -2, -3, -4];
 function getInputProperty(name) {
     let property_id = Number(document.getElementById(`${name}_property`).value);
     if (curr_dimension == 3 && eigenPropertyId.includes(property_id)) {
@@ -107,7 +114,7 @@ function getInputProperty(name) {
     }
     return property_id;
 }
-function getPropertyValue(M, property_id, row, column) {
+function getPropertyValue(M, property_id, row, column, power) {
     if (eigenPropertyId.includes(property_id)) {
         if (M instanceof Matrix2) {
             M = M;
@@ -127,6 +134,12 @@ function getPropertyValue(M, property_id, row, column) {
                         return M.eigenbasis().displayToHTML();
                     }
                     return "no eigenbasis";
+                case -4:
+                    if (M.numberOfEigenvalues() == 2) {
+                        const eigenbasisMatrix = M.eigenbasis();
+                        return M.changeOfBasisExponentiation(eigenbasisMatrix, power).displayToHTML();
+                    }
+                    return "no eigenbasis, cannot change basis";
                 default:
                     return "";
             }
@@ -173,6 +186,8 @@ function getPropertyName(property_id) {
             return "eigenvectors";
         case -3:
             return "eigenbasis";
+        case -4:
+            return "raised power";
         case 3:
             return "determinant";
         case 4:
@@ -247,6 +262,8 @@ function setInputEventListener() {
     switch (curr_dimension) {
         case 2:
             inputElementIds = ['2x2_m1_a1', '2x2_m1_a2', '2x2_m1_b1', '2x2_m1_b2', '2x2_m2_a1', '2x2_m2_a2', '2x2_m2_b1', '2x2_m2_b2',
+                'm1_row', 'm1_column', 'm2_row', 'm2_column',
+                'm1_power', 'm2_power',
                 'm1_property', 'm2_property', 'operation'
             ];
             break;
@@ -281,11 +298,13 @@ function displayOutput(matrix_dimension = 2) {
     let m2_property = getInputProperty('m2');
     let m1_row = getInputRow('m1');
     let m1_column = getInputColumn('m1');
+    let m1_power = getInputPower('m1');
     let m2_row = getInputRow('m2');
     let m2_column = getInputColumn('m2');
+    let m2_power = getInputPower('m2');
     let m1_property_output, m2_property_output;
-    m1_property_output = getPropertyValue(M1, m1_property, m1_row, m1_column);
-    m2_property_output = getPropertyValue(M2, m2_property, m2_row, m2_column);
+    m1_property_output = getPropertyValue(M1, m1_property, m1_row, m1_column, m1_power);
+    m2_property_output = getPropertyValue(M2, m2_property, m2_row, m2_column, m2_power);
     const m1_property_name = getPropertyName(m1_property);
     const m2_property_name = getPropertyName(m2_property);
     const operation = Number(document.getElementById('operation').value);

@@ -25,8 +25,8 @@
         <form style="width: 100vw;" class="matrix-form">
             <h2>Matrix operation calculator</h2><br>
             <a class="codebadges" href="https://github.com/ducky4life/matrix"><img src="https://img.shields.io/badge/Source Code-181717?logo=github&logoColor=fff&style=for-the-badge" alt="GitHub Badge"></a>
-            <p style="padding-top: 10px;">minors/cofactors: input row/column, eigenvalue/vector/basis: 2x2 only</p>
-            <p style="padding-top: 10px;">idk why safari transform is so blurry, use chrome</p>
+            <p style="padding-top: 10px;">minors/cofactors: input row/column, eigenvalue/vector/basis/exponentiation (change of basis, input power): 2x2 only</p>
+            <p style="padding-top: 10px;">idk why safari transform is so blurry, use desktop chrome</p>
             <br>
 
             <div style="padding-bottom: 65px;">
@@ -53,9 +53,11 @@
                         <option value="-1">eigenvalue</option>
                         <option value="-2">eigenvector</option>
                         <option value="-3">eigenbasis</option>
+                        <option value="-4">raise power</option>
                     </select>
                     <input id="m1_row" placeholder="row"></input>
                     <input id="m1_column" placeholder="col"></input>
+                    <input id="m1_power" placeholder="pow"></input>
                 </div>
             </div>
 
@@ -83,9 +85,11 @@
                         <option value="-1">eigenvalue</option>
                         <option value="-2">eigenvector</option>
                         <option value="-3">eigenbasis</option>
+                        <option value="-4">raise power</option>
                     </select>
                     <input id="m2_row" placeholder="row"></input>
                     <input id="m2_column" placeholder="col"></input>
+                    <input id="m2_power" placeholder="pow"></input>
                 </div>
             </div>
 

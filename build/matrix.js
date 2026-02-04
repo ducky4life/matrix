@@ -142,7 +142,15 @@ export class Matrix2 {
         const eigenvaluesArray = this.eigenvalues();
         let eigenvectorsArray = [];
         eigenvaluesArray.forEach((eigenvalue) => {
-            const normalizedVector = normalizeEigenvector(new Vector(this.a1 - eigenvalue, this.b1));
+            let V_a1, V_b1;
+            V_a1 = this.a1 - eigenvalue;
+            V_b1 = this.b1;
+            if (V_a1 == 0 && V_b1 == 0) {
+                V_a1 = this.a2;
+                V_b1 = this.b2 - eigenvalue;
+            }
+            const eigenvector = new Vector(V_a1, V_b1);
+            const normalizedVector = normalizeEigenvector(eigenvector);
             eigenvectorsArray.push(normalizedVector.roundElements());
         });
         return eigenvectorsArray;
@@ -308,6 +316,9 @@ export function normalizeEigenvector(eigenvector) {
     if (a < 0 && b < 0) {
         a = -a;
         b = -b;
+    }
+    if (a == 0 || b == 0) {
+        return eigenvector;
     }
     const smaller = Math.min(Math.abs(a), Math.abs(b));
     for (let i = smaller; i > 1; i--) {

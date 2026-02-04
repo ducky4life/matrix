@@ -115,7 +115,7 @@ export class Matrix2 {
         return inverseMatrix;
     }
 
-    eigenvalueNumber() {
+    eigenvalueNumber(): number {
         const discriminant = (this.a1 + this.b2) - 4*(this.determinant());
         if (discriminant > 0) {
             return 2;

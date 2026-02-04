@@ -113,17 +113,17 @@ function getPropertyValue(M, property_id, row, column) {
             M = M;
             switch (property_id) {
                 case -1:
-                    if (M.eigenvalueNumber() > 0) {
+                    if (M.numberOfEigenvalues() > 0) {
                         return eigenvaluesToString(M.eigenvalues());
                     }
                     return "no eigenvalues";
                 case -2:
-                    if (M.eigenvalueNumber() > 0) {
+                    if (M.numberOfEigenvalues() > 0) {
                         return eigenvectorsToString(M.eigenvectors());
                     }
                     return "no eigenvectors";
                 case -3:
-                    if (M.eigenvalueNumber() == 2) {
+                    if (M.numberOfEigenvalues() == 2) {
                         return M.eigenbasis().displayToHTML();
                     }
                     return "no eigenbasis";

@@ -139,15 +139,21 @@ export class Matrix2 {
 
     
     inverse(round_elements: boolean = true): Matrix2 {
-        const detScalingMatrix: Matrix2 = scalarToMatrix2(1/this.determinant());
-        const inverseMatrix: Matrix2 = detScalingMatrix.multiply(this.adjoint());
-        if (round_elements) {
-            return inverseMatrix.roundElements();
+
+        if (this.isInvertible()) {
+            const detScalingMatrix: Matrix2 = scalarToMatrix2(1/this.determinant());
+            const inverseMatrix: Matrix2 = detScalingMatrix.multiply(this.adjoint());
+            if (round_elements) {
+                return inverseMatrix.roundElements();
+            }
+            return inverseMatrix;
         }
-        return inverseMatrix;
+
+        console.log("not invertible");
+        return new Matrix2();
     }
 
-    eigenvalueNumber(): number {
+    numberOfEigenvalues(): number {
         const discriminant = (this.a1 + this.b2)*(this.a1 + this.b2) - 4*(this.determinant());
         if (discriminant > 0) {
             return 2;
@@ -182,9 +188,12 @@ export class Matrix2 {
 
         eigenvaluesArray.forEach((eigenvalue) => {
             let V_a1: number, V_b1: number;
+
+            // try to get eigenvector from column 1
             V_a1 = this.a1 - eigenvalue;
             V_b1 = this.b1;
 
+            // if (0, 0), try column 2
             if (V_a1 == 0 && V_b1 == 0) {
                 V_a1 = this.a2;
                 V_b1 = this.b2 - eigenvalue;
@@ -215,10 +224,57 @@ export class Matrix2 {
         console.log("no eigenbasis");
         return new Matrix2();
     }
+
+    isDiagonal(): boolean {
+        if (this.a2 == 0 && this.b1 == 0) {
+            return true;
+        }
+        return false;
+    }
+
+    changeBasis(basis: Matrix2): Matrix2 {
+        const basisInverse = basis.inverse();
+
+        // basis^(-1) * matrix * basis
+        return basisInverse.multiply(this.multiply(basis));
+    }
+
+    changeOfBasisExponentiation(eigenbasis: Matrix2, power: number): Matrix2 {
+
+        const eigenbasisInverse = eigenbasis.inverse();
+
+        // basis^(-1) * matrix * basis
+        const changedBasis = this.changeBasis(eigenbasis);
+
+        if (changedBasis.isDiagonal()) {
+
+            // calculate exponentiation
+            const changedBasisArray: Array<number> = changedBasis.display();
+            const exponentiatedArray: Array<number> = [];
+
+            changedBasisArray.forEach((element) => {
+                exponentiatedArray.push(Math.pow(element, power));
+            })
+
+            const exponentiatedMatrix: Matrix2 = arrayToMatrix2(exponentiatedArray);
+            
+            // undo changing basis: basis * changedBasis * basis^(-1)
+            const initialBasis = exponentiatedMatrix.changeBasis(eigenbasisInverse);
+            return initialBasis;
+        }
+
+        console.log("matrix is not diagonal");
+        return new Matrix2();
+    }
 }
 
-console.log(new Matrix2(-7, -18, 3, 8).eigenvectors());
-console.log(new Matrix2(1, 2, 0, 1).eigenvalueNumber());
+// const testMatrix = new Matrix2(3,1,0,2);
+// const testBasis = testMatrix.eigenbasis();
+
+// console.log(testMatrix.eigenvectors());
+// console.log(testMatrix.changeOfBasisExponentiation(new Matrix2(1, -1, 0, 1), 3))
+// console.log(testMatrix.multiply(testMatrix).multiply(testMatrix))
+// console.log(new Matrix2(1, 2, 0, 1).numberOfEigenvalues());
 
 export class Matrix3 {
     // a1 a2 a3
@@ -437,6 +493,8 @@ export function normalizeEigenvector(eigenvector: Vector): Vector {
     if (b==0) {
         return new Vector(1, 0);
     }
+
+    // take out common factors
 
     const smaller = Math.min(Math.abs(a),Math.abs(b));
 

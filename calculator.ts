@@ -125,6 +125,26 @@ function clearInput() {
 }
 
 function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number, column: number): string | number {
+    if ([-1, -2, -3].includes(property_id)) {
+        if (M instanceof Matrix2) {
+            M = M as Matrix2;
+            switch (property_id) {
+                case -1:
+                    return M.eigenvalues().toString();
+                case -2:
+                    return M.eigenvectors().toString();
+                case -3:
+                    return M.eigenbasis().displayToHTML();
+                default:
+                    return "";
+            }
+        }
+
+        else {
+            property_id = 3;
+        }
+    }
+
     switch (property_id) {
         case 3:
             return M.determinant();
@@ -305,12 +325,7 @@ function displayOutput(matrix_dimension: number = 2) {
     m1_property_output = getPropertyValue(M1 as any, m1_property, m1_row, m1_column);
     m2_property_output = getPropertyValue(M2 as any, m2_property, m2_row, m2_column);
 
-    // if (matrix_dimension == 2) {
-    //     m1_property_output = getPropertyValue2(M1 as any, m1_property);
-    //     m2_property_output = getPropertyValue2(M2 as any, m2_property);
-    // }
-    // else {
-    // }
+    
 
     const m1_property_name: string = getPropertyName(m1_property);
     const m2_property_name: string = getPropertyName(m2_property);

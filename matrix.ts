@@ -181,7 +181,7 @@ export class Matrix2 {
         return eigenvalueArray;
     }
 
-    eigenvectors(): Array<Vector> {
+    eigenvectors(round_elements: boolean = true): Array<Vector> {
 
         const eigenvaluesArray = this.eigenvalues();
         let eigenvectorsArray: Array<Vector> = [];
@@ -201,7 +201,12 @@ export class Matrix2 {
             
             const eigenvector = new Vector(V_a1, V_b1);
             const simplifiedVector = simplifyEigenvector(eigenvector);
-            eigenvectorsArray.push(simplifiedVector.roundElements());
+            if (round_elements) {
+                eigenvectorsArray.push(simplifiedVector.roundElements());
+            }
+            else {
+                eigenvectorsArray.push(simplifiedVector);
+            }
         })
 
         return eigenvectorsArray;
@@ -209,7 +214,7 @@ export class Matrix2 {
 
     eigenbasis(): Matrix2 {
 
-        const eigenvectorsArray = this.eigenvectors();
+        const eigenvectorsArray = this.eigenvectors(false);
 
         if (eigenvectorsArray.length == 2) {
             const eigenvector_1 = eigenvectorsArray[0];

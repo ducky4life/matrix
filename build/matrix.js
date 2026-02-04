@@ -317,8 +317,11 @@ export function normalizeEigenvector(eigenvector) {
         a = -a;
         b = -b;
     }
-    if (a == 0 || b == 0) {
-        return eigenvector;
+    if (a == 0) {
+        return new Vector(0, 1);
+    }
+    if (b == 0) {
+        return new Vector(1, 0);
     }
     const smaller = Math.min(Math.abs(a), Math.abs(b));
     for (let i = smaller; i > 1; i--) {

@@ -19,5 +19,6 @@ made to practice my typescript skills and learn how to use classes.
 - [ ] more operations
 - [ ] verify user input answers
 - [x] matrix calculator
+- [ ] fraction class so i can actually compute inverses and eigenbases
 - [ ] customise max element in matrix
 - [ ] github actions to build?

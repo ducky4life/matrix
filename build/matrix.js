@@ -10,6 +10,9 @@ export class Vector {
     display() {
         return [this.a1, this.b1];
     }
+    displayToString() {
+        return `[${this.a1}, ${this.b1}]`;
+    }
     displayToHTML() {
         return (`
             <div class="matrix-container">
@@ -265,19 +268,14 @@ export function eigenvaluesToString(eigenvalues) {
     let eigenvalueString = "";
     eigenvalues.forEach((eigenvalue) => {
         eigenvalueString += eigenvalue.toFixed(2);
-        if (eigenvalues.length == 2) {
-            eigenvalueString += ", ";
-        }
+        eigenvalueString += ", ";
     });
-    return eigenvalueString;
+    return eigenvalueString.slice(0, -2);
 }
 export function eigenvectorsToString(eigenvectors) {
     let eigenvectorString = "";
     eigenvectors.forEach((eigenvector) => {
         eigenvectorString += eigenvector.displayToHTML();
-        if (eigenvectors.length == 2) {
-            eigenvectorString += ", ";
-        }
     });
     return eigenvectorString;
 }

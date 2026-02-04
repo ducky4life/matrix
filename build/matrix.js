@@ -146,8 +146,8 @@ export class Matrix2 {
                 V_b1 = this.b2 - eigenvalue;
             }
             const eigenvector = new Vector(V_a1, V_b1);
-            const normalizedVector = normalizeEigenvector(eigenvector);
-            eigenvectorsArray.push(normalizedVector.roundElements());
+            const simplifiedVector = simplifyEigenvector(eigenvector);
+            eigenvectorsArray.push(simplifiedVector.roundElements());
         });
         return eigenvectorsArray;
     }
@@ -192,10 +192,10 @@ export class Matrix2 {
         return new Matrix2();
     }
 }
-// const testMatrix = new Matrix2(3,1,0,2);
+// const testMatrix = new Matrix2(5,1,0,7);
 // const testBasis = testMatrix.eigenbasis();
 // console.log(testMatrix.eigenvectors());
-// console.log(testMatrix.changeOfBasisExponentiation(new Matrix2(1, -1, 0, 1), 300))
+// console.log(testMatrix.changeOfBasisExponentiation(testBasis, 3))
 // console.log(testMatrix.multiply(testMatrix).multiply(testMatrix))
 // console.log(new Matrix2(1, 2, 0, 1).numberOfEigenvalues());
 export class Matrix3 {
@@ -332,7 +332,7 @@ export function eigenvectorsToString(eigenvectors) {
     });
     return eigenvectorString;
 }
-export function normalizeEigenvector(eigenvector) {
+export function simplifyEigenvector(eigenvector) {
     let a = eigenvector.a1;
     let b = eigenvector.b1;
     if (a < 0 && b < 0) {

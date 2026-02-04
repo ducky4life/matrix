@@ -200,8 +200,8 @@ export class Matrix2 {
             }
             
             const eigenvector = new Vector(V_a1, V_b1);
-            const normalizedVector = normalizeEigenvector(eigenvector);
-            eigenvectorsArray.push(normalizedVector.roundElements());
+            const simplifiedVector = simplifyEigenvector(eigenvector);
+            eigenvectorsArray.push(simplifiedVector.roundElements());
         })
 
         return eigenvectorsArray;
@@ -483,7 +483,7 @@ export function eigenvectorsToString(eigenvectors: Array<Vector>): string {
     return eigenvectorString;
 }
 
-export function normalizeEigenvector(eigenvector: Vector): Vector {
+export function simplifyEigenvector(eigenvector: Vector): Vector {
     let a = eigenvector.a1;
     let b = eigenvector.b1;
 

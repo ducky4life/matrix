@@ -33,11 +33,11 @@ function getInputColumn(name) {
     return column;
 }
 function getInputPower(name) {
-    const power = Number(document.getElementById(`${name}_power`).value);
-    if (Number.isNaN(power)) {
+    const power = document.getElementById(`${name}_power`).value;
+    if (!power || Number.isNaN(Number(power))) {
         return 1;
     }
-    return power;
+    return Number(power);
 }
 function setInputMatrix2(name, a1, a2, b1, b2) {
     document.getElementById(`2x2_${name}_a1`).value = String(a1);
@@ -138,7 +138,7 @@ function getPropertyValue(M, property_id, row, column, power) {
                     if (M.numberOfEigenvalues() == 2) {
                         const eigenbasisMatrix = M.eigenbasis();
                         if (M.changeBasis(eigenbasisMatrix).isDiagonal()) {
-                            const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power);
+                            const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power).roundElements();
                             return exponentiatedMatrix.displayToHTML();
                         }
                         // probably floating point error such that changed matrix isn't diagonal

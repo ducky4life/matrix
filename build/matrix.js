@@ -178,6 +178,9 @@ export class Matrix2 {
         return basisInverse.multiply(this.multiply(basis));
     }
     changeOfBasisExponentiation(eigenbasis, power) {
+        if (power == 0) {
+            return scalarToMatrix2(1); // identity matrix
+        }
         const eigenbasisInverse = eigenbasis.inverse();
         // basis^(-1) * matrix * basis
         const changedBasis = this.changeBasis(eigenbasis);

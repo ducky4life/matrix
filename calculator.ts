@@ -44,12 +44,12 @@ function getInputColumn(name: string): number {
 }
 
 function getInputPower(name: string): number {
-    const power = Number((document.getElementById(`${name}_power`) as HTMLInputElement).value);
+    const power = (document.getElementById(`${name}_power`) as HTMLInputElement).value;
 
-    if (Number.isNaN(power)) {
+    if (!power || Number.isNaN(Number(power))) {
         return 1;
     }
-    return power;
+    return Number(power);
 }
 
 function setInputMatrix2(name: string, a1: number, a2: number, b1: number, b2: number) {
@@ -170,7 +170,7 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
                         const eigenbasisMatrix = M.eigenbasis();
                         
                         if (M.changeBasis(eigenbasisMatrix).isDiagonal()) {
-                            const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power);
+                            const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power).roundElements();
                             return exponentiatedMatrix.displayToHTML();
                         }
                         

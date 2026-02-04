@@ -246,6 +246,10 @@ export class Matrix2 {
 
     changeOfBasisExponentiation(eigenbasis: Matrix2, power: number): Matrix2 {
 
+        if (power == 0) {
+            return scalarToMatrix2(1); // identity matrix
+        }
+
         const eigenbasisInverse = eigenbasis.inverse();
 
         // basis^(-1) * matrix * basis

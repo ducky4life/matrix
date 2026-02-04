@@ -142,9 +142,15 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
             M = M as Matrix2;
             switch (property_id) {
                 case -1:
-                    return eigenvaluesToString(M.eigenvalues());
+                    if (M.eigenvalueNumber() > 0) {
+                        return eigenvaluesToString(M.eigenvalues());
+                    }
+                    return "no eigenvalues";
                 case -2:
-                    return eigenvectorsToString(M.eigenvectors().toString());
+                    if (M.eigenvalueNumber() > 0) {
+                        return eigenvectorsToString(M.eigenvectors().toString());
+                    }
+                    return "no eigenvectors";
                 case -3:
                     if (M.eigenvalueNumber() == 2) {
                         return M.eigenbasis().displayToHTML();

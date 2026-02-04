@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix } from "./matrix.js";
+import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString } from "./matrix.js";
 function getInputMatrix2(name) {
     const a1 = document.getElementById(`2x2_${name}_a1`).value;
     const a2 = document.getElementById(`2x2_${name}_a2`).value;
@@ -113,9 +113,9 @@ function getPropertyValue(M, property_id, row, column) {
             M = M;
             switch (property_id) {
                 case -1:
-                    return M.eigenvalues().toString();
+                    return eigenvaluesToString(M.eigenvalues());
                 case -2:
-                    return M.eigenvectors().toString();
+                    return eigenvectorsToString(M.eigenvectors().toString());
                 case -3:
                     if (M.eigenvalueNumber() == 2) {
                         return M.eigenbasis().displayToHTML();

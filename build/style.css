@@ -407,6 +407,12 @@ math, mfrac, mn {
     gap: 0.5em 1em;
     padding: 0.5em 0;
 }
+.vector {
+    display: grid;
+    grid-template-columns: auto;
+    gap: 0.5em 1em;
+    padding: 0.5em 0;
+}
 .matrix-3 {
     display: grid;
     grid-template-columns: auto auto auto;

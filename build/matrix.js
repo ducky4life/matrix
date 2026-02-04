@@ -10,6 +10,15 @@ export class Vector {
     display() {
         return [this.a1, this.b1];
     }
+    displayToHTML() {
+        return (`
+            <div class="matrix-container">
+                <div class="vector">
+                    <div>${this.a1}</div>
+                    <div>${this.b1}</div>
+                </div>
+            </div>`);
+    }
 }
 export class Matrix2 {
     // a1 a1
@@ -251,6 +260,26 @@ export class Matrix3 {
         }
         return inverseMatrix;
     }
+}
+export function eigenvaluesToString(eigenvalues) {
+    let eigenvalueString = "";
+    eigenvalues.forEach((eigenvalue) => {
+        eigenvalueString += eigenvalue.toFixed(2);
+        if (eigenvalues.length == 2) {
+            eigenvalueString += ", ";
+        }
+    });
+    return eigenvalueString;
+}
+export function eigenvectorsToString(eigenvectors) {
+    let eigenvectorString = "";
+    eigenvectors.forEach((eigenvector) => {
+        eigenvectorString += eigenvector.displayToHTML();
+        if (eigenvectors.length == 2) {
+            eigenvectorString += ", ";
+        }
+    });
+    return eigenvectorString;
 }
 export function normalizeEigenvector(eigenvector) {
     let a = eigenvector.a1;

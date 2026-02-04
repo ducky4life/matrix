@@ -115,7 +115,7 @@ function getPropertyValue(M, property_id, row, column) {
                 case -1:
                     return eigenvaluesToString(M.eigenvalues());
                 case -2:
-                    return eigenvectorsToString(M.eigenvectors().toString());
+                    return eigenvectorsToString(M.eigenvectors());
                 case -3:
                     if (M.eigenvalueNumber() == 2) {
                         return M.eigenbasis().displayToHTML();

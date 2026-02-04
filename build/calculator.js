@@ -119,7 +119,7 @@ function getPropertyValue(M, property_id, row, column) {
                     return "no eigenvalues";
                 case -2:
                     if (M.eigenvalueNumber() > 0) {
-                        return eigenvectorsToString(M.eigenvectors().toString());
+                        return eigenvectorsToString(M.eigenvectors());
                     }
                     return "no eigenvectors";
                 case -3:

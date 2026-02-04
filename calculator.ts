@@ -148,7 +148,7 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
                     return "no eigenvalues";
                 case -2:
                     if (M.eigenvalueNumber() > 0) {
-                        return eigenvectorsToString(M.eigenvectors().toString());
+                        return eigenvectorsToString(M.eigenvectors());
                     }
                     return "no eigenvectors";
                 case -3:

@@ -574,7 +574,7 @@ select[id$="_property"] {
   input[id$="_row"],
   input[id$="_column"],
   input[id$="_power"] {
-    width: 7vw;
+    width: 6.5vw;
     font-size: 4vw;
   }
 

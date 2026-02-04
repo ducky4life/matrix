@@ -27,6 +27,13 @@ export class Vector {
                 </div>
             </div>`)
     }
+
+    roundElements(): Vector {
+        const a1 = Number(this.a1.toFixed(2));
+        const b1 = Number(this.b1.toFixed(2));
+
+        return new Vector(a1, b1);
+    }
 }
 
 export class Matrix2 {
@@ -64,6 +71,17 @@ export class Matrix2 {
                     <div>${this.b1}</div><div>${this.b2}</div>
                 </div>
             </div>`)
+    }
+
+    roundElements(): Matrix2 {
+        const matrixArray = this.display();
+        const roundedMatrixArray: Array<number> = [];
+
+        matrixArray.forEach((matrixElement) => {
+            roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
+        })
+
+        return arrayToMatrix2(roundedMatrixArray);
     }
 
     add(M: Matrix2): Matrix2 {
@@ -124,7 +142,7 @@ export class Matrix2 {
         const detScalingMatrix: Matrix2 = scalarToMatrix2(1/this.determinant());
         const inverseMatrix: Matrix2 = detScalingMatrix.multiply(this.adjoint());
         if (round_elements) {
-            return roundMatrix2(inverseMatrix);
+            return inverseMatrix.roundElements();
         }
         return inverseMatrix;
     }
@@ -163,7 +181,8 @@ export class Matrix2 {
         let eigenvectorsArray: Array<Vector> = [];
 
         eigenvaluesArray.forEach((eigenvalue) => {
-            eigenvectorsArray.push(normalizeEigenvector(new Vector(this.a1-eigenvalue, this.b1)));
+            const normalizedVector = normalizeEigenvector(new Vector(this.a1-eigenvalue, this.b1));
+            eigenvectorsArray.push(normalizedVector.roundElements());
         })
 
         return eigenvectorsArray;
@@ -238,27 +257,38 @@ export class Matrix3 {
                 <div>${this.c1}</div><div>${this.c2}</div><div>${this.c3}</div>
                 </div>
             </div>`);
-        }
-        
-        add(M: Matrix3): Matrix3 {
-            return new Matrix3(this.a1+M.a1, this.a2+M.a2, this.a3+M.a3, this.b1+M.b1, this.b2+M.b2, this.b3+M.b3, this.c1+M.c1, this.c2+M.c2, this.c3+M.c3);
-        }
-        
-        minus(M: Matrix3): Matrix3 {
-            return new Matrix3(this.a1-M.a1, this.a2-M.a2, this.a3-M.a3, this.b1-M.b1, this.b2-M.b2, this.b3-M.b3, this.c1-M.c1, this.c2-M.c2, this.c3-M.c3);
-        }
-        
-        multiply(M: Matrix3): Matrix3 { // oh god
-            return new Matrix3(
-                this.a1*M.a1 + this.a2*M.b1 + this.a3*M.c1,
-                this.a1*M.a2 + this.a2*M.b2 + this.a3*M.c2,
-                this.a1*M.a3 + this.a2*M.b3 + this.a3*M.c3,
-                this.b1*M.a1 + this.b2*M.b1 + this.b3*M.c1,
-                this.b1*M.a2 + this.b2*M.b2 + this.b3*M.c2,
-                this.b1*M.a3 + this.b2*M.b3 + this.b3*M.c3,
-                this.c1*M.a1 + this.c2*M.b1 + this.c3*M.c1,
-                this.c1*M.a2 + this.c2*M.b2 + this.c3*M.c2,
-                this.c1*M.a3 + this.c2*M.b3 + this.c3*M.c3
+    }
+
+    roundElements(): Matrix3 {
+        const matrixArray = this.display();
+        const roundedMatrixArray: Array<number> = [];
+
+        matrixArray.forEach((matrixElement) => {
+            roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
+        })
+
+        return arrayToMatrix3(roundedMatrixArray);
+    }
+    
+    add(M: Matrix3): Matrix3 {
+        return new Matrix3(this.a1+M.a1, this.a2+M.a2, this.a3+M.a3, this.b1+M.b1, this.b2+M.b2, this.b3+M.b3, this.c1+M.c1, this.c2+M.c2, this.c3+M.c3);
+    }
+    
+    minus(M: Matrix3): Matrix3 {
+        return new Matrix3(this.a1-M.a1, this.a2-M.a2, this.a3-M.a3, this.b1-M.b1, this.b2-M.b2, this.b3-M.b3, this.c1-M.c1, this.c2-M.c2, this.c3-M.c3);
+    }
+    
+    multiply(M: Matrix3): Matrix3 { // oh god
+        return new Matrix3(
+            this.a1*M.a1 + this.a2*M.b1 + this.a3*M.c1,
+            this.a1*M.a2 + this.a2*M.b2 + this.a3*M.c2,
+            this.a1*M.a3 + this.a2*M.b3 + this.a3*M.c3,
+            this.b1*M.a1 + this.b2*M.b1 + this.b3*M.c1,
+            this.b1*M.a2 + this.b2*M.b2 + this.b3*M.c2,
+            this.b1*M.a3 + this.b2*M.b3 + this.b3*M.c3,
+            this.c1*M.a1 + this.c2*M.b1 + this.c3*M.c1,
+            this.c1*M.a2 + this.c2*M.b2 + this.c3*M.c2,
+            this.c1*M.a3 + this.c2*M.b3 + this.c3*M.c3
         );
     }
 
@@ -353,7 +383,7 @@ export class Matrix3 {
         const detScalingMatrix: Matrix3 = scalarToMatrix3(1/this.determinant());
         const inverseMatrix: Matrix3 = detScalingMatrix.multiply(this.adjoint());
         if (round_elements) {
-            return roundMatrix3(inverseMatrix);
+            return inverseMatrix.roundElements();
         }
         return inverseMatrix;
     }
@@ -435,28 +465,6 @@ export function arrayToMatrix3(A: Array<number>) {
     }
     console.log("length of array is not 9");
     return new Matrix3();
-}
-
-export function roundMatrix2(M: Matrix2) {
-    const matrixArray = M.display();
-    const roundedMatrixArray: Array<number> = [];
-
-    matrixArray.forEach((matrixElement) => {
-        roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
-    })
-
-    return arrayToMatrix2(roundedMatrixArray);
-}
-
-export function roundMatrix3(M: Matrix3) {
-    const matrixArray = M.display();
-    const roundedMatrixArray: Array<number> = [];
-
-    matrixArray.forEach((matrixElement) => {
-        roundedMatrixArray.push(Number(matrixElement.toFixed(2)));
-    })
-
-    return arrayToMatrix3(roundedMatrixArray);
 }
 
 export function getRowName(row: number) {

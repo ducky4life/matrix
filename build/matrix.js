@@ -305,12 +305,16 @@ export class Matrix3 {
         return cofactorMatrix.transpose();
     }
     inverse(round_elements = true) {
-        const detScalingMatrix = scalarToMatrix3(1 / this.determinant());
-        const inverseMatrix = detScalingMatrix.multiply(this.adjoint());
-        if (round_elements) {
-            return inverseMatrix.roundElements();
+        if (this.isInvertible()) {
+            const detScalingMatrix = scalarToMatrix3(1 / this.determinant());
+            const inverseMatrix = detScalingMatrix.multiply(this.adjoint());
+            if (round_elements) {
+                return inverseMatrix.roundElements();
+            }
+            return inverseMatrix;
         }
-        return inverseMatrix;
+        console.log("matrix is not invertible");
+        return new Matrix3();
     }
 }
 export function eigenvaluesToString(eigenvalues) {

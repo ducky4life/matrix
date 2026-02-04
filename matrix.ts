@@ -447,12 +447,18 @@ export class Matrix3 {
     }
 
     inverse(round_elements: boolean = true): Matrix3 {
-        const detScalingMatrix: Matrix3 = scalarToMatrix3(1/this.determinant());
-        const inverseMatrix: Matrix3 = detScalingMatrix.multiply(this.adjoint());
-        if (round_elements) {
-            return inverseMatrix.roundElements();
+
+        if (this.isInvertible()) {
+            const detScalingMatrix: Matrix3 = scalarToMatrix3(1/this.determinant());
+            const inverseMatrix: Matrix3 = detScalingMatrix.multiply(this.adjoint());
+            if (round_elements) {
+                return inverseMatrix.roundElements();
+            }
+            return inverseMatrix;
         }
-        return inverseMatrix;
+
+        console.log("matrix is not invertible");
+        return new Matrix3();
     }
 }
 

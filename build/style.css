@@ -556,6 +556,10 @@ input[id$="_power"] {
   font-size: 1.5vw;
 }
 
+select[id$="_property"] {
+  padding: 1vh;
+}
+
 .matrix-input-box {
   display: flex;
   flex-direction: column;
@@ -568,9 +572,14 @@ input[id$="_power"] {
 
 @media all and (orientation: portrait) {
   input[id$="_row"],
-  input[id$="_column"] {
+  input[id$="_column"],
+  input[id$="_power"] {
     width: 7vw;
     font-size: 4vw;
+  }
+
+  select[id$="_property"] {
+    padding: 1vh 0;
   }
 
   textarea[id="amount"] {

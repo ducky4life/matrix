@@ -148,7 +148,7 @@ export class Matrix2 {
     }
 
     eigenvalueNumber(): number {
-        const discriminant = (this.a1 + this.b2) - 4*(this.determinant());
+        const discriminant = (this.a1 + this.b2)*(this.a1 + this.b2) - 4*(this.determinant());
         if (discriminant > 0) {
             return 2;
         }
@@ -159,7 +159,7 @@ export class Matrix2 {
     }
 
     eigenvalues(): Array<number> {
-        const discriminant = (this.a1 + this.b2) - 4*(this.determinant());
+        const discriminant = (this.a1 + this.b2)*(this.a1+ this.b2) - 4*(this.determinant());
         let eigenvalueArray: Array<number> = [];
         if (discriminant > 0) {
             eigenvalueArray = [
@@ -208,6 +208,7 @@ export class Matrix2 {
 }
 
 console.log(new Matrix2(-7, -18, 3, 8).eigenvectors());
+console.log(new Matrix2(1, 2, 0, 1).eigenvalueNumber());
 
 export class Matrix3 {
     // a1 a2 a3

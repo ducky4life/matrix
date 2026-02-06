@@ -134,6 +134,18 @@ function getPropertyValue(M, property_id, row, column, power) {
                         return M.eigenbasis().displayToHTML();
                     }
                     return "no eigenbasis";
+                case -4: // m1: change basis to m2
+                    const M2 = getInputMatrix2('m2');
+                    if (M2.isInvertible()) {
+                        return M.changeBasis(M2).roundElements().displayToHTML();
+                    }
+                    return "m2 is not invertible";
+                case -5:
+                    const M1 = getInputMatrix2('m1');
+                    if (M1.isInvertible()) {
+                        return M.changeBasis(M1).displayToHTML();
+                    }
+                    return "m1 is not invertible";
                 // case -4:
                 //     if (M.numberOfEigenvalues() == 2) {
                 //         const eigenbasisMatrix = M.eigenbasis();
@@ -193,6 +205,10 @@ function getPropertyName(property_id) {
             return "eigenvectors";
         case -3:
             return "eigenbasis";
+        case -4:
+            return "(with m2 as basis) representation";
+        case -5:
+            return "(with m1 as basis) representation";
         case 3:
             return "determinant";
         case 4:

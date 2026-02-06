@@ -216,6 +216,7 @@ export class Matrix2 {
 // const testMatrix = new Matrix2(1,2,3,2);
 // const testBasis = testMatrix.eigenbasis();
 // console.log(testMatrix.eigenvectors());
+// console.log(testMatrix.changeBasis(testBasis))
 // console.log(testMatrix.inverse().multiply(testMatrix.inverse()).roundElements())
 // console.log(testMatrix.changeOfBasisExponentiation(testBasis, 100).roundElements())
 // console.log(testMatrix.multiplicationExponentiation(1000))

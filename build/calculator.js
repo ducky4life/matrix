@@ -143,7 +143,7 @@ function getPropertyValue(M, property_id, row, column, power) {
                 case -5:
                     const M1 = getInputMatrix2('m1');
                     if (M1.isInvertible()) {
-                        return M.changeBasis(M1).displayToHTML();
+                        return M.changeBasis(M1).roundElements().displayToHTML();
                     }
                     return "m1 is not invertible";
                 // case -4:

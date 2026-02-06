@@ -106,7 +106,7 @@ function clearInput() {
         document.getElementById(`3x3_m2_c3`).value = '';
     }
 }
-const eigenPropertyId = [-1, -2, -3, -4];
+const eigenPropertyId = [-1, -2, -3, -4, -5];
 function getInputProperty(name) {
     let property_id = Number(document.getElementById(`${name}_property`).value);
     if (curr_dimension == 3 && eigenPropertyId.includes(property_id)) {

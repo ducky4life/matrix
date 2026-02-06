@@ -133,7 +133,7 @@ function clearInput() {
     }
 }
 
-const eigenPropertyId: Array<number> = [-1, -2, -3, -4];
+const eigenPropertyId: Array<number> = [-1, -2, -3, -4, -5];
 
 function getInputProperty(name: string): number {
     let property_id = Number((document.getElementById(`${name}_property`) as HTMLSelectElement).value);

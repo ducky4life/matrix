@@ -134,17 +134,17 @@ function getPropertyValue(M, property_id, row, column, power) {
                         return M.eigenbasis().displayToHTML();
                     }
                     return "no eigenbasis";
-                case -4:
-                    if (M.numberOfEigenvalues() == 2) {
-                        const eigenbasisMatrix = M.eigenbasis();
-                        if (M.changeBasis(eigenbasisMatrix).isDiagonal()) {
-                            const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power).roundElements();
-                            return exponentiatedMatrix.displayToHTML();
-                        }
-                        // probably floating point error such that changed matrix isn't diagonal
-                        return "cannot be calculated due to floating points";
-                    }
-                    return "no eigenbasis, cannot change basis";
+                // case -4:
+                //     if (M.numberOfEigenvalues() == 2) {
+                //         const eigenbasisMatrix = M.eigenbasis();
+                //         if (M.changeBasis(eigenbasisMatrix).isDiagonal()) {
+                //             const exponentiatedMatrix = M.changeOfBasisExponentiation(eigenbasisMatrix, power).roundElements();
+                //             return exponentiatedMatrix.displayToHTML();
+                //         }
+                //         // probably floating point error such that changed matrix isn't diagonal
+                //         return "cannot be calculated due to floating points";
+                //     }
+                //     return "no eigenbasis, cannot change basis";
                 default:
                     return "";
             }
@@ -179,6 +179,8 @@ function getPropertyValue(M, property_id, row, column, power) {
             return M.minor(row, column);
         case 8:
             return M.cofactor(row, column);
+        case 9:
+            return M.multiplicationExponentiation(power).displayToHTML();
         default:
             return M.determinant();
     }
@@ -191,8 +193,6 @@ function getPropertyName(property_id) {
             return "eigenvectors";
         case -3:
             return "eigenbasis";
-        case -4:
-            return "raised power";
         case 3:
             return "determinant";
         case 4:
@@ -205,6 +205,8 @@ function getPropertyName(property_id) {
             return "minor";
         case 8:
             return "cofactor";
+        case 9:
+            return "raised power";
         default:
             return "determinant";
     }

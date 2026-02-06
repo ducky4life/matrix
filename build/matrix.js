@@ -202,12 +202,23 @@ export class Matrix2 {
         console.log("matrix is not diagonal");
         return new Matrix2();
     }
+    multiplicationExponentiation(power) {
+        let exponentiatedMatrix = this;
+        for (let i = 1; i < Math.abs(power); i++) {
+            exponentiatedMatrix = exponentiatedMatrix.multiply(this);
+        }
+        if (power < 0) {
+            return exponentiatedMatrix.inverse();
+        }
+        return exponentiatedMatrix;
+    }
 }
 // const testMatrix = new Matrix2(1,2,3,2);
 // const testBasis = testMatrix.eigenbasis();
 // console.log(testMatrix.eigenvectors());
 // console.log(testMatrix.inverse().multiply(testMatrix.inverse()).roundElements())
-// console.log(testMatrix.changeOfBasisExponentiation(testBasis, -2))
+// console.log(testMatrix.changeOfBasisExponentiation(testBasis, 100).roundElements())
+// console.log(testMatrix.multiplicationExponentiation(1000))
 // console.log(testMatrix.multiply(testMatrix).multiply(testMatrix))
 // console.log(new Matrix2(1, 2, 0, 1).numberOfEigenvalues());
 export class Matrix3 {
@@ -328,7 +339,18 @@ export class Matrix3 {
         console.log("matrix is not invertible");
         return new Matrix3();
     }
+    multiplicationExponentiation(power) {
+        let exponentiatedMatrix = this;
+        for (let i = 1; i < Math.abs(power); i++) {
+            exponentiatedMatrix = exponentiatedMatrix.multiply(this);
+        }
+        if (power < 0) {
+            return exponentiatedMatrix.inverse();
+        }
+        return exponentiatedMatrix;
+    }
 }
+// console.log(new Matrix3(3,2,4,5,2,4,6,3,3).multiplicationExponentiation(3000))
 export function eigenvaluesToString(eigenvalues) {
     let eigenvalueString = "";
     eigenvalues.forEach((eigenvalue) => {

@@ -204,6 +204,9 @@ export class Matrix2 {
     }
     multiplicationExponentiation(power) {
         let exponentiatedMatrix = this;
+        if (power == 0) {
+            return scalarToMatrix2(1);
+        }
         for (let i = 1; i < Math.abs(power); i++) {
             exponentiatedMatrix = exponentiatedMatrix.multiply(this);
         }
@@ -342,6 +345,9 @@ export class Matrix3 {
     }
     multiplicationExponentiation(power) {
         let exponentiatedMatrix = this;
+        if (power == 0) {
+            return scalarToMatrix3(1);
+        }
         for (let i = 1; i < Math.abs(power); i++) {
             exponentiatedMatrix = exponentiatedMatrix.multiply(this);
         }

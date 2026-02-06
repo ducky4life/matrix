@@ -283,6 +283,10 @@ export class Matrix2 {
     multiplicationExponentiation(power: number): Matrix2 {
         let exponentiatedMatrix: Matrix2 = this;
 
+        if (power == 0) {
+            return scalarToMatrix2(1);
+        }
+
         for (let i=1; i<Math.abs(power); i++) {
             exponentiatedMatrix = exponentiatedMatrix.multiply(this);
         }
@@ -493,6 +497,10 @@ export class Matrix3 {
 
     multiplicationExponentiation(power: number): Matrix3 {
         let exponentiatedMatrix: Matrix3 = this;
+
+        if (power == 0) {
+            return scalarToMatrix3(1);
+        }
 
         for (let i=1; i<Math.abs(power); i++) {
             exponentiatedMatrix = exponentiatedMatrix.multiply(this);

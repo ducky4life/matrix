@@ -173,6 +173,9 @@ export class Matrix2 {
         return false;
     }
     changeBasis(basis) {
+        if (!basis.isInvertible()) {
+            console.log("attempted to change to non-invertible basis");
+        }
         const basisInverse = basis.inverse();
         // basis^(-1) * matrix * basis
         return basisInverse.multiply(this.multiply(basis));

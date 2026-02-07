@@ -484,6 +484,18 @@ math, mfrac, mn {
   justify-content: center;
 }
 
+.matrix-elements {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media all and (orientation: portrait) {
+  .matrix-elements mn {
+    font-size: 2.5vw;
+  }
+}
+
 .copy-button {
   /* margin-left: auto; */
   margin-right: 10vw;

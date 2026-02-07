@@ -1,3 +1,5 @@
+import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
+
 export class Vector {
     // a1
     // b1
@@ -22,8 +24,8 @@ export class Vector {
         return(`
             <div class="matrix-container">
                 <div class="vector">
-                    <div>${this.a1}</div>
-                    <div>${this.b1}</div>
+                    <div class="matrix-elements">${this.a1}</div>
+                    <div class="matrix-elements">${this.b1}</div>
                 </div>
             </div>`)
     }
@@ -51,6 +53,13 @@ export class Matrix2 {
         this.b2 = d;
     }
 
+    toFracMatrix2(): FracMatrix2 {
+        return new FracMatrix2(
+            numberToFrac(this.a1), numberToFrac(this.a2),
+            numberToFrac(this.b1), numberToFrac(this.b2)
+        );
+    }
+
     display(): Array<number> {
         return([this.a1,this.a2,this.b1,this.b2]);
     }
@@ -67,8 +76,8 @@ export class Matrix2 {
         return(`
             <div class="matrix-container">
                 <div class="matrix-2">
-                    <div>${this.a1}</div><div>${this.a2}</div>
-                    <div>${this.b1}</div><div>${this.b2}</div>
+                    <div class="matrix-elements">${this.a1}</div><div class="matrix-elements">${this.a2}</div>
+                    <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div>
                 </div>
             </div>`)
     }
@@ -151,6 +160,18 @@ export class Matrix2 {
 
         console.log("not invertible");
         return new Matrix2();
+    }
+
+    inverseAsFracMatrix(): FracMatrix2 {
+
+        if (this.isInvertible()) {
+            const detScalingMatrix: FracMatrix2 = scalarToFracMatrix2(new Frac(1, this.determinant()));
+            const inverseMatrix: FracMatrix2 = detScalingMatrix.multiply(this.adjoint().toFracMatrix2());
+            return inverseMatrix;
+        }
+
+        console.log("not invertible");
+        return new FracMatrix2();
     }
 
     numberOfEigenvalues(): number {
@@ -337,6 +358,14 @@ export class Matrix3 {
         this.c2 = c2;
         this.c3 = c3;
     }
+
+    toFracMatrix3() {
+        return new FracMatrix3(
+            numberToFrac(this.a1), numberToFrac(this.a2), numberToFrac(this.a3),
+            numberToFrac(this.b1), numberToFrac(this.b2), numberToFrac(this.b3),
+            numberToFrac(this.c1), numberToFrac(this.c2), numberToFrac(this.c3)
+        );
+    }
     
     display(): Array<number> {
         return([this.a1,this.a2,this.a3,this.b1,this.b2,this.b3,this.c1,this.c2,this.c3]);
@@ -354,9 +383,9 @@ export class Matrix3 {
         return(`
             <div class="matrix-container">
                 <div class="matrix-3">
-                <div>${this.a1}</div><div>${this.a2}</div><div>${this.a3}</div>
-                <div>${this.b1}</div><div>${this.b2}</div><div>${this.b3}</div>
-                <div>${this.c1}</div><div>${this.c2}</div><div>${this.c3}</div>
+                <div class="matrix-elements">${this.a1}</div><div class="matrix-elements">${this.a2}</div><div class="matrix-elements">${this.a3}</div>
+                <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div><div class="matrix-elements">${this.b3}</div>
+                <div class="matrix-elements">${this.c1}</div><div class="matrix-elements">${this.c2}</div><div class="matrix-elements">${this.c3}</div>
                 </div>
             </div>`);
     }
@@ -494,6 +523,18 @@ export class Matrix3 {
 
         console.log("matrix is not invertible");
         return new Matrix3();
+    }
+
+    inverseAsFracMatrix(): FracMatrix3 {
+
+        if (this.isInvertible()) {
+            const detScalingMatrix: FracMatrix3 = scalarToFracMatrix3(new Frac(1, this.determinant()));
+            const inverseMatrix: FracMatrix3 = detScalingMatrix.multiply(this.adjoint().toFracMatrix3());
+            return inverseMatrix;
+        }
+
+        console.log("matrix is not invertible");
+        return new FracMatrix3();
     }
 
     multiplicationExponentiation(power: number): Matrix3 {

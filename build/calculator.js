@@ -170,6 +170,10 @@ function getPropertyValue(M, property_id, row, column, power) {
             return M.determinant();
         case 4:
             if (M.isInvertible()) {
+                let matrixInverse = M.inverseAsFracMatrix();
+                if (M.inverseAsFracMatrix().isIntegerMatrix()) {
+                    matrixInverse = M.inverse();
+                }
                 return `
                 <div class="matrix-inverse-output">
                     <math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
@@ -177,7 +181,7 @@ function getPropertyValue(M, property_id, row, column, power) {
                         <mn>1</mn>
                         <mn>${M.determinant()}</mfrac>
                     </math>
-                    ${M.adjoint().displayToHTML()} = ${M.inverse().displayToHTML()}
+                    ${M.adjoint().displayToHTML()} = ${matrixInverse.displayToHTML()}
                 </div>`;
             }
             else {

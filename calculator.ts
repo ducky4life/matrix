@@ -1,3 +1,4 @@
+import { FracMatrix2, FracMatrix3 } from "./frac_matrix.js";
 import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString } from "./matrix.js";
 
 function getInputMatrix2(name: string) {
@@ -207,6 +208,13 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
 
         case 4:
             if (M.isInvertible()) {
+
+                let matrixInverse: Matrix2|Matrix3|FracMatrix2|FracMatrix3 = M.inverseAsFracMatrix();
+
+                if (M.inverseAsFracMatrix().isIntegerMatrix()) {
+                    matrixInverse = M.inverse();
+                }
+
                 return `
                 <div class="matrix-inverse-output">
                     <math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
@@ -214,7 +222,7 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
                         <mn>1</mn>
                         <mn>${M.determinant()}</mfrac>
                     </math>
-                    ${M.adjoint().displayToHTML()} = ${M.inverse().displayToHTML()}
+                    ${M.adjoint().displayToHTML()} = ${matrixInverse.displayToHTML()}
                 </div>`;
             }
             else {

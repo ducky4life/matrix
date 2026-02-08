@@ -607,7 +607,7 @@ export function getOperator(operation) {
 export function ensureInverseIsIntegerMatrix2(max = 10) {
     let M = getRandomMatrix2(max);
     let inverseMatrix = M.inverseAsFracMatrix();
-    while (!inverseMatrix.isIntegerMatrix()) {
+    while (!inverseMatrix.isIntegerMatrix() || !M.isInvertible()) {
         M = getRandomMatrix2(max);
         inverseMatrix = M.inverseAsFracMatrix();
     }

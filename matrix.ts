@@ -858,7 +858,7 @@ export function ensureInverseIsIntegerMatrix3(max: number = 10): Matrix3 {
     let M = getRandomMatrix3(max);
 
     let inverseMatrix = M.inverseAsFracMatrix();
-    while (!inverseMatrix.isIntegerMatrix()) {
+    while (!inverseMatrix.isIntegerMatrix() || !M.isInvertible()) {
         M = getRandomMatrix3(max);
         inverseMatrix = M.inverseAsFracMatrix();
     }

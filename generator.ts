@@ -63,7 +63,7 @@ function displayExercise(matrix_dimension: number = 2, max: number = 10) {
 
                 <div class="matrix-output-toggle-box">
                     <label class="switch">
-                        <input class="answer-toggle" operation="checkbox" id="reveal_${i+1}" ${checked_value}>
+                        <input class="answer-toggle" type="checkbox" id="reveal_${i+1}" ${checked_value}>
                         <span class="slider round"></span>
                     </label>
                 </div>

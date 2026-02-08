@@ -66,8 +66,7 @@ function setInputBoxColor(box_name: string, color: string) {
 
 function clearInputBoxColor(box_name: string) {
     const inputBox = (document.getElementById(box_name) as HTMLInputElement);
-    inputBox.style.borderColor = "light-dark(rgb(118, 118, 118), rgb(133, 133, 133))";
-    inputBox.style.borderWidth = "2px";
+    inputBox.style.border = '';
 }
 
 function clearAllInputBoxColor() {

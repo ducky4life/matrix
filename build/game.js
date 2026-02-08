@@ -55,8 +55,7 @@ function setInputBoxColor(box_name, color) {
 }
 function clearInputBoxColor(box_name) {
     const inputBox = document.getElementById(box_name);
-    inputBox.style.borderColor = "light-dark(rgb(118, 118, 118), rgb(133, 133, 133))";
-    inputBox.style.borderWidth = "2px";
+    inputBox.style.border = '';
 }
 function clearAllInputBoxColor() {
     if (curr_dimension == 2) {

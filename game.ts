@@ -22,6 +22,13 @@ function setInputEventListener() {
     })
 }
 
+function setOperationEventListener() {
+    const operationElement = (document.getElementById('type') as HTMLSelectElement);
+    operationElement.addEventListener('input', () => {
+        displayExercise();
+    })
+}
+
 function changeDimension(matrix_dimension: number) {
     const m1_box = document.getElementById('m1_box')!;
 
@@ -247,3 +254,4 @@ dimensionInput.addEventListener('input', () => toggleDimension());
 let curr_dimension = 2;
 changeDimension(2);
 displayExercise(2);
+setOperationEventListener();

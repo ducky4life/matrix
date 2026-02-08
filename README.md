@@ -20,5 +20,6 @@ made to practice my typescript skills and learn how to use classes.
 - [ ] verify user input answers
 - [x] matrix calculator
 - [x] fraction class so i can actually compute inverses ~~and eigenbases~~ (eigenvalues may be irrational)
+- [ ] sort functions in matrix.js into other modules
 - [ ] customise max element in matrix
 - [ ] github actions to build?

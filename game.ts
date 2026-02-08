@@ -171,6 +171,7 @@ function getInputOperator(): number {
 
 function displayExercise(matrix_dimension: number = 2, max: number = 10) {
     clearInput(curr_dimension, 'm1');
+    clearAllInputBoxColor();
     const output = document.querySelector('#exercise')!;
     output.innerHTML = '';
 

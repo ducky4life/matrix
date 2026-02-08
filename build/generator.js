@@ -66,20 +66,22 @@ function displayExercise(matrix_dimension = 2, max = 10) {
                     </label>
                 </div>
 
-                <button class="copy-button" id="copy_${i + 1}" title="Copy as LaTeX">
+                <button class="copy-button" id="copy_${i + 1}" expression="${latex_expression}" title="Copy as LaTeX">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M9 4H6a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-3M9 3h6v4H9V3z"/></svg>
                 </button>
             </div><br>`;
-            const answerToggle = document.querySelector(`#reveal_${i + 1}`);
-            answerToggle.addEventListener('change', (event) => {
-                revealAnswer(i + 1);
-            });
-            const copyButton = document.querySelector(`#copy_${i + 1}`);
-            copyButton.addEventListener('click', (event) => __awaiter(this, void 0, void 0, function* () {
-                event.preventDefault(); // Prevent default behavior
-                yield copyExpression(latex_expression);
-            }));
         }
+    }
+    for (let i = 0; i < num_amount; i++) {
+        const answerToggle = document.querySelector(`#reveal_${i + 1}`);
+        answerToggle.addEventListener('change', (event) => {
+            revealAnswer(i + 1);
+        });
+        const copyButton = document.querySelector(`#copy_${i + 1}`);
+        copyButton.addEventListener('click', (event) => __awaiter(this, void 0, void 0, function* () {
+            event.preventDefault(); // Prevent default behavior
+            yield copyExpression(copyButton.getAttribute('expression'));
+        }));
     }
 }
 const copyExpression = (text) => __awaiter(void 0, void 0, void 0, function* () {

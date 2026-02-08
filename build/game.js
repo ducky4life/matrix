@@ -11,7 +11,11 @@ function setInputEventListener() {
     }
     inputElementIds.forEach((id) => {
         const element = document.getElementById(id);
-        // element.addEventListener('input', () => displayOutput());
+        element.addEventListener('input', () => {
+            if (!element.value) {
+                clearInputBoxColor(id);
+            }
+        });
     });
 }
 function changeDimension(matrix_dimension) {
@@ -41,6 +45,31 @@ function toggleDimension() {
 function setInputBoxColor(box_name, color) {
     const inputBox = document.getElementById(box_name);
     inputBox.style.border = `1px solid ${color}`;
+    inputBox.style.borderWidth = "1.5px";
+}
+function clearInputBoxColor(box_name) {
+    const inputBox = document.getElementById(box_name);
+    inputBox.style.borderColor = "light-dark(rgb(118, 118, 118), rgb(133, 133, 133))";
+    inputBox.style.borderWidth = "2px";
+}
+function clearAllInputBoxColor() {
+    if (curr_dimension == 2) {
+        document.getElementById(`2x2_m1_a1`).style.border = '';
+        document.getElementById(`2x2_m1_a2`).style.border = '';
+        document.getElementById(`2x2_m1_b1`).style.border = '';
+        document.getElementById(`2x2_m1_b2`).style.border = '';
+    }
+    else {
+        document.getElementById(`3x3_m1_a1`).style.border = '';
+        document.getElementById(`3x3_m1_a2`).style.border = '';
+        document.getElementById(`3x3_m1_a3`).style.border = '';
+        document.getElementById(`3x3_m1_b1`).style.border = '';
+        document.getElementById(`3x3_m1_b2`).style.border = '';
+        document.getElementById(`3x3_m1_b3`).style.border = '';
+        document.getElementById(`3x3_m1_c1`).style.border = '';
+        document.getElementById(`3x3_m1_c2`).style.border = '';
+        document.getElementById(`3x3_m1_c3`).style.border = '';
+    }
 }
 function checkAnswer(curr_dimension, answer) {
     if (curr_dimension == 2) {
@@ -56,11 +85,14 @@ function checkAnswer2(answer) {
         for (let column = 1; column <= 2; column++) {
             const inputElement = inputMatrix.getElement(row, column);
             const answerElement = answer.getElement(row, column);
-            if (inputElement == answerElement) {
-                setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'green');
-            }
-            else {
-                setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+            const elementId = `2x2_m1_${inputMatrix.getElementName(row, column)}`;
+            if (document.getElementById(elementId).value) {
+                if (inputElement == answerElement) {
+                    setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
+                }
+                else {
+                    setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+                }
             }
         }
     }
@@ -71,11 +103,14 @@ function checkAnswer3(answer) {
         for (let column = 1; column <= 3; column++) {
             const inputElement = inputMatrix.getElement(row, column);
             const answerElement = answer.getElement(row, column);
-            if (inputElement == answerElement) {
-                setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'green');
-            }
-            else {
-                setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+            const elementId = `3x3_m1_${inputMatrix.getElementName(row, column)}`;
+            if (document.getElementById(elementId).value) {
+                if (inputElement == answerElement) {
+                    setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
+                }
+                else {
+                    setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+                }
             }
         }
     }
@@ -105,12 +140,15 @@ function displayExercise(matrix_dimension = 2, max = 10) {
             ${M2.displayToHTML()}
             <span style="margin: 0 10px;">= </span>
         </div><br>`;
-    console.log(answer.displayToString());
+    // console.log(answer.displayToString())
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => checkAnswer(curr_dimension, answer));
 }
 document.querySelector('#generate').addEventListener('click', () => displayExercise());
-document.querySelector('#clear').addEventListener('click', () => clearInput(curr_dimension, 'm1'));
+document.querySelector('#clear').addEventListener('click', () => {
+    clearInput(curr_dimension, 'm1');
+    clearAllInputBoxColor();
+});
 const dimensionInput = document.getElementById('dimension');
 dimensionInput.addEventListener('input', () => toggleDimension());
 let curr_dimension = 2;

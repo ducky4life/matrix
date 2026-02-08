@@ -307,7 +307,7 @@ export class Matrix3 {
     }
     displayToHTML() {
         return (`
-            <div class="matrix-container">
+            <div class="matrix-container matrix-container-3">
                 <div class="matrix-3">
                 <div class="matrix-elements">${this.a1}</div><div class="matrix-elements">${this.a2}</div><div class="matrix-elements">${this.a3}</div>
                 <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div><div class="matrix-elements">${this.b3}</div>
@@ -500,26 +500,33 @@ export function getRowName(row) {
 export function getColumnName(column) {
     return column.toString();
 }
-export function getRandomMatrix2(max = 10) {
+export function getRandomSign() {
+    const coeffArray = [-1, 1];
+    const randomIndex = Math.floor(Math.random() * coeffArray.length);
+    return coeffArray[randomIndex];
+}
+export function getRandomNumber(max = 10) {
     max = max + 1;
-    const a = Math.floor(Math.random() * max);
-    const b = Math.floor(Math.random() * max);
-    const c = Math.floor(Math.random() * max);
-    const d = Math.floor(Math.random() * max);
+    return getRandomSign() * Math.floor(Math.random() * max);
+}
+export function getRandomMatrix2(max = 10) {
+    const a = getRandomNumber(max);
+    const b = getRandomNumber(max);
+    const c = getRandomNumber(max);
+    const d = getRandomNumber(max);
     const M = new Matrix2(a, b, c, d);
     return M;
 }
 export function getRandomMatrix3(max = 10) {
-    max = max + 1;
-    const a1 = Math.floor(Math.random() * max);
-    const a2 = Math.floor(Math.random() * max);
-    const a3 = Math.floor(Math.random() * max);
-    const b1 = Math.floor(Math.random() * max);
-    const b2 = Math.floor(Math.random() * max);
-    const b3 = Math.floor(Math.random() * max);
-    const c1 = Math.floor(Math.random() * max);
-    const c2 = Math.floor(Math.random() * max);
-    const c3 = Math.floor(Math.random() * max);
+    const a1 = getRandomNumber(max);
+    const a2 = getRandomNumber(max);
+    const a3 = getRandomNumber(max);
+    const b1 = getRandomNumber(max);
+    const b2 = getRandomNumber(max);
+    const b3 = getRandomNumber(max);
+    const c1 = getRandomNumber(max);
+    const c2 = getRandomNumber(max);
+    const c3 = getRandomNumber(max);
     const M = new Matrix3(a1, a2, a3, b1, b2, b3, c1, c2, c3);
     return M;
 }

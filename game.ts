@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3 } from "./matrix.js";
+import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3, getRandomMatrix2 } from "./matrix.js";
 
 function setInputEventListener() {
     let inputElementIds: string[] = [];
@@ -14,7 +14,11 @@ function setInputEventListener() {
 
     inputElementIds.forEach((id) => {
         const element = (document.getElementById(id) as HTMLInputElement);
-        // element.addEventListener('input', () => displayOutput());
+        element.addEventListener('input', () => {
+            if (!element.value) {
+                clearInputBoxColor(id);
+            }
+        });
     })
 }
 
@@ -50,6 +54,34 @@ function toggleDimension() {
 function setInputBoxColor(box_name: string, color: string) {
     const inputBox = (document.getElementById(box_name) as HTMLInputElement);
     inputBox.style.border = `1px solid ${color}`;
+    inputBox.style.borderWidth = "1.5px";
+}
+
+function clearInputBoxColor(box_name: string) {
+    const inputBox = (document.getElementById(box_name) as HTMLInputElement);
+    inputBox.style.borderColor = "light-dark(rgb(118, 118, 118), rgb(133, 133, 133))";
+    inputBox.style.borderWidth = "2px";
+}
+
+function clearAllInputBoxColor() {
+    if (curr_dimension == 2) {
+        (document.getElementById(`2x2_m1_a1`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`2x2_m1_a2`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`2x2_m1_b1`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`2x2_m1_b2`) as HTMLInputElement).style.border = '';
+    }
+
+    else {
+        (document.getElementById(`3x3_m1_a1`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_a2`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_a3`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_b1`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_b2`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_b3`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_c1`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_c2`) as HTMLInputElement).style.border = '';
+        (document.getElementById(`3x3_m1_c3`) as HTMLInputElement).style.border = '';
+    }
 }
 
 function checkAnswer(curr_dimension: number, answer: Matrix2|Matrix3) {
@@ -68,15 +100,19 @@ function checkAnswer2(answer: Matrix2) {
         for (let column=1; column<=2; column++) {
             const inputElement: number = inputMatrix.getElement(row, column);
             const answerElement: number = answer.getElement(row, column);
+            const elementId = `2x2_m1_${inputMatrix.getElementName(row, column)}`;
 
-            if (inputElement == answerElement) {
-                setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'green');
-            }
-            
-            else {
-                setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
-            }
+            if ((document.getElementById(elementId) as HTMLInputElement).value) {
 
+                if (inputElement == answerElement) {
+                    setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
+                }
+                
+                else {
+                    setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+                }
+
+            }
         }
     }
 }
@@ -88,15 +124,19 @@ function checkAnswer3(answer: Matrix3) {
         for (let column=1; column<=3; column++) {
             const inputElement: number = inputMatrix.getElement(row, column);
             const answerElement: number = answer.getElement(row, column);
+            const elementId = `3x3_m1_${inputMatrix.getElementName(row, column)}`;
 
-            if (inputElement == answerElement) {
-                setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'green');
-            }
-            
-            else {
-                setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
-            }
+            if ((document.getElementById(elementId) as HTMLInputElement).value) {
 
+                if (inputElement == answerElement) {
+                    setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
+                }
+                
+                else {
+                    setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+                }
+
+            }
         }
     }
 }
@@ -132,14 +172,17 @@ function displayExercise(matrix_dimension: number = 2, max: number = 10) {
             <span style="margin: 0 10px;">= </span>
         </div><br>`;
 
-    console.log(answer.displayToString())
+    // console.log(answer.displayToString())
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
     submitButton.addEventListener('click', () => checkAnswer(curr_dimension, answer));
 }
 
 (document.querySelector('#generate') as HTMLButtonElement)!.addEventListener('click', () => displayExercise());
-(document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => clearInput(curr_dimension, 'm1'));
+(document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => {
+    clearInput(curr_dimension, 'm1');
+    clearAllInputBoxColor();
+});
 const dimensionInput = (document.getElementById('dimension') as HTMLSelectElement);
 
 dimensionInput.addEventListener('input', () => toggleDimension());

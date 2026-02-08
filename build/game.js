@@ -137,6 +137,7 @@ function getInputOperator() {
     return operation;
 }
 function displayExercise(matrix_dimension = 2, max = 10) {
+    clearInput(curr_dimension, 'm1');
     const output = document.querySelector('#exercise');
     output.innerHTML = '';
     matrix_dimension = Number(document.querySelector('#dimension').value);

@@ -1,23 +1,4 @@
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString } from "./matrix.js";
-function getInputMatrix2(name) {
-    const a1 = document.getElementById(`2x2_${name}_a1`).value;
-    const a2 = document.getElementById(`2x2_${name}_a2`).value;
-    const b1 = document.getElementById(`2x2_${name}_b1`).value;
-    const b2 = document.getElementById(`2x2_${name}_b2`).value;
-    return new Matrix2(Number(a1), Number(a2), Number(b1), Number(b2));
-}
-function getInputMatrix3(name) {
-    const a1 = document.getElementById(`3x3_${name}_a1`).value;
-    const a2 = document.getElementById(`3x3_${name}_a2`).value;
-    const a3 = document.getElementById(`3x3_${name}_a3`).value;
-    const b1 = document.getElementById(`3x3_${name}_b1`).value;
-    const b2 = document.getElementById(`3x3_${name}_b2`).value;
-    const b3 = document.getElementById(`3x3_${name}_b3`).value;
-    const c1 = document.getElementById(`3x3_${name}_c1`).value;
-    const c2 = document.getElementById(`3x3_${name}_c2`).value;
-    const c3 = document.getElementById(`3x3_${name}_c3`).value;
-    return new Matrix3(Number(a1), Number(a2), Number(a3), Number(b1), Number(b2), Number(b3), Number(c1), Number(c2), Number(c3));
-}
+import { Matrix2, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString, getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3 } from "./matrix.js";
 function getInputRow(name) {
     const row = Number(document.getElementById(`${name}_row`).value);
     if (!([1, 2, 3].includes(row))) {
@@ -73,38 +54,6 @@ function randomiseInput() {
             break;
     }
     displayOutput();
-}
-function clearInput() {
-    if (curr_dimension == 2) {
-        document.getElementById(`2x2_m1_a1`).value = '';
-        document.getElementById(`2x2_m1_a2`).value = '';
-        document.getElementById(`2x2_m1_b1`).value = '';
-        document.getElementById(`2x2_m1_b2`).value = '';
-        document.getElementById(`2x2_m2_a1`).value = '';
-        document.getElementById(`2x2_m2_a2`).value = '';
-        document.getElementById(`2x2_m2_b1`).value = '';
-        document.getElementById(`2x2_m2_b2`).value = '';
-    }
-    else {
-        document.getElementById(`3x3_m1_a1`).value = '';
-        document.getElementById(`3x3_m1_a2`).value = '';
-        document.getElementById(`3x3_m1_a3`).value = '';
-        document.getElementById(`3x3_m1_b1`).value = '';
-        document.getElementById(`3x3_m1_b2`).value = '';
-        document.getElementById(`3x3_m1_b3`).value = '';
-        document.getElementById(`3x3_m1_c1`).value = '';
-        document.getElementById(`3x3_m1_c2`).value = '';
-        document.getElementById(`3x3_m1_c3`).value = '';
-        document.getElementById(`3x3_m2_a1`).value = '';
-        document.getElementById(`3x3_m2_a2`).value = '';
-        document.getElementById(`3x3_m2_a3`).value = '';
-        document.getElementById(`3x3_m2_b1`).value = '';
-        document.getElementById(`3x3_m2_b2`).value = '';
-        document.getElementById(`3x3_m2_b3`).value = '';
-        document.getElementById(`3x3_m2_c1`).value = '';
-        document.getElementById(`3x3_m2_c2`).value = '';
-        document.getElementById(`3x3_m2_c3`).value = '';
-    }
 }
 const eigenPropertyId = [-1, -2, -3, -4, -5];
 function getInputProperty(name) {
@@ -231,28 +180,6 @@ function getPropertyName(property_id) {
             return "determinant";
     }
 }
-function getMatrixHTML(name, matrix_dimension) {
-    let matrixHTML;
-    switch (matrix_dimension) {
-        case 2:
-            matrixHTML = `<div class="matrix-2">
-                <div><input id="2x2_${name}_a1"></input></div> <div><input id="2x2_${name}_a2"></input></div>
-                <div><input id="2x2_${name}_b1"></input></div> <div><input id="2x2_${name}_b2"></input></div>
-            </div>`;
-            break;
-        case 3:
-            matrixHTML = `<div class="matrix-3">
-                <div><input id="3x3_${name}_a1"></input></div><div><input id="3x3_${name}_a2"></input></div><div><input id="3x3_${name}_a3"></input></div>
-                <div><input id="3x3_${name}_b1"></input></div><div><input id="3x3_${name}_b2"></input></div><div><input id="3x3_${name}_b3"></input></div>
-                <div><input id="3x3_${name}_c1"></input></div><div><input id="3x3_${name}_c2"></input></div><div><input id="3x3_${name}_c3"></input></div>
-            </div>`;
-            break;
-        default:
-            matrixHTML = "";
-            break;
-    }
-    return matrixHTML;
-}
 function changeDimension(matrix_dimension) {
     const m1_box = document.getElementById('m1_box');
     const m2_box = document.getElementById('m2_box');
@@ -296,6 +223,7 @@ function setInputEventListener() {
             break;
         case 3:
             inputElementIds = ['3x3_m1_a1', '3x3_m1_a2', '3x3_m1_a3', '3x3_m1_b1', '3x3_m1_b2', '3x3_m1_b3', '3x3_m1_c1', '3x3_m1_c2', '3x3_m1_c3',
+                '3x3_m2_a1', '3x3_m2_a2', '3x3_m2_a3', '3x3_m2_b1', '3x3_m2_b2', '3x3_m2_b3', '3x3_m2_c1', '3x3_m2_c2', '3x3_m2_c3',
                 'm1_row', 'm1_column', 'm2_row', 'm2_column',
                 'm1_property', 'm2_property', 'operation'
             ];
@@ -352,7 +280,10 @@ function displayOutput(matrix_dimension = 2) {
             <br>`;
 }
 document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
-document.querySelector('#clear').addEventListener('click', () => clearInput());
+document.querySelector('#clear').addEventListener('click', () => {
+    clearInput(curr_dimension, 'm1');
+    clearInput(curr_dimension, 'm2');
+});
 // (document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayOutput(2));
 // let inputElementIds = ['2x2_m1_a1', '2x2_m1_a2', '2x2_m1_b1', '2x2_m1_b2', '2x2_m2_a1', '2x2_m2_a2', '2x2_m2_b1', '2x2_m2_b2',
 //     '3x3_m1_a1', '3x3_m1_a2', '3x3_m1_a3', '3x3_m1_b1', '3x3_m1_b2', '3x3_m1_b3', '3x3_m1_c1', '3x3_m1_c2', '3x3_m1_c3',

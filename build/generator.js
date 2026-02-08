@@ -7,43 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { getRandomMatrix2, getRandomMatrix3, getAnswerMatrix } from "./matrix.js";
-function getOperator(operation) {
-    switch (operation) {
-        case 0:
-            return '+';
-        case 1:
-            return '-';
-        case 2:
-            return '*';
-        default:
-            return '*';
-    }
-}
-function generateExercise2(operation = 2, max = 10) {
-    const M1 = getRandomMatrix2(max);
-    const M2 = getRandomMatrix2(max);
-    const answer = getAnswerMatrix(M1, M2, operation);
-    const generated_exercise = {
-        M1: M1,
-        M2: M2,
-        answer: answer,
-        operator: getOperator(operation),
-    };
-    return generated_exercise;
-}
-function generateExercise3(operation = 2, max = 10) {
-    const M1 = getRandomMatrix3(max);
-    const M2 = getRandomMatrix3(max);
-    const answer = getAnswerMatrix(M1, M2, operation);
-    const generated_exercise = {
-        M1: M1,
-        M2: M2,
-        answer: answer,
-        operator: getOperator(operation),
-    };
-    return generated_exercise;
-}
+import { generateExercise2, generateExercise3 } from "./matrix.js";
 function displayExercise(matrix_dimension = 2, max = 10) {
     const output = document.querySelector('#output');
     output.innerHTML = '';

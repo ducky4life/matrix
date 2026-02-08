@@ -1,47 +1,4 @@
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix } from "./matrix.js";
-
-function getOperator(operation: number) {
-    switch (operation) {
-        case 0:
-            return '+';
-        case 1:
-            return '-';
-        case 2:
-            return '*';
-        default:
-            return '*';
-    }
-}
-
-function generateExercise2(operation: number = 2, max: number = 10) {
-    const M1 = getRandomMatrix2(max);
-    const M2 = getRandomMatrix2(max);
-
-    const answer = getAnswerMatrix(M1, M2, operation) as Matrix2;
-
-    const generated_exercise: { M1: Matrix2; M2: Matrix2; answer: Matrix2; operator: string } = {
-        M1: M1,
-        M2: M2,
-        answer: answer,
-        operator: getOperator(operation),
-    };
-    return generated_exercise;
-}
-
-function generateExercise3(operation: number = 2, max: number = 10) {
-    const M1 = getRandomMatrix3(max);
-    const M2 = getRandomMatrix3(max);
-
-    const answer = getAnswerMatrix(M1, M2, operation) as Matrix3;
-
-    const generated_exercise: { M1: Matrix3; M2: Matrix3; answer: Matrix3; operator: string } = {
-        M1: M1,
-        M2: M2,
-        answer: answer,
-        operator: getOperator(operation),
-    };
-    return generated_exercise;
-}
+import { generateExercise2, generateExercise3 } from "./matrix.js";
 
 function displayExercise(matrix_dimension: number = 2, max: number = 10) {
     const output = document.querySelector('#output')!;

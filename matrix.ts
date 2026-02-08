@@ -12,6 +12,13 @@ export class Vector {
         this.b1 = b;
     }
 
+    equals(V: Vector): boolean {
+        if (this.a1 == V.a1 && this.b1 == V.b1) {
+            return true;
+        }
+        return false;
+    }
+
     display(): Array<number> {
         return [this.a1, this.b1];
     }
@@ -51,6 +58,28 @@ export class Matrix2 {
         this.a2 = b;
         this.b1 = c;
         this.b2 = d;
+    }
+
+    equals(M: Matrix2): boolean {
+        if (this.a1 == M.a1 && this.a2 == M.a2 && this.b1 == M.b1 && this.b2 == M.b2) {
+            return true;
+        }
+        return false;
+    }
+
+    getElement(row: number, column: number): number {
+        const row_name = getRowName(row);
+        const column_name = getColumnName(column);
+        
+        const element: number = (this as any)[row_name + column_name];
+        return element;
+    }
+
+    getElementName(row: number, column: number): string {
+        const row_name = getRowName(row);
+        const column_name = getColumnName(column);
+
+        return row_name+column_name;
     }
 
     toFracMatrix2(): FracMatrix2 {
@@ -357,6 +386,28 @@ export class Matrix3 {
         this.c1 = c1;
         this.c2 = c2;
         this.c3 = c3;
+    }
+
+    equals(M: Matrix3): boolean {
+        if (this.a1 == M.a1 && this.a2 == M.a2 && this.a3 == M.a3 && this.b1 == M.b1 && this.b2 == M.b2 && this.b3 == M.b3 && this.c1 == M.c1 && this.c2 == M.c2 && this.c3 == M.c3) {
+            return true;
+        }
+        return false;
+    }
+
+    getElement(row: number, column: number): number {
+        const row_name = getRowName(row);
+        const column_name = getColumnName(column);
+        
+        const element: number = (this as any)[row_name + column_name];
+        return element;
+    }
+
+    getElementName(row: number, column: number): string {
+        const row_name = getRowName(row);
+        const column_name = getColumnName(column);
+
+        return row_name+column_name;
     }
 
     toFracMatrix3() {
@@ -691,6 +742,121 @@ export function getRandomMatrix3(max: number = 10) {
 
     const M = new Matrix3(a1,a2,a3,b1,b2,b3,c1,c2,c3);
     return M;
+}
+
+export function getInputMatrix2(name: string) {
+    const a1 = (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value;
+    const a2 = (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value;
+    const b1 = (document.getElementById(`2x2_${name}_b1`) as HTMLInputElement).value;
+    const b2 = (document.getElementById(`2x2_${name}_b2`) as HTMLInputElement).value;
+
+    return new Matrix2(Number(a1), Number(a2), Number(b1), Number(b2));
+}
+
+export function getInputMatrix3(name: string) {
+    const a1 = (document.getElementById(`3x3_${name}_a1`) as HTMLInputElement).value;
+    const a2 = (document.getElementById(`3x3_${name}_a2`) as HTMLInputElement).value;
+    const a3 = (document.getElementById(`3x3_${name}_a3`) as HTMLInputElement).value;
+    const b1 = (document.getElementById(`3x3_${name}_b1`) as HTMLInputElement).value;
+    const b2 = (document.getElementById(`3x3_${name}_b2`) as HTMLInputElement).value;
+    const b3 = (document.getElementById(`3x3_${name}_b3`) as HTMLInputElement).value;
+    const c1 = (document.getElementById(`3x3_${name}_c1`) as HTMLInputElement).value;
+    const c2 = (document.getElementById(`3x3_${name}_c2`) as HTMLInputElement).value;
+    const c3 = (document.getElementById(`3x3_${name}_c3`) as HTMLInputElement).value;
+
+    return new Matrix3(Number(a1), Number(a2), Number(a3), Number(b1), Number(b2), Number(b3), Number(c1), Number(c2), Number(c3));
+}
+
+export function getMatrixHTML(name: string, matrix_dimension: number) {
+    let matrixHTML: string;
+
+    switch (matrix_dimension) {
+        case 2:
+            matrixHTML = `<div class="matrix-2">
+                <div><input id="2x2_${name}_a1"></input></div> <div><input id="2x2_${name}_a2"></input></div>
+                <div><input id="2x2_${name}_b1"></input></div> <div><input id="2x2_${name}_b2"></input></div>
+            </div>`
+            break;
+        
+        case 3:
+            matrixHTML = `<div class="matrix-3">
+                <div><input id="3x3_${name}_a1"></input></div><div><input id="3x3_${name}_a2"></input></div><div><input id="3x3_${name}_a3"></input></div>
+                <div><input id="3x3_${name}_b1"></input></div><div><input id="3x3_${name}_b2"></input></div><div><input id="3x3_${name}_b3"></input></div>
+                <div><input id="3x3_${name}_c1"></input></div><div><input id="3x3_${name}_c2"></input></div><div><input id="3x3_${name}_c3"></input></div>
+            </div>`
+            break;
+
+        default:
+            matrixHTML = "";
+            break;
+    }
+
+    return matrixHTML;
+}
+
+export function clearInput(curr_dimension: number, name: string) {
+
+    if (curr_dimension == 2) {
+        (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_${name}_b1`) as HTMLInputElement).value = '';
+        (document.getElementById(`2x2_${name}_b2`) as HTMLInputElement).value = '';
+    }
+
+    else {
+        (document.getElementById(`3x3_${name}_a1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_a2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_a3`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_b1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_b2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_b3`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_c1`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_c2`) as HTMLInputElement).value = '';
+        (document.getElementById(`3x3_${name}_c3`) as HTMLInputElement).value = '';
+    }
+}
+
+export function getOperator(operation: number) {
+    switch (operation) {
+        case 0:
+            return '+';
+        case 1:
+            return '-';
+        case 2:
+            return '*';
+        default:
+            return '*';
+    }
+}
+
+export function generateExercise2(operation: number = 2, max: number = 10) {
+    const M1 = getRandomMatrix2(max);
+    const M2 = getRandomMatrix2(max);
+
+    const answer = getAnswerMatrix(M1, M2, operation) as Matrix2;
+
+    const generated_exercise: { M1: Matrix2; M2: Matrix2; answer: Matrix2; operator: string } = {
+        M1: M1,
+        M2: M2,
+        answer: answer,
+        operator: getOperator(operation),
+    };
+    return generated_exercise;
+}
+
+export function generateExercise3(operation: number = 2, max: number = 10) {
+    const M1 = getRandomMatrix3(max);
+    const M2 = getRandomMatrix3(max);
+
+    const answer = getAnswerMatrix(M1, M2, operation) as Matrix3;
+
+    const generated_exercise: { M1: Matrix3; M2: Matrix3; answer: Matrix3; operator: string } = {
+        M1: M1,
+        M2: M2,
+        answer: answer,
+        operator: getOperator(operation),
+    };
+    return generated_exercise;
 }
 
 export function getAnswerMatrix(M1: Matrix2|Matrix3, M2: Matrix2|Matrix3, operation: number): Matrix2|Matrix3 {

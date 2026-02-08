@@ -1,0 +1,118 @@
+import { getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3 } from "./matrix.js";
+function setInputEventListener() {
+    let inputElementIds = [];
+    switch (curr_dimension) {
+        case 2:
+            inputElementIds = ['2x2_m1_a1', '2x2_m1_a2', '2x2_m1_b1', '2x2_m1_b2'];
+            break;
+        case 3:
+            inputElementIds = ['3x3_m1_a1', '3x3_m1_a2', '3x3_m1_a3', '3x3_m1_b1', '3x3_m1_b2', '3x3_m1_b3', '3x3_m1_c1', '3x3_m1_c2', '3x3_m1_c3'];
+            break;
+    }
+    inputElementIds.forEach((id) => {
+        const element = document.getElementById(id);
+        // element.addEventListener('input', () => displayOutput());
+    });
+}
+function changeDimension(matrix_dimension) {
+    const m1_box = document.getElementById('m1_box');
+    m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
+    if (matrix_dimension == 3) {
+        m1_box.classList.add('matrix-container-3');
+    }
+    else {
+        m1_box.classList.remove('matrix-container-3');
+    }
+    curr_dimension = matrix_dimension;
+    setInputEventListener();
+}
+function toggleDimension() {
+    switch (curr_dimension) {
+        case 2:
+            changeDimension(3);
+            displayExercise(3);
+            break;
+        case 3:
+            changeDimension(2);
+            displayExercise(2);
+            break;
+    }
+}
+function setInputBoxColor(box_name, color) {
+    const inputBox = document.getElementById(box_name);
+    inputBox.style.border = `1px solid ${color}`;
+}
+function checkAnswer(curr_dimension, answer) {
+    if (curr_dimension == 2) {
+        checkAnswer2(answer);
+    }
+    else if (curr_dimension == 3) {
+        checkAnswer3(answer);
+    }
+}
+function checkAnswer2(answer) {
+    const inputMatrix = getInputMatrix2('m1');
+    for (let row = 1; row <= 2; row++) {
+        for (let column = 1; column <= 2; column++) {
+            const inputElement = inputMatrix.getElement(row, column);
+            const answerElement = answer.getElement(row, column);
+            if (inputElement == answerElement) {
+                setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'green');
+            }
+            else {
+                setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+            }
+        }
+    }
+}
+function checkAnswer3(answer) {
+    const inputMatrix = getInputMatrix3('m1');
+    for (let row = 1; row <= 3; row++) {
+        for (let column = 1; column <= 3; column++) {
+            const inputElement = inputMatrix.getElement(row, column);
+            const answerElement = answer.getElement(row, column);
+            if (inputElement == answerElement) {
+                setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'green');
+            }
+            else {
+                setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
+            }
+        }
+    }
+}
+function displayExercise(matrix_dimension = 2, max = 10) {
+    const output = document.querySelector('#exercise');
+    output.innerHTML = '';
+    matrix_dimension = Number(document.querySelector('#dimension').value);
+    let operation = Math.floor(Math.random() * 3);
+    let exercise = {};
+    if (matrix_dimension == 2) {
+        max = 10;
+        exercise = generateExercise2(operation, max);
+    }
+    else {
+        max = 9;
+        exercise = generateExercise3(operation, max);
+    }
+    const M1 = exercise['M1'];
+    const M2 = exercise['M2'];
+    const answer = exercise['answer'];
+    const operator = exercise['operator'];
+    output.innerHTML = `
+        <div style="display: flex; align-items: center;">
+            ${M1.displayToHTML()}
+            <span style="margin: 0 10px;">${operator}</span>
+            ${M2.displayToHTML()}
+            <span style="margin: 0 10px;">= </span>
+        </div><br>`;
+    console.log(answer.displayToString());
+    const submitButton = document.getElementById('submit');
+    submitButton.addEventListener('click', () => checkAnswer(curr_dimension, answer));
+}
+document.querySelector('#generate').addEventListener('click', () => displayExercise());
+document.querySelector('#clear').addEventListener('click', () => clearInput(curr_dimension, 'm1'));
+const dimensionInput = document.getElementById('dimension');
+dimensionInput.addEventListener('input', () => toggleDimension());
+let curr_dimension = 2;
+changeDimension(2);
+displayExercise(2);

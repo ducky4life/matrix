@@ -602,6 +602,10 @@ select[id$="_property"] {
     max-width: 50vw;
   }
 
+  .matrix-output[id$="exercise"] {
+    width: auto;
+  }
+
   /* .matrix-input-box {
     max-width: 22vw;
   } */

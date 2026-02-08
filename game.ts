@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3, getRandomMatrix2 } from "./matrix.js";
+import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3, getRandomNumberFromArray } from "./matrix.js";
 
 function setInputEventListener() {
     let inputElementIds: string[] = [];
@@ -141,13 +141,35 @@ function checkAnswer3(answer: Matrix3) {
     }
 }
 
+const matrixOperationArray: Array<number> = [4,5,6];
+
+function getInputOperator(): number {
+    let operation = Number((document.getElementById('type') as HTMLSelectElement).value);
+
+    switch (operation) {
+        case -1: // random arithmetic
+            operation = getRandomNumberFromArray([0,1,2]);
+            break;
+
+        case -2: // random matrix operation
+            operation = getRandomNumberFromArray(matrixOperationArray);
+            break;
+
+        case -3: // random all
+            operation = getRandomNumberFromArray([0,1,2,4,5,6]);
+            break;
+    }
+
+    return operation;
+}
+
 function displayExercise(matrix_dimension: number = 2, max: number = 10) {
     const output = document.querySelector('#exercise')!;
     output.innerHTML = '';
 
     matrix_dimension = Number((document.querySelector('#dimension') as HTMLSelectElement).value);
 
-    let operation = Math.floor(Math.random() * 3);
+    let operation = getInputOperator();
 
     let exercise: any = {};
     if (matrix_dimension == 2) {
@@ -164,15 +186,50 @@ function displayExercise(matrix_dimension: number = 2, max: number = 10) {
     const answer = exercise['answer'];
     const operator = exercise['operator'];
 
-    output.innerHTML = `
-        <div style="display: flex; align-items: center;">
-            ${M1.displayToHTML()}
-            <span style="margin: 0 10px;">${operator}</span>
-            ${M2.displayToHTML()}
-            <span style="margin: 0 10px;">= </span>
-        </div><br>`;
+    if (!matrixOperationArray.includes(operation)) {
 
-    // console.log(answer.displayToString())
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">${operator}</span>
+                ${M2.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+            
+    }
+
+    else if (operation == 4) { // inverse
+
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                ${M1.displayToHTML()}<div style="place-self: normal;">-1</div>
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+
+    }
+
+    else if (operation == 5) { // transpose
+
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                ${M1.displayToHTML()}<div style="place-self: normal;">T</div>
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+
+    }
+        
+    else if (operation == 6) { // adjoint
+            
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0;">adj</span>
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+                
+    }
+
+    console.log(answer.displayToString())
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
     submitButton.addEventListener('click', () => checkAnswer(curr_dimension, answer));

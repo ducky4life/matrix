@@ -500,10 +500,12 @@ export function getRowName(row) {
 export function getColumnName(column) {
     return column.toString();
 }
+export function getRandomNumberFromArray(inputArray) {
+    const randomIndex = Math.floor(Math.random() * inputArray.length);
+    return inputArray[randomIndex];
+}
 export function getRandomSign() {
-    const coeffArray = [-1, 1];
-    const randomIndex = Math.floor(Math.random() * coeffArray.length);
-    return coeffArray[randomIndex];
+    return getRandomNumberFromArray([-1, 1]);
 }
 export function getRandomNumber(max = 10) {
     max = max + 1;
@@ -602,9 +604,30 @@ export function getOperator(operation) {
             return '*';
     }
 }
+export function ensureInverseIsIntegerMatrix2(max = 10) {
+    let M = getRandomMatrix2(max);
+    let inverseMatrix = M.inverseAsFracMatrix();
+    while (!inverseMatrix.isIntegerMatrix()) {
+        M = getRandomMatrix2(max);
+        inverseMatrix = M.inverseAsFracMatrix();
+    }
+    return M;
+}
+export function ensureInverseIsIntegerMatrix3(max = 10) {
+    let M = getRandomMatrix3(max);
+    let inverseMatrix = M.inverseAsFracMatrix();
+    while (!inverseMatrix.isIntegerMatrix()) {
+        M = getRandomMatrix3(max);
+        inverseMatrix = M.inverseAsFracMatrix();
+    }
+    return M;
+}
 export function generateExercise2(operation = 2, max = 10) {
-    const M1 = getRandomMatrix2(max);
-    const M2 = getRandomMatrix2(max);
+    let M1 = getRandomMatrix2(max);
+    let M2 = getRandomMatrix2(max);
+    if (operation == 4) {
+        M1 = ensureInverseIsIntegerMatrix2();
+    }
     const answer = getAnswerMatrix(M1, M2, operation);
     const generated_exercise = {
         M1: M1,
@@ -615,8 +638,11 @@ export function generateExercise2(operation = 2, max = 10) {
     return generated_exercise;
 }
 export function generateExercise3(operation = 2, max = 10) {
-    const M1 = getRandomMatrix3(max);
-    const M2 = getRandomMatrix3(max);
+    let M1 = getRandomMatrix3(max);
+    let M2 = getRandomMatrix3(max);
+    if (operation == 4) {
+        M1 = ensureInverseIsIntegerMatrix3();
+    }
     const answer = getAnswerMatrix(M1, M2, operation);
     const generated_exercise = {
         M1: M1,
@@ -634,6 +660,12 @@ export function getAnswerMatrix(M1, M2, operation) {
             return M1.minus(M2);
         case 2:
             return M1.multiply(M2);
+        case 4:
+            return M1.inverse();
+        case 5:
+            return M1.transpose();
+        case 6:
+            return M1.adjoint();
         default:
             return M1.multiply(M2);
     }

@@ -30,12 +30,30 @@
             <!-- <p style="padding-top: 10px;"></p> -->
             <br>
 
-            <div style="padding-bottom: 65px;">
+            <div style="display: flex; padding-bottom: 10vh;">
+            <div style="padding-right: 30px;">
+                <p for="dimension">dimension:</p><br>
                 <select id="dimension" class="button">
                     <option value="2">2x2</option>
                     <option value="3">3x3</option>
                 </select>
-            </div><br>
+            </div>
+
+            <div>
+                <p for="type">type:</p><br>
+                <select id="type" class="button button3">
+                    <option value="2">multiplication</option>
+                    <option value="0">addition</option>
+                    <option value="1">subtraction</option>
+                    <option value="4">inverse</option>
+                    <option value="5">transpose</option>
+                    <option value="6">adjoint matrix</option>
+                    <option value="-1">random (basic arithmetic)</option>
+                    <option value="-2">random (matrix operators)</option>
+                    <option value="-3">random (all)</option>
+                </select>
+            </div>
+            </div>
             
             <div style="display: flex; justify-content: center; align-items: stretch; transform: scale(2); place-self: center;" class="calculator-input-box">
 

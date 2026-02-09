@@ -118,16 +118,28 @@ function clearAllInputBoxColor() {
     }
 }
 
+function incrementScore() {
+    const scoreElement = (document.getElementById('score'))!;
+    const curr_score = Number(scoreElement.innerHTML);
+    const new_score = curr_score + 1;
+
+    scoreElement.innerHTML = new_score.toString();
+
+    const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
+    submitButton.removeEventListener
+}
+
 function checkMatrixAnswer(curr_dimension: number, answer: Matrix2|Matrix3) {
     if (curr_dimension == 2) {
-        checkMatrixAnswer2(answer as Matrix2);
+        return checkMatrixAnswer2(answer as Matrix2);
     }
     else if (curr_dimension == 3) {
-        checkMatrixAnswer3(answer as Matrix3);
+        return checkMatrixAnswer3(answer as Matrix3);
     }
 }
 
 function checkNumberAnswer(answer: number) {
+    let all_correct: boolean = true;
     const inputNumber: number = getInputNumber('m1');
     const elementId = "m1_number";
 
@@ -137,12 +149,20 @@ function checkNumberAnswer(answer: number) {
         }
 
         else {
+            all_correct = false;
             setInputBoxColor(elementId, 'red');
         }
     }
+
+    else {
+        all_correct = false;
+    }
+
+    return all_correct;
 }
 
 function checkMatrixAnswer2(answer: Matrix2) {
+    let all_correct: boolean = true;
     const inputMatrix: Matrix2 = getInputMatrix2('m1');
 
     for (let row=1; row<=2; row++) {
@@ -158,15 +178,23 @@ function checkMatrixAnswer2(answer: Matrix2) {
                 }
                 
                 else {
+                    all_correct = false;
                     setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
                 }
 
             }
+
+            else {
+                all_correct = false;
+            }
         }
     }
+
+    return all_correct;
 }
 
 function checkMatrixAnswer3(answer: Matrix3) {
+    let all_correct: boolean = true;
     const inputMatrix: Matrix3 = getInputMatrix3('m1');
 
     for (let row=1; row<=3; row++) {
@@ -182,12 +210,19 @@ function checkMatrixAnswer3(answer: Matrix3) {
                 }
                 
                 else {
+                    all_correct = false;
                     setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
                 }
 
             }
+
+            else {
+                all_correct = false;
+            }
         }
     }
+
+    return all_correct;
 }
 
 const matrixOperationArray: Array<number> = [3,4,5,6,7,8];
@@ -333,14 +368,22 @@ function displayExercise() {
 
     // console.log(answer.displayToString())
 
+    let finished: boolean = false;
+
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
     submitButton.addEventListener('click', () => {
         if (matrixOutputExercises.includes(operation)) {
-            checkMatrixAnswer(curr_dimension, answer);
+            if (checkMatrixAnswer(curr_dimension, answer) && !finished) {
+                incrementScore();
+                finished = true;
+            }
         }
 
         else {
-            checkNumberAnswer(answer);
+            if (checkNumberAnswer(answer) && !finished) {
+                incrementScore();
+                finished = true;
+            }
         }
     });
 }

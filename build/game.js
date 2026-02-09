@@ -97,15 +97,24 @@ function clearAllInputBoxColor() {
         document.getElementById(`3x3_m1_c3`).style.border = '';
     }
 }
+function incrementScore() {
+    const scoreElement = (document.getElementById('score'));
+    const curr_score = Number(scoreElement.innerHTML);
+    const new_score = curr_score + 1;
+    scoreElement.innerHTML = new_score.toString();
+    const submitButton = document.getElementById('submit');
+    submitButton.removeEventListener;
+}
 function checkMatrixAnswer(curr_dimension, answer) {
     if (curr_dimension == 2) {
-        checkMatrixAnswer2(answer);
+        return checkMatrixAnswer2(answer);
     }
     else if (curr_dimension == 3) {
-        checkMatrixAnswer3(answer);
+        return checkMatrixAnswer3(answer);
     }
 }
 function checkNumberAnswer(answer) {
+    let all_correct = true;
     const inputNumber = getInputNumber('m1');
     const elementId = "m1_number";
     if (document.getElementById(elementId).value) {
@@ -113,11 +122,17 @@ function checkNumberAnswer(answer) {
             setInputBoxColor(elementId, 'limegreen');
         }
         else {
+            all_correct = false;
             setInputBoxColor(elementId, 'red');
         }
     }
+    else {
+        all_correct = false;
+    }
+    return all_correct;
 }
 function checkMatrixAnswer2(answer) {
+    let all_correct = true;
     const inputMatrix = getInputMatrix2('m1');
     for (let row = 1; row <= 2; row++) {
         for (let column = 1; column <= 2; column++) {
@@ -129,13 +144,19 @@ function checkMatrixAnswer2(answer) {
                     setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
                 }
                 else {
+                    all_correct = false;
                     setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'red');
                 }
             }
+            else {
+                all_correct = false;
+            }
         }
     }
+    return all_correct;
 }
 function checkMatrixAnswer3(answer) {
+    let all_correct = true;
     const inputMatrix = getInputMatrix3('m1');
     for (let row = 1; row <= 3; row++) {
         for (let column = 1; column <= 3; column++) {
@@ -147,11 +168,16 @@ function checkMatrixAnswer3(answer) {
                     setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
                 }
                 else {
+                    all_correct = false;
                     setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'red');
                 }
             }
+            else {
+                all_correct = false;
+            }
         }
     }
+    return all_correct;
 }
 const matrixOperationArray = [3, 4, 5, 6, 7, 8];
 function getInputOperator() {
@@ -260,13 +286,20 @@ function displayExercise() {
             </div><br>`;
     }
     // console.log(answer.displayToString())
+    let finished = false;
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
         if (matrixOutputExercises.includes(operation)) {
-            checkMatrixAnswer(curr_dimension, answer);
+            if (checkMatrixAnswer(curr_dimension, answer) && !finished) {
+                incrementScore();
+                finished = true;
+            }
         }
         else {
-            checkNumberAnswer(answer);
+            if (checkNumberAnswer(answer) && !finished) {
+                incrementScore();
+                finished = true;
+            }
         }
     });
 }

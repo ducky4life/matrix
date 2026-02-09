@@ -294,6 +294,28 @@ function displayExercise() {
 
     }
 
+    else if (operation == 7) { // minor
+
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0;">minor(${row}, ${column}) of </span>
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+
+    }
+
+    else if (operation == 8) { // cofactor
+
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0;">cofactor(${row}, ${column}) of </span>
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+
+    }
+
     // console.log(answer.displayToString())
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;

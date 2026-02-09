@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { generateExercise2, generateExercise3 } from "./matrix.js";
-function displayExercise(matrix_dimension = 2, max = 10) {
+function displayExercise() {
     const output = document.querySelector('#output');
     output.innerHTML = '';
     const latex_mode = document.querySelector('#latex_mode');
@@ -19,25 +19,31 @@ function displayExercise(matrix_dimension = 2, max = 10) {
         hidden_class = 'hidden';
         checked_value = '';
     }
-    const amount = document.querySelector('#amount').value;
+    let amount = Number(document.querySelector('#amount').value);
+    let max_element = Number(document.querySelector('#max_element').value);
     let operation = Number(document.querySelector('#type').value);
-    matrix_dimension = Number(document.querySelector('#dimension').value);
-    let num_amount = 1;
-    if (amount && !Number.isNaN(Number(amount))) {
-        num_amount = Number(amount);
+    let matrix_dimension = Number(document.querySelector('#dimension').value);
+    if (Number.isNaN(amount) || amount == 0) {
+        amount = 1;
+    }
+    if (Number.isNaN(max_element) || max_element == 0) {
+        if (matrix_dimension == 2) {
+            max_element = 10;
+        }
+        else {
+            max_element = 9;
+        }
     }
     if (operation == -1) {
         operation = Math.floor(Math.random() * 3);
     }
-    for (let i = 0; i < num_amount; i++) {
+    for (let i = 0; i < amount; i++) {
         let exercise = {};
         if (matrix_dimension == 2) {
-            max = 10;
-            exercise = generateExercise2(operation, max);
+            exercise = generateExercise2(operation, max_element);
         }
         else {
-            max = 9; // pls dont get too big
-            exercise = generateExercise3(operation, max);
+            exercise = generateExercise3(operation, max_element);
         }
         const M1 = exercise['M1'];
         const M2 = exercise['M2'];
@@ -72,7 +78,7 @@ function displayExercise(matrix_dimension = 2, max = 10) {
             </div><br>`;
         }
     }
-    for (let i = 0; i < num_amount; i++) {
+    for (let i = 0; i < amount; i++) {
         const answerToggle = document.querySelector(`#reveal_${i + 1}`);
         answerToggle.addEventListener('change', (event) => {
             revealAnswer(i + 1);
@@ -126,6 +132,6 @@ const handleRevealAnswer = (event) => {
         hideAnswerAll();
     }
 };
-document.querySelector('#submit').addEventListener('click', () => displayExercise(3, 10));
+document.querySelector('#submit').addEventListener('click', () => displayExercise());
 const revealAll = document.querySelector('#reveal_all');
 revealAll.addEventListener('change', handleRevealAnswer);

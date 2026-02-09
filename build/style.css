@@ -578,7 +578,7 @@ select[id$="_property"] {
   align-items: center;
 }
 
-  textarea[id="amount"] {
+  textarea[id="amount"], textarea[id="max_element"] {
     height: 4em;
   }
 

@@ -1,6 +1,6 @@
 import { generateExercise2, generateExercise3 } from "./matrix.js";
 
-function displayExercise(matrix_dimension: number = 2, max: number = 10) {
+function displayExercise() {
     const output = document.querySelector('#output')!;
     output.innerHTML = '';
 
@@ -14,29 +14,36 @@ function displayExercise(matrix_dimension: number = 2, max: number = 10) {
         checked_value = '';
     }
     
-    const amount: string = (document.querySelector('#amount') as HTMLTextAreaElement).value;
-    let operation = Number((document.querySelector('#type') as HTMLSelectElement).value);
-    matrix_dimension = Number((document.querySelector('#dimension') as HTMLSelectElement).value);
+    let amount: number = Number((document.querySelector('#amount') as HTMLTextAreaElement).value);
+    let max_element: number = Number((document.querySelector('#max_element') as HTMLTextAreaElement).value);
+    let operation: number = Number((document.querySelector('#type') as HTMLSelectElement).value);
+    let matrix_dimension: number = Number((document.querySelector('#dimension') as HTMLSelectElement).value);
 
-    let num_amount: number = 1;
-    if (amount && !Number.isNaN(Number(amount))) {
-        num_amount = Number(amount);
+    if (Number.isNaN(amount) || amount == 0) {
+        amount = 1;
+    }
+
+    if (Number.isNaN(max_element) || max_element == 0) {
+        if (matrix_dimension == 2) {
+            max_element = 10;
+        }
+        else {
+            max_element = 9;
+        }
     }
 
     if (operation == -1) {
         operation = Math.floor(Math.random() * 3);
     }
 
-    for (let i=0; i<num_amount; i++) {
+    for (let i=0; i<amount; i++) {
 
         let exercise: any = {};
         if (matrix_dimension == 2) {
-            max = 10;
-            exercise = generateExercise2(operation, max);
+            exercise = generateExercise2(operation, max_element);
         }
         else {
-            max = 9; // pls dont get too big
-            exercise = generateExercise3(operation, max);
+            exercise = generateExercise3(operation, max_element);
         }
 
         const M1 = exercise['M1'];
@@ -75,7 +82,7 @@ function displayExercise(matrix_dimension: number = 2, max: number = 10) {
         }
     }
     
-    for (let i=0; i<num_amount; i++) {
+    for (let i=0; i<amount; i++) {
         
         const answerToggle = (document.querySelector(`#reveal_${i+1}`) as HTMLInputElement);
         answerToggle.addEventListener('change', (event: Event) => {
@@ -141,7 +148,7 @@ const handleRevealAnswer = (event: Event) => {
 
 
 
-(document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayExercise(3, 10));
+(document.querySelector('#submit')as HTMLButtonElement)!.addEventListener('click', () => displayExercise());
 
 const revealAll = (document.querySelector('#reveal_all') as HTMLInputElement);
 

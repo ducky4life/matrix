@@ -40,11 +40,11 @@ function toggleDimension() {
     switch (curr_dimension) {
         case 2:
             changeDimension(3);
-            displayExercise(3);
+            displayExercise();
             break;
         case 3:
             changeDimension(2);
-            displayExercise(2);
+            displayExercise();
             break;
     }
 }
@@ -136,21 +136,28 @@ function getInputOperator() {
     }
     return operation;
 }
-function displayExercise(matrix_dimension = 2, max = 10) {
+function displayExercise() {
     clearInput(curr_dimension, 'm1');
     clearAllInputBoxColor();
     const output = document.querySelector('#exercise');
     output.innerHTML = '';
-    matrix_dimension = Number(document.querySelector('#dimension').value);
+    // let matrix_dimension = Number((document.querySelector('#dimension') as HTMLSelectElement).value);
+    let max_element = Number(document.querySelector('#max_element').value);
     let operation = getInputOperator();
+    if (max_element == 0) {
+        if (curr_dimension == 2) {
+            max_element = 10;
+        }
+        else {
+            max_element = 9;
+        }
+    }
     let exercise = {};
-    if (matrix_dimension == 2) {
-        max = 10;
-        exercise = generateExercise2(operation, max);
+    if (curr_dimension == 2) {
+        exercise = generateExercise2(operation, max_element);
     }
     else {
-        max = 9;
-        exercise = generateExercise3(operation, max);
+        exercise = generateExercise3(operation, max_element);
     }
     const M1 = exercise['M1'];
     const M2 = exercise['M2'];
@@ -200,5 +207,5 @@ const dimensionInput = document.getElementById('dimension');
 dimensionInput.addEventListener('input', () => toggleDimension());
 let curr_dimension = 2;
 changeDimension(2);
-displayExercise(2);
+displayExercise();
 setOperationEventListener();

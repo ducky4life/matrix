@@ -18,17 +18,25 @@ function setInputEventListener() {
         });
     });
 }
+const m1_box = document.getElementById('m1_box');
+const m1_number = document.getElementById('m1_number');
+function setNumberInputEventListener() {
+    m1_number.addEventListener('input', () => {
+        if (!m1_number.value) {
+            clearInputBoxColor('m1_number');
+        }
+    });
+}
 function setOperationEventListener() {
     const operationElement = document.getElementById('type');
     operationElement.addEventListener('input', () => {
         displayExercise();
     });
 }
-const m1_box = document.getElementById('m1_box');
-const m1_number = document.getElementById('m1_number');
 function setNumberInput() {
     m1_box.classList.add('gone');
     m1_number.classList.remove('gone');
+    setNumberInputEventListener();
 }
 function setMatrixInput() {
     m1_box.classList.remove('gone');

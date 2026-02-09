@@ -1,4 +1,4 @@
-import { generateExercise2, generateExercise3 } from "./matrix.js";
+import { generateMatrixExercise2, generateMatrixExercise3 } from "./matrix.js";
 
 function displayExercise() {
     const output = document.querySelector('#output')!;
@@ -40,10 +40,10 @@ function displayExercise() {
 
         let exercise: any = {};
         if (matrix_dimension == 2) {
-            exercise = generateExercise2(operation, max_element);
+            exercise = generateMatrixExercise2(operation, max_element);
         }
         else {
-            exercise = generateExercise3(operation, max_element);
+            exercise = generateMatrixExercise3(operation, max_element);
         }
 
         const M1 = exercise['M1'];
@@ -59,7 +59,7 @@ function displayExercise() {
         }
         else {
             output.innerHTML += `
-            <div class="matrix-output">
+            <div class="matrix-output" style="margin-bottom: 20px;">
                 <div style="display: flex; align-items: center;">
                     ${M1.displayToHTML()}
                     <span style="margin: 0 10px;">${operator}</span>

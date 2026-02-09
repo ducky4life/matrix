@@ -757,6 +757,11 @@ export function getRandomMatrix3(max: number = 10) {
     return M;
 }
 
+export function getInputNumber(name: string) {
+    const inputNumber = (document.getElementById(`${name}_number`) as HTMLInputElement).value;
+    return Number(inputNumber);
+}
+
 export function getInputMatrix2(name: string) {
     const a1 = (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value;
     const a2 = (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value;
@@ -807,9 +812,13 @@ export function getMatrixHTML(name: string, matrix_dimension: number) {
     return matrixHTML;
 }
 
-export function clearInput(curr_dimension: number, name: string) {
+export function clearInput(curr_dimension: number, name: string, clear_number: boolean = false) {
 
-    if (curr_dimension == 2) {
+    if (clear_number) {
+        (document.getElementById(`${name}_number`) as HTMLInputElement).value = '';
+    }
+
+    else if (curr_dimension == 2) {
         (document.getElementById(`2x2_${name}_a1`) as HTMLInputElement).value = '';
         (document.getElementById(`2x2_${name}_a2`) as HTMLInputElement).value = '';
         (document.getElementById(`2x2_${name}_b1`) as HTMLInputElement).value = '';
@@ -866,7 +875,16 @@ export function ensureInverseIsIntegerMatrix3(max: number = 10): Matrix3 {
     return M;
 }
 
-export function generateExercise2(operation: number = 2, max: number = 10) {
+export function generateMatrixExercise(matrix_dimension: number, operation: number, max: number) {
+    if (matrix_dimension == 2) {
+        return generateMatrixExercise2(operation, max);
+    }
+    else {
+        return generateMatrixExercise3(operation, max);
+    }
+}
+
+export function generateMatrixExercise2(operation: number = 2, max: number = 10) {
     let M1 = getRandomMatrix2(max);
     let M2 = getRandomMatrix2(max);
 
@@ -885,7 +903,7 @@ export function generateExercise2(operation: number = 2, max: number = 10) {
     return generated_exercise;
 }
 
-export function generateExercise3(operation: number = 2, max: number = 10) {
+export function generateMatrixExercise3(operation: number = 2, max: number = 10) {
     let M1 = getRandomMatrix3(max);
     let M2 = getRandomMatrix3(max);
 
@@ -928,5 +946,62 @@ export function getAnswerMatrix(M1: Matrix2|Matrix3, M2: Matrix2|Matrix3, operat
         default:
             return (M1 as any).multiply(M2);
 
+    }
+}
+
+export function generateNumberExercise(matrix_dimension: number, operation: number, max: number) {
+    if (matrix_dimension == 2) {
+        return generateNumberExercise2(operation, max);
+    }
+    else {
+        return generateNumberExercise3(operation, max);
+    }
+}
+
+export function generateNumberExercise2(operation: number = 2, max: number = 10) {
+    const M1 = getRandomMatrix2(max);
+    const row = getRandomNumberFromArray([1,2]);
+    const column = getRandomNumberFromArray([1,2]);
+
+    const answer = getAnswerNumber(M1, operation, row, column);
+
+    const generated_exercise: { M1: Matrix2, answer: number, row: number, column: number } = {
+        M1: M1,
+        answer: answer,
+        row: row,
+        column: column
+    };
+
+    return generated_exercise;
+}
+
+export function generateNumberExercise3(operation: number = 2, max: number = 10) {
+    const M1 = getRandomMatrix3(max);
+    const row = getRandomNumberFromArray([1,2,3]);
+    const column = getRandomNumberFromArray([1,2,3]);
+
+    const answer = getAnswerNumber(M1, operation, row, column);
+
+    const generated_exercise: { M1: Matrix3, answer: number, row: number, column: number } = {
+        M1: M1,
+        answer: answer,
+        row: row,
+        column: column
+    };
+
+    return generated_exercise;
+}
+
+export function getAnswerNumber(M1: Matrix2|Matrix3, operation: number, row: number, column: number): number {
+
+    switch (operation) {
+        case 3:
+            return M1.determinant();
+        case 7:
+            return M1.minor(row, column);
+        case 8:
+            return M1.cofactor(row, column);
+        default:
+            return M1.determinant();
     }
 }

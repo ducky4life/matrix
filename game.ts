@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3, getRandomNumberFromArray } from "./matrix.js";
+import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateMatrixExercise, getInputMatrix2, getInputMatrix3, getRandomNumberFromArray, getInputNumber, generateNumberExercise } from "./matrix.js";
 
 function setInputEventListener() {
     let inputElementIds: string[] = [];
@@ -29,8 +29,16 @@ function setOperationEventListener() {
     })
 }
 
+const m1_box = document.getElementById('m1_box')!;
+const m1_number = document.getElementById('m1_number')!;
+
+function toggleNumberInput() {
+    m1_box.classList.toggle('gone');
+    m1_number.classList.toggle('gone');
+}
+
 function changeDimension(matrix_dimension: number) {
-    const m1_box = document.getElementById('m1_box')!;
+    toggleNumberInput();
 
     m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
 
@@ -70,7 +78,12 @@ function clearInputBoxColor(box_name: string) {
 }
 
 function clearAllInputBoxColor() {
-    if (curr_dimension == 2) {
+
+    if (number_input) {
+        (document.getElementById(`m1_number`) as HTMLInputElement).style.border = '';
+    }
+
+    else if (curr_dimension == 2) {
         (document.getElementById(`2x2_m1_a1`) as HTMLInputElement).style.border = '';
         (document.getElementById(`2x2_m1_a2`) as HTMLInputElement).style.border = '';
         (document.getElementById(`2x2_m1_b1`) as HTMLInputElement).style.border = '';
@@ -90,16 +103,31 @@ function clearAllInputBoxColor() {
     }
 }
 
-function checkAnswer(curr_dimension: number, answer: Matrix2|Matrix3) {
+function checkMatrixAnswer(curr_dimension: number, answer: Matrix2|Matrix3) {
     if (curr_dimension == 2) {
-        checkAnswer2(answer as Matrix2);
+        checkMatrixAnswer2(answer as Matrix2);
     }
     else if (curr_dimension == 3) {
-        checkAnswer3(answer as Matrix3);
+        checkMatrixAnswer3(answer as Matrix3);
     }
 }
 
-function checkAnswer2(answer: Matrix2) {
+function checkNumberAnswer(answer: number) {
+    const inputNumber: number = getInputNumber('m1');
+    const elementId = "m1_number";
+
+    if ((document.getElementById(elementId) as HTMLInputElement).value) {
+        if (inputNumber == answer) {
+            setInputBoxColor(elementId, 'limegreen');
+        }
+
+        else {
+            setInputBoxColor(elementId, 'red');
+        }
+    }
+}
+
+function checkMatrixAnswer2(answer: Matrix2) {
     const inputMatrix: Matrix2 = getInputMatrix2('m1');
 
     for (let row=1; row<=2; row++) {
@@ -123,7 +151,7 @@ function checkAnswer2(answer: Matrix2) {
     }
 }
 
-function checkAnswer3(answer: Matrix3) {
+function checkMatrixAnswer3(answer: Matrix3) {
     const inputMatrix: Matrix3 = getInputMatrix3('m1');
 
     for (let row=1; row<=3; row++) {
@@ -147,7 +175,7 @@ function checkAnswer3(answer: Matrix3) {
     }
 }
 
-const matrixOperationArray: Array<number> = [4,5,6];
+const matrixOperationArray: Array<number> = [3,4,5,6,7,8];
 
 function getInputOperator(): number {
     let operation = Number((document.getElementById('type') as HTMLSelectElement).value);
@@ -162,15 +190,18 @@ function getInputOperator(): number {
             break;
 
         case -3: // random all
-            operation = getRandomNumberFromArray([0,1,2,4,5,6]);
+            operation = getRandomNumberFromArray([0,1,2,3,4,5,6,7,8]);
             break;
     }
 
     return operation;
 }
 
+const matrixOutputExercises: Array<number> = [0,1,2,4,5,6];
+const numberOutputExercises: Array<number> = [3,7,8];
+
 function displayExercise() {
-    clearInput(curr_dimension, 'm1');
+    clearInput(curr_dimension, 'm1', number_input);
     clearAllInputBoxColor();
 
     const output = document.querySelector('#exercise')!;
@@ -190,19 +221,26 @@ function displayExercise() {
     }
 
     let exercise: any = {};
-    if (curr_dimension == 2) {
-        exercise = generateExercise2(operation, max_element);
+    if (matrixOutputExercises.includes(operation)) {
+        number_input = false;
+        exercise = generateMatrixExercise(curr_dimension, operation, max_element);
+        changeDimension(curr_dimension);
     }
     else {
-        exercise = generateExercise3(operation, max_element);
+        number_input = true;
+        exercise = generateNumberExercise(curr_dimension, operation, max_element);
+        toggleNumberInput();
     }
-
+    
     const M1 = exercise['M1'];
     const M2 = exercise['M2'];
     const answer = exercise['answer'];
+    const row = exercise['row'];
+    const column = exercise['column'];
     const operator = exercise['operator'];
 
-    if (!matrixOperationArray.includes(operation)) {
+
+    if ([0,1,2].includes(operation)) { // basic arithmetic
 
         output.innerHTML = `
             <div style="display: flex; align-items: center;">
@@ -245,15 +283,34 @@ function displayExercise() {
                 
     }
 
-    console.log(answer.displayToString())
+    else if (operation == 3) { // determinant
+
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0;">det</span>
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+
+    }
+
+    // console.log(answer.displayToString())
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
-    submitButton.addEventListener('click', () => checkAnswer(curr_dimension, answer));
+    submitButton.addEventListener('click', () => {
+        if (matrixOutputExercises.includes(operation)) {
+            checkMatrixAnswer(curr_dimension, answer);
+        }
+
+        else {
+            checkNumberAnswer(answer);
+        }
+    });
 }
 
 (document.querySelector('#generate') as HTMLButtonElement)!.addEventListener('click', () => displayExercise());
 (document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => {
-    clearInput(curr_dimension, 'm1');
+    clearInput(curr_dimension, 'm1', number_input);
     clearAllInputBoxColor();
 });
 const dimensionInput = (document.getElementById('dimension') as HTMLSelectElement);
@@ -261,6 +318,7 @@ const dimensionInput = (document.getElementById('dimension') as HTMLSelectElemen
 dimensionInput.addEventListener('input', () => toggleDimension());
 
 let curr_dimension = 2;
+let number_input = false;
 changeDimension(2);
 displayExercise();
 setOperationEventListener();

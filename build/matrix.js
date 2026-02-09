@@ -532,6 +532,10 @@ export function getRandomMatrix3(max = 10) {
     const M = new Matrix3(a1, a2, a3, b1, b2, b3, c1, c2, c3);
     return M;
 }
+export function getInputNumber(name) {
+    const inputNumber = document.getElementById(`${name}_number`).value;
+    return Number(inputNumber);
+}
 export function getInputMatrix2(name) {
     const a1 = document.getElementById(`2x2_${name}_a1`).value;
     const a2 = document.getElementById(`2x2_${name}_a2`).value;
@@ -573,8 +577,11 @@ export function getMatrixHTML(name, matrix_dimension) {
     }
     return matrixHTML;
 }
-export function clearInput(curr_dimension, name) {
-    if (curr_dimension == 2) {
+export function clearInput(curr_dimension, name, clear_number = false) {
+    if (clear_number) {
+        document.getElementById(`${name}_number`).value = '';
+    }
+    else if (curr_dimension == 2) {
         document.getElementById(`2x2_${name}_a1`).value = '';
         document.getElementById(`2x2_${name}_a2`).value = '';
         document.getElementById(`2x2_${name}_b1`).value = '';
@@ -622,7 +629,15 @@ export function ensureInverseIsIntegerMatrix3(max = 10) {
     }
     return M;
 }
-export function generateExercise2(operation = 2, max = 10) {
+export function generateMatrixExercise(matrix_dimension, operation, max) {
+    if (matrix_dimension == 2) {
+        return generateMatrixExercise2(operation, max);
+    }
+    else {
+        return generateMatrixExercise3(operation, max);
+    }
+}
+export function generateMatrixExercise2(operation = 2, max = 10) {
     let M1 = getRandomMatrix2(max);
     let M2 = getRandomMatrix2(max);
     if (operation == 4) {
@@ -637,7 +652,7 @@ export function generateExercise2(operation = 2, max = 10) {
     };
     return generated_exercise;
 }
-export function generateExercise3(operation = 2, max = 10) {
+export function generateMatrixExercise3(operation = 2, max = 10) {
     let M1 = getRandomMatrix3(max);
     let M2 = getRandomMatrix3(max);
     if (operation == 4) {
@@ -668,5 +683,51 @@ export function getAnswerMatrix(M1, M2, operation) {
             return M1.adjoint();
         default:
             return M1.multiply(M2);
+    }
+}
+export function generateNumberExercise(matrix_dimension, operation, max) {
+    if (matrix_dimension == 2) {
+        return generateNumberExercise2(operation, max);
+    }
+    else {
+        return generateNumberExercise3(operation, max);
+    }
+}
+export function generateNumberExercise2(operation = 2, max = 10) {
+    const M1 = getRandomMatrix2(max);
+    const row = getRandomNumberFromArray([1, 2]);
+    const column = getRandomNumberFromArray([1, 2]);
+    const answer = getAnswerNumber(M1, operation, row, column);
+    const generated_exercise = {
+        M1: M1,
+        answer: answer,
+        row: row,
+        column: column
+    };
+    return generated_exercise;
+}
+export function generateNumberExercise3(operation = 2, max = 10) {
+    const M1 = getRandomMatrix3(max);
+    const row = getRandomNumberFromArray([1, 2, 3]);
+    const column = getRandomNumberFromArray([1, 2, 3]);
+    const answer = getAnswerNumber(M1, operation, row, column);
+    const generated_exercise = {
+        M1: M1,
+        answer: answer,
+        row: row,
+        column: column
+    };
+    return generated_exercise;
+}
+export function getAnswerNumber(M1, operation, row, column) {
+    switch (operation) {
+        case 3:
+            return M1.determinant();
+        case 7:
+            return M1.minor(row, column);
+        case 8:
+            return M1.cofactor(row, column);
+        default:
+            return M1.determinant();
     }
 }

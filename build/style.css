@@ -420,7 +420,7 @@ math, mfrac, mn {
     padding: 0.5em 0;
 }
 
-.matrix-2 input, .matrix-3 input {
+.matrix-2 input, .matrix-3 input, input[id$="_number"] {
     width: 1vw;
     height: 1.5vw;
 }
@@ -443,11 +443,15 @@ math, mfrac, mn {
   visibility: hidden;
 }
 
+.gone {
+  display: none;
+}
+
 .matrix-output {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     justify-content: flex-end;
     margin-left: 10vw;
 }

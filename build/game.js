@@ -1,4 +1,4 @@
-import { getMatrixHTML, clearInput, generateExercise2, generateExercise3, getInputMatrix2, getInputMatrix3, getRandomNumberFromArray } from "./matrix.js";
+import { getMatrixHTML, clearInput, generateMatrixExercise, getInputMatrix2, getInputMatrix3, getRandomNumberFromArray, getInputNumber, generateNumberExercise } from "./matrix.js";
 function setInputEventListener() {
     let inputElementIds = [];
     switch (curr_dimension) {
@@ -24,8 +24,14 @@ function setOperationEventListener() {
         displayExercise();
     });
 }
+const m1_box = document.getElementById('m1_box');
+const m1_number = document.getElementById('m1_number');
+function toggleNumberInput() {
+    m1_box.classList.toggle('gone');
+    m1_number.classList.toggle('gone');
+}
 function changeDimension(matrix_dimension) {
-    const m1_box = document.getElementById('m1_box');
+    toggleNumberInput();
     m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
     if (matrix_dimension == 3) {
         m1_box.classList.add('matrix-container-3');
@@ -58,7 +64,10 @@ function clearInputBoxColor(box_name) {
     inputBox.style.border = '';
 }
 function clearAllInputBoxColor() {
-    if (curr_dimension == 2) {
+    if (number_input) {
+        document.getElementById(`m1_number`).style.border = '';
+    }
+    else if (curr_dimension == 2) {
         document.getElementById(`2x2_m1_a1`).style.border = '';
         document.getElementById(`2x2_m1_a2`).style.border = '';
         document.getElementById(`2x2_m1_b1`).style.border = '';
@@ -76,15 +85,27 @@ function clearAllInputBoxColor() {
         document.getElementById(`3x3_m1_c3`).style.border = '';
     }
 }
-function checkAnswer(curr_dimension, answer) {
+function checkMatrixAnswer(curr_dimension, answer) {
     if (curr_dimension == 2) {
-        checkAnswer2(answer);
+        checkMatrixAnswer2(answer);
     }
     else if (curr_dimension == 3) {
-        checkAnswer3(answer);
+        checkMatrixAnswer3(answer);
     }
 }
-function checkAnswer2(answer) {
+function checkNumberAnswer(answer) {
+    const inputNumber = getInputNumber('m1');
+    const elementId = "m1_number";
+    if (document.getElementById(elementId).value) {
+        if (inputNumber == answer) {
+            setInputBoxColor(elementId, 'limegreen');
+        }
+        else {
+            setInputBoxColor(elementId, 'red');
+        }
+    }
+}
+function checkMatrixAnswer2(answer) {
     const inputMatrix = getInputMatrix2('m1');
     for (let row = 1; row <= 2; row++) {
         for (let column = 1; column <= 2; column++) {
@@ -102,7 +123,7 @@ function checkAnswer2(answer) {
         }
     }
 }
-function checkAnswer3(answer) {
+function checkMatrixAnswer3(answer) {
     const inputMatrix = getInputMatrix3('m1');
     for (let row = 1; row <= 3; row++) {
         for (let column = 1; column <= 3; column++) {
@@ -120,7 +141,7 @@ function checkAnswer3(answer) {
         }
     }
 }
-const matrixOperationArray = [4, 5, 6];
+const matrixOperationArray = [3, 4, 5, 6, 7, 8];
 function getInputOperator() {
     let operation = Number(document.getElementById('type').value);
     switch (operation) {
@@ -131,13 +152,15 @@ function getInputOperator() {
             operation = getRandomNumberFromArray(matrixOperationArray);
             break;
         case -3: // random all
-            operation = getRandomNumberFromArray([0, 1, 2, 4, 5, 6]);
+            operation = getRandomNumberFromArray([0, 1, 2, 3, 4, 5, 6, 7, 8]);
             break;
     }
     return operation;
 }
+const matrixOutputExercises = [0, 1, 2, 4, 5, 6];
+const numberOutputExercises = [3, 7, 8];
 function displayExercise() {
-    clearInput(curr_dimension, 'm1');
+    clearInput(curr_dimension, 'm1', number_input);
     clearAllInputBoxColor();
     const output = document.querySelector('#exercise');
     output.innerHTML = '';
@@ -153,17 +176,23 @@ function displayExercise() {
         }
     }
     let exercise = {};
-    if (curr_dimension == 2) {
-        exercise = generateExercise2(operation, max_element);
+    if (matrixOutputExercises.includes(operation)) {
+        number_input = false;
+        exercise = generateMatrixExercise(curr_dimension, operation, max_element);
+        changeDimension(curr_dimension);
     }
     else {
-        exercise = generateExercise3(operation, max_element);
+        number_input = true;
+        exercise = generateNumberExercise(curr_dimension, operation, max_element);
+        toggleNumberInput();
     }
     const M1 = exercise['M1'];
     const M2 = exercise['M2'];
     const answer = exercise['answer'];
+    const row = exercise['row'];
+    const column = exercise['column'];
     const operator = exercise['operator'];
-    if (!matrixOperationArray.includes(operation)) {
+    if ([0, 1, 2].includes(operation)) { // basic arithmetic
         output.innerHTML = `
             <div style="display: flex; align-items: center;">
                 ${M1.displayToHTML()}
@@ -194,18 +223,34 @@ function displayExercise() {
                 <span style="margin: 0 10px;">= </span>
             </div><br>`;
     }
-    console.log(answer.displayToString());
+    else if (operation == 3) { // determinant
+        output.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0;">det</span>
+                ${M1.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    // console.log(answer.displayToString())
     const submitButton = document.getElementById('submit');
-    submitButton.addEventListener('click', () => checkAnswer(curr_dimension, answer));
+    submitButton.addEventListener('click', () => {
+        if (matrixOutputExercises.includes(operation)) {
+            checkMatrixAnswer(curr_dimension, answer);
+        }
+        else {
+            checkNumberAnswer(answer);
+        }
+    });
 }
 document.querySelector('#generate').addEventListener('click', () => displayExercise());
 document.querySelector('#clear').addEventListener('click', () => {
-    clearInput(curr_dimension, 'm1');
+    clearInput(curr_dimension, 'm1', number_input);
     clearAllInputBoxColor();
 });
 const dimensionInput = document.getElementById('dimension');
 dimensionInput.addEventListener('input', () => toggleDimension());
 let curr_dimension = 2;
+let number_input = false;
 changeDimension(2);
 displayExercise();
 setOperationEventListener();

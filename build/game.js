@@ -26,12 +26,16 @@ function setOperationEventListener() {
 }
 const m1_box = document.getElementById('m1_box');
 const m1_number = document.getElementById('m1_number');
-function toggleNumberInput() {
-    m1_box.classList.toggle('gone');
-    m1_number.classList.toggle('gone');
+function setNumberInput() {
+    m1_box.classList.add('gone');
+    m1_number.classList.remove('gone');
+}
+function setMatrixInput() {
+    m1_box.classList.remove('gone');
+    m1_number.classList.add('gone');
 }
 function changeDimension(matrix_dimension) {
-    toggleNumberInput();
+    setMatrixInput();
     m1_box.innerHTML = getMatrixHTML('m1', matrix_dimension);
     if (matrix_dimension == 3) {
         m1_box.classList.add('matrix-container-3');
@@ -184,7 +188,7 @@ function displayExercise() {
     else {
         number_input = true;
         exercise = generateNumberExercise(curr_dimension, operation, max_element);
-        toggleNumberInput();
+        setNumberInput();
     }
     const M1 = exercise['M1'];
     const M2 = exercise['M2'];

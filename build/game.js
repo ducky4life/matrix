@@ -97,13 +97,16 @@ function clearAllInputBoxColor() {
         document.getElementById(`3x3_m1_c3`).style.border = '';
     }
 }
+function setScore(score) {
+    const scoreElement = (document.getElementById('score'));
+    scoreElement.innerHTML = score;
+}
 function incrementScore() {
     const scoreElement = (document.getElementById('score'));
     const curr_score = Number(scoreElement.innerHTML);
     const new_score = curr_score + 1;
     scoreElement.innerHTML = new_score.toString();
-    const submitButton = document.getElementById('submit');
-    submitButton.removeEventListener;
+    localStorage.setItem('score', new_score.toString());
 }
 function checkMatrixAnswer(curr_dimension, answer) {
     if (curr_dimension == 2) {
@@ -315,3 +318,8 @@ let number_input = false;
 changeDimension(2);
 displayExercise();
 setOperationEventListener();
+let local_score = localStorage.getItem('score');
+if (local_score == null) {
+    local_score = '0';
+}
+setScore(local_score);

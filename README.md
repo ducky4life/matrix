@@ -12,13 +12,13 @@ made to practice my typescript skills and learn how to use classes.
 
 ## typescript files
 
-[calculator.ts](https://github.com/ducky4life/matrix/blob/main/calculator.ts), [generator.ts](https://github.com/ducky4life/matrix/blob/main/generator.ts), [game.ts](https://github.com/ducky4life/matrix/blob/main/game.ts): main code for their respective websites
+- [calculator.ts](https://github.com/ducky4life/matrix/blob/main/calculator.ts), [generator.ts](https://github.com/ducky4life/matrix/blob/main/generator.ts), [game.ts](https://github.com/ducky4life/matrix/blob/main/game.ts): main code for their respective websites
 
-[matrix.ts](https://github.com/ducky4life/matrix/blob/main/matrix.ts): storing matrix classes and helper functions
+- [matrix.ts](https://github.com/ducky4life/matrix/blob/main/matrix.ts): storing matrix classes and helper functions
 
-[frac_matrix.ts](https://github.com/ducky4life/matrix/blob/main/frac_matrix.ts): storing fraction/fractional matrix (matrices with fractional elements) classes and fraction class related helper functions
+- [frac_matrix.ts](https://github.com/ducky4life/matrix/blob/main/frac_matrix.ts): storing fraction/fractional matrix (matrices with fractional elements) classes and fraction related helper functions
 
-(todo) [matrix_web.ts](https://github.com/ducky4life/matrix/blob/main/matrix_web.ts): storing functions for interacting with the html sites
+- (todo) [matrix_web.ts](https://github.com/ducky4life/matrix/blob/main/matrix_web.ts): storing functions for interacting with the html sites
 
 ## todo
 

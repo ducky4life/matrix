@@ -18,7 +18,7 @@ made to practice my typescript skills and learn how to use classes.
 
 - [frac_matrix.ts](https://github.com/ducky4life/matrix/blob/main/frac_matrix.ts): storing fraction/fractional matrix (matrices with fractional elements) classes and fraction related helper functions
 
-- (todo) [matrix_web.ts](https://github.com/ducky4life/matrix/blob/main/matrix_web.ts): storing functions for interacting with the html sites
+- (todo) [matrix_web.ts](https://github.com/ducky4life/matrix/blob/main/matrix_web.ts): storing functions for interacting with the html sites
 
 ## todo
 

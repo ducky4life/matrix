@@ -502,7 +502,7 @@ math, mfrac, mn {
 }
 
 .matrix-elements mn {
-  font-size: 2vh;
+  font-size: 2vw;
 }
 
 @media all and (orientation: portrait) {

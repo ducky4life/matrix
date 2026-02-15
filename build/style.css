@@ -101,6 +101,10 @@ p {
   height: 5vh;
 }
 
+.small-textbox {
+  margin-right: 30px;
+}
+
 @media all and (orientation: portrait) {
   textarea {
     width: 40vw;
@@ -111,13 +115,13 @@ p {
   
   .textboxes {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     justify-content: center;
     align-items: center;
   }
 
   .small-textbox {
-    width: 18vw;
+    margin-right: 0;
   }
 
   ::placeholder {

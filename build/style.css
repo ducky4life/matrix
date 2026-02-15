@@ -392,8 +392,15 @@ math, mfrac, mn {
 }
 
 .matrix-container-3::before,
-.matrix-container-3::after {
+.matrix-container-3::after,
+.frac-matrix-container-2::before,
+.frac-matrix-container-2::after {
     font-size: 6em;
+}
+
+.frac-matrix-container-3::before,
+.frac-matrix-container-3::after {
+    font-size: 10em;
 }
 
 .matrix-property::placeholder {
@@ -492,6 +499,10 @@ math, mfrac, mn {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.matrix-elements mn {
+  font-size: 2vh;
 }
 
 @media all and (orientation: portrait) {

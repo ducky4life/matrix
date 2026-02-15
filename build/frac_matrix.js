@@ -93,7 +93,7 @@ export class FracMatrix2 {
     }
     displayToHTML() {
         return (`
-            <div class="matrix-container">
+            <div class="matrix-container frac-matrix-container-2">
                 <div class="matrix-2">
                     <div class="matrix-elements">${this.a1.displayToHTML()}</div><div class="matrix-elements">${this.a2.displayToHTML()}</div>
                     <div class="matrix-elements">${this.b1.displayToHTML()}</div><div class="matrix-elements">${this.b2.displayToHTML()}</div>
@@ -148,7 +148,7 @@ export class FracMatrix3 {
     }
     displayToHTML() {
         return (`
-            <div class="matrix-container">
+            <div class="matrix-container frac-matrix-container-3">
                 <div class="matrix-3">
                 <div class="matrix-elements">${this.a1.displayToHTML()}</div><div class="matrix-elements">${this.a2.displayToHTML()}</div><div class="matrix-elements">${this.a3.displayToHTML()}</div>
                 <div class="matrix-elements">${this.b1.displayToHTML()}</div><div class="matrix-elements">${this.b2.displayToHTML()}</div><div class="matrix-elements">${this.b3.displayToHTML()}</div>

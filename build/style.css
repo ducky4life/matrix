@@ -499,6 +499,7 @@ math, mfrac, mn {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .matrix-elements mn {

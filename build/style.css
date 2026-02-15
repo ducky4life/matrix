@@ -502,6 +502,11 @@ math, mfrac, mn {
   overflow: visible;
 }
 
+.frac-matrix-container-3 .matrix-elements,
+.frac-matrix-container-2 .matrix-elements {
+  font-size: 2vw;
+}
+
 mn {
   font-size: 2vw;
 }

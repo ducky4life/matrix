@@ -128,9 +128,44 @@ export class AugmentedMatrix3 {
         }
         return arrayToAugmentedRow3(augmentedRowArray);
     }
+    replaceRow(row, replaceWith) {
+        let augmentedRowArray = [];
+        for (let i = 1; i <= 3; i++) {
+            if (i != row) {
+                const augmentedRow = this.getAugmentedRow(i);
+                augmentedRowArray.push(augmentedRow);
+            }
+            else {
+                augmentedRowArray.push(replaceWith);
+            }
+        }
+        return rowArrayToAugmentedMatrix3(augmentedRowArray);
+    }
+    swapRow(row1, row2) {
+        const tempRow = this.getAugmentedRow(row1);
+        return this.replaceRow(row1, this.getAugmentedRow(row2)).replaceRow(row2, tempRow);
+    }
+}
+export function HCF(num1, num2) {
+    if (num2 == 0) {
+        return num1;
+    }
+    return HCF(num2, num1 % num2);
+}
+export function LCM(num1, num2) {
+    if (num1 != 0 && num2 != 0) {
+        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
+    }
+    return 0;
 }
 export function arrayToAugmentedRow3(augmentedRowArray) {
     return new AugmentedRow3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2], augmentedRowArray[3]);
+}
+export function rowArrayToAugmentedMatrix3(augmentedRowArray) {
+    return rowToAugmentedMatrix3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2]);
+}
+export function rowToAugmentedMatrix3(R1, R2, R3) {
+    return new AugmentedMatrix3(R1.a1, R1.a2, R1.a3, R1.a4, R2.a1, R2.a2, R2.a3, R2.a4, R3.a1, R3.a2, R3.a3, R3.a4);
 }
 export function gaussianEliminationRow(row1, row2) {
     const pivot1 = row1.firstNonZeroEntry();
@@ -154,20 +189,9 @@ export function gaussianEliminationRow(row1, row2) {
         return new AugmentedRow3();
     }
 }
-export function HCF(num1, num2) {
-    if (num2 == 0) {
-        return num1;
-    }
-    return HCF(num2, num1 % num2);
-}
-export function LCM(num1, num2) {
-    if (num1 != 0 && num2 != 0) {
-        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
-    }
-    return 0;
-}
 const testRow1 = new AugmentedRow3(0, 1, 1, 2);
 const testRow2 = new AugmentedRow3(0, 2, 3, 4);
 const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);
 console.log(gaussianEliminationRow(testRow1, testRow2));
 console.log(testAugmentedMatrix.getSolution());
+console.log(testAugmentedMatrix.swapRow(1, 2));

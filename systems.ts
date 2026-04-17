@@ -197,11 +197,61 @@ export class AugmentedMatrix3 {
 
         return arrayToAugmentedRow3(augmentedRowArray);
     }
+
+    replaceRow(row: number, replaceWith: AugmentedRow3): AugmentedMatrix3 {
+        let augmentedRowArray: Array<AugmentedRow3> = [];
+
+        for (let i=1; i<=3; i++) {
+
+            if (i != row) {
+                const augmentedRow = this.getAugmentedRow(i);
+                augmentedRowArray.push(augmentedRow);
+            }
+
+            else {
+                augmentedRowArray.push(replaceWith);
+            }
+
+        }
+
+        return rowArrayToAugmentedMatrix3(augmentedRowArray);
+    }
+
+    swapRow(row1: number, row2: number): AugmentedMatrix3 {
+        const tempRow = this.getAugmentedRow(row1);
+        return this.replaceRow(row1, this.getAugmentedRow(row2)).replaceRow(row2, tempRow);
+    }
+}
+
+export function HCF(num1: number, num2: number) {
+    if (num2 == 0) {
+        return num1;
+    }
+    return HCF(num2, num1 % num2);
+}
+
+export function LCM(num1: number, num2: number) {
+    if (num1 != 0 && num2 != 0) {
+        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
+    }
+    return 0;
 }
 
 export function arrayToAugmentedRow3(augmentedRowArray: Array<number>) {
     return new AugmentedRow3(
         augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2], augmentedRowArray[3]
+    );
+}
+
+export function rowArrayToAugmentedMatrix3(augmentedRowArray: Array<AugmentedRow3>) {
+    return rowToAugmentedMatrix3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2]);
+}
+
+export function rowToAugmentedMatrix3(R1: AugmentedRow3, R2: AugmentedRow3, R3: AugmentedRow3) {
+    return new AugmentedMatrix3(
+        R1.a1, R1.a2, R1.a3, R1.a4,
+        R2.a1, R2.a2, R2.a3, R2.a4,
+        R3.a1, R3.a2, R3.a3, R3.a4
     );
 }
 
@@ -233,20 +283,6 @@ export function gaussianEliminationRow(row1: AugmentedRow3, row2: AugmentedRow3)
     }
 }
 
-export function HCF(num1: number, num2: number) {
-    if (num2 == 0) {
-        return num1;
-    }
-    return HCF(num2, num1 % num2);
-}
-
-export function LCM(num1: number, num2: number) {
-    if (num1 != 0 && num2 != 0) {
-        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
-    }
-    return 0;
-}
-
 const testRow1 = new AugmentedRow3(0,1,1,2);
 const testRow2 = new AugmentedRow3(0,2,3,4);
 const testAugmentedMatrix = new AugmentedMatrix3(
@@ -256,3 +292,4 @@ const testAugmentedMatrix = new AugmentedMatrix3(
 );
 console.log(gaussianEliminationRow(testRow1, testRow2))
 console.log(testAugmentedMatrix.getSolution())
+console.log(testAugmentedMatrix.swapRow(1,2));

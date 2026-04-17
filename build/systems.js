@@ -145,6 +145,45 @@ export class AugmentedMatrix3 {
         const tempRow = this.getAugmentedRow(row1);
         return this.replaceRow(row1, this.getAugmentedRow(row2)).replaceRow(row2, tempRow);
     }
+    firstGaussianElimination() {
+        const R1 = this.getAugmentedRow(1);
+        const R2 = this.getAugmentedRow(2);
+        const R3 = this.getAugmentedRow(3);
+        if (R1.firstNonZeroEntryColumn() != 1) {
+            console.log("pivot of first row is not 1");
+            return new AugmentedMatrix3();
+        }
+        let new_R2 = R2;
+        let new_R3 = R3;
+        if (R2.firstNonZeroEntryColumn() == 1) {
+            new_R2 = gaussianEliminationRow(R1, R2);
+        }
+        if (R3.firstNonZeroEntryColumn() == 1) {
+            new_R3 = gaussianEliminationRow(R1, R3);
+        }
+        let eliminatedMatrix = rowToAugmentedMatrix3(R1, new_R2, new_R3);
+        if (new_R2.firstNonZeroEntryColumn() < new_R3.firstNonZeroEntryColumn()) {
+            eliminatedMatrix = eliminatedMatrix.swapRow(2, 3);
+        }
+        return eliminatedMatrix;
+    }
+    secondGaussianElimination() {
+        const R1 = this.getAugmentedRow(1);
+        const R2 = this.getAugmentedRow(2);
+        const R3 = this.getAugmentedRow(3);
+        if (R2.firstNonZeroEntryColumn() != 2) {
+            console.log("pivot of second row is not 2");
+            return new AugmentedMatrix3();
+        }
+        let new_R3 = R3;
+        if (R3.firstNonZeroEntryColumn() == 2) {
+            new_R3 = gaussianEliminationRow(R2, R3);
+        }
+        return rowToAugmentedMatrix3(R1, R2, new_R3);
+    }
+    gaussianElimination() {
+        return this.firstGaussianElimination().secondGaussianElimination();
+    }
 }
 export function HCF(num1, num2) {
     if (num2 == 0) {
@@ -198,4 +237,4 @@ const testRow2 = new AugmentedRow3(0, 2, 3, 4);
 const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);
 console.log(gaussianEliminationRow(testRow1, testRow2));
 console.log(testAugmentedMatrix.getSolution());
-console.log(testAugmentedMatrix.swapRow(1, 2));
+console.log(testAugmentedMatrix.gaussianElimination().displayToString());

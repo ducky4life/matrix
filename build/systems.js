@@ -9,6 +9,32 @@ export class AugmentedRow3 {
     scale(num) {
         return new AugmentedRow3(num * this.a1, num * this.a2, num * this.a3, num * this.a4);
     }
+    getElement(column) {
+        return this["a" + column.toString()];
+    }
+    isZeroRow() {
+        return (this.a1 == 0 && this.a2 == 0 && this.a3 == 0 && this.a4 == 0);
+    }
+    firstNonZeroEntryColumn() {
+        if (!this.isZeroRow()) {
+            for (let i = 1; i <= 4; i++) {
+                if (this.getElement(i) != 0) {
+                    return i;
+                }
+            }
+        }
+        console.log("row is a zero row");
+        return 0;
+    }
+    firstNonZeroEntry() {
+        return this.getElement(this.firstNonZeroEntryColumn());
+    }
+    add(R) {
+        return new AugmentedRow3(this.a1 + R.a1, this.a2 + R.a2, this.a3 + R.a3, this.a4 + R.a4);
+    }
+    minus(R) {
+        return new AugmentedRow3(this.a1 - R.a1, this.a2 - R.a2, this.a3 - R.a3, this.a4 - R.a4);
+    }
 }
 export class AugmentedMatrix3 {
     constructor(a1 = 0, a2 = 0, a3 = 0, a4 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, c1 = 0, c2 = 0, c3 = 0, c4 = 0) {
@@ -78,4 +104,38 @@ export class AugmentedMatrix3 {
 }
 export function arrayToAugmentedRow3(augmentedRowArray) {
     return new AugmentedRow3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2], augmentedRowArray[3]);
+}
+export function gaussianEliminationRow(row1, row2) {
+    const pivot1 = row1.firstNonZeroEntry();
+    const pivot2 = row2.firstNonZeroEntry();
+    if (row1.firstNonZeroEntryColumn() != row2.firstNonZeroEntryColumn()) {
+        console.log("rows have unmatched nonzero column numbers");
+    }
+    // same leading coefficient
+    const pivotLCM = LCM(pivot1, pivot2);
+    const R1 = row1.scale(pivotLCM / pivot1);
+    const R2 = row2.scale(pivotLCM / pivot2);
+    // elimination
+    if (R1.firstNonZeroEntry() == R2.firstNonZeroEntry()) { // subtraction
+        return R1.minus(R2);
+    }
+    else if (R1.firstNonZeroEntry() == -R2.firstNonZeroEntry()) { // addition
+        return R1.add(R2);
+    }
+    else {
+        console.log("not same leading coefficient");
+        return new AugmentedRow3();
+    }
+}
+export function HCF(num1, num2) {
+    if (num2 == 0) {
+        return num1;
+    }
+    return HCF(num2, num1 % num2);
+}
+export function LCM(num1, num2) {
+    if (num1 != 0 && num2 != 0) {
+        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
+    }
+    return 0;
 }

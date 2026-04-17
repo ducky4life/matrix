@@ -18,6 +18,51 @@ export class AugmentedRow3 {
     scale(num: number): AugmentedRow3 {
         return new AugmentedRow3(num*this.a1, num*this.a2, num*this.a3, num*this.a4);
     }
+
+    getElement(column: number): number {
+        return (this as any)["a" + column.toString()];
+    }
+
+    isZeroRow(): boolean {
+        return (this.a1 == 0 && this.a2 == 0 && this.a3 == 0 && this.a4 == 0);
+    }
+
+    firstNonZeroEntryColumn(): number {
+        if (!this.isZeroRow()) {
+
+            for (let i=1; i<=4; i++) {
+                if (this.getElement(i) != 0) {
+                    return i;
+                }
+            }
+
+        }
+
+        console.log("row is a zero row");
+        return 0;
+    }
+
+    firstNonZeroEntry(): number {
+        return this.getElement(this.firstNonZeroEntryColumn());
+    }
+
+    add(R: AugmentedRow3): AugmentedRow3 {
+        return new AugmentedRow3(
+            this.a1 + R.a1,
+            this.a2 + R.a2,
+            this.a3 + R.a3,
+            this.a4 + R.a4
+        );
+    }
+
+    minus(R: AugmentedRow3): AugmentedRow3 {
+        return new AugmentedRow3(
+            this.a1 - R.a1,
+            this.a2 - R.a2,
+            this.a3 - R.a3,
+            this.a4 - R.a4
+        );
+    }
 }
 
 export class AugmentedMatrix3 {
@@ -125,4 +170,46 @@ export function arrayToAugmentedRow3(augmentedRowArray: Array<number>) {
     return new AugmentedRow3(
         augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2], augmentedRowArray[3]
     );
+}
+
+export function gaussianEliminationRow(row1: AugmentedRow3, row2: AugmentedRow3) {
+    const pivot1 = row1.firstNonZeroEntry();
+    const pivot2 = row2.firstNonZeroEntry();
+
+    if (row1.firstNonZeroEntryColumn() != row2.firstNonZeroEntryColumn()) {
+        console.log("rows have unmatched nonzero column numbers");
+    }
+
+    // same leading coefficient
+    const pivotLCM = LCM(pivot1, pivot2);
+    const R1 = row1.scale(pivotLCM/pivot1);
+    const R2 = row2.scale(pivotLCM/pivot2);
+
+    // elimination
+    if (R1.firstNonZeroEntry() == R2.firstNonZeroEntry()) { // subtraction
+        return R1.minus(R2);
+    }
+
+    else if (R1.firstNonZeroEntry() == -R2.firstNonZeroEntry()) { // addition
+        return R1.add(R2);
+    }
+
+    else {
+        console.log("not same leading coefficient");
+        return new AugmentedRow3();
+    }
+}
+
+export function HCF(num1: number, num2: number) {
+    if (num2 == 0) {
+        return num1;
+    }
+    return HCF(num2, num1 % num2);
+}
+
+export function LCM(num1: number, num2: number) {
+    if (num1 != 0 && num2 != 0) {
+        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
+    }
+    return 0;
 }

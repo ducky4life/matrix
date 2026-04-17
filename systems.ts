@@ -244,6 +244,10 @@ export function arrayToAugmentedRow3(augmentedRowArray: Array<number>) {
 }
 
 export function rowArrayToAugmentedMatrix3(augmentedRowArray: Array<AugmentedRow3>) {
+    if (augmentedRowArray.length != 3) {
+        console.log("array length is not 3");
+        return new AugmentedMatrix3();
+    }
     return rowToAugmentedMatrix3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2]);
 }
 

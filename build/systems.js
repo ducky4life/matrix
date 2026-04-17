@@ -162,6 +162,10 @@ export function arrayToAugmentedRow3(augmentedRowArray) {
     return new AugmentedRow3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2], augmentedRowArray[3]);
 }
 export function rowArrayToAugmentedMatrix3(augmentedRowArray) {
+    if (augmentedRowArray.length != 3) {
+        console.log("array length is not 3");
+        return new AugmentedMatrix3();
+    }
     return rowToAugmentedMatrix3(augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2]);
 }
 export function rowToAugmentedMatrix3(R1, R2, R3) {

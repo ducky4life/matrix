@@ -54,7 +54,7 @@ export class AugmentedMatrix3 {
     }
 
     equals(M: AugmentedMatrix3): boolean {
-        if (this.a1 == M.a1 && this.a2 == M.a2 && this.a3 == M.a3 && this.b1 == M.b1 && this.b2 == M.b2 && this.b3 == M.b3 && this.c1 == M.c1 && this.c2 == M.c2 && this.c3 == M.c3 this.a4 == M.a4 && this.b4 == M.b4 this.c4 == M.c4) {
+        if (this.a1 == M.a1 && this.a2 == M.a2 && this.a3 == M.a3 && this.b1 == M.b1 && this.b2 == M.b2 && this.b3 == M.b3 && this.c1 == M.c1 && this.c2 == M.c2 && this.c3 == M.c3 && this.a4 == M.a4 && this.b4 == M.b4 && this.c4 == M.c4) {
             return true;
         }
         return false;
@@ -114,10 +114,10 @@ export class AugmentedMatrix3 {
     getAugmentedRow(row: number): AugmentedRow3 {
         let augmentedRowArray: Array<number> = [];
         for (let i=1; i<=4; i++) {
-            augmentedRowArray.append(this.getElement(row, i));
+            augmentedRowArray.push(this.getElement(row, i));
         }
 
-        return arraytoAugmentedRow3(augmentedRowArray);
+        return arrayToAugmentedRow3(augmentedRowArray);
     }
 }
 

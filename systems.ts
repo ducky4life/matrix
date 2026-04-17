@@ -74,4 +74,20 @@ export class AugmentedMatrix3 {
     hasUniqueSolution(): boolean {
         return this.getCoefficientMatrix().isInvertible();
     }
+
+    getSolution(): Array<number> {
+        if (this.hasUniqueSolution()) {
+            const inverseCoeffMatrix = this.getCoefficientMatrix().inverse();
+            return([
+                this.a4*inverseCoeffMatrix.a1 + this.b4*inverseCoeffMatrix.a2 + this.c4*inverseCoeffMatrix.a3,
+                this.a4*inverseCoeffMatrix.b1 + this.b4*inverseCoeffMatrix.b2 + this.c4*inverseCoeffMatrix.b3,
+                this.a4*inverseCoeffMatrix.c1 + this.b4*inverseCoeffMatrix.c2 + this.c4*inverseCoeffMatrix.c3
+            ]);
+        }
+
+        else {
+            console.log("system does not have only one unique solution");
+            return([]);
+        }
+    }    
 }

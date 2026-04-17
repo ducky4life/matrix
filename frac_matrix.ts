@@ -54,6 +54,10 @@ export class Frac {
         return new Frac(this.a*F.a, this.b*F.b).simplify();
     }
 
+    multiplyInteger(N: number) {
+        return new Frac(this.a*N, this.b);
+    }
+
     divide(F: Frac): Frac {
         return new Frac(this.a*F.b, this.b*F.a).simplify();
     }
@@ -87,6 +91,18 @@ export class Frac {
         }
 
         return new Frac(a, b);
+    }
+
+    isInteger(): boolean {
+        return (this.b == 1)
+    }
+
+    toInteger(): number {
+        if (this.isInteger()) {
+            return this.a;
+        }
+        console.log("not integer");
+        return this.a;
     }
 }
 

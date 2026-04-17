@@ -80,7 +80,7 @@ export class AugmentedMatrix3 {
     hasUniqueSolution() {
         return this.getCoefficientMatrix().isInvertible();
     }
-    getSolution() {
+    getFloatingSolution() {
         if (this.hasUniqueSolution()) {
             const inverseCoeffMatrix = this.getCoefficientMatrix().inverse();
             return ([
@@ -93,6 +93,33 @@ export class AugmentedMatrix3 {
             console.log("system does not have only one unique solution");
             return ([]);
         }
+    }
+    getFracSolution() {
+        if (this.hasUniqueSolution()) {
+            const inverseCoeffMatrix = this.getCoefficientMatrix().inverseAsFracMatrix();
+            return ([
+                inverseCoeffMatrix.a1.multiplyInteger(this.a4).add(inverseCoeffMatrix.a2.multiplyInteger(this.b4)).add(inverseCoeffMatrix.a3.multiplyInteger(this.c4)),
+                inverseCoeffMatrix.b1.multiplyInteger(this.a4).add(inverseCoeffMatrix.b2.multiplyInteger(this.b4)).add(inverseCoeffMatrix.b3.multiplyInteger(this.c4)),
+                inverseCoeffMatrix.c1.multiplyInteger(this.a4).add(inverseCoeffMatrix.c2.multiplyInteger(this.b4)).add(inverseCoeffMatrix.c3.multiplyInteger(this.c4))
+            ]);
+        }
+        else {
+            console.log("system does not have only one unique solution");
+            return ([]);
+        }
+    }
+    getSolution() {
+        const fracSolution = this.getFracSolution();
+        let finalSolution = [];
+        fracSolution.forEach((fraction) => {
+            if (fraction.isInteger()) {
+                finalSolution.push(fraction.a);
+            }
+            else {
+                finalSolution.push(fraction.displayToNumber());
+            }
+        });
+        return finalSolution;
     }
     getAugmentedRow(row) {
         let augmentedRowArray = [];
@@ -139,3 +166,8 @@ export function LCM(num1, num2) {
     }
     return 0;
 }
+const testRow1 = new AugmentedRow3(0, 1, 1, 2);
+const testRow2 = new AugmentedRow3(0, 2, 3, 4);
+const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);
+console.log(gaussianEliminationRow(testRow1, testRow2));
+console.log(testAugmentedMatrix.getSolution());

@@ -37,6 +37,9 @@ export class Frac {
     multiply(F) {
         return new Frac(this.a * F.a, this.b * F.b).simplify();
     }
+    multiplyInteger(N) {
+        return new Frac(this.a * N, this.b);
+    }
     divide(F) {
         return new Frac(this.a * F.b, this.b * F.a).simplify();
     }
@@ -63,6 +66,16 @@ export class Frac {
             }
         }
         return new Frac(a, b);
+    }
+    isInteger() {
+        return (this.b == 1);
+    }
+    toInteger() {
+        if (this.isInteger()) {
+            return this.a;
+        }
+        console.log("not integer");
+        return this.a;
     }
 }
 export class FracMatrix2 {

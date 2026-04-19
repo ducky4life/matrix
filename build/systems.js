@@ -181,7 +181,7 @@ export class AugmentedMatrix3 {
         let R1 = this.getAugmentedRow(1);
         let R2 = this.getAugmentedRow(2);
         let R3 = this.getAugmentedRow(3);
-        if (R2.firstNonZeroEntryColumn() != 2 || R3.firstNonZeroEntryColumn() == 2) {
+        if (R2.firstNonZeroEntryColumn() != 2 && R3.firstNonZeroEntryColumn() == 2) {
             let temp = R2;
             R2 = R3;
             R3 = temp;

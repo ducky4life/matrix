@@ -1,16 +1,21 @@
-import { AugmentedMatrix3 } from "./systems.js";
+import { AugmentedMatrix3, getRandomAugmentedMatrix3 } from "./systems.js";
 
-const m1_box = document.getElementById('m1_box')!;
-const testAugmentedMatrix = new AugmentedMatrix3(
-    2, -1, 1, 3,
-    1, 1, 1, 6,
-    1, 2, -1, 2
-);
+function getInputAugmentedMatrix(name: string): AugmentedMatrix3 {
+    const a1 = (document.getElementById(`augmented_${name}_a1`) as HTMLInputElement).value;
+    const a2 = (document.getElementById(`augmented_${name}_a2`) as HTMLInputElement).value;
+    const a3 = (document.getElementById(`augmented_${name}_a3`) as HTMLInputElement).value;
+    const a4 = (document.getElementById(`augmented_${name}_a4`) as HTMLInputElement).value;
+    const b1 = (document.getElementById(`augmented_${name}_b1`) as HTMLInputElement).value;
+    const b2 = (document.getElementById(`augmented_${name}_b2`) as HTMLInputElement).value;
+    const b3 = (document.getElementById(`augmented_${name}_b3`) as HTMLInputElement).value;
+    const b4 = (document.getElementById(`augmented_${name}_b4`) as HTMLInputElement).value;
+    const c1 = (document.getElementById(`augmented_${name}_c1`) as HTMLInputElement).value;
+    const c2 = (document.getElementById(`augmented_${name}_c2`) as HTMLInputElement).value;
+    const c3 = (document.getElementById(`augmented_${name}_c3`) as HTMLInputElement).value;
+    const c4 = (document.getElementById(`augmented_${name}_c4`) as HTMLInputElement).value;
 
-m1_box.innerHTML = getAugmentedMatrixHTML('m1');
-// m1_box.innerHTML = testAugmentedMatrix.displayToHTML();
-
-m1_box.classList.add('matrix-container-3');
+    return new AugmentedMatrix3(Number(a1), Number(a2), Number(a3), Number(a4), Number(b1), Number(b2), Number(b3), Number(b4), Number(c1), Number(c2), Number(c3), Number(c4));
+}
 
 function setInputAugmentedMatrix(name: string, a1: number, a2: number, a3: number, a4: number, b1: number, b2: number, b3: number, b4: number, c1: number, c2: number, c3: number, c4: number) {
     (document.getElementById(`augmented_${name}_a1`) as HTMLInputElement).value = String(a1);
@@ -35,7 +40,22 @@ function getAugmentedMatrixHTML(name: string) {
     </div>`;
 }
 
-export function clearInput(name: string) {
+function setInputEventListener() {
+    let inputElementIds: string[] = [];
+
+    inputElementIds = [
+        'augmented_m1_a1', 'augmented_m1_a2', 'augmented_m1_a3', 'augmented_m1_a4',
+        'augmented_m1_b1', 'augmented_m1_b2', 'augmented_m1_b3', 'augmented_m1_b4',
+        'augmented_m1_c1', 'augmented_m1_c2', 'augmented_m1_c3', 'augmented_m1_c4',
+    ];
+
+    inputElementIds.forEach((id) => {
+        const element = (document.getElementById(id) as HTMLInputElement);
+        element.addEventListener('input', () => displayOutput());
+    })
+}
+
+function clearInput(name: string) {
 
     (document.getElementById(`augmented_${name}_a1`) as HTMLInputElement).value = '';
     (document.getElementById(`augmented_${name}_a2`) as HTMLInputElement).value = '';
@@ -51,6 +71,46 @@ export function clearInput(name: string) {
     (document.getElementById(`augmented_${name}_c4`) as HTMLInputElement).value = '';
 }
 
+function setInputFromMatrix(name: string, M1: AugmentedMatrix3) {
+    setInputAugmentedMatrix(name, M1.a1, M1.a2, M1.a3, M1.a4, M1.b1, M1.b2, M1.b3, M1.b4, M1.c1, M1.c2, M1.c3, M1.c4);
+}
+
+function randomiseInput() {
+    const M1 = getRandomAugmentedMatrix3(3, true);
+    setInputFromMatrix('m1', M1);
+
+    displayOutput();
+}
+
+function displayOutput() {
+    const output = document.querySelector('#output')!;
+    output.innerHTML = '';
+
+    let M1 = getInputAugmentedMatrix('m1');
+
+    console.log(M1.getCoefficientMatrix().determinant());
+
+    output.innerHTML += M1.firstGaussianElimination().displayToHTML();
+    output.innerHTML += M1.gaussianElimination().displayToHTML();
+}
+
+(document.querySelector('#randomise')as HTMLButtonElement)!.addEventListener('click', () => randomiseInput());
 (document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => {
     clearInput('m1');
 });
+
+const m1_box = document.getElementById('m1_box')!;
+const testAugmentedMatrix = new AugmentedMatrix3(
+    2, -1, 1, 3,
+    1, 1, 1, 6,
+    1, 2, -1, 2
+);
+
+m1_box.innerHTML = getAugmentedMatrixHTML('m1');
+// m1_box.innerHTML = testAugmentedMatrix.displayToHTML();
+
+m1_box.classList.add('matrix-container-3');
+
+setInputFromMatrix('m1', testAugmentedMatrix);
+setInputEventListener();
+displayOutput();

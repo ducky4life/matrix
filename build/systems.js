@@ -178,10 +178,15 @@ export class AugmentedMatrix3 {
         return eliminatedMatrix;
     }
     secondGaussianElimination() {
-        const R1 = this.getAugmentedRow(1);
-        const R2 = this.getAugmentedRow(2);
-        const R3 = this.getAugmentedRow(3);
-        if (R2.firstNonZeroEntryColumn() != 2) {
+        let R1 = this.getAugmentedRow(1);
+        let R2 = this.getAugmentedRow(2);
+        let R3 = this.getAugmentedRow(3);
+        if (R2.firstNonZeroEntryColumn() != 2 || R3.firstNonZeroEntryColumn() == 2) {
+            let temp = R2;
+            R2 = R3;
+            R3 = temp;
+        }
+        else if (R2.firstNonZeroEntryColumn() != 2) {
             console.log("pivot of second row is not 2");
             return new AugmentedMatrix3();
         }
@@ -210,7 +215,7 @@ export function LCM(num1, num2) {
 export function getRandomAugmentedMatrix3(max = 10, ensure_unique_solution = false) {
     let coefficientMatrix = getRandomMatrix3(max);
     if (ensure_unique_solution) {
-        while (!coefficientMatrix.isInvertible()) {
+        while (!coefficientMatrix.isInvertible() || coefficientMatrix.a1 == 0 || coefficientMatrix.hasSameFirstTwoColumns()) {
             coefficientMatrix = getRandomMatrix3(max);
         }
     }

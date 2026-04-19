@@ -424,6 +424,9 @@ export class Matrix3 {
         }
         return exponentiatedMatrix;
     }
+    hasSameFirstTwoColumns() {
+        return (this.a1 == this.b1 && this.a2 == this.b2) || (this.a1 == this.c1 && this.a2 == this.c2) || (this.b1 == this.c1 && this.b2 == this.c2);
+    }
 }
 // console.log(new Matrix3(3,2,4,5,2,4,6,3,3).multiplicationExponentiation(3000))
 export function eigenvaluesToString(eigenvalues) {

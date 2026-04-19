@@ -1,9 +1,19 @@
-import { AugmentedMatrix3 } from "./systems.js";
-const m1_box = document.getElementById('m1_box');
-const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);
-m1_box.innerHTML = getAugmentedMatrixHTML('m1');
-// m1_box.innerHTML = testAugmentedMatrix.displayToHTML();
-m1_box.classList.add('matrix-container-3');
+import { AugmentedMatrix3, getRandomAugmentedMatrix3 } from "./systems.js";
+function getInputAugmentedMatrix(name) {
+    const a1 = document.getElementById(`augmented_${name}_a1`).value;
+    const a2 = document.getElementById(`augmented_${name}_a2`).value;
+    const a3 = document.getElementById(`augmented_${name}_a3`).value;
+    const a4 = document.getElementById(`augmented_${name}_a4`).value;
+    const b1 = document.getElementById(`augmented_${name}_b1`).value;
+    const b2 = document.getElementById(`augmented_${name}_b2`).value;
+    const b3 = document.getElementById(`augmented_${name}_b3`).value;
+    const b4 = document.getElementById(`augmented_${name}_b4`).value;
+    const c1 = document.getElementById(`augmented_${name}_c1`).value;
+    const c2 = document.getElementById(`augmented_${name}_c2`).value;
+    const c3 = document.getElementById(`augmented_${name}_c3`).value;
+    const c4 = document.getElementById(`augmented_${name}_c4`).value;
+    return new AugmentedMatrix3(Number(a1), Number(a2), Number(a3), Number(a4), Number(b1), Number(b2), Number(b3), Number(b4), Number(c1), Number(c2), Number(c3), Number(c4));
+}
 function setInputAugmentedMatrix(name, a1, a2, a3, a4, b1, b2, b3, b4, c1, c2, c3, c4) {
     document.getElementById(`augmented_${name}_a1`).value = String(a1);
     document.getElementById(`augmented_${name}_a2`).value = String(a2);
@@ -25,7 +35,19 @@ function getAugmentedMatrixHTML(name) {
         <div><input id="augmented_${name}_c1"></input></div><div><input id="augmented_${name}_c2"></input></div><div><input id="augmented_${name}_c3"></input></div>|<div><input id="augmented_${name}_c4"></input></div>
     </div>`;
 }
-export function clearInput(name) {
+function setInputEventListener() {
+    let inputElementIds = [];
+    inputElementIds = [
+        'augmented_m1_a1', 'augmented_m1_a2', 'augmented_m1_a3', 'augmented_m1_a4',
+        'augmented_m1_b1', 'augmented_m1_b2', 'augmented_m1_b3', 'augmented_m1_b4',
+        'augmented_m1_c1', 'augmented_m1_c2', 'augmented_m1_c3', 'augmented_m1_c4',
+    ];
+    inputElementIds.forEach((id) => {
+        const element = document.getElementById(id);
+        element.addEventListener('input', () => displayOutput());
+    });
+}
+function clearInput(name) {
     document.getElementById(`augmented_${name}_a1`).value = '';
     document.getElementById(`augmented_${name}_a2`).value = '';
     document.getElementById(`augmented_${name}_a3`).value = '';
@@ -39,6 +61,31 @@ export function clearInput(name) {
     document.getElementById(`augmented_${name}_c3`).value = '';
     document.getElementById(`augmented_${name}_c4`).value = '';
 }
+function setInputFromMatrix(name, M1) {
+    setInputAugmentedMatrix(name, M1.a1, M1.a2, M1.a3, M1.a4, M1.b1, M1.b2, M1.b3, M1.b4, M1.c1, M1.c2, M1.c3, M1.c4);
+}
+function randomiseInput() {
+    const M1 = getRandomAugmentedMatrix3(3, true);
+    setInputFromMatrix('m1', M1);
+    displayOutput();
+}
+function displayOutput() {
+    const output = document.querySelector('#output');
+    output.innerHTML = '';
+    let M1 = getInputAugmentedMatrix('m1');
+    console.log(M1.getCoefficientMatrix().determinant());
+    output.innerHTML += M1.firstGaussianElimination().displayToHTML();
+    output.innerHTML += M1.gaussianElimination().displayToHTML();
+}
+document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
 document.querySelector('#clear').addEventListener('click', () => {
     clearInput('m1');
 });
+const m1_box = document.getElementById('m1_box');
+const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);
+m1_box.innerHTML = getAugmentedMatrixHTML('m1');
+// m1_box.innerHTML = testAugmentedMatrix.displayToHTML();
+m1_box.classList.add('matrix-container-3');
+setInputFromMatrix('m1', testAugmentedMatrix);
+setInputEventListener();
+displayOutput();

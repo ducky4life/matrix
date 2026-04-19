@@ -1,5 +1,5 @@
 import { Frac } from "./frac_matrix.js";
-import { Matrix2, Matrix3, getRowName, getColumnName } from "./matrix.js";
+import { Matrix2, Matrix3, getRowName, getColumnName, getRandomMatrix3, getRandomNumber } from "./matrix.js";
 
 export class AugmentedRow3 {
     // a1 a2 a3 | a4
@@ -104,6 +104,17 @@ export class AugmentedMatrix3 {
             return true;
         }
         return false;
+    }
+
+    displayToHTML(): string {
+        return(`
+            <div class="matrix-container matrix-container-3">
+                <div class="matrix-3 augmented-matrix-3">
+                <div class="matrix-elements">${this.a1}</div><div class="matrix-elements">${this.a2}</div><div class="matrix-elements">${this.a3}</div>|<div class="matrix-elements">${this.a4}</div>
+                <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div><div class="matrix-elements">${this.b3}</div>|<div class="matrix-elements">${this.b4}</div>
+                <div class="matrix-elements">${this.c1}</div><div class="matrix-elements">${this.c2}</div><div class="matrix-elements">${this.c3}</div>|<div class="matrix-elements">${this.c4}</div>
+                </div>
+            </div>`);
     }
 
     getElement(row: number, column: number): number {
@@ -291,9 +302,33 @@ export function LCM(num1: number, num2: number) {
     return 0;
 }
 
+export function getRandomAugmentedMatrix3(max: number = 10, ensure_unique_solution: boolean = false) {
+    let coefficientMatrix = getRandomMatrix3(max);
+
+    if (ensure_unique_solution) {
+        while (!coefficientMatrix.isInvertible()) {
+            coefficientMatrix = getRandomMatrix3(max);
+        }
+    }
+
+    const a4 = getRandomNumber(max);
+    const b4 = getRandomNumber(max);
+    const c4 = getRandomNumber(max);
+
+    return coefficientMatrixToAugmentedMatrix3(coefficientMatrix, a4, b4, c4);
+}
+
 export function arrayToAugmentedRow3(augmentedRowArray: Array<number>) {
     return new AugmentedRow3(
         augmentedRowArray[0], augmentedRowArray[1], augmentedRowArray[2], augmentedRowArray[3]
+    );
+}
+
+export function coefficientMatrixToAugmentedMatrix3(coefficientMatrix: Matrix3, a4: number, b4: number, c4: number) {
+    return new AugmentedMatrix3(
+        coefficientMatrix.a1, coefficientMatrix.a2, coefficientMatrix.a3, a4,
+        coefficientMatrix.b1, coefficientMatrix.b2, coefficientMatrix.b3, b4,
+        coefficientMatrix.c1, coefficientMatrix.c2, coefficientMatrix.c3, c4
     );
 }
 

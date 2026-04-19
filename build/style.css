@@ -430,8 +430,11 @@ math, mfrac, mn {
     gap: 0.5em 1em;
     padding: 0.5em 0;
 }
+.augmented-matrix-3 {
+    grid-template-columns: auto auto auto auto auto;
+}
 
-.matrix-2 input, .matrix-3 input, input[id$="_number"] {
+.matrix-2 input, .matrix-3 input, [id$="_number"] {
     width: 1vw;
     height: 1.5vw;
 }

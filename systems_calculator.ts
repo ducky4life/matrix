@@ -96,7 +96,7 @@ function displayOutput() {
     const solution = M1.getFracSolution();
 
     output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`
-    output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
+    output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow: hidden;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
 }
 
 (document.querySelector('#randomise')as HTMLButtonElement)!.addEventListener('click', () => randomiseInput());

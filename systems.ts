@@ -271,7 +271,7 @@ export class AugmentedMatrix3 {
 
         let eliminatedMatrix = rowToAugmentedMatrix3(R1, new_R2, new_R3);
 
-        if (new_R2.firstNonZeroEntryColumn() < new_R3.firstNonZeroEntryColumn()) {
+        if (new_R2.firstNonZeroEntryColumn() > new_R3.firstNonZeroEntryColumn()) {
             eliminatedMatrix = eliminatedMatrix.swapRow(2, 3);
         }
         
@@ -382,11 +382,11 @@ export function gaussianEliminationRow(row1: AugmentedRow3, row2: AugmentedRow3)
 
     // elimination
     if (R1.firstNonZeroEntry() == R2.firstNonZeroEntry()) { // subtraction
-        return R1.minus(R2);
+        return R2.minus(R1);
     }
 
     else if (R1.firstNonZeroEntry() == -R2.firstNonZeroEntry()) { // addition
-        return R1.add(R2);
+        return R2.add(R1);
     }
 
     else {

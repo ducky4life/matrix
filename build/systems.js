@@ -184,7 +184,7 @@ export class AugmentedMatrix3 {
             new_R3 = gaussianEliminationRow(R1, R3);
         }
         let eliminatedMatrix = rowToAugmentedMatrix3(R1, new_R2, new_R3);
-        if (new_R2.firstNonZeroEntryColumn() < new_R3.firstNonZeroEntryColumn()) {
+        if (new_R2.firstNonZeroEntryColumn() > new_R3.firstNonZeroEntryColumn()) {
             eliminatedMatrix = eliminatedMatrix.swapRow(2, 3);
         }
         return eliminatedMatrix;
@@ -264,10 +264,10 @@ export function gaussianEliminationRow(row1, row2) {
     const R2 = row2.scale(pivotLCM / pivot2);
     // elimination
     if (R1.firstNonZeroEntry() == R2.firstNonZeroEntry()) { // subtraction
-        return R1.minus(R2);
+        return R2.minus(R1);
     }
     else if (R1.firstNonZeroEntry() == -R2.firstNonZeroEntry()) { // addition
-        return R1.add(R2);
+        return R2.add(R1);
     }
     else {
         console.log("not same leading coefficient");

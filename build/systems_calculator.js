@@ -78,7 +78,7 @@ function displayOutput() {
     const secondEliminationHTML = M1.gaussianElimination().displayToHTML();
     const solution = M1.getFracSolution();
     output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`;
-    output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow: hidden;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
+    output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
 }
 document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
 document.querySelector('#clear').addEventListener('click', () => {

@@ -645,6 +645,10 @@ select[id$="_property"] {
     transform: scale(1.2);
   }
 
+  .systems-calculator-input-box {
+    transform: scale(2);
+  }
+
   .matrix-output[id$="exercise"] {
     width: auto;
   }

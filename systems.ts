@@ -234,13 +234,27 @@ export class AugmentedMatrix3 {
     }
 
     firstGaussianElimination(): AugmentedMatrix3 {
-        const R1 = this.getAugmentedRow(1);
-        const R2 = this.getAugmentedRow(2);
-        const R3 = this.getAugmentedRow(3);
+        let R1 = this.getAugmentedRow(1);
+        let R2 = this.getAugmentedRow(2);
+        let R3 = this.getAugmentedRow(3);
 
         if (R1.firstNonZeroEntryColumn() != 1) {
-            console.log("pivot of first row is not 1");
-            return new AugmentedMatrix3();
+            
+            if (R2.firstNonZeroEntryColumn() == 1) {
+                let temp = R1;
+                R1 = R2;
+                R2 = temp;
+            }
+            else if (R3.firstNonZeroEntryColumn() == 1) {
+                let temp = R1;
+                R1 = R3;
+                R3 = temp;
+            }
+            else {
+                console.log("no rows have pivot in the first column");
+                return new AugmentedMatrix3();
+            }
+
         }
 
         let new_R2 = R2;

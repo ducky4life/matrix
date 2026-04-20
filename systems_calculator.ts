@@ -90,8 +90,13 @@ function displayOutput() {
 
     console.log(M1.getCoefficientMatrix().determinant());
 
-    output.innerHTML += M1.firstGaussianElimination().displayToHTML();
-    output.innerHTML += M1.gaussianElimination().displayToHTML();
+    const firstEliminationHTML = M1.firstGaussianElimination().displayToHTML();
+    const secondEliminationHTML =  M1.gaussianElimination().displayToHTML();
+    
+    const solution = M1.getFracSolution();
+
+    output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`
+    output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
 }
 
 (document.querySelector('#randomise')as HTMLButtonElement)!.addEventListener('click', () => randomiseInput());
@@ -111,6 +116,5 @@ m1_box.innerHTML = getAugmentedMatrixHTML('m1');
 
 m1_box.classList.add('matrix-container-3');
 
-setInputFromMatrix('m1', testAugmentedMatrix);
+// setInputFromMatrix('m1', testAugmentedMatrix);
 setInputEventListener();
-displayOutput();

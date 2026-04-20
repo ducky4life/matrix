@@ -475,6 +475,11 @@ math, mfrac, mn {
   margin-right: 5vw;
 }
 
+.gaussian-elimination-output {
+  display: flex;
+  align-items: center;
+}
+
 @media all and (orientation: portrait) {
   .matrix-output {
     width: 100vw;
@@ -482,6 +487,11 @@ math, mfrac, mn {
 
   .matrix-output-toggle-box {
     margin-right: 0.5vw;
+  }
+
+  .gaussian-elimination-output {
+    margin-top: 2vh;
+    flex-direction: column;
   }
 }
 

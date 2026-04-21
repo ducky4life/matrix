@@ -27,5 +27,5 @@ function toggleMode() {
     
 }
 
-toggle.addEventListener('click', () => toggleMode());
+toggle.addEventListener('input', () => toggleMode());
 setupCalculator();

@@ -80,14 +80,22 @@ function displayOutput() {
     output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`;
     output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
 }
-document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
-document.querySelector('#clear').addEventListener('click', () => {
-    clearInput('m1');
-});
-const m1_box = document.getElementById('m1_box');
-const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);
-m1_box.innerHTML = getAugmentedMatrixHTML('m1');
-// m1_box.innerHTML = testAugmentedMatrix.displayToHTML();
-m1_box.classList.add('matrix-container-3');
-// setInputFromMatrix('m1', testAugmentedMatrix);
-setInputEventListener();
+export function setupCalculator() {
+    document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
+    document.querySelector('#clear').addEventListener('click', () => {
+        clearInput('m1');
+    });
+    const m1_box = document.getElementById('m1_box');
+    const exercise_box = document.getElementById('exercise');
+    const generateButton = document.getElementById('generate');
+    const randomiseButton = document.getElementById('randomise');
+    const submitButton = document.getElementById('submit');
+    m1_box.innerHTML = getAugmentedMatrixHTML('m1');
+    m1_box.classList.add('matrix-container-3');
+    exercise_box.innerHTML = '';
+    exercise_box.classList.add('gone');
+    generateButton.classList.add('gone');
+    submitButton.classList.add('gone');
+    randomiseButton.classList.remove('gone');
+    setInputEventListener();
+}

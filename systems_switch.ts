@@ -7,6 +7,8 @@ let currMode = 'calculator';
 function toggleMode() {
     
     if (currMode == 'calculator') {
+
+        currMode = 'game';
         
         const generateButton = document.getElementById('generate')!;
         const randomiseButton = document.getElementById('randomise')!;
@@ -19,6 +21,7 @@ function toggleMode() {
     }
         
     else if (currMode == 'game') {
+        currMode = 'calculator';
         setupCalculator();
     }
     

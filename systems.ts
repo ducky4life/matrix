@@ -53,7 +53,7 @@ export class AugmentedRow3 {
         }
 
         console.log("row is a zero row");
-        return 0;
+        return 4;
     }
 
     firstNonZeroEntry(): number {
@@ -307,7 +307,7 @@ export class AugmentedMatrix3 {
 
             // second row
             const unknownColumn = secondRow.columnOfOneUnknown();
-            const unknownSolutionFrac = new Frac(secondRow.getElement(4), secondRow.getElement(unknownColumn));
+            const unknownSolutionFrac = new Frac(secondRow.getElement(4), secondRow.getElement(unknownColumn)).simplify();
             const unknownSolution = unknownSolutionFrac.displayToString();
 
             const unknownIndex = unknownColumn - 1; // 0-idx
@@ -340,14 +340,29 @@ export class AugmentedMatrix3 {
             const lastUnknownIndex = 3-t_idx-unknownIndex;
             const lastUnknownColumn = lastUnknownIndex + 1;
 
-            const a = newFirstRow.getElement(lastUnknownColumn);
-            const c = newFirstRow.getElement(t_idx+1);
+            let a = newFirstRow.getElement(lastUnknownColumn);
+            let c = newFirstRow.getElement(t_idx+1);
 
-            const d = newFirstRow.getElement(4);
+            let d = newFirstRow.getElement(4);
+
+            if (a < 0 && c > 0 && d < 0) {
+                a = -a;
+                c = -c;
+                d = -d;
+            }
 
             let lastSolution: string = "";
 
-            if (c > 0) {
+            if (c == 1) {
+                lastSolution = `${d}-t` + `/${a}`;
+            }
+            else if (c == -1) {
+                lastSolution = `${d}+t` + `/${a}`;
+            }
+            else if (c == 0) {
+                lastSolution = `${d}` + `/${a}`;
+            }
+            else if (c > 0) {
                 lastSolution = `${d}-${c}t` + `/${a}`;
             }
             else {
@@ -383,7 +398,16 @@ export class AugmentedMatrix3 {
 
             let y_solution: string = "";
 
-            if (f > 0) {
+            if (f == 1) {
+                y_solution = `${g}-t` + `/` + `${e}`;
+            }
+            else if (f == -1) {
+                y_solution = `${g}+t` + `/` + `${e}`;
+            }
+            else if (f == 0) {
+                y_solution = `${g}` + `/` + `${e}`;
+            }
+            else if (f > 0) {
                 y_solution = `${g}-${f}t` + `/` + `${e}`;
             }
             else {
@@ -413,11 +437,21 @@ export class AugmentedMatrix3 {
                 a = -a;
             }
 
-            if (t_coeff > 0) {
-                x_solution = `${constantPart} + ${t_coeff}t` + `/${a}`;
+
+            if (t_coeff == 1) {
+                x_solution = `${constantPart}+t` + `/${a}`;
+            }
+            else if (t_coeff == -1) {
+                x_solution = `${constantPart}-t` + `/${a}`;
+            }
+            else if (t_coeff == 0) {
+                x_solution = `${constantPart}` + `/${a}`;
+            }
+            else if (t_coeff > 0) {
+                x_solution = `${constantPart}+${t_coeff}t` + `/${a}`;
             }
             else {
-                x_solution = `${constantPart} - ${-t_coeff}t` + `/${a}`;
+                x_solution = `${constantPart}-${-t_coeff}t` + `/${a}`;
             }
 
             solutionArray[0] = x_solution;
@@ -517,7 +551,7 @@ export class AugmentedMatrix3 {
         }
         else if (R2.firstNonZeroEntryColumn() != 2) {
             console.log("pivot of second row is not 2");
-            return new AugmentedMatrix3();
+            return this;
         }
 
         let new_R3 = R3;
@@ -643,6 +677,14 @@ const testAugmentedMatrix = new AugmentedMatrix3(
     1, 1, 1, 6,
     1, 2, -1, 2
 );
-console.log(gaussianEliminationRow(testRow1, testRow2))
-console.log(testAugmentedMatrix.getSolution())
-console.log(testAugmentedMatrix.gaussianElimination().displayToString());
+const testAugmentedMatrix2 = new AugmentedMatrix3(
+    1, -1, 1, 3,
+    0, 0, -1, 6,
+    0, 0, 0, 0
+);
+// console.log(gaussianEliminationRow(testRow1, testRow2))
+// console.log(testAugmentedMatrix.getSolution())
+// console.log(testAugmentedMatrix.gaussianElimination().displayToString());
+console.log(testAugmentedMatrix2.getAugmentedRow(2).hasOneUnknown());
+console.log(testAugmentedMatrix2.firstGaussianElimination().displayToString())
+console.log(testAugmentedMatrix2.getSolutionSetByBackSubstitution());

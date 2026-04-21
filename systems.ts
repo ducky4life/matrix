@@ -149,7 +149,7 @@ export class AugmentedMatrix3 {
     }
 
     hasZeroRow(): boolean {
-        return (this.getAugmentedRow(1).isZeroRow() || this.getAugmentedRow(2).isZeroRow() || this.getAugmentedRow(3).isZeroRow() || this.getAugmentedRow(4).isZeroRow())
+        return (this.getAugmentedRow(1).isZeroRow() || this.getAugmentedRow(2).isZeroRow() || this.getAugmentedRow(3).isZeroRow())
     }
 
     hasUniqueSolution(): boolean {

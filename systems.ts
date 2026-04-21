@@ -353,7 +353,11 @@ export class AugmentedMatrix3 {
 
             let lastSolution: string = "";
 
-            if (c == 1) {
+            if (d == 0) {
+                const coeffFrac = new Frac(c, a).simplify();
+                lastSolution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+            }
+            else if (c == 1) {
                 lastSolution = `${d}-t` + `/${a}`;
             }
             else if (c == -1) {
@@ -398,7 +402,11 @@ export class AugmentedMatrix3 {
 
             let y_solution: string = "";
 
-            if (f == 1) {
+            if (g == 0) {
+                const coeffFrac = new Frac(g, e).simplify();
+                y_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+            }
+            else if (f == 1) {
                 y_solution = `${g}-t` + `/` + `${e}`;
             }
             else if (f == -1) {
@@ -438,7 +446,11 @@ export class AugmentedMatrix3 {
             }
 
 
-            if (t_coeff == 1) {
+            if (constantPart == 0) {
+                const coeffFrac = new Frac(constantPart, a).simplify();
+                x_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+            }
+            else if (t_coeff == 1) {
                 x_solution = `${constantPart}+t` + `/${a}`;
             }
             else if (t_coeff == -1) {
@@ -601,6 +613,11 @@ export function getRandomAugmentedMatrix3(max: number = 10, ensure_unique_soluti
 
     if (ensure_unique_solution) {
         while (!coefficientMatrix.isInvertible() || coefficientMatrix.a1 == 0 || coefficientMatrix.hasSameFirstTwoColumns()) {
+            coefficientMatrix = getRandomMatrix3(max);
+        }
+    }
+    else {
+        while (coefficientMatrix.a1 == 0) {
             coefficientMatrix = getRandomMatrix3(max);
         }
     }

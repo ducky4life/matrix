@@ -98,6 +98,7 @@ function displayOutput() {
             formattedSolutionArray.push(solutionTextFrac.displayToHTML());
         });
         solutionText = `The solution set is {(${formattedSolutionArray[0]}, ${formattedSolutionArray[1]}, ${formattedSolutionArray[2]}) : t&isin;&reals;}`;
+        console.log(solutionText);
         output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;" class="solution-set">${solutionText}</div>`;
     }
 }

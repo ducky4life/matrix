@@ -73,12 +73,23 @@ function displayOutput() {
     const output = document.querySelector('#output');
     output.innerHTML = '';
     let M1 = getInputAugmentedMatrix('m1');
-    console.log(M1.getCoefficientMatrix().determinant());
+    // console.log(M1.getCoefficientMatrix().determinant());
+    // console.log(M1.numberOfSolutions());
     const firstEliminationHTML = M1.firstGaussianElimination().displayToHTML();
     const secondEliminationHTML = M1.gaussianElimination().displayToHTML();
     const solution = M1.getFracSolution();
     output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`;
-    output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}</div>`;
+    let solutionText = "";
+    if (M1.hasUniqueSolution()) {
+        solutionText = `x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}`;
+    }
+    else if (M1.hasNoSolutions()) {
+        solutionText = "no solutions";
+    }
+    else {
+        solutionText = "infinite solutions";
+    }
+    output.innerHTML += solutionText = `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">${solutionText}</div>`;
 }
 export function setupCalculator() {
     document.querySelector('#randomise').addEventListener('click', () => randomiseInput());

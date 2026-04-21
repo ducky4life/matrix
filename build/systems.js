@@ -1,3 +1,4 @@
+import { Frac, numberToFrac } from "./frac_matrix.js";
 import { Matrix3, getRowName, getColumnName, getRandomMatrix3, getRandomNumber } from "./matrix.js";
 export class AugmentedRow3 {
     constructor(a1 = 0, a2 = 0, a3 = 0, a4 = 0) {
@@ -8,6 +9,12 @@ export class AugmentedRow3 {
     }
     scale(num) {
         return new AugmentedRow3(num * this.a1, num * this.a2, num * this.a3, num * this.a4);
+    }
+    display() {
+        return [this.a1, this.a2, this.a3, this.a4];
+    }
+    displayToFracArray() {
+        return [numberToFrac(this.a1), numberToFrac(this.a2), numberToFrac(this.a3), numberToFrac(this.a4)];
     }
     getElement(column) {
         return this["a" + column.toString()];
@@ -34,6 +41,38 @@ export class AugmentedRow3 {
     }
     minus(R) {
         return new AugmentedRow3(this.a1 - R.a1, this.a2 - R.a2, this.a3 - R.a3, this.a4 - R.a4);
+    }
+    replaceElement(column, replaceWith) {
+        let originalArray = this.display();
+        const replaceIndex = column - 1;
+        originalArray[replaceIndex] = replaceWith;
+        return arrayToAugmentedRow3(originalArray);
+    }
+    hasOneUnknown() {
+        let count = 0;
+        if (this.a1 != 0) {
+            count++;
+        }
+        if (this.a2 != 0) {
+            count++;
+        }
+        if (this.a3 != 0) {
+            count++;
+        }
+        return (count == 1);
+    }
+    columnOfOneUnknown() {
+        if (!this.hasOneUnknown()) {
+            console.log("row has more than one unknown");
+            return -1;
+        }
+        if (this.a1 != 0) {
+            return 1;
+        }
+        if (this.a2 != 0) {
+            return 2;
+        }
+        return 3;
     }
 }
 export class AugmentedMatrix3 {
@@ -96,6 +135,22 @@ export class AugmentedMatrix3 {
     hasInfiniteSolutions() {
         return (!this.hasUniqueSolution() && this.gaussianElimination().hasZeroRow());
     }
+    hasNoSolutions() {
+        return (!this.hasUniqueSolution() && !this.hasInfiniteSolutions());
+    }
+    numberOfSolutions() {
+        if (this.hasUniqueSolution()) {
+            return 1;
+        }
+        else if (this.hasInfiniteSolutions()) {
+            return 2;
+        }
+        else if (this.hasNoSolutions()) {
+            return 0;
+        }
+        console.log("cannot determine number of solutions");
+        return 0;
+    }
     getFloatingSolution() {
         if (this.hasUniqueSolution()) {
             const inverseCoeffMatrix = this.getCoefficientMatrix().inverse();
@@ -136,6 +191,39 @@ export class AugmentedMatrix3 {
             }
         });
         return finalSolution;
+    }
+    getSolutionSetByBackSubstitution() {
+        if (!this.hasInfiniteSolutions()) {
+            console.log("does not have infinite solutions; cannot back substitution");
+            return [];
+        }
+        let solutionArray = ["unk", "unk", "unk"];
+        const eliminatedMatrix = this.gaussianElimination();
+        let firstRowFracArray = eliminatedMatrix.getAugmentedRow(1).displayToFracArray();
+        const secondRow = eliminatedMatrix.getAugmentedRow(2);
+        // second row
+        if (secondRow.hasOneUnknown()) { // solve for unknown
+            const unknownColumn = secondRow.columnOfOneUnknown();
+            const unknownSolutionFrac = new Frac(secondRow.getElement(4), secondRow.getElement(unknownColumn));
+            const unknownSolution = unknownSolutionFrac.displayToString();
+            const unknownIndex = unknownColumn - 1; // 0-idx
+            solutionArray[unknownIndex] = unknownSolution;
+            // replace first row with found solution
+            const unknownCoeff = firstRowFracArray[unknownIndex];
+            firstRowFracArray[3] = firstRowFracArray[3].minus(unknownCoeff.multiply(unknownSolutionFrac));
+            firstRowFracArray[unknownIndex] = new Frac(0, 1);
+        }
+        else { // 0 a b | c
+            // let t_idx = 2;
+            // while (t_idx > 0 && solutionArray[t_idx] != "unk") {
+            //     t_idx--;
+            // }
+            if (secondRow.firstNonZeroEntryColumn() != 2) {
+                console.log("pivot column does not match");
+            }
+            solutionArray[2] = "t";
+        }
+        return solutionArray;
     }
     getAugmentedRow(row) {
         let augmentedRowArray = [];

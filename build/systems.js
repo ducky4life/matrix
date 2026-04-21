@@ -16,6 +16,10 @@ export class AugmentedRow3 {
     displayToFracArray() {
         return [numberToFrac(this.a1), numberToFrac(this.a2), numberToFrac(this.a3), numberToFrac(this.a4)];
     }
+    simplify() {
+        const hcf = commonHCF(this.display());
+        return new AugmentedRow3(this.a1 / hcf, this.a2 / hcf, this.a3 / hcf, this.a4 / hcf);
+    }
     getElement(column) {
         return this["a" + column.toString()];
     }
@@ -201,8 +205,8 @@ export class AugmentedMatrix3 {
         const eliminatedMatrix = this.gaussianElimination();
         let firstRowFracArray = eliminatedMatrix.getAugmentedRow(1).displayToFracArray();
         const secondRow = eliminatedMatrix.getAugmentedRow(2);
-        // second row
         if (secondRow.hasOneUnknown()) { // solve for unknown
+            // second row
             const unknownColumn = secondRow.columnOfOneUnknown();
             const unknownSolutionFrac = new Frac(secondRow.getElement(4), secondRow.getElement(unknownColumn));
             const unknownSolution = unknownSolutionFrac.displayToString();
@@ -212,8 +216,11 @@ export class AugmentedMatrix3 {
             const unknownCoeff = firstRowFracArray[unknownIndex];
             firstRowFracArray[3] = firstRowFracArray[3].minus(unknownCoeff.multiply(unknownSolutionFrac));
             firstRowFracArray[unknownIndex] = new Frac(0, 1);
+            // first row
         }
-        else { // 0 a b | c
+        else {
+            // a b c | d
+            // 0 e f | g
             // let t_idx = 2;
             // while (t_idx > 0 && solutionArray[t_idx] != "unk") {
             //     t_idx--;
@@ -221,7 +228,45 @@ export class AugmentedMatrix3 {
             if (secondRow.firstNonZeroEntryColumn() != 2) {
                 console.log("pivot column does not match");
             }
+            // second row: 0 e f | g -> y = (g-ft)/e
             solutionArray[2] = "t";
+            let e = secondRow.simplify().getElement(2);
+            let f = secondRow.simplify().getElement(3);
+            let g = secondRow.simplify().getElement(4);
+            if (g < 0 && f > 0 && e < 0) {
+                g = -g;
+                f = -f;
+                e = -e;
+            }
+            let y_solution = "";
+            if (f > 0) {
+                y_solution = `${g}-${f}t` + `/` + `${e}`;
+            }
+            else {
+                y_solution = `${g}+${-f}t` + `/` + `${e}`;
+            }
+            solutionArray[1] = y_solution;
+            // first row: a b c | d -> x = [d-(b  (g-ft)  +ct)]/a   (scaled by e first) -> x = [d - bg - (c-bf)t]/a
+            const scaledFirstRow = eliminatedMatrix.getAugmentedRow(1).scale(e); // ensure by+ct is an integer
+            let a = scaledFirstRow.getElement(1);
+            let b = scaledFirstRow.getElement(2);
+            let c = scaledFirstRow.getElement(3);
+            let d = scaledFirstRow.getElement(4);
+            let constantPart = d - b * g;
+            let t_coeff = -(c - b * f);
+            let x_solution = "";
+            if (constantPart < 0 && t_coeff < 0 && a < 0) {
+                constantPart = -constantPart;
+                t_coeff = -t_coeff;
+                a = -a;
+            }
+            if (t_coeff > 0) {
+                x_solution = `${constantPart} + ${t_coeff}` + `/${a}`;
+            }
+            else {
+                x_solution = `${constantPart} - ${-t_coeff}` + `/${a}`;
+            }
+            solutionArray[0] = x_solution;
         }
         return solutionArray;
     }
@@ -317,6 +362,16 @@ export function LCM(num1, num2) {
         return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
     }
     return 0;
+}
+export function commonHCF(numArray) {
+    let hcf = numArray[0];
+    for (let i = 1; i < numArray.length; i++) {
+        hcf = HCF(hcf, numArray[i]);
+        if (hcf == 1) {
+            return 1;
+        }
+    }
+    return hcf;
 }
 export function getRandomAugmentedMatrix3(max = 10, ensure_unique_solution = false) {
     let coefficientMatrix = getRandomMatrix3(max);

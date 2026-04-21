@@ -16,5 +16,5 @@ function toggleMode() {
         setupCalculator();
     }
 }
-toggle.addEventListener('click', () => toggleMode());
+toggle.addEventListener('input', () => toggleMode());
 setupCalculator();

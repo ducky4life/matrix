@@ -25,3 +25,4 @@ function toggleMode() {
 }
 
 toggle.addEventListener('click', () => toggleMode());
+setupCalculator();

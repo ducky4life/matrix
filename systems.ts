@@ -360,7 +360,7 @@ export class AugmentedMatrix3 {
                 lastSolution = `${d}+t` + `/${a}`;
             }
             else if (c == 0) {
-                lastSolution = `${d}` + `/${a}`;
+                lastSolution = new Frac(d, a).simplify().displayToString();
             }
             else if (c > 0) {
                 lastSolution = `${d}-${c}t` + `/${a}`;
@@ -405,7 +405,7 @@ export class AugmentedMatrix3 {
                 y_solution = `${g}+t` + `/` + `${e}`;
             }
             else if (f == 0) {
-                y_solution = `${g}` + `/` + `${e}`;
+                y_solution = new Frac(g, e).simplify().displayToString();
             }
             else if (f > 0) {
                 y_solution = `${g}-${f}t` + `/` + `${e}`;
@@ -445,7 +445,7 @@ export class AugmentedMatrix3 {
                 x_solution = `${constantPart}-t` + `/${a}`;
             }
             else if (t_coeff == 0) {
-                x_solution = `${constantPart}` + `/${a}`;
+                x_solution = new Frac(constantPart, a).simplify().displayToString();
             }
             else if (t_coeff > 0) {
                 x_solution = `${constantPart}+${t_coeff}t` + `/${a}`;

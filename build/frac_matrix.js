@@ -78,6 +78,44 @@ export class Frac {
         return this.a;
     }
 }
+export class TextFrac {
+    constructor(a = '0', b = '1') {
+        this.a = a;
+        this.b = b;
+    }
+    display() {
+        return [this.a, this.b];
+    }
+    displayToString() {
+        return `${this.a}/${this.b}`;
+    }
+    displayToHTML() {
+        if (this.a == '0') {
+            return `0`;
+        }
+        else if (this.b == '1') {
+            return this.a.toString();
+        }
+        return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
+            <mfrac>
+            <mn>${this.a}</mn>
+            <mn>${this.b}</mfrac>
+        </math>`;
+    }
+    displayToLaTeX() {
+        return (`\\frac{${this.a}}{${this.b}}`);
+    }
+    isInteger() {
+        return (this.b == '1');
+    }
+    toInteger() {
+        if (this.isInteger()) {
+            return this.a;
+        }
+        console.log("not integer");
+        return this.a;
+    }
+}
 export class FracMatrix2 {
     constructor(a = new Frac(), b = new Frac(), c = new Frac(), d = new Frac()) {
         this.a1 = new Frac();

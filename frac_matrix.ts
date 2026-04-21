@@ -106,6 +106,61 @@ export class Frac {
     }
 }
 
+export class TextFrac {
+
+    // a/b
+
+    a: string;
+    b: string;
+
+    constructor(a='0',b='1') {
+        this.a=a;
+        this.b=b;
+    }
+
+    display(): Array<string> {
+        return [this.a, this.b];
+    }
+
+
+    displayToString(): string {
+        return `${this.a}/${this.b}`;
+    }
+
+    displayToHTML(): string {
+
+        if (this.a == '0') {
+            return `0`;
+        }
+
+        else if (this.b == '1') {
+            return this.a.toString();
+        }
+
+        return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
+            <mfrac>
+            <mn>${this.a}</mn>
+            <mn>${this.b}</mfrac>
+        </math>`
+    }
+
+    displayToLaTeX(): string {
+        return(`\\frac{${this.a}}{${this.b}}`)
+    }
+
+    isInteger(): boolean {
+        return (this.b == '1')
+    }
+
+    toInteger(): string {
+        if (this.isInteger()) {
+            return this.a;
+        }
+        console.log("not integer");
+        return this.a;
+    }
+}
+
 export class FracMatrix2 {
     a1: Frac = new Frac();
     a2: Frac = new Frac();

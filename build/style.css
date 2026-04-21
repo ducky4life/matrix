@@ -480,6 +480,10 @@ math, mfrac, mn {
   align-items: center;
 }
 
+.solution-set {
+  font-size: 3.5vh;
+}
+
 @media all and (orientation: portrait) {
   .matrix-output {
     width: 100vw;
@@ -492,6 +496,10 @@ math, mfrac, mn {
   .gaussian-elimination-output {
     margin-top: 2vh;
     flex-direction: column;
+  }
+
+  .solution-set {
+    font-size: 5vw;
   }
 }
 

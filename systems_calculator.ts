@@ -1,3 +1,4 @@
+import { TextFrac } from "./frac_matrix.js";
 import { AugmentedMatrix3, getRandomAugmentedMatrix3 } from "./systems.js";
 
 function getInputAugmentedMatrix(name: string): AugmentedMatrix3 {
@@ -76,7 +77,7 @@ function setInputFromMatrix(name: string, M1: AugmentedMatrix3) {
 }
 
 function randomiseInput() {
-    const M1 = getRandomAugmentedMatrix3(3, true);
+    const M1 = getRandomAugmentedMatrix3(3, false);
     setInputFromMatrix('m1', M1);
 
     displayOutput();
@@ -102,15 +103,27 @@ function displayOutput() {
 
     if (M1.hasUniqueSolution()) {
         solutionText = `x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}`;
+        output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">${solutionText}</div>`;
     }
     else if (M1.hasNoSolutions()) {
         solutionText = "no solutions";
+        output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">${solutionText}</div>`;
     }
     else {
-        solutionText = "infinite solutions";
-    }
 
-    output.innerHTML += solutionText = `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">${solutionText}</div>`;
+        const solutionArray = M1.getSolutionSetByBackSubstitution();
+        let formattedSolutionArray: Array<string> = [];
+
+        solutionArray.forEach((solution) => {
+            const fractionArray = solution.split('/');
+            const solutionTextFrac = new TextFrac(fractionArray[0], fractionArray[1]);
+
+            formattedSolutionArray.push(solutionTextFrac.displayToHTML());
+        })
+
+        solutionText = `The solution set is {(${formattedSolutionArray[0]}, ${formattedSolutionArray[1]}, ${formattedSolutionArray[2]}) : t&isin;&reals;}`;
+        output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;" class="solution-set">${solutionText}</div>`;
+    }
 }
 
 export function setupCalculator() {

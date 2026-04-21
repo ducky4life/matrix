@@ -107,12 +107,13 @@ export function setupCalculator() {
     });
     
     const m1_box = document.getElementById('m1_box')!;
-    const m2_box = document.getElementById('m2_box')!;
+    const exercise_box = document.getElementById('exercise')!;
     
     m1_box.innerHTML = getAugmentedMatrixHTML('m1');
     m1_box.classList.add('matrix-container-3');
 
-    m2_box.innerHTML = '';
+    exercise_box.innerHTML = '';
+    exercise_box.classList.add('gone');
     
     setInputEventListener();
 }

@@ -87,8 +87,14 @@ export class AugmentedMatrix3 {
     getCoefficientMatrix() {
         return new Matrix3(this.a1, this.a2, this.a3, this.b1, this.b2, this.b3, this.c1, this.c2, this.c3);
     }
+    hasZeroRow() {
+        return (this.getAugmentedRow(1).isZeroRow() || this.getAugmentedRow(2).isZeroRow() || this.getAugmentedRow(3).isZeroRow());
+    }
     hasUniqueSolution() {
         return this.getCoefficientMatrix().isInvertible();
+    }
+    hasInfiniteSolutions() {
+        return (!this.hasUniqueSolution() && this.gaussianElimination().hasZeroRow());
     }
     getFloatingSolution() {
         if (this.hasUniqueSolution()) {

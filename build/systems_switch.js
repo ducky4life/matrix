@@ -7,9 +7,11 @@ function toggleMode() {
         const generateButton = document.getElementById('generate');
         const randomiseButton = document.getElementById('randomise');
         const submitButton = document.getElementById('submit');
+        const output_box = document.getElementById('output-div');
         generateButton.classList.remove('gone');
         submitButton.classList.remove('gone');
         randomiseButton.classList.add('gone');
+        output_box.classList.add('gone');
     }
     else if (currMode == 'game') {
         currMode = 'calculator';

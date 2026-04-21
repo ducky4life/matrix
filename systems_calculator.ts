@@ -108,6 +108,7 @@ export function setupCalculator() {
     
     const m1_box = document.getElementById('m1_box')!;
     const exercise_box = document.getElementById('exercise')!;
+    const output_box = document.getElementById('output-div')!;
     
     const generateButton = document.getElementById('generate')!;
     const randomiseButton = document.getElementById('randomise')!;
@@ -118,6 +119,8 @@ export function setupCalculator() {
 
     exercise_box.innerHTML = '';
     exercise_box.classList.add('gone');
+
+    output_box.classList.remove('gone');
 
     generateButton.classList.add('gone');
     submitButton.classList.add('gone');

@@ -87,6 +87,7 @@ export function setupCalculator() {
     });
     const m1_box = document.getElementById('m1_box');
     const exercise_box = document.getElementById('exercise');
+    const output_box = document.getElementById('output-div');
     const generateButton = document.getElementById('generate');
     const randomiseButton = document.getElementById('randomise');
     const submitButton = document.getElementById('submit');
@@ -94,6 +95,7 @@ export function setupCalculator() {
     m1_box.classList.add('matrix-container-3');
     exercise_box.innerHTML = '';
     exercise_box.classList.add('gone');
+    output_box.classList.remove('gone');
     generateButton.classList.add('gone');
     submitButton.classList.add('gone');
     randomiseButton.classList.remove('gone');

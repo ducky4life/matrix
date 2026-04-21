@@ -320,8 +320,41 @@ export class AugmentedMatrix3 {
             firstRowFracArray[unknownIndex] = new Frac(0, 1);
 
 
-            // first row
+            // first row: a 0 c | d -> x = (d-ct)/a
 
+            let newFirstRowArray: Array<number> = [];
+
+            firstRowFracArray.forEach((fracElement) => { // scale by denominator so integer first row
+                newFirstRowArray.push(fracElement.multiply(numberToFrac(unknownSolutionFrac.b)).displayToNumber());
+            })
+
+            const newFirstRow = arrayToAugmentedRow3(newFirstRowArray);
+
+            let t_idx = 2;
+            while (t_idx > 0 && solutionArray[t_idx] != "unk") {
+                t_idx--;
+            }
+
+            solutionArray[t_idx] = "t";
+
+            const lastUnknownIndex = 3-t_idx-unknownIndex;
+            const lastUnknownColumn = lastUnknownIndex + 1;
+
+            const a = newFirstRow.getElement(lastUnknownColumn);
+            const c = newFirstRow.getElement(t_idx+1);
+
+            const d = newFirstRow.getElement(4);
+
+            let lastSolution: string = "";
+
+            if (c > 0) {
+                lastSolution = `${d}-${c}t` + `/${a}`;
+            }
+            else {
+                lastSolution = `${d}+${-c}t` + `/${a}`;
+            }
+
+            solutionArray[lastUnknownIndex] = lastSolution;
         }
 
         else {
@@ -329,10 +362,6 @@ export class AugmentedMatrix3 {
             // a b c | d
             // 0 e f | g
 
-            // let t_idx = 2;
-            // while (t_idx > 0 && solutionArray[t_idx] != "unk") {
-            //     t_idx--;
-            // }
 
             if (secondRow.firstNonZeroEntryColumn() != 2) {
                 console.log("pivot column does not match");
@@ -385,10 +414,10 @@ export class AugmentedMatrix3 {
             }
 
             if (t_coeff > 0) {
-                x_solution = `${constantPart} + ${t_coeff}` + `/${a}`;
+                x_solution = `${constantPart} + ${t_coeff}t` + `/${a}`;
             }
             else {
-                x_solution = `${constantPart} - ${-t_coeff}` + `/${a}`;
+                x_solution = `${constantPart} - ${-t_coeff}t` + `/${a}`;
             }
 
             solutionArray[0] = x_solution;

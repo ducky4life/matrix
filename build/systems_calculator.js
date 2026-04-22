@@ -13,7 +13,7 @@ function getInputAugmentedMatrix(name) {
     const c2 = Number(document.getElementById(`augmented_${name}_c2`).value);
     const c3 = Number(document.getElementById(`augmented_${name}_c3`).value);
     const c4 = Number(document.getElementById(`augmented_${name}_c4`).value);
-    return new AugmentedMatrix3((!a1.isNaN()) ? a1 : 0, (!a2.isNaN()) ? a2 : 0, (!a3.isNaN()) ? a3 : 0, (!a4.isNaN()) ? a4 : 0, (!b1.isNaN()) ? b1 : 0, (!b2.isNaN()) ? b2 : 0, (!b3.isNaN()) ? b3 : 0, (!b4.isNaN()) ? b4 : 0, (!c1.isNaN()) ? c1 : 0, (!c2.isNaN()) ? c2 : 0, (!c3.isNaN()) ? c3 : 0, (!c4.isNaN()) ? c4 : 0);
+    return new AugmentedMatrix3((!isNaN(a1)) ? a1 : 0, (!isNaN(a2)) ? a2 : 0, (!isNaN(a3)) ? a3 : 0, (!isNaN(a4)) ? a4 : 0, (!isNaN(b1)) ? b1 : 0, (!isNaN(b2)) ? b2 : 0, (!isNaN(b3)) ? b3 : 0, (!isNaN(b4)) ? b4 : 0, (!isNaN(c1)) ? c1 : 0, (!isNaN(c2)) ? c2 : 0, (!isNaN(c3)) ? c3 : 0, (!isNaN(c4)) ? c4 : 0);
 }
 function setInputAugmentedMatrix(name, a1, a2, a3, a4, b1, b2, b3, b4, c1, c2, c3, c4) {
     document.getElementById(`augmented_${name}_a1`).value = String(a1);

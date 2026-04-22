@@ -1,19 +1,19 @@
 import { TextFrac } from "./frac_matrix.js";
 import { AugmentedMatrix3, getRandomAugmentedMatrix3 } from "./systems.js";
 function getInputAugmentedMatrix(name) {
-    const a1 = document.getElementById(`augmented_${name}_a1`).value;
-    const a2 = document.getElementById(`augmented_${name}_a2`).value;
-    const a3 = document.getElementById(`augmented_${name}_a3`).value;
-    const a4 = document.getElementById(`augmented_${name}_a4`).value;
-    const b1 = document.getElementById(`augmented_${name}_b1`).value;
-    const b2 = document.getElementById(`augmented_${name}_b2`).value;
-    const b3 = document.getElementById(`augmented_${name}_b3`).value;
-    const b4 = document.getElementById(`augmented_${name}_b4`).value;
-    const c1 = document.getElementById(`augmented_${name}_c1`).value;
-    const c2 = document.getElementById(`augmented_${name}_c2`).value;
-    const c3 = document.getElementById(`augmented_${name}_c3`).value;
-    const c4 = document.getElementById(`augmented_${name}_c4`).value;
-    return new AugmentedMatrix3(Number(a1), Number(a2), Number(a3), Number(a4), Number(b1), Number(b2), Number(b3), Number(b4), Number(c1), Number(c2), Number(c3), Number(c4));
+    const a1 = Number(document.getElementById(`augmented_${name}_a1`).value);
+    const a2 = Number(document.getElementById(`augmented_${name}_a2`).value);
+    const a3 = Number(document.getElementById(`augmented_${name}_a3`).value);
+    const a4 = Number(document.getElementById(`augmented_${name}_a4`).value);
+    const b1 = Number(document.getElementById(`augmented_${name}_b1`).value);
+    const b2 = Number(document.getElementById(`augmented_${name}_b2`).value);
+    const b3 = Number(document.getElementById(`augmented_${name}_b3`).value);
+    const b4 = Number(document.getElementById(`augmented_${name}_b4`).value);
+    const c1 = Number(document.getElementById(`augmented_${name}_c1`).value);
+    const c2 = Number(document.getElementById(`augmented_${name}_c2`).value);
+    const c3 = Number(document.getElementById(`augmented_${name}_c3`).value);
+    const c4 = Number(document.getElementById(`augmented_${name}_c4`).value);
+    return new AugmentedMatrix3((!a1.isNaN()) ? a1 : 0, (!a2.isNaN()) ? a2 : 0, (!a3.isNaN()) ? a3 : 0, (!a4.isNaN()) ? a4 : 0, (!b1.isNaN()) ? b1 : 0, (!b2.isNaN()) ? b2 : 0, (!b3.isNaN()) ? b3 : 0, (!b4.isNaN()) ? b4 : 0, (!c1.isNaN()) ? c1 : 0, (!c2.isNaN()) ? c2 : 0, (!c3.isNaN()) ? c3 : 0, (!c4.isNaN()) ? c4 : 0);
 }
 function setInputAugmentedMatrix(name, a1, a2, a3, a4, b1, b2, b3, b4, c1, c2, c3, c4) {
     document.getElementById(`augmented_${name}_a1`).value = String(a1);

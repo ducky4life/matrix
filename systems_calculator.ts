@@ -16,18 +16,18 @@ function getInputAugmentedMatrix(name: string): AugmentedMatrix3 {
     const c4 = Number((document.getElementById(`augmented_${name}_c4`) as HTMLInputElement).value);
 
     return new AugmentedMatrix3(
-        (!a1.isNaN()) ? a1 : 0,
-        (!a2.isNaN()) ? a2 : 0,
-        (!a3.isNaN()) ? a3 : 0,
-        (!a4.isNaN()) ? a4 : 0,
-        (!b1.isNaN()) ? b1 : 0,
-        (!b2.isNaN()) ? b2 : 0,
-        (!b3.isNaN()) ? b3 : 0,
-        (!b4.isNaN()) ? b4 : 0,
-        (!c1.isNaN()) ? c1 : 0,
-        (!c2.isNaN()) ? c2 : 0,
-        (!c3.isNaN()) ? c3 : 0,
-        (!c4.isNaN()) ? c4 : 0,
+        (!isNaN(a1)) ? a1 : 0,
+        (!isNaN(a2)) ? a2 : 0,
+        (!isNaN(a3)) ? a3 : 0,
+        (!isNaN(a4)) ? a4 : 0,
+        (!isNaN(b1)) ? b1 : 0,
+        (!isNaN(b2)) ? b2 : 0,
+        (!isNaN(b3)) ? b3 : 0,
+        (!isNaN(b4)) ? b4 : 0,
+        (!isNaN(c1)) ? c1 : 0,
+        (!isNaN(c2)) ? c2 : 0,
+        (!isNaN(c3)) ? c3 : 0,
+        (!isNaN(c4)) ? c4 : 0,
     );
 }
 

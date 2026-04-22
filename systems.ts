@@ -354,7 +354,7 @@ export class AugmentedMatrix3 {
             let lastSolution: string = "";
 
             if (d == 0) {
-                const coeffFrac = new Frac(c, a).simplify();
+                const coeffFrac = new Frac(-c, a).simplify();
                 lastSolution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
             }
             else if (c == 1) {
@@ -403,7 +403,7 @@ export class AugmentedMatrix3 {
             let y_solution: string = "";
 
             if (g == 0) {
-                const coeffFrac = new Frac(g, e).simplify();
+                const coeffFrac = new Frac(-f, e).simplify();
                 y_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
             }
             else if (f == 1) {
@@ -447,7 +447,7 @@ export class AugmentedMatrix3 {
 
 
             if (constantPart == 0) {
-                const coeffFrac = new Frac(constantPart, a).simplify();
+                const coeffFrac = new Frac(t_coeff, a).simplify();
                 x_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
             }
             else if (t_coeff == 1) {

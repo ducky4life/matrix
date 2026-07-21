@@ -1,6 +1,6 @@
 import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
 
-export class Vector {
+export class Vector2 {
     // a1
     // b1
 
@@ -12,7 +12,7 @@ export class Vector {
         this.b1 = b;
     }
 
-    equals(V: Vector): boolean {
+    equals(V: Vector2): boolean {
         if (this.a1 == V.a1 && this.b1 == V.b1) {
             return true;
         }
@@ -37,11 +37,78 @@ export class Vector {
             </div>`)
     }
 
-    roundElements(digits: number = 2): Vector {
+    roundElements(digits: number = 2): Vector2 {
         const a1 = Number(this.a1.toFixed(digits));
         const b1 = Number(this.b1.toFixed(digits));
 
-        return new Vector(a1, b1);
+        return new Vector2(a1, b1);
+    }
+
+    add(V: Vector2): Vector2 {
+        return new Vector2(this.a1+V.a1, this.b1+V.b1);
+    }
+
+    minus(V: Vector2): Vector2 {
+        return new Vector2(this.a1-V.a1, this.b1-V.b1);
+    }
+
+    getVectorTo(V: Vector2): Vector2 {
+        return V.minus(this);
+    }
+
+    magnitude(round: boolean = false): number {
+        const mag = Number(Math.sqrt(this.a1*this.a1+this.b1*this.b1));
+        if (round) {
+            return roundNumber(mag, 2);
+        }
+        return mag;
+    }
+
+    scale(scalar: number): Vector2 {
+        return new Vector2(this.a1*scalar, this.b1*scalar);
+    }
+
+    isParallel(V: Vector2): boolean {
+        if (V.a1 == 0) {
+            return (this.a1 == 0);
+        }
+        else if (V.b1 == 0) {
+            return (this.b1 == 0);
+        }
+        return (this.a1/V.a1 == this.b1/V.b1);
+    }
+
+    dotProduct(V: Vector2): number {
+        const dot_product = this.a1*V.a1 + this.b1*V.b1;
+        return dot_product;
+    }
+
+    isPerpendicularTo(V: Vector2): boolean {
+        return (this.dotProduct(V) == 0);
+    }
+
+    includedAngleInDegrees(V: Vector2): number {
+        const cos_theta = this.dotProduct(V)/(this.magnitude()*V.magnitude());
+        return roundNumber(Math.acos(cos_theta), 2);
+    }
+
+    getUnitVector(): Vector2 {
+        const mag = this.magnitude();
+        return new Vector2(this.a1/mag, this.b1/mag);
+    }
+
+    projectOnto(V: Vector2): Vector2 {
+        const mag = this.dotProduct(V)/V.magnitude();
+        return V.getUnitVector().scale(mag);
+    }
+
+    projectionMagnitude(project_onto: Vector2): number {
+        return Math.abs(this.dotProduct(project_onto)/project_onto.magnitude());
+    }
+
+    crossProductMagnitude(V: Vector2): number {
+        const M = vectorToMatrix2(this, V);
+        return M.determinant();
     }
 }
 
@@ -231,10 +298,10 @@ export class Matrix2 {
         return eigenvalueArray;
     }
 
-    eigenvectors(round_elements: boolean = true): Array<Vector> {
+    eigenvectors(round_elements: boolean = true): Array<Vector2> {
 
         const eigenvaluesArray = this.eigenvalues();
-        let eigenvectorsArray: Array<Vector> = [];
+        let eigenvectorsArray: Array<Vector2> = [];
 
         eigenvaluesArray.forEach((eigenvalue) => {
             let V_a1: number, V_b1: number;
@@ -249,7 +316,7 @@ export class Matrix2 {
                 V_b1 = this.b2 - eigenvalue;
             }
             
-            const eigenvector = new Vector(V_a1, V_b1);
+            const eigenvector = new Vector2(V_a1, V_b1);
             const simplifiedVector = simplifyEigenvector(eigenvector);
             if (round_elements) {
                 eigenvectorsArray.push(simplifiedVector.roundElements());
@@ -624,7 +691,7 @@ export function eigenvaluesToString(eigenvalues: Array<number>): string {
     return eigenvalueString.slice(0, -2);
 }
 
-export function eigenvectorsToString(eigenvectors: Array<Vector>): string {
+export function eigenvectorsToString(eigenvectors: Array<Vector2>): string {
     let eigenvectorString = "";
 
     eigenvectors.forEach((eigenvector) => {
@@ -634,7 +701,7 @@ export function eigenvectorsToString(eigenvectors: Array<Vector>): string {
     return eigenvectorString;
 }
 
-export function simplifyEigenvector(eigenvector: Vector): Vector {
+export function simplifyEigenvector(eigenvector: Vector2): Vector2 {
     let a = eigenvector.a1;
     let b = eigenvector.b1;
 
@@ -644,11 +711,11 @@ export function simplifyEigenvector(eigenvector: Vector): Vector {
     }
 
     if (a==0) {
-        return new Vector(0, 1);
+        return new Vector2(0, 1);
     }
 
     if (b==0) {
-        return new Vector(1, 0);
+        return new Vector2(1, 0);
     }
 
     // take out common factors
@@ -663,7 +730,11 @@ export function simplifyEigenvector(eigenvector: Vector): Vector {
         }
     }
 
-    return new Vector(a, b);
+    return new Vector2(a, b);
+}
+
+export function roundNumber(num: number, digits: number): number {
+    return Number(num.toFixed(digits));
 }
 
 export function scalarToMatrix2(scalar: number): Matrix2 {
@@ -699,6 +770,13 @@ export function arrayToMatrix3(A: Array<number>) {
     }
     console.log("length of array is not 9");
     return new Matrix3();
+}
+
+export function vectorToMatrix2(V1: Vector2, V2: Vector2) {
+    return new Matrix2(
+        V1.a1, V2.a1,
+        V1.b1, V2.b1
+    );
 }
 
 export function getRowName(row: number) {

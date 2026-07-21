@@ -1,5 +1,5 @@
 import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
-export class Vector {
+export class Vector2 {
     constructor(a = 0, b = 0) {
         this.a1 = a;
         this.b1 = b;
@@ -28,7 +28,61 @@ export class Vector {
     roundElements(digits = 2) {
         const a1 = Number(this.a1.toFixed(digits));
         const b1 = Number(this.b1.toFixed(digits));
-        return new Vector(a1, b1);
+        return new Vector2(a1, b1);
+    }
+    add(V) {
+        return new Vector2(this.a1 + V.a1, this.b1 + V.b1);
+    }
+    minus(V) {
+        return new Vector2(this.a1 - V.a1, this.b1 - V.b1);
+    }
+    getVectorTo(V) {
+        return V.minus(this);
+    }
+    magnitude(round = false) {
+        const mag = Number(Math.sqrt(this.a1 * this.a1 + this.b1 * this.b1));
+        if (round) {
+            return roundNumber(mag, 2);
+        }
+        return mag;
+    }
+    scale(scalar) {
+        return new Vector2(this.a1 * scalar, this.b1 * scalar);
+    }
+    isParallel(V) {
+        if (V.a1 == 0) {
+            return (this.a1 == 0);
+        }
+        else if (V.b1 == 0) {
+            return (this.b1 == 0);
+        }
+        return (this.a1 / V.a1 == this.b1 / V.b1);
+    }
+    dotProduct(V) {
+        const dot_product = this.a1 * V.a1 + this.b1 * V.b1;
+        return dot_product;
+    }
+    isPerpendicularTo(V) {
+        return (this.dotProduct(V) == 0);
+    }
+    includedAngleInDegrees(V) {
+        const cos_theta = this.dotProduct(V) / (this.magnitude() * V.magnitude());
+        return roundNumber(Math.acos(cos_theta), 2);
+    }
+    getUnitVector() {
+        const mag = this.magnitude();
+        return new Vector2(this.a1 / mag, this.b1 / mag);
+    }
+    projectOnto(V) {
+        const mag = this.dotProduct(V) / V.magnitude();
+        return V.getUnitVector().scale(mag);
+    }
+    projectionMagnitude(project_onto) {
+        return Math.abs(this.dotProduct(project_onto) / project_onto.magnitude());
+    }
+    crossProductMagnitude(V) {
+        const M = vectorToMatrix2(this, V);
+        return M.determinant();
     }
 }
 export class Matrix2 {
@@ -181,7 +235,7 @@ export class Matrix2 {
                 V_a1 = this.a2;
                 V_b1 = this.b2 - eigenvalue;
             }
-            const eigenvector = new Vector(V_a1, V_b1);
+            const eigenvector = new Vector2(V_a1, V_b1);
             const simplifiedVector = simplifyEigenvector(eigenvector);
             if (round_elements) {
                 eigenvectorsArray.push(simplifiedVector.roundElements());
@@ -452,10 +506,10 @@ export function simplifyEigenvector(eigenvector) {
         b = -b;
     }
     if (a == 0) {
-        return new Vector(0, 1);
+        return new Vector2(0, 1);
     }
     if (b == 0) {
-        return new Vector(1, 0);
+        return new Vector2(1, 0);
     }
     // take out common factors
     const smaller = Math.min(Math.abs(a), Math.abs(b));
@@ -466,7 +520,10 @@ export function simplifyEigenvector(eigenvector) {
             break;
         }
     }
-    return new Vector(a, b);
+    return new Vector2(a, b);
+}
+export function roundNumber(num, digits) {
+    return Number(num.toFixed(digits));
 }
 export function scalarToMatrix2(scalar) {
     return new Matrix2(scalar, 0, 0, scalar);
@@ -487,6 +544,9 @@ export function arrayToMatrix3(A) {
     }
     console.log("length of array is not 9");
     return new Matrix3();
+}
+export function vectorToMatrix2(V1, V2) {
+    return new Matrix2(V1.a1, V2.a1, V1.b1, V2.b1);
 }
 export function getRowName(row) {
     switch (row) {

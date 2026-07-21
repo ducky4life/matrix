@@ -1,4 +1,5 @@
-import { Matrix2, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString, getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3 } from "./matrix.js";
+import { Matrix2, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString } from "./matrix.js";
+import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3 } from "./matrix_web.js";
 function getInputRow(name) {
     const row = Number(document.getElementById(`${name}_row`).value);
     if (!([1, 2, 3].includes(row))) {

@@ -1,4 +1,5 @@
-import { Matrix2, Matrix3, getMatrixHTML, clearInput, generateMatrixExercise, getInputMatrix2, getInputMatrix3, getRandomNumberFromArray, getInputNumber, generateNumberExercise } from "./matrix.js";
+import { Matrix2, Matrix3, generateMatrixExercise, getRandomNumberFromArray, generateNumberExercise } from "./matrix.js";
+import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3, getInputNumber } from "./matrix_web.js";
 
 function setInputEventListener() {
     let inputElementIds: string[] = [];

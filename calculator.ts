@@ -1,5 +1,6 @@
 import { FracMatrix2, FracMatrix3 } from "./frac_matrix.js";
-import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString, getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3 } from "./matrix.js";
+import { Matrix2, Matrix3, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString } from "./matrix.js";
+import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3 } from "./matrix_web.js";
 
 function getInputRow(name: string): number {
     const row = Number((document.getElementById(`${name}_row`) as HTMLInputElement).value);

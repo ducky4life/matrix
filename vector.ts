@@ -131,7 +131,7 @@ export class Vector3 {
 
     a1: number;
     b1: number;
-    c1: number
+    c1: number;
 
     constructor(a=0,b=0,c=0) {
         this.a1 = a;
@@ -259,8 +259,8 @@ export class Vector3 {
         return new Vector3(i, j, k);
     }
 
-    angleWithPlaneInDegrees(V1: Vector3, V2: Vector3): number {
-        const normalVector = V1.crossProduct(V2);
+    angleWithPlaneInDegrees(P: Plane): number {
+        const normalVector = P.normalVector();
         const dot_product = this.dotProduct(normalVector);
         
         if (dot_product != 0) {
@@ -271,9 +271,42 @@ export class Vector3 {
         return 0;
     }
 
-    isCoplanarWith(V1: Vector3, V2: Vector3): boolean {
-        const normalVector = V1.crossProduct(V2);
+    isCoplanarWith(P: Plane): boolean {
+        const normalVector = P.normalVector();
         return (this.isPerpendicularTo(normalVector));
+    }
+
+    getNormalProjectionToPlane(P: Plane): Vector3 {
+        const unitNormalVector = P.normalVector().getUnitVector();
+        const mag = this.dotProduct(unitNormalVector);
+        return unitNormalVector.scale(mag);
+    }
+
+    getVectorToProjectionOnPlane(P: Plane): Vector3 {
+        const normalProjection = this.getNormalProjectionToPlane(P);
+        return this.minus(normalProjection);
+    }
+}
+
+export class Plane {
+
+    V1: Vector3;
+    V2: Vector3;
+
+    constructor(V1=new Vector3(), V2=new Vector3()) {
+        this.V1 = V1;
+        this.V2 = V2;
+    }
+
+    equals(P: Plane): boolean {
+        const cross1 = this.normalVector()
+        const cross2 = P.normalVector();
+
+        return cross1.isParallel(cross2);
+    }
+
+    normalVector(): Vector3 {
+        return this.V1.crossProduct(this.V2);
     }
 }
 
@@ -300,6 +333,40 @@ export function getCrossProductMatrix(V1: Vector3, V2: Vector3) {
     );
 }
 
-const testVector1 = new Vector2(3, 4)
-const testVector2 = new Vector2(1, 0)
-console.log(testVector1.crossProductMagnitude(testVector2))
+// const testVector1 = new Vector3(2, 3, 1)
+// const testVector2 = new Vector3(0, -2, 4)
+// const testVector3 = new Vector3(3, 1, -2)
+// const AB = testVector1.getVectorTo(testVector2);
+// const AC = testVector1.getVectorTo(testVector3);
+// const V = new Vector3(4, 0, 8)
+// const AV = testVector1.getVectorTo(V);
+// const ABC = new Plane(AB, AC)
+// console.log(AB.crossProduct(AC))
+// console.log(AV.angleWithPlaneInDegrees(ABC));
+
+// const A = new Vector3(-2, -5, 0)
+// const B = new Vector3(-1, 1, 1)
+// const C = new Vector3(1, -5, -3)
+// const D = new Vector3(4, 4, -3)
+// const AB = A.getVectorTo(B);
+// const BC = B.getVectorTo(C);
+// const AD = A.getVectorTo(D);
+// const ABC = new Plane(AB, BC)
+
+// console.log(AB.crossProduct(BC).getUnitVector())
+// console.log(AB.crossProduct(AD).getUnitVector())
+// console.log(AD.isCoplanarWith(ABC));
+
+// const A = new Vector3(-6, 7, -2)
+// const B = new Vector3(-1, -13, 3)
+// const C = new Vector3(9, -3, -12)
+// const D = new Vector3(5, -1, 0)
+// const E = new Vector3(0, 9, 0)
+
+// const AB = A.getVectorTo(B);
+// const AC = A.getVectorTo(C);
+// const ABC = new Plane(AB, AC);
+
+// console.log(AB.crossProduct(AC).getUnitVector())
+// console.log(D.getNormalProjectionToPlane(ABC).roundElements())
+// console.log(D.getVectorToProjectionOnPlane(ABC).roundElements())

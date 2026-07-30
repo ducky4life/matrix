@@ -191,13 +191,13 @@ export class Vector3 {
 
     isParallel(V: Vector3): boolean {
         if (V.a1 == 0) {
-            return (this.a1 == 0);
+            return (this.a1 == 0 && this.b1/V.b1 == this.c1/V.c1);
         }
         else if (V.b1 == 0) {
-            return (this.b1 == 0);
+            return (this.b1 == 0 && this.a1/V.a1 == this.c1/V.c1);
         }
         else if (V.c1 == 0) {
-            return (this.c1 == 0);
+            return (this.c1 == 0 && this.a1/V.a1 == this.b1/V.b1);
         }
         return (this.a1/V.a1 == this.b1/V.b1 && this.a1/V.a1 == this.c1/V.c1);
     }

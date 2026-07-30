@@ -1,116 +1,5 @@
 import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
-
-export class Vector2 {
-    // a1
-    // b1
-
-    a1: number;
-    b1: number;
-
-    constructor(a=0,b=0) {
-        this.a1 = a;
-        this.b1 = b;
-    }
-
-    equals(V: Vector2): boolean {
-        if (this.a1 == V.a1 && this.b1 == V.b1) {
-            return true;
-        }
-        return false;
-    }
-
-    display(): Array<number> {
-        return [this.a1, this.b1];
-    }
-
-    displayToString(): string {
-        return `[${this.a1}, ${this.b1}]`;
-    }
-
-    displayToHTML(): string{
-        return(`
-            <div class="matrix-container">
-                <div class="vector">
-                    <div class="matrix-elements">${this.a1}</div>
-                    <div class="matrix-elements">${this.b1}</div>
-                </div>
-            </div>`)
-    }
-
-    roundElements(digits: number = 2): Vector2 {
-        const a1 = Number(this.a1.toFixed(digits));
-        const b1 = Number(this.b1.toFixed(digits));
-
-        return new Vector2(a1, b1);
-    }
-
-    add(V: Vector2): Vector2 {
-        return new Vector2(this.a1+V.a1, this.b1+V.b1);
-    }
-
-    minus(V: Vector2): Vector2 {
-        return new Vector2(this.a1-V.a1, this.b1-V.b1);
-    }
-
-    getVectorTo(V: Vector2): Vector2 {
-        return V.minus(this);
-    }
-
-    magnitude(round: boolean = false): number {
-        const mag = Number(Math.sqrt(this.a1*this.a1+this.b1*this.b1));
-        if (round) {
-            return roundNumber(mag, 2);
-        }
-        return mag;
-    }
-
-    scale(scalar: number): Vector2 {
-        return new Vector2(this.a1*scalar, this.b1*scalar);
-    }
-
-    isParallel(V: Vector2): boolean {
-        if (V.a1 == 0) {
-            return (this.a1 == 0);
-        }
-        else if (V.b1 == 0) {
-            return (this.b1 == 0);
-        }
-        return (this.a1/V.a1 == this.b1/V.b1);
-    }
-
-    dotProduct(V: Vector2): number {
-        const dot_product = this.a1*V.a1 + this.b1*V.b1;
-        return dot_product;
-    }
-
-    isPerpendicularTo(V: Vector2): boolean {
-        return (this.dotProduct(V) == 0);
-    }
-
-    includedAngleInDegrees(V: Vector2): number {
-        const cos_theta = this.dotProduct(V)/(this.magnitude()*V.magnitude());
-        return roundNumber(Math.acos(cos_theta), 2);
-    }
-
-    getUnitVector(): Vector2 {
-        const mag = this.magnitude();
-        return new Vector2(this.a1/mag, this.b1/mag);
-    }
-
-    projectOnto(V: Vector2): Vector2 {
-        const mag = this.dotProduct(V)/V.magnitude();
-        return V.getUnitVector().scale(mag);
-    }
-
-    projectionMagnitude(project_onto: Vector2): number {
-        return Math.abs(this.dotProduct(project_onto)/project_onto.magnitude());
-    }
-
-    crossProductMagnitude(V: Vector2): number {
-        const M = vectorToMatrix2(this, V);
-        return M.determinant();
-    }
-}
+import { Vector2 } from "./vector.js";
 
 export class Matrix2 {
     // a1 a1
@@ -772,13 +661,6 @@ export function arrayToMatrix3(A: Array<number>) {
     return new Matrix3();
 }
 
-export function vectorToMatrix2(V1: Vector2, V2: Vector2) {
-    return new Matrix2(
-        V1.a1, V2.a1,
-        V1.b1, V2.b1
-    );
-}
-
 export function getRowName(row: number) {
     switch (row) {
         case 1:
@@ -964,7 +846,7 @@ export function generateNumberExercise2(operation: number = 2, max: number = 10)
     const row = getRandomNumberFromArray([1,2]);
     const column = getRandomNumberFromArray([1,2]);
 
-    const answer = getAnswerNumber(M1, operation, row, column);
+    const answer = getMatrixAnswerNumber(M1, operation, row, column);
 
     const generated_exercise: { M1: Matrix2, answer: number, row: number, column: number } = {
         M1: M1,
@@ -981,7 +863,7 @@ export function generateNumberExercise3(operation: number = 2, max: number = 10)
     const row = getRandomNumberFromArray([1,2,3]);
     const column = getRandomNumberFromArray([1,2,3]);
 
-    const answer = getAnswerNumber(M1, operation, row, column);
+    const answer = getMatrixAnswerNumber(M1, operation, row, column);
 
     const generated_exercise: { M1: Matrix3, answer: number, row: number, column: number } = {
         M1: M1,
@@ -993,7 +875,7 @@ export function generateNumberExercise3(operation: number = 2, max: number = 10)
     return generated_exercise;
 }
 
-export function getAnswerNumber(M1: Matrix2|Matrix3, operation: number, row: number, column: number): number {
+export function getMatrixAnswerNumber(M1: Matrix2|Matrix3, operation: number, row: number, column: number): number {
 
     switch (operation) {
         case 3:

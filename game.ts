@@ -274,7 +274,7 @@ function displayExercise() {
         }
     }
 
-    let exercise: any = {};
+    let exercise: Record<string, Matrix2|Matrix3|string|number> = {};
     if (matrixOutputExercises.includes(operation)) {
         number_input = false;
         exercise = generateMatrixExercise(curr_dimension, operation, max_element);
@@ -286,12 +286,12 @@ function displayExercise() {
         setNumberInput();
     }
     
-    const M1 = exercise['M1'];
-    const M2 = exercise['M2'];
-    const answer = exercise['answer'];
-    const row = exercise['row'];
-    const column = exercise['column'];
-    const operator = exercise['operator'];
+    const M1 = exercise['M1'] as Matrix2|Matrix3;
+    const M2 = exercise['M2'] as Matrix2|Matrix3;
+    const answer = exercise['answer'] as Matrix2|Matrix3|number;
+    const row = exercise['row'] as number;
+    const column = exercise['column'] as number;
+    const operator = exercise['operator'] as string;
 
 
     if ([0,1,2].includes(operation)) { // basic arithmetic
@@ -377,14 +377,14 @@ function displayExercise() {
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
     submitButton.addEventListener('click', () => {
         if (matrixOutputExercises.includes(operation)) {
-            if (checkMatrixAnswer(curr_dimension, answer) && !finished) {
+            if (checkMatrixAnswer(curr_dimension, answer as Matrix2|Matrix3) && !finished) {
                 incrementScore();
                 finished = true;
             }
         }
 
         else {
-            if (checkNumberAnswer(answer) && !finished) {
+            if (checkNumberAnswer(answer as number) && !finished) {
                 incrementScore();
                 finished = true;
             }

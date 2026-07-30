@@ -243,6 +243,27 @@ export function vectorToMatrix3(V1, V2, V3) {
 export function getCrossProductMatrix(V1, V2) {
     return new Matrix3(1, 1, 1, V1.a1, V1.b1, V1.c1, V2.a1, V2.b1, V2.c1);
 }
+export function volumeOfIncludedTetrahedron(V1, V2, V3) {
+    const VA = V1;
+    const VB = V2;
+    const VC = V3;
+    const VBC = new Plane(VB, VC);
+    const triangleArea = 0.5 * VB.crossProduct(VC).magnitude();
+    const height = VA.getNormalProjectionToPlane(VBC).magnitude();
+    console.log(triangleArea);
+    console.log(height);
+    return height * triangleArea / 3;
+}
+export function volumeOfTetrahedron(V1, V2, V3, V4) {
+    const V = V1;
+    const A = V2;
+    const B = V3;
+    const C = V4;
+    const VA = V.getVectorTo(A);
+    const VB = V.getVectorTo(B);
+    const VC = V.getVectorTo(C);
+    return volumeOfIncludedTetrahedron(VA, VB, VC);
+}
 // const testVector1 = new Vector3(2, 3, 1)
 // const testVector2 = new Vector3(0, -2, 4)
 // const testVector3 = new Vector3(3, 1, -2)
@@ -275,3 +296,8 @@ export function getCrossProductMatrix(V1, V2) {
 // console.log(AB.crossProduct(AC).getUnitVector())
 // console.log(D.getNormalProjectionToPlane(ABC).roundElements())
 // console.log(D.getVectorToProjectionOnPlane(ABC).roundElements())
+// const A1 = new Vector3(3, -4, 5);
+// const B1 = new Vector3(5, -8, -7);
+// const C1 = new Vector3(7, 0, -1);
+// const V1 = new Vector3(24, -13, 2);
+// console.log(volumeOfTetrahedron(V1, A1, B1, C1));

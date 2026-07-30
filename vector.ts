@@ -87,6 +87,14 @@ export class Vector2 {
         return (this.dotProduct(V) == 0);
     }
 
+    isSameDirectionAs(V: Vector2): boolean {
+        return (this.dotProduct(V) > 0);
+    }
+
+    isDiffDirectionAs(V: Vector2): boolean {
+        return (this.dotProduct(V) < 0);
+    }
+
     includedAngleInRadians(V: Vector2): number {
         const cos_theta = this.dotProduct(V)/(this.magnitude()*V.magnitude());
         return Math.acos(cos_theta);
@@ -211,6 +219,14 @@ export class Vector3 {
         return (this.dotProduct(V) == 0);
     }
 
+    isSameDirectionAs(V: Vector3): boolean {
+        return (this.dotProduct(V) > 0);
+    }
+
+    isDiffDirectionAs(V: Vector3): boolean {
+        return (this.dotProduct(V) < 0);
+    }
+
     includedAngleInRadians(V: Vector3): number {
         const cos_theta = this.dotProduct(V)/(this.magnitude()*V.magnitude());
         return Math.acos(cos_theta);
@@ -241,6 +257,23 @@ export class Vector3 {
         const k = crossProductMatrix.cofactor(1, 3);
 
         return new Vector3(i, j, k);
+    }
+
+    angleWithPlaneInDegrees(V1: Vector3, V2: Vector3): number {
+        const normalVector = V1.crossProduct(V2);
+        const dot_product = this.dotProduct(normalVector);
+        
+        if (dot_product != 0) {
+            const angle = 90-this.includedAngleInDegrees(normalVector);
+            return (Math.abs(angle));
+        }
+        
+        return 0;
+    }
+
+    isCoplanarWith(V1: Vector3, V2: Vector3): boolean {
+        const normalVector = V1.crossProduct(V2);
+        return (this.isPerpendicularTo(normalVector));
     }
 }
 

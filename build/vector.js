@@ -65,6 +65,12 @@ export class Vector2 {
     isPerpendicularTo(V) {
         return (this.dotProduct(V) == 0);
     }
+    isSameDirectionAs(V) {
+        return (this.dotProduct(V) > 0);
+    }
+    isDiffDirectionAs(V) {
+        return (this.dotProduct(V) < 0);
+    }
     includedAngleInRadians(V) {
         const cos_theta = this.dotProduct(V) / (this.magnitude() * V.magnitude());
         return Math.acos(cos_theta);
@@ -143,13 +149,13 @@ export class Vector3 {
     }
     isParallel(V) {
         if (V.a1 == 0) {
-            return (this.a1 == 0);
+            return (this.a1 == 0 && (new Vector2(V.b1, V.c1)).isParallel(new Vector2(this.b1, this.c1)));
         }
         else if (V.b1 == 0) {
-            return (this.b1 == 0);
+            return (this.b1 == 0 && (new Vector2(V.a1, V.c1)).isParallel(new Vector2(this.a1, this.c1)));
         }
         else if (V.c1 == 0) {
-            return (this.c1 == 0);
+            return (this.c1 == 0 && (new Vector2(V.a1, V.b1)).isParallel(new Vector2(this.a1, this.b1)));
         }
         return (this.a1 / V.a1 == this.b1 / V.b1 && this.a1 / V.a1 == this.c1 / V.c1);
     }
@@ -159,6 +165,12 @@ export class Vector3 {
     }
     isPerpendicularTo(V) {
         return (this.dotProduct(V) == 0);
+    }
+    isSameDirectionAs(V) {
+        return (this.dotProduct(V) > 0);
+    }
+    isDiffDirectionAs(V) {
+        return (this.dotProduct(V) < 0);
     }
     includedAngleInRadians(V) {
         const cos_theta = this.dotProduct(V) / (this.magnitude() * V.magnitude());
@@ -184,6 +196,19 @@ export class Vector3 {
         const j = crossProductMatrix.cofactor(1, 2);
         const k = crossProductMatrix.cofactor(1, 3);
         return new Vector3(i, j, k);
+    }
+    angleWithPlaneInDegrees(V1, V2) {
+        const normalVector = V1.crossProduct(V2);
+        const dot_product = this.dotProduct(normalVector);
+        if (dot_product != 0) {
+            const angle = 90 - this.includedAngleInDegrees(normalVector);
+            return (Math.abs(angle));
+        }
+        return 0;
+    }
+    isCoplanarWith(V1, V2) {
+        const normalVector = V1.crossProduct(V2);
+        return (this.isPerpendicularTo(normalVector));
     }
 }
 export function vectorToMatrix2(V1, V2) {

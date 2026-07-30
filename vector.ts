@@ -393,10 +393,12 @@ export function volumeOfTetrahedron(V1: Vector3, V2: Vector3, V3: Vector3, V4: V
 
 // const AB = A.getVectorTo(B);
 // const AC = A.getVectorTo(C);
+// const AD = A.getVectorTo(D);
+// const BD = B.getVectorTo(D);
 // const ABC = new Plane(AB, AC);
 
 // console.log(AB.crossProduct(AC).getUnitVector())
-// console.log(D.getNormalProjectionToPlane(ABC).roundElements())
+// console.log(BD.getNormalProjectionToPlane(ABC).roundElements())
 // console.log(D.getVectorToProjectionOnPlane(ABC).roundElements())
 
 // const A1 = new Vector3(3, -4, 5);

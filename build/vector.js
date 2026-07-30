@@ -292,9 +292,11 @@ export function volumeOfTetrahedron(V1, V2, V3, V4) {
 // const E = new Vector3(0, 9, 0)
 // const AB = A.getVectorTo(B);
 // const AC = A.getVectorTo(C);
+// const AD = A.getVectorTo(D);
+// const BD = B.getVectorTo(D);
 // const ABC = new Plane(AB, AC);
 // console.log(AB.crossProduct(AC).getUnitVector())
-// console.log(D.getNormalProjectionToPlane(ABC).roundElements())
+// console.log(BD.getNormalProjectionToPlane(ABC).roundElements())
 // console.log(D.getVectorToProjectionOnPlane(ABC).roundElements())
 // const A1 = new Vector3(3, -4, 5);
 // const B1 = new Vector3(5, -8, -7);

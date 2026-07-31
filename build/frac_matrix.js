@@ -49,6 +49,9 @@ export class Frac {
     simplify() {
         let a = this.a;
         let b = this.b;
+        if (a == 0) {
+            return new Frac(0, 1);
+        }
         if (a < 0 && b < 0) {
             a = -a;
             b = -b;

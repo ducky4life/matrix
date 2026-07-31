@@ -240,7 +240,12 @@ export class AugmentedMatrix3 {
             let lastSolution = "";
             if (d == 0) {
                 const coeffFrac = new Frac(-c, a).simplify();
-                lastSolution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                if (c == 0) {
+                    lastSolution = "0";
+                }
+                else {
+                    lastSolution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                }
             }
             else if (c == 1) {
                 lastSolution = `${d}-t` + `/${a}`;
@@ -270,15 +275,21 @@ export class AugmentedMatrix3 {
             let e = secondRow.simplify().getElement(2);
             let f = secondRow.simplify().getElement(3);
             let g = secondRow.simplify().getElement(4);
-            if (g < 0 && f > 0 && e < 0) {
+            if (e < 0) {
                 g = -g;
                 f = -f;
                 e = -e;
+                // console.log(e, f, g)
             }
             let y_solution = "";
             if (g == 0) {
                 const coeffFrac = new Frac(-f, e).simplify();
-                y_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                if (f == 0) {
+                    y_solution = "0";
+                }
+                else {
+                    y_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                }
             }
             else if (f == 1) {
                 y_solution = `${g}-t` + `/` + `${e}`;
@@ -305,14 +316,26 @@ export class AugmentedMatrix3 {
             let constantPart = d - b * g;
             let t_coeff = -(c - b * f);
             let x_solution = "";
-            if (constantPart < 0 && t_coeff < 0 && a < 0) {
+            if (a < 0) {
                 constantPart = -constantPart;
                 t_coeff = -t_coeff;
                 a = -a;
+                // console.log(constantPart, t_coeff, a)
+            }
+            const commonhcf = commonHCF([constantPart, t_coeff, a]);
+            if (commonhcf != 1) {
+                constantPart = constantPart / commonhcf;
+                t_coeff = t_coeff / commonhcf;
+                a = a / commonhcf;
             }
             if (constantPart == 0) {
                 const coeffFrac = new Frac(t_coeff, a).simplify();
-                x_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                if (t_coeff == 0) {
+                    x_solution = "0";
+                }
+                else {
+                    x_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                }
             }
             else if (t_coeff == 1) {
                 x_solution = `${constantPart}+t` + `/${a}`;

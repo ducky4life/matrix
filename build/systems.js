@@ -514,6 +514,15 @@ export function gaussianEliminationRow(row1, row2) {
         return new AugmentedRow3();
     }
 }
+export function generateUniqueSolutionExercise(max = 10) {
+    let M1 = getRandomAugmentedMatrix3(max, true);
+    const answer = M1.getFracSolution();
+    const generated_exercise = {
+        M1: M1,
+        answer: answer
+    };
+    return generated_exercise;
+}
 const testRow1 = new AugmentedRow3(0, 1, 1, 2);
 const testRow2 = new AugmentedRow3(0, 2, 3, 4);
 const testAugmentedMatrix = new AugmentedMatrix3(2, -1, 1, 3, 1, 1, 1, 6, 1, 2, -1, 2);

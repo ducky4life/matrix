@@ -29,7 +29,7 @@ function setInputAugmentedMatrix(name, a1, a2, a3, a4, b1, b2, b3, b4, c1, c2, c
     document.getElementById(`augmented_${name}_c3`).value = String(c3);
     document.getElementById(`augmented_${name}_c4`).value = String(c4);
 }
-function getAugmentedMatrixHTML(name) {
+function getInputAugmentedMatrixHTML(name) {
     return `<div class="matrix-3 augmented-matrix-3">
         <div><input id="augmented_${name}_a1"></input></div><div><input id="augmented_${name}_a2"></input></div><div><input id="augmented_${name}_a3"></input></div>|<div><input id="augmented_${name}_a4"></input></div>
         <div><input id="augmented_${name}_b1"></input></div><div><input id="augmented_${name}_b2"></input></div><div><input id="augmented_${name}_b3"></input></div>|<div><input id="augmented_${name}_b4"></input></div>
@@ -108,13 +108,16 @@ export function setupCalculator() {
         clearInput('m1');
     });
     const m1_box = document.getElementById('m1_box');
+    const m1_number = document.getElementById('m1_frac');
     const exercise_box = document.getElementById('exercise');
     const output_box = document.getElementById('output-div');
     const generateButton = document.getElementById('generate');
     const randomiseButton = document.getElementById('randomise');
     const submitButton = document.getElementById('submit');
-    m1_box.innerHTML = getAugmentedMatrixHTML('m1');
+    m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
     m1_box.classList.add('matrix-container-3');
+    m1_box.classList.add('matrix-container');
+    m1_number.classList.add('gone');
     exercise_box.innerHTML = '';
     exercise_box.classList.add('gone');
     output_box.classList.remove('gone');

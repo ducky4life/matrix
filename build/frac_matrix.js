@@ -28,6 +28,9 @@ export class Frac {
     displayToLaTeX() {
         return (`\\frac{${this.a}}{${this.b}}`);
     }
+    equals(F) {
+        return (this.minus(F).a == 0);
+    }
     add(F) {
         return new Frac(this.a * F.b + this.b * F.a, this.b * F.b).simplify();
     }

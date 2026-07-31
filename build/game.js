@@ -1,5 +1,5 @@
 import { generateMatrixExercise, getRandomNumberFromArray, generateNumberExercise } from "./matrix.js";
-import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3, getInputNumber } from "./matrix_web.js";
+import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3, getInputNumber, setInputBoxColor, incrementScore, clearInputBoxColor, setScore } from "./matrix_web.js";
 function setInputEventListener() {
     let inputElementIds = [];
     switch (curr_dimension) {
@@ -67,15 +67,6 @@ function toggleDimension() {
             break;
     }
 }
-function setInputBoxColor(box_name, color) {
-    const inputBox = document.getElementById(box_name);
-    inputBox.style.border = `1px solid ${color}`;
-    inputBox.style.borderWidth = "1.5px";
-}
-function clearInputBoxColor(box_name) {
-    const inputBox = document.getElementById(box_name);
-    inputBox.style.border = '';
-}
 function clearAllInputBoxColor() {
     if (number_input) {
         document.getElementById(`m1_number`).style.border = '';
@@ -97,17 +88,6 @@ function clearAllInputBoxColor() {
         document.getElementById(`3x3_m1_c2`).style.border = '';
         document.getElementById(`3x3_m1_c3`).style.border = '';
     }
-}
-function setScore(score) {
-    const scoreElement = (document.getElementById('score'));
-    scoreElement.innerHTML = score;
-}
-function incrementScore() {
-    const scoreElement = (document.getElementById('score'));
-    const curr_score = Number(scoreElement.innerHTML);
-    const new_score = curr_score + 1;
-    scoreElement.innerHTML = new_score.toString();
-    localStorage.setItem('score', new_score.toString());
 }
 function checkMatrixAnswer(curr_dimension, answer) {
     if (curr_dimension == 2) {

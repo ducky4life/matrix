@@ -42,6 +42,10 @@ export class Frac {
         return(`\\frac{${this.a}}{${this.b}}`)
     }
 
+    equals(F: Frac): boolean {
+        return (this.minus(F).a == 0);
+    }
+
     add(F: Frac): Frac {
         return new Frac(this.a*F.b+this.b*F.a, this.b*F.b).simplify();
     }

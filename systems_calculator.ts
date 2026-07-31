@@ -46,7 +46,7 @@ function setInputAugmentedMatrix(name: string, a1: number, a2: number, a3: numbe
     (document.getElementById(`augmented_${name}_c4`) as HTMLInputElement).value = String(c4);
 }
 
-function getAugmentedMatrixHTML(name: string) {
+function getInputAugmentedMatrixHTML(name: string) {
     return `<div class="matrix-3 augmented-matrix-3">
         <div><input id="augmented_${name}_a1"></input></div><div><input id="augmented_${name}_a2"></input></div><div><input id="augmented_${name}_a3"></input></div>|<div><input id="augmented_${name}_a4"></input></div>
         <div><input id="augmented_${name}_b1"></input></div><div><input id="augmented_${name}_b2"></input></div><div><input id="augmented_${name}_b3"></input></div>|<div><input id="augmented_${name}_b4"></input></div>
@@ -148,6 +148,7 @@ export function setupCalculator() {
     });
     
     const m1_box = document.getElementById('m1_box')!;
+    const m1_number = document.getElementById('m1_frac')!;
     const exercise_box = document.getElementById('exercise')!;
     const output_box = document.getElementById('output-div')!;
     
@@ -155,8 +156,10 @@ export function setupCalculator() {
     const randomiseButton = document.getElementById('randomise')!;
     const submitButton = document.getElementById('submit')!;
     
-    m1_box.innerHTML = getAugmentedMatrixHTML('m1');
+    m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
     m1_box.classList.add('matrix-container-3');
+    m1_box.classList.add('matrix-container');
+    m1_number.classList.add('gone');
 
     exercise_box.innerHTML = '';
     exercise_box.classList.add('gone');

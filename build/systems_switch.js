@@ -1,17 +1,11 @@
 import { setupCalculator } from "./systems_calculator.js";
+import { setupGame } from "./systems_game.js";
 const toggle = document.getElementById('toggle_mode');
 let currMode = 'calculator';
 function toggleMode() {
     if (currMode == 'calculator') {
         currMode = 'game';
-        const generateButton = document.getElementById('generate');
-        const randomiseButton = document.getElementById('randomise');
-        const submitButton = document.getElementById('submit');
-        const output_box = document.getElementById('output-div');
-        generateButton.classList.remove('gone');
-        submitButton.classList.remove('gone');
-        randomiseButton.classList.add('gone');
-        output_box.classList.add('gone');
+        setupGame();
     }
     else if (currMode == 'game') {
         currMode = 'calculator';

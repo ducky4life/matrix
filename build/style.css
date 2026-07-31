@@ -434,7 +434,7 @@ math, mfrac, mn {
     grid-template-columns: auto auto auto auto auto;
 }
 
-.matrix-2 input, .matrix-3 input, [id$="_number"] {
+.matrix-2 input, .matrix-3 input, [id$="_number"], mn input {
     width: 1vw;
     height: 1.5vw;
 }

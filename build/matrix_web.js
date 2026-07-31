@@ -66,3 +66,23 @@ export function clearInput(curr_dimension, name, clear_number = false) {
         document.getElementById(`3x3_${name}_c3`).value = '';
     }
 }
+export function setInputBoxColor(box_name, color) {
+    const inputBox = document.getElementById(box_name);
+    inputBox.style.border = `1px solid ${color}`;
+    inputBox.style.borderWidth = "1.5px";
+}
+export function clearInputBoxColor(box_name) {
+    const inputBox = document.getElementById(box_name);
+    inputBox.style.border = '';
+}
+export function setScore(score) {
+    const scoreElement = (document.getElementById('score'));
+    scoreElement.innerHTML = score;
+}
+export function incrementScore() {
+    const scoreElement = (document.getElementById('score'));
+    const curr_score = Number(scoreElement.innerHTML);
+    const new_score = curr_score + 1;
+    scoreElement.innerHTML = new_score.toString();
+    localStorage.setItem('score', new_score.toString());
+}

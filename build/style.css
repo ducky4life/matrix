@@ -434,9 +434,21 @@ math, mfrac, mn {
     grid-template-columns: auto auto auto auto auto;
 }
 
-.matrix-2 input, .matrix-3 input, [id$="_number"], mn input {
+.matrix-2 input, .matrix-3 input, [id$="_number"] {
     width: 1vw;
     height: 1.5vw;
+}
+
+mn input {
+    width: 3vw;
+    height: 1.5vw;
+}
+
+[id="calc-box"] {
+  display: flex;
+  justify-content: center;
+  align-items: stretch; 
+  place-self: center;
 }
 
 @media all and (orientation: portrait) {
@@ -444,6 +456,10 @@ math, mfrac, mn {
     width: 1.3vw;
     height: 2vw;
     font-size: 1.7vw;
+  }
+
+  [id="calc-box"] {
+    flex-direction: column;
   }
 }
 

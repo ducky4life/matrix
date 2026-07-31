@@ -1,6 +1,6 @@
 import { Frac } from "./frac_matrix.js";
-import { incrementScore, setInputBoxColor } from "./matrix_web.js";
-import { getRandomAugmentedMatrix3 } from "./systems.js";
+import { incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
+import { generateUniqueSolutionExercise } from "./systems.js";
 function getInputFracHTML(name) {
     return `<div style="display: flex; align-items: center;">
         <span style="margin: 0;">${name} = </span>
@@ -45,7 +45,13 @@ function checkNumberFracAnswer(answer_array) {
 }
 function displayExercise() {
     let finished = false;
-    let answer_array = [];
+    let exercise = generateUniqueSolutionExercise();
+    let M1 = exercise['M1'];
+    let answer_array = exercise['answer'];
+    console.log(answer_array);
+    exercise_box.innerHTML = M1.displayToHTML();
+    const solution_frac_input = getInputFracHTML('x') + getInputFracHTML('y') + getInputFracHTML('z');
+    m1_number.innerHTML = solution_frac_input;
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
         if (checkNumberFracAnswer(answer_array) && !finished) {
@@ -54,22 +60,30 @@ function displayExercise() {
         }
     });
 }
+const m1_box = document.getElementById('m1_box');
+const m1_number = document.getElementById('m1_frac');
+const exercise_box = document.getElementById('exercise');
+const generateButton = document.getElementById('generate');
+const randomiseButton = document.getElementById('randomise');
+const submitButton = document.getElementById('submit');
+const output_box = document.getElementById('output-div');
+const scoreElement = (document.getElementById('score-div'));
 export function setupGame() {
-    const m1_box = document.getElementById('m1_box');
-    const m1_number = document.getElementById('m1_frac');
-    const exercise_box = document.getElementById('exercise');
-    const generateButton = document.getElementById('generate');
-    const randomiseButton = document.getElementById('randomise');
-    const submitButton = document.getElementById('submit');
-    const output_box = document.getElementById('output-div');
     generateButton.classList.remove('gone');
     submitButton.classList.remove('gone');
     randomiseButton.classList.add('gone');
     output_box.classList.add('gone');
     m1_box.classList.add('gone');
     m1_number.classList.remove('gone');
-    const M1 = getRandomAugmentedMatrix3();
-    const solution_frac_input = getInputFracHTML('x') + getInputFracHTML('y') + getInputFracHTML('z');
-    exercise_box.innerHTML = M1.displayToHTML();
-    m1_number.innerHTML = solution_frac_input;
+    m1_number.style.display = 'flex';
+    scoreElement.classList.remove('gone');
+    let local_score = localStorage.getItem('score');
+    if (local_score == null) {
+        local_score = '0';
+    }
+    setScore(local_score);
+    generateButton.addEventListener('click', () => {
+        displayExercise();
+    });
+    displayExercise();
 }

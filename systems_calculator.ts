@@ -155,11 +155,14 @@ export function setupCalculator() {
     const generateButton = document.getElementById('generate')!;
     const randomiseButton = document.getElementById('randomise')!;
     const submitButton = document.getElementById('submit')!;
+    const scoreElement = (document.getElementById('score-div'))!;
     
     m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
     m1_box.classList.add('matrix-container-3');
     m1_box.classList.add('matrix-container');
+    m1_box.classList.remove('gone');
     m1_number.classList.add('gone');
+    m1_number.style.display = 'none';
 
     exercise_box.innerHTML = '';
     exercise_box.classList.add('gone');
@@ -169,6 +172,8 @@ export function setupCalculator() {
     generateButton.classList.add('gone');
     submitButton.classList.add('gone');
     randomiseButton.classList.remove('gone');
+
+    scoreElement.classList.add('gone');
     
     setInputEventListener();
 }

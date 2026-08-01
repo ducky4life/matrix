@@ -481,7 +481,7 @@ export function commonHCF(numArray) {
             return 1;
         }
     }
-    return hcf;
+    return Math.abs(hcf);
 }
 export function getRandomAugmentedMatrix3(max = 10, ensure_unique_solution = false) {
     let coefficientMatrix = getRandomMatrix3(max);

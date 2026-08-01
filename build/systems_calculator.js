@@ -65,8 +65,32 @@ function clearInput(name) {
 function setInputFromMatrix(name, M1) {
     setInputAugmentedMatrix(name, M1.a1, M1.a2, M1.a3, M1.a4, M1.b1, M1.b2, M1.b3, M1.b4, M1.c1, M1.c2, M1.c3, M1.c4);
 }
+function setSolutionAmountEventListener() {
+    const operationElement = document.getElementById('solution_amount');
+    operationElement.addEventListener('input', () => {
+        randomiseInput();
+    });
+}
+function ensureSolutionAmount() {
+    let solution_amount = Number(document.getElementById('solution_amount').value);
+    let M1 = getRandomAugmentedMatrix3(3, false);
+    if (solution_amount == 0) {
+        while (!M1.hasNoSolutions()) {
+            M1 = getRandomAugmentedMatrix3(3, false);
+        }
+    }
+    else if (solution_amount == 1) {
+        M1 = getRandomAugmentedMatrix3(3, true);
+    }
+    else if (solution_amount == 2) {
+        while (!M1.hasInfiniteSolutions()) {
+            M1 = getRandomAugmentedMatrix3(3, false);
+        }
+    }
+    return M1;
+}
 function randomiseInput() {
-    const M1 = getRandomAugmentedMatrix3(3, false);
+    const M1 = ensureSolutionAmount();
     setInputFromMatrix('m1', M1);
     displayOutput();
 }
@@ -117,6 +141,7 @@ export function setupCalculator() {
     const scoreElement = (document.getElementById('score-div'));
     const exercise_type_box = document.getElementById('exercise_type_box');
     const max_element_box = document.getElementById('max_element_box');
+    const solution_amount_box = document.getElementById('solution_amount_box');
     m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
     m1_box.classList.add('matrix-container-3');
     m1_box.classList.add('matrix-container');
@@ -132,5 +157,7 @@ export function setupCalculator() {
     scoreElement.classList.add('gone');
     exercise_type_box.classList.add('gone');
     max_element_box.classList.add('gone');
+    solution_amount_box.classList.remove('gone');
     setInputEventListener();
+    setSolutionAmountEventListener();
 }

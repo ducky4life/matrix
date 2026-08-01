@@ -658,7 +658,7 @@ export function commonHCF(numArray: Array<number>) {
         }
     }
 
-    return hcf;
+    return Math.abs(hcf);
 }
 
 export function getRandomAugmentedMatrix3(max: number = 10, ensure_unique_solution: boolean = false) {

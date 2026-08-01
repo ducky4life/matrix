@@ -1,4 +1,5 @@
 import { Frac } from "./frac_matrix.js";
+import { getRandomNumberFromArray } from "./matrix.js";
 import { incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { generateInfiniteSolutionsExercise, generateUniqueSolutionExercise } from "./systems.js";
 function getInputFracHTML(name) {
@@ -23,14 +24,30 @@ function getInputBackSubFracHTML(name) {
         </math>
     </div>`;
 }
-function clearInput(name) {
-    document.getElementById(`frac_${name}_a`).value = '';
-    document.getElementById(`frac_${name}_b`).value = '';
+function getInputHTML() {
+    if (exercise_type == 0) {
+        return (getInputFracHTML('x') + getInputFracHTML('y') + getInputFracHTML('z'));
+    }
+    else if (exercise_type == 1) {
+        return (getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z'));
+    }
+    return "";
 }
-function clearAllInput() {
-    clearInput('x');
-    clearInput('y');
-    clearInput('z');
+function clearInput(name, exercise_type) {
+    if (exercise_type == 0) {
+        document.getElementById(`frac_${name}_a`).value = '';
+        document.getElementById(`frac_${name}_b`).value = '';
+    }
+    else if (exercise_type == 1) {
+        document.getElementById(`frac_${name}_a_t`).value = '';
+        document.getElementById(`frac_${name}_a_c`).value = '';
+        document.getElementById(`frac_${name}_b`).value = '';
+    }
+}
+function clearAllInput(exercise_type) {
+    clearInput('x', exercise_type);
+    clearInput('y', exercise_type);
+    clearInput('z', exercise_type);
 }
 function getInputNumberFrac(name) {
     const a = Number(document.getElementById(`frac_${name}_a`).value);
@@ -110,8 +127,26 @@ function checkBackSubFracAnswer(answer_array) {
     }
     return all_correct;
 }
+function setOperationEventListener() {
+    const operationElement = document.getElementById('type');
+    operationElement.addEventListener('input', () => {
+        displayExercise();
+    });
+}
+function getInputExerciseType() {
+    let operation = Number(document.getElementById('type').value);
+    switch (operation) {
+        case -1: // random solving
+            operation = getRandomNumberFromArray([0, 1]);
+            break;
+        case -2: // random all
+            operation = getRandomNumberFromArray([0, 1, 2]);
+            break;
+    }
+    return operation;
+}
 function displayExercise() {
-    let exercise_type = 1;
+    exercise_type = getInputExerciseType();
     let finished = false;
     let exercise = {};
     if (exercise_type == 1) {
@@ -124,7 +159,7 @@ function displayExercise() {
     let answer_array = exercise['answer'];
     console.log(answer_array);
     exercise_box.innerHTML = M1.displayToHTML();
-    const solution_frac_input = getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z');
+    const solution_frac_input = getInputHTML();
     m1_number.innerHTML = solution_frac_input;
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
@@ -152,9 +187,10 @@ const output_box = document.getElementById('output-div');
 const scoreElement = (document.getElementById('score-div'));
 const exercise_type_box = document.getElementById('exercise_type_box');
 const max_element_box = document.getElementById('max_element_box');
+let exercise_type = 1;
 export function setupGame() {
     document.querySelector('#clear').addEventListener('click', () => {
-        clearAllInput();
+        clearAllInput(exercise_type);
     });
     generateButton.classList.remove('gone');
     submitButton.classList.remove('gone');
@@ -174,5 +210,6 @@ export function setupGame() {
     generateButton.addEventListener('click', () => {
         displayExercise();
     });
+    setOperationEventListener();
     displayExercise();
 }

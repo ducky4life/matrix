@@ -1,4 +1,5 @@
 import { Frac } from "./frac_matrix.js";
+import { getRandomNumberFromArray } from "./matrix.js";
 import { incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { AugmentedMatrix3, generateInfiniteSolutionsExercise, generateUniqueSolutionExercise, getRandomAugmentedMatrix3 } from "./systems.js";
 
@@ -26,15 +27,35 @@ function getInputBackSubFracHTML(name: string) {
     </div>`;
 }
 
-function clearInput(name: string) {
-    (document.getElementById(`frac_${name}_a`) as HTMLInputElement).value = '';
-    (document.getElementById(`frac_${name}_b`) as HTMLInputElement).value = '';
+function getInputHTML() {
+
+    if (exercise_type == 0) {
+        return (getInputFracHTML('x') + getInputFracHTML('y') + getInputFracHTML('z'));
+    }
+    else if (exercise_type == 1) {
+        return (getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z'));
+    }
+
+    return "";
 }
 
-function clearAllInput() {
-    clearInput('x');
-    clearInput('y');
-    clearInput('z');
+function clearInput(name: string, exercise_type: number) {
+
+    if (exercise_type == 0) {
+        (document.getElementById(`frac_${name}_a`) as HTMLInputElement).value = '';
+        (document.getElementById(`frac_${name}_b`) as HTMLInputElement).value = '';
+    }
+    else if (exercise_type == 1) {
+        (document.getElementById(`frac_${name}_a_t`) as HTMLInputElement).value = '';
+        (document.getElementById(`frac_${name}_a_c`) as HTMLInputElement).value = '';
+        (document.getElementById(`frac_${name}_b`) as HTMLInputElement).value = '';
+    }
+}
+
+function clearAllInput(exercise_type: number) {
+    clearInput('x', exercise_type);
+    clearInput('y', exercise_type);
+    clearInput('z', exercise_type);
 }
 
 function getInputNumberFrac(name: string): Frac {
@@ -137,9 +158,32 @@ function checkBackSubFracAnswer(answer_array: Array<Record<string, Frac>>) {
     return all_correct;
 }
 
+function setOperationEventListener() {
+    const operationElement = (document.getElementById('type') as HTMLSelectElement);
+    operationElement.addEventListener('input', () => {
+        displayExercise();
+    })
+}
+
+function getInputExerciseType(): number {
+    let operation = Number((document.getElementById('type') as HTMLSelectElement).value);
+
+    switch (operation) {
+        case -1: // random solving
+            operation = getRandomNumberFromArray([0,1]);
+            break;
+
+        case -2: // random all
+            operation = getRandomNumberFromArray([0,1,2]);
+            break;
+    }
+
+    return operation;
+}
+
 function displayExercise() {
 
-    let exercise_type = 1;
+    exercise_type = getInputExerciseType();
 
     let finished: boolean = false;
     let exercise: Record<string, Array<Frac>|Array<Record<string, Frac>>|AugmentedMatrix3> = {};
@@ -158,7 +202,7 @@ function displayExercise() {
 
     exercise_box.innerHTML = M1.displayToHTML();
 
-    const solution_frac_input = getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z');
+    const solution_frac_input = getInputHTML();
     m1_number.innerHTML = solution_frac_input;
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
@@ -191,10 +235,12 @@ const scoreElement = (document.getElementById('score-div'))!;
 const exercise_type_box = document.getElementById('exercise_type_box')!;
 const max_element_box = document.getElementById('max_element_box')!;
 
+let exercise_type = 1;
+
 export function setupGame() {
 
     (document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => {
-        clearAllInput();
+        clearAllInput(exercise_type);
     });
 
     generateButton.classList.remove('gone');
@@ -219,5 +265,6 @@ export function setupGame() {
         displayExercise();
     });
 
+    setOperationEventListener();
     displayExercise();
 }

@@ -18,7 +18,7 @@ function getInputBackSubFracHTML(name) {
         <math style="font-size: 3.5vh; padding-right: 1vw;">
             <mfrac>
             <mn style="display: flex;"><input id="frac_${name}_a_t" class="num-input"></input>
-                <span style="margin: 0; display: flex; align-items: flex-end; font-size: 1.5vw;">t+</span>
+                <span style="margin: 0; display: flex; align-items: flex-end;" class="backsubinput">t+</span>
                 <input id="frac_${name}_a_c" class="num-input"></input></mn>
             <mn><input id="frac_${name}_b"></input></mfrac>
         </math>

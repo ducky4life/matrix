@@ -102,7 +102,7 @@ function displayOutput() {
     // console.log(M1.numberOfSolutions());
     const firstEliminationHTML = M1.firstGaussianElimination().displayToHTML();
     const secondEliminationHTML = M1.gaussianElimination().displayToHTML();
-    output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`;
+    output.innerHTML += `<div class="gaussian-elimination-output">first operation: ${firstEliminationHTML} second operation: ${secondEliminationHTML}</div>`;
     let solutionText = "";
     if (M1.hasUniqueSolution()) {
         const solution = M1.getFracSolution();

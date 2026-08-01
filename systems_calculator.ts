@@ -137,7 +137,7 @@ function displayOutput() {
     const secondEliminationHTML =  M1.gaussianElimination().displayToHTML();
     
     
-    output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`
+    output.innerHTML += `<div class="gaussian-elimination-output">first operation: ${firstEliminationHTML} second operation: ${secondEliminationHTML}</div>`
     
     let solutionText: string = "";
     

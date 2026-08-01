@@ -1,5 +1,5 @@
 import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
-import { Vector2 } from "./vector.js";
+import { Vector2, Vector3 } from "./vector.js";
 export class Matrix2 {
     constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a1 = a;
@@ -44,6 +44,12 @@ export class Matrix2 {
                     <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div>
                 </div>
             </div>`);
+    }
+    displayToVector2() {
+        return [
+            new Vector2(this.a1, this.b1),
+            new Vector2(this.a2, this.b2)
+        ];
     }
     roundElements(digits = 2) {
         const matrixArray = this.display();
@@ -283,6 +289,13 @@ export class Matrix3 {
                 <div class="matrix-elements">${this.c1}</div><div class="matrix-elements">${this.c2}</div><div class="matrix-elements">${this.c3}</div>
                 </div>
             </div>`);
+    }
+    displayToVector3() {
+        return [
+            new Vector3(this.a1, this.b1, this.c1),
+            new Vector3(this.a2, this.b2, this.c2),
+            new Vector3(this.a3, this.b3, this.c3)
+        ];
     }
     roundElements(digits = 2) {
         const matrixArray = this.display();

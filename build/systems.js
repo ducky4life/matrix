@@ -1,5 +1,6 @@
 import { Frac, numberToFrac } from "./frac_matrix.js";
 import { Matrix3, getRowName, getColumnName, getRandomMatrix3, getRandomNumber } from "./matrix.js";
+import { Vector3, vectorToMatrix3 } from "./vector.js";
 export class AugmentedRow3 {
     constructor(a1 = 0, a2 = 0, a3 = 0, a4 = 0) {
         this.a1 = a1;
@@ -130,6 +131,9 @@ export class AugmentedMatrix3 {
     getCoefficientMatrix() {
         return new Matrix3(this.a1, this.a2, this.a3, this.b1, this.b2, this.b3, this.c1, this.c2, this.c3);
     }
+    getConstantColumn() {
+        return new Vector3(this.a4, this.b4, this.c4);
+    }
     hasZeroRow() {
         return (this.getAugmentedRow(1).isZeroRow() || this.getAugmentedRow(2).isZeroRow() || this.getAugmentedRow(3).isZeroRow());
     }
@@ -195,6 +199,13 @@ export class AugmentedMatrix3 {
             }
         });
         return finalSolution;
+    }
+    getCramersRuleMatrix3(column) {
+        const coefficientMatrix = this.getCoefficientMatrix();
+        const constantColumnVector = this.getConstantColumn();
+        const coeffVectorArray = coefficientMatrix.displayToVector3();
+        coeffVectorArray[column - 1] = constantColumnVector; // 0-idx
+        return vectorToMatrix3(coeffVectorArray[0], coeffVectorArray[1], coeffVectorArray[2]);
     }
     getSolutionSetArraysByBackSubstitution() {
         if (!this.hasInfiniteSolutions()) {

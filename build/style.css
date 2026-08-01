@@ -140,7 +140,7 @@ nav {
   }
 
   nav h2 {
-    font-size: 3.3vw;
+    font-size: 3.1vw;
   }
 }
 
@@ -402,6 +402,12 @@ math, mfrac, mn {
     font-size: 6em;
 }
 
+.vector-container::before,
+.vector-container::after {
+  font-size: 5em;
+  padding: 0;
+}
+
 .frac-matrix-container-3::before,
 .frac-matrix-container-3::after {
     font-size: 10em;
@@ -422,7 +428,7 @@ math, mfrac, mn {
     display: grid;
     grid-template-columns: auto;
     gap: 0.5em 1em;
-    padding: 0.5em 0;
+    padding-top: 0.5em;
 }
 .matrix-3 {
     display: grid;
@@ -434,7 +440,7 @@ math, mfrac, mn {
     grid-template-columns: auto auto auto auto auto;
 }
 
-.matrix-2 input, .matrix-3 input, [id$="_number"], .num-input {
+.matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
     width: 1vw;
     height: 1.5vw;
 }
@@ -452,7 +458,7 @@ mn input {
 }
 
 @media all and (orientation: portrait) {
-  .matrix-2 input, .matrix-3 input, [id$="_number"], .num-input {
+  .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
     width: 1.7vw;
     height: 2.5vw;
     font-size: 1.7vw;

@@ -165,6 +165,13 @@ export class Vector3 {
             </div>`)
     }
 
+    displayToBasisComponent(): string {
+        const i_coeff = getCoeff(this.a1, false);
+        const j_coeff = getCoeff(this.b1, true);
+        const k_coeff = getCoeff(this.c1, true);
+        return `${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k`
+    }
+
     roundElements(digits: number = 2): Vector3 {
         const a1 = Number(this.a1.toFixed(digits));
         const b1 = Number(this.b1.toFixed(digits));
@@ -308,6 +315,24 @@ export class Plane {
     normalVector(): Vector3 {
         return this.V1.crossProduct(this.V2);
     }
+}
+
+export function getCoeff(num: number, with_sign: boolean = false): string {
+
+    let coeff = Math.abs(num).toString();
+    let sign = "-";
+    if (num >= 0 && with_sign) {
+        sign = "+";
+    }
+    else if (num >= 0) {
+        sign = "";
+    }
+
+    if (Math.abs(num) == 1) {
+        coeff = "";
+    }
+
+    return sign+" "+coeff;
 }
 
 export function vectorToMatrix2(V1: Vector2, V2: Vector2) {

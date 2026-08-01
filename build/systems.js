@@ -279,8 +279,8 @@ export class AugmentedMatrix3 {
             }
             // second row: 0 e f | g -> y = (g-ft)/e
             solutionArray[2] = "t";
-            solutionCoeffFracArray[2][0] = numberToFrac(1);
-            solutionCoeffFracArray[2][1] = numberToFrac(0);
+            solutionCoeffFracArray[2]['t_coeff'] = numberToFrac(1);
+            solutionCoeffFracArray[2]['constant'] = numberToFrac(0);
             let e = secondRow.simplify().getElement(2);
             let f = secondRow.simplify().getElement(3);
             let g = secondRow.simplify().getElement(4);

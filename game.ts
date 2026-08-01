@@ -240,7 +240,7 @@ function displayExercise() {
     let max_element = Number((document.querySelector('#max_element') as HTMLTextAreaElement).value);
     let operation = getInputOperator();
 
-    if (max_element == 0) {
+    if (max_element == 0 || max_element > 20 || Number.isNaN(max_element)) {
         if (curr_dimension == 2) {
             max_element = 10;
         }

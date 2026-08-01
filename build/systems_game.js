@@ -1,6 +1,6 @@
 import { Frac } from "./frac_matrix.js";
 import { getRandomNumberFromArray } from "./matrix.js";
-import { incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
+import { clearInputBoxColor, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { generateInfiniteSolutionsExercise, generateUniqueSolutionExercise } from "./systems.js";
 function getInputFracHTML(name) {
     return `<div style="display: flex; align-items: center;">
@@ -48,6 +48,7 @@ function clearAllInput(exercise_type) {
     clearInput('x', exercise_type);
     clearInput('y', exercise_type);
     clearInput('z', exercise_type);
+    clearAllInputBoxColor();
 }
 function getInputNumberFrac(name) {
     const a = Number(document.getElementById(`frac_${name}_a`).value);
@@ -127,6 +128,27 @@ function checkBackSubFracAnswer(answer_array) {
     }
     return all_correct;
 }
+function clearAllInputBoxColor() {
+    if (exercise_type == 0) {
+        clearInputBoxColor("frac_x_a");
+        clearInputBoxColor("frac_x_b");
+        clearInputBoxColor("frac_y_a");
+        clearInputBoxColor("frac_y_b");
+        clearInputBoxColor("frac_z_a");
+        clearInputBoxColor("frac_z_b");
+    }
+    else if (exercise_type == 1) {
+        clearInputBoxColor("frac_x_a_t");
+        clearInputBoxColor("frac_x_a_c");
+        clearInputBoxColor("frac_x_b");
+        clearInputBoxColor("frac_y_a_t");
+        clearInputBoxColor("frac_y_a_c");
+        clearInputBoxColor("frac_y_b");
+        clearInputBoxColor("frac_z_a_t");
+        clearInputBoxColor("frac_z_a_c");
+        clearInputBoxColor("frac_z_b");
+    }
+}
 function setOperationEventListener() {
     const operationElement = document.getElementById('type');
     operationElement.addEventListener('input', () => {
@@ -147,13 +169,17 @@ function getInputExerciseType() {
 }
 function displayExercise() {
     exercise_type = getInputExerciseType();
+    let max_element = Number(document.querySelector('#max_element').value);
+    if (max_element == 0 || max_element > 20 || Number.isNaN(max_element)) {
+        max_element = 10;
+    }
     let finished = false;
     let exercise = {};
     if (exercise_type == 1) {
-        exercise = generateInfiniteSolutionsExercise();
+        exercise = generateInfiniteSolutionsExercise(max_element);
     }
     else {
-        exercise = generateUniqueSolutionExercise();
+        exercise = generateUniqueSolutionExercise(max_element);
     }
     let M1 = exercise['M1'];
     let answer_array = exercise['answer'];

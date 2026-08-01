@@ -14,7 +14,7 @@ made to practice my typescript skills and learn how to use classes.
 
 ## typescript files
 
-- [calculator.ts](https://github.com/ducky4life/matrix/blob/main/calculator.ts), [generator.ts](https://github.com/ducky4life/matrix/blob/main/generator.ts), [game.ts](https://github.com/ducky4life/matrix/blob/main/game.ts), [systems_calculator.ts](https://github.com/ducky4life/matrix/blob/main/systems_calculator.ts): main code for their respective websites
+- [calculator.ts](https://github.com/ducky4life/matrix/blob/main/calculator.ts), [generator.ts](https://github.com/ducky4life/matrix/blob/main/generator.ts), [game.ts](https://github.com/ducky4life/matrix/blob/main/game.ts), [systems_calculator.ts](https://github.com/ducky4life/matrix/blob/main/systems_calculator.ts), [systems_game.ts](https://github.com/ducky4life/matrix/blob/main/systems_game.ts): main code for their respective websites
 
 - [matrix.ts](https://github.com/ducky4life/matrix/blob/main/matrix.ts): storing matrix classes and helper functions
 
@@ -22,7 +22,11 @@ made to practice my typescript skills and learn how to use classes.
 
 - [systems.ts](https://github.com/ducky4life/matrix/blob/main/systems.ts): storing linear systems related classes (augmented matrices) and systems related helper functions
 
-- (todo) [matrix_web.ts](https://github.com/ducky4life/matrix/blob/main/matrix_web.ts): storing functions for interacting with the html sites
+- [vectors.ts](https://github.com/ducky4life/matrix/blob/main/vectors.ts): storing vector related classes and vector related helper functions
+
+- [systems_switch.ts](https://github.com/ducky4life/matrix/blob/main/systems_switch.ts): switching between calculator and exercise modes and their files for systems
+
+- [matrix_web.ts](https://github.com/ducky4life/matrix/blob/main/matrix_web.ts): storing functions for interacting with the html sites
 
 ## todo
 
@@ -36,7 +40,7 @@ made to practice my typescript skills and learn how to use classes.
 - [x] verify user input answers
 - [x] matrix calculator
 - [x] fraction class so i can actually compute inverses ~~and eigenbases~~ (eigenvalues may be irrational)
-- [ ] sort functions in matrix.js into other modules
+- [x] sort functions in matrix.js into other modules
 - [x] customise max element in matrix
-- [ ] gaussian elimination exercise game
+- [x] gaussian elimination exercise game
 - [ ] ~~github actions to build?~~ (online web compilers are faster)

@@ -761,9 +761,9 @@ export function generateInfiniteSolutionsExercise(max: number = 10) {
         M1 = getRandomAugmentedMatrix3(max);
     }
 
-    const answerArray = M1.getSolutionSetByBackSubstitution();
+    const answerArray = M1.getSolutionCoeffSetByBackSubstitution();
 
-    const generated_exercise: { M1: AugmentedMatrix3; answer: Array<string> } = {
+    const generated_exercise: { M1: AugmentedMatrix3; answer: Array<Record<string, Frac>> } = {
         M1: M1,
         answer: answerArray
     }

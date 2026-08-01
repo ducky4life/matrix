@@ -552,7 +552,7 @@ export function generateInfiniteSolutionsExercise(max = 10) {
     while (!M1.hasInfiniteSolutions()) {
         M1 = getRandomAugmentedMatrix3(max);
     }
-    const answerArray = M1.getSolutionSetByBackSubstitution();
+    const answerArray = M1.getSolutionCoeffSetByBackSubstitution();
     const generated_exercise = {
         M1: M1,
         answer: answerArray

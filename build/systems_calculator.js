@@ -115,6 +115,8 @@ export function setupCalculator() {
     const randomiseButton = document.getElementById('randomise');
     const submitButton = document.getElementById('submit');
     const scoreElement = (document.getElementById('score-div'));
+    const exercise_type_box = document.getElementById('exercise_type_box');
+    const max_element_box = document.getElementById('max_element_box');
     m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
     m1_box.classList.add('matrix-container-3');
     m1_box.classList.add('matrix-container');
@@ -128,5 +130,7 @@ export function setupCalculator() {
     submitButton.classList.add('gone');
     randomiseButton.classList.remove('gone');
     scoreElement.classList.add('gone');
+    exercise_type_box.classList.add('gone');
+    max_element_box.classList.add('gone');
     setInputEventListener();
 }

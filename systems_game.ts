@@ -1,6 +1,6 @@
 import { Frac } from "./frac_matrix.js";
 import { incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
-import { generateUniqueSolutionExercise, getRandomAugmentedMatrix3 } from "./systems.js";
+import { AugmentedMatrix3, generateInfiniteSolutionsExercise, generateUniqueSolutionExercise, getRandomAugmentedMatrix3 } from "./systems.js";
 
 function getInputFracHTML(name: string) {
     return `<div style="display: flex; align-items: center;">
@@ -44,6 +44,20 @@ function getInputNumberFrac(name: string): Frac {
     return (new Frac(a, b)).simplify();
 }
 
+function getInputBackSubFrac(name: string): Record<string, Frac> {
+    const a_t = Number((document.getElementById(`frac_${name}_a_t`) as HTMLInputElement).value);
+    const a_c = Number((document.getElementById(`frac_${name}_a_c`) as HTMLInputElement).value);
+    const b = Number((document.getElementById(`frac_${name}_b`) as HTMLInputElement).value);
+
+    const t_coeff = new Frac(a_t, b);
+    const constant = new Frac(a_c, b);
+
+    return {
+        't_coeff': t_coeff,
+        'constant': constant
+    };
+}
+
 function checkNumberFracAnswer(answer_array: Array<Frac>) {
     let all_correct: boolean = true;
     const variable_array = ['x', 'y', 'z'];
@@ -79,12 +93,67 @@ function checkNumberFracAnswer(answer_array: Array<Frac>) {
     return all_correct;
 }
 
+function checkBackSubFracAnswer(answer_array: Array<Record<string, Frac>>) {
+    let all_correct: boolean = true;
+    const variable_array = ['x', 'y', 'z'];
+    
+    for (let i=0; i<3; i++) {
+        const variable_name = variable_array[i];
+        const elementId_a_t = `frac_${variable_name}_a_t`;
+        const elementId_a_c = `frac_${variable_name}_a_c`;
+        const elementId_b = `frac_${variable_name}_b`;
+        const inputNumberFracCoeffs = getInputBackSubFrac(variable_name);
+        const answerCoeffs = answer_array[i];
+
+        const t_coeff = inputNumberFracCoeffs['t_coeff'];
+        const constant = inputNumberFracCoeffs['constant'];
+        const ans_t_coeff = answerCoeffs['t_coeff'];
+        const ans_constant = answerCoeffs['constant'];
+
+        if ((document.getElementById(elementId_a_t) as HTMLInputElement).value
+            && (document.getElementById(elementId_a_c) as HTMLInputElement).value
+            && (document.getElementById(elementId_b) as HTMLInputElement).value) {
+
+            if (t_coeff.equals(ans_t_coeff) && constant.equals(ans_constant)) {
+                setInputBoxColor(elementId_a_t, 'limegreen');
+                setInputBoxColor(elementId_a_c, 'limegreen');
+                setInputBoxColor(elementId_b, 'limegreen');
+            }
+
+            else {
+                all_correct = false;
+                setInputBoxColor(elementId_a_t, 'red');
+                setInputBoxColor(elementId_a_c, 'red');
+                setInputBoxColor(elementId_b, 'red');
+            }
+
+        }
+
+        else {
+            all_correct = false;
+        }
+    }
+
+    return all_correct;
+}
+
 function displayExercise() {
 
+    let exercise_type = 1;
+
     let finished: boolean = false;
-    let exercise = generateUniqueSolutionExercise();
-    let M1 = exercise['M1'];
-    let answer_array: Array<Frac> = exercise['answer'];
+    let exercise: Record<string, Array<Frac>|Array<Record<string, Frac>>|AugmentedMatrix3> = {};
+
+    if (exercise_type == 1) {
+        exercise = generateInfiniteSolutionsExercise();
+    }
+    else {
+        exercise = generateUniqueSolutionExercise();
+    }
+
+
+    let M1 = exercise['M1'] as AugmentedMatrix3;
+    let answer_array = exercise['answer'];
     console.log(answer_array)
 
     exercise_box.innerHTML = M1.displayToHTML();
@@ -94,9 +163,18 @@ function displayExercise() {
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
     submitButton.addEventListener('click', () => {
-        if (checkNumberFracAnswer(answer_array) && !finished) {
-            incrementScore();
-            finished = true;
+
+        if (exercise_type == 0) {
+            if (checkNumberFracAnswer(answer_array as Array<Frac>) && !finished) {
+                incrementScore();
+                finished = true;
+            }
+        }
+        else if (exercise_type == 1) {
+            if (checkBackSubFracAnswer(answer_array as Array<Record<string, Frac>>) && !finished) {
+                incrementScore();
+                finished = true;
+            }
         }
     });
 }
@@ -109,6 +187,9 @@ const randomiseButton = document.getElementById('randomise')!;
 const submitButton = document.getElementById('submit')!;
 const output_box = document.getElementById('output-div')!;
 const scoreElement = (document.getElementById('score-div'))!;
+
+const exercise_type_box = document.getElementById('exercise_type_box')!;
+const max_element_box = document.getElementById('max_element_box')!;
 
 export function setupGame() {
 
@@ -124,6 +205,9 @@ export function setupGame() {
     m1_number.classList.remove('gone');
     m1_number.style.display = 'flex';
     scoreElement.classList.remove('gone');
+
+    exercise_type_box.classList.remove('gone');
+    max_element_box.classList.remove('gone');
 
     let local_score = localStorage.getItem('score');
     if (local_score == null) {

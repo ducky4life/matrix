@@ -645,7 +645,8 @@ select[id$="_property"] {
 }
 
   textarea[id="amount"], textarea[id="max_element"] {
-    height: 4em;
+    height: 5vh;
+    font-size: 2vw;
   }
 
 .calculator-input-box {
@@ -660,12 +661,13 @@ select[id$="_property"] {
     font-size: 4vw;
   }
 
-  select[id$="_property"] {
-    padding: 1vh 0;
+  textarea[id="amount"], textarea[id="max_element"] {
+    height: 7vw;
+    font-size: 5vw;
   }
 
-  textarea[id="amount"] {
-    height: 7vw;
+  select[id$="_property"] {
+    padding: 1vh 0;
   }
 
   .calculator-input-box {

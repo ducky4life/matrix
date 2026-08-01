@@ -434,7 +434,7 @@ math, mfrac, mn {
     grid-template-columns: auto auto auto auto auto;
 }
 
-.matrix-2 input, .matrix-3 input, [id$="_number"] {
+.matrix-2 input, .matrix-3 input, [id$="_number"], .num-input {
     width: 1vw;
     height: 1.5vw;
 }
@@ -452,9 +452,9 @@ mn input {
 }
 
 @media all and (orientation: portrait) {
-  .matrix-2 input, .matrix-3 input {
-    width: 1.3vw;
-    height: 2vw;
+  .matrix-2 input, .matrix-3 input, [id$="_number"], .num-input {
+    width: 1.7vw;
+    height: 2.5vw;
     font-size: 1.7vw;
   }
 
@@ -675,6 +675,7 @@ select[id$="_property"] {
 
   .matrix-output[id$="exercise"] {
     width: auto;
+    margin-bottom: 1vh;
   }
 
   /* .matrix-input-box {

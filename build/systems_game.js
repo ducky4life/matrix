@@ -11,6 +11,27 @@ function getInputFracHTML(name) {
         </math>
     </div>`;
 }
+function getInputBackSubFracHTML(name) {
+    return `<div style="display: flex; align-items: center;">
+        <span style="margin: 0;">${name} = </span>
+        <math style="font-size: 3.5vh; padding-right: 1vw;">
+            <mfrac>
+            <mn style="display: flex;"><input id="frac_${name}_a_t" class="num-input"></input>
+                <span style="margin: 0; display: flex; align-items: flex-end; font-size: 1.5vw;">t+</span>
+                <input id="frac_${name}_a_c" class="num-input"></input></mn>
+            <mn><input id="frac_${name}_b"></input></mfrac>
+        </math>
+    </div>`;
+}
+function clearInput(name) {
+    document.getElementById(`frac_${name}_a`).value = '';
+    document.getElementById(`frac_${name}_b`).value = '';
+}
+function clearAllInput() {
+    clearInput('x');
+    clearInput('y');
+    clearInput('z');
+}
 function getInputNumberFrac(name) {
     const a = Number(document.getElementById(`frac_${name}_a`).value);
     const b = Number(document.getElementById(`frac_${name}_b`).value);
@@ -50,7 +71,7 @@ function displayExercise() {
     let answer_array = exercise['answer'];
     console.log(answer_array);
     exercise_box.innerHTML = M1.displayToHTML();
-    const solution_frac_input = getInputFracHTML('x') + getInputFracHTML('y') + getInputFracHTML('z');
+    const solution_frac_input = getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z');
     m1_number.innerHTML = solution_frac_input;
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
@@ -69,6 +90,9 @@ const submitButton = document.getElementById('submit');
 const output_box = document.getElementById('output-div');
 const scoreElement = (document.getElementById('score-div'));
 export function setupGame() {
+    document.querySelector('#clear').addEventListener('click', () => {
+        clearAllInput();
+    });
     generateButton.classList.remove('gone');
     submitButton.classList.remove('gone');
     randomiseButton.classList.add('gone');

@@ -288,14 +288,15 @@ export class AugmentedMatrix3 {
         return finalSolution;
     }
 
-    getSolutionSetByBackSubstitution(): Array<string> {
+    getSolutionSetArraysByBackSubstitution(): { text_solution: Array<string>; coeff_solution: Array<Record<string, Frac>> } {
 
         if (!this.hasInfiniteSolutions()) {
             console.log("does not have infinite solutions; cannot back substitution");
-            return [];
+            return { text_solution: [], coeff_solution: [] };
         }
 
         let solutionArray = ["unk", "unk", "unk"];
+        let solutionCoeffFracArray: Array<Record<string, Frac>> = [{}, {}, {}];
 
         const eliminatedMatrix = this.gaussianElimination();
 
@@ -313,6 +314,8 @@ export class AugmentedMatrix3 {
             const unknownIndex = unknownColumn - 1; // 0-idx
 
             solutionArray[unknownIndex] = unknownSolution;
+            solutionCoeffFracArray[unknownIndex]['t_coeff'] = new Frac(0, 1);
+            solutionCoeffFracArray[unknownIndex]['constant'] = unknownSolutionFrac;
 
             // replace first row with found solution
             const unknownCoeff = firstRowFracArray[unknownIndex];
@@ -336,6 +339,8 @@ export class AugmentedMatrix3 {
             }
 
             solutionArray[t_idx] = "t";
+            solutionCoeffFracArray[t_idx]['t_coeff'] = numberToFrac(1);
+            solutionCoeffFracArray[t_idx]['constant'] = numberToFrac(0);
 
             const lastUnknownIndex = 3-t_idx-unknownIndex;
             const lastUnknownColumn = lastUnknownIndex + 1;
@@ -380,6 +385,8 @@ export class AugmentedMatrix3 {
             }
 
             solutionArray[lastUnknownIndex] = lastSolution;
+            solutionCoeffFracArray[lastUnknownIndex]['t_coeff'] = new Frac(-c, a);
+            solutionCoeffFracArray[lastUnknownIndex]['constant'] = new Frac(d, a);
         }
 
         else {
@@ -395,6 +402,8 @@ export class AugmentedMatrix3 {
             // second row: 0 e f | g -> y = (g-ft)/e
 
             solutionArray[2] = "t";
+            solutionCoeffFracArray[2][0] = numberToFrac(1);
+            solutionCoeffFracArray[2][1] = numberToFrac(0);
 
             let e = secondRow.simplify().getElement(2);
             let f = secondRow.simplify().getElement(3);
@@ -436,6 +445,8 @@ export class AugmentedMatrix3 {
             }
 
             solutionArray[1] = y_solution;
+            solutionCoeffFracArray[1]['t_coeff'] = new Frac(-f, e);
+            solutionCoeffFracArray[1]['constant'] = new Frac(g, e);
 
 
             // first row: a b c | d -> x = [d-(b  (g-ft)  +ct)]/a   (scaled by e first) -> x = [d - bg - (c-bf)t]/a
@@ -495,10 +506,24 @@ export class AugmentedMatrix3 {
             }
 
             solutionArray[0] = x_solution;
-
+            solutionCoeffFracArray[0]['t_coeff'] = new Frac(t_coeff, a);
+            solutionCoeffFracArray[0]['constant'] = new Frac(constantPart, a);
         }
 
-        return solutionArray;
+        return {
+            text_solution: solutionArray,
+            coeff_solution: solutionCoeffFracArray
+        };
+    }
+
+    getSolutionSetByBackSubstitution(): Array<string> {
+        const solutionSetArrays = this.getSolutionSetArraysByBackSubstitution();
+        return solutionSetArrays['text_solution'];
+    }
+    
+    getSolutionCoeffSetByBackSubstitution(): Array<Record<string, Frac>> {
+        const solutionSetArrays = this.getSolutionSetArraysByBackSubstitution();
+        return solutionSetArrays['coeff_solution'];
     }
 
     getAugmentedRow(row: number): AugmentedRow3 {
@@ -728,6 +753,24 @@ export function generateUniqueSolutionExercise(max: number = 10) {
     return generated_exercise;
 }
 
+export function generateInfiniteSolutionsExercise(max: number = 10) {
+
+    let M1 = getRandomAugmentedMatrix3(max);
+
+    while (!M1.hasInfiniteSolutions()) {
+        M1 = getRandomAugmentedMatrix3(max);
+    }
+
+    const answerArray = M1.getSolutionSetByBackSubstitution();
+
+    const generated_exercise: { M1: AugmentedMatrix3; answer: Array<string> } = {
+        M1: M1,
+        answer: answerArray
+    }
+
+    return generated_exercise;
+}
+
 const testRow1 = new AugmentedRow3(0,1,1,2);
 const testRow2 = new AugmentedRow3(0,2,3,4);
 const testAugmentedMatrix = new AugmentedMatrix3(
@@ -743,6 +786,6 @@ const testAugmentedMatrix2 = new AugmentedMatrix3(
 // console.log(gaussianEliminationRow(testRow1, testRow2))
 // console.log(testAugmentedMatrix.getSolution())
 // console.log(testAugmentedMatrix.gaussianElimination().displayToString());
-console.log(testAugmentedMatrix2.getAugmentedRow(2).hasOneUnknown());
-console.log(testAugmentedMatrix2.firstGaussianElimination().displayToString())
-console.log(testAugmentedMatrix2.getSolutionSetByBackSubstitution());
+// console.log(testAugmentedMatrix2.getAugmentedRow(2).hasOneUnknown());
+// console.log(testAugmentedMatrix2.firstGaussianElimination().displayToString())
+// console.log(testAugmentedMatrix2.getSolutionSetByBackSubstitution());

@@ -108,13 +108,13 @@ function displayOutput() {
     const firstEliminationHTML = M1.firstGaussianElimination().displayToHTML();
     const secondEliminationHTML =  M1.gaussianElimination().displayToHTML();
     
-    const solution = M1.getFracSolution();
-
+    
     output.innerHTML += `<div class="gaussian-elimination-output">first column: ${firstEliminationHTML} second column: ${secondEliminationHTML}</div>`
-
+    
     let solutionText: string = "";
-
+    
     if (M1.hasUniqueSolution()) {
+        const solution = M1.getFracSolution();
         solutionText = `x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}`;
         output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">${solutionText}</div>`;
     }

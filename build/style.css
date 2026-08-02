@@ -502,7 +502,7 @@ mn input, .vector-basis input {
   }
 
   .matrix-input-box[id="matrix-input-box"] {
-    align-items: stretch;
+    align-items: stretch !important;
   }
 }
 

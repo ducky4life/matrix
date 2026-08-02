@@ -467,6 +467,10 @@ mn input, .vector-basis input {
   padding-top: 40px;
 }
 
+[id="toggles-box"] {
+  width: min(30vw, 380px);
+}
+
 @media all and (orientation: portrait) {
   .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
     width: 1.7vw;
@@ -476,6 +480,10 @@ mn input, .vector-basis input {
 
   [id="calc-box"] {
     flex-direction: column;
+  }
+
+  [id="toggles-box"] {
+    width: auto;
   }
 
   .vector-basis {

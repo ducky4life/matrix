@@ -80,8 +80,14 @@
             <div class="matrix-output gone" id="exercise" style="margin-left: 0;">
             </div>
                 
-            <div class="matrix-input-box" style="justify-content: center; flex-direction: row;">
-                <div id="m1_box">
+            <div class="matrix-input-box" style="justify-content: center; flex-direction: row;" id="matrix-input-box">
+                <div>
+                <div id="m1_box"></div>
+                <div style="transform: scale(0.5); display: flex;">
+                    <select id="m1_property" class="button unblur">
+                        <option value="4">magnitude</option>
+                    </select>
+                </div>
                 </div>
                 <div style="transform: scale(0.5);" id="operation_box">
                     <select id="operation" class="button unblur" style="padding: 1vh;">
@@ -91,7 +97,13 @@
                         <option value="3">×</option>
                     </select>
                 </div>
-                <div id="m2_box">
+                <div>
+                <div id="m2_box"></div>
+                <div style="transform: scale(0.5); display: flex;">
+                    <select id="m1_property" class="button unblur">
+                        <option value="4">magnitude</option>
+                    </select>
+                </div>
                 </div>
                 <div id="m1_frac" style="display: flex;" class="gone"></div>
             </div>

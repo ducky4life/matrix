@@ -39,6 +39,22 @@ function getInputVectorHTML(name: string) {
         </div>`;
 }
 
+function getInputProperty(name: string): number {
+    let property_id = Number((document.getElementById(`${name}_property`) as HTMLSelectElement).value);
+    return property_id;
+}
+
+function getPropertyValue(V: Vector3, property_id: number): string | number {
+
+    switch (property_id) {
+        case 4:
+            return V.magnitude();
+
+        default:
+            return V.magnitude();
+    }
+}
+
 function setInputEventListener() {
     let inputElementIds: string[] = [];
 
@@ -66,18 +82,21 @@ function setBasisToggleEventListener() {
 function setBasisToggle() {
     const use_basis = (document.getElementById('use_basis_format') as HTMLInputElement).checked;
     use_basis_format = use_basis;
+    const matrix_input_box = (document.getElementById('matrix-input-box') as HTMLSelectElement);
 
     if (use_basis) {
         m1_box.classList.remove('vector-container');
         m1_box.classList.remove('matrix-container');
         m2_box.classList.remove('vector-container');
         m2_box.classList.remove('matrix-container');
+        matrix_input_box.style.alignItems = 'baseline';
     }
     else {
         m1_box.classList.add('vector-container');
         m1_box.classList.add('matrix-container');
         m2_box.classList.add('vector-container');
         m2_box.classList.add('matrix-container');
+        matrix_input_box.style.alignItems = 'stretch';
     }
 
     m1_box.innerHTML = getInputVectorHTML('m1');

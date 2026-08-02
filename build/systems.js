@@ -248,7 +248,7 @@ export class AugmentedMatrix3 {
             let a = newFirstRow.getElement(lastUnknownColumn);
             let c = newFirstRow.getElement(t_idx + 1);
             let d = newFirstRow.getElement(4);
-            if (a < 0 && c > 0 && d < 0) {
+            if (a < 0) {
                 a = -a;
                 c = -c;
                 d = -d;

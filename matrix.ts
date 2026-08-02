@@ -655,7 +655,7 @@ export function simplifyEigenvector(eigenvector: Vector2): Vector2 {
     return new Vector2(a, b);
 }
 
-export function roundNumber(num: number, digits: number): number {
+export function roundNumber(num: number, digits: number = 3): number {
     return Number(num.toFixed(digits));
 }
 

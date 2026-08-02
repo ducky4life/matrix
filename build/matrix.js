@@ -450,7 +450,7 @@ export function simplifyEigenvector(eigenvector) {
     }
     return new Vector2(a, b);
 }
-export function roundNumber(num, digits) {
+export function roundNumber(num, digits = 3) {
     return Number(num.toFixed(digits));
 }
 export function scalarToMatrix2(scalar) {

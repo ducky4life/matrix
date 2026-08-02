@@ -128,6 +128,12 @@ export class Vector3 {
         const k_coeff = getCoeff(this.c1, true);
         return `${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k`;
     }
+    displayToFormat(HTML = true) {
+        if (HTML) {
+            return this.displayToHTML();
+        }
+        return this.displayToBasisComponent();
+    }
     roundElements(digits = 2) {
         const a1 = Number(this.a1.toFixed(digits));
         const b1 = Number(this.b1.toFixed(digits));

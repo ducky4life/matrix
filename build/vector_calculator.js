@@ -1,3 +1,4 @@
+import { roundNumber } from "./matrix.js";
 import { Vector3, getAnswerVector, getRandomVector3 } from "./vector.js";
 function getInputVector(name) {
     const a1 = Number(document.getElementById(`vector_${name}_a1`).value);
@@ -31,12 +32,36 @@ function getInputProperty(name) {
     let property_id = Number(document.getElementById(`${name}_property`).value);
     return property_id;
 }
-function getPropertyValue(V, property_id) {
+function getPropertyValue(V, property_id, V2) {
     switch (property_id) {
         case 4:
-            return V.magnitude();
+            return roundNumber(V.magnitude());
+        case 5:
+            return V.getUnitVector().roundElements().displayToFormat(!use_basis_format);
+        case 6:
+            return roundNumber(V.includedAngleInDegrees(V2), 5);
+        case 7:
+            return V.projectOnto(V2).roundElements().displayToFormat(!use_basis_format);
+        case 8:
+            return roundNumber(V.projectionMagnitude(V2));
         default:
             return V.magnitude();
+    }
+}
+function getPropertyName(property_id) {
+    switch (property_id) {
+        case 4:
+            return "magnitude";
+        case 5:
+            return "unit vector";
+        case 6:
+            return "included angle";
+        case 7:
+            return "projection vector";
+        case 8:
+            return "projection magnitude";
+        default:
+            return "magnitude";
     }
 }
 function setInputEventListener() {
@@ -45,6 +70,7 @@ function setInputEventListener() {
         'vector_m1_a1', 'vector_m2_a1',
         'vector_m1_b1', 'vector_m2_b1',
         'vector_m1_c1', 'vector_m2_c1',
+        'm1_property', 'm2_property',
         'operation', 'use_basis_format'
     ];
     inputElementIds.forEach((id) => {
@@ -79,6 +105,7 @@ function setBasisToggle() {
     }
     m1_box.innerHTML = getInputVectorHTML('m1');
     m2_box.innerHTML = getInputVectorHTML('m2');
+    setInputEventListener();
 }
 function clearInput(name) {
     document.getElementById(`vector_${name}_a1`).value = '';
@@ -98,6 +125,12 @@ function displayOutput() {
     let M1 = getInputVector('m1');
     let M2 = getInputVector('m2');
     const operation = Number(document.getElementById('operation').value);
+    const m1_property = getInputProperty('m1');
+    const m2_property = getInputProperty('m2');
+    const m1_property_output = getPropertyValue(M1, m1_property, M2);
+    const m2_property_output = getPropertyValue(M2, m2_property, M1);
+    const m1_property_name = getPropertyName(m1_property);
+    const m2_property_name = getPropertyName(m2_property);
     let answer = getAnswerVector(M1, M2, operation);
     if (operation != 2) {
         if (use_basis_format) {
@@ -110,6 +143,16 @@ function displayOutput() {
     else {
         output.innerHTML = M1.dotProduct(M2).toString();
     }
+    output.innerHTML += `
+            <div style="justify-content: center;">
+                <p style="justify-content: center; display: flex; padding-top: 0;">
+                    ${m1_property_name} of M1: ${m1_property_output}
+                </p>
+                <p style="justify-content: center; display: flex; padding-top: 0;">
+                    ${m2_property_name} of M2: ${m2_property_output}
+                </p>
+            </div>
+            <br>`;
 }
 let use_basis_format = false;
 const m1_box = document.getElementById('m1_box');
@@ -118,6 +161,7 @@ export function setupCalculator() {
     document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
     document.querySelector('#clear').addEventListener('click', () => {
         clearInput('m1');
+        clearInput('m2');
     });
     const m1_number = document.getElementById('m1_frac');
     const exercise_box = document.getElementById('exercise');

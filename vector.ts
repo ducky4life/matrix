@@ -172,6 +172,14 @@ export class Vector3 {
         return `${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k`
     }
 
+    displayToFormat(HTML: boolean = true) {
+        if (HTML) {
+            return this.displayToHTML();
+        }
+        
+        return this.displayToBasisComponent();
+    }
+
     roundElements(digits: number = 2): Vector3 {
         const a1 = Number(this.a1.toFixed(digits));
         const b1 = Number(this.b1.toFixed(digits));

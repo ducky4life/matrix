@@ -324,7 +324,6 @@ export function setupCalculator() {
     const submitButton = document.getElementById('submit')!;
     const scoreElement = (document.getElementById('score-div'))!;
 
-    const exercise_type_box = document.getElementById('exercise_type_box')!;
     const max_element_box = document.getElementById('max_element_box')!;
 
     m1_box.classList.remove('gone');
@@ -343,7 +342,6 @@ export function setupCalculator() {
     randomiseButton.classList.remove('gone');
 
     scoreElement.classList.add('gone');
-    exercise_type_box.classList.add('gone');
     max_element_box.classList.add('gone');
     
     setPlaneToggle();

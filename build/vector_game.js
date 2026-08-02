@@ -9,7 +9,6 @@ const randomiseButton = document.getElementById('randomise');
 const submitButton = document.getElementById('submit');
 const output_box = document.getElementById('output-div');
 const scoreElement = (document.getElementById('score-div'));
-const exercise_type_box = document.getElementById('exercise_type_box');
 const max_element_box = document.getElementById('max_element_box');
 let exercise_type = 1;
 export function setupGame() {
@@ -26,7 +25,6 @@ export function setupGame() {
     m1_number.classList.remove('gone');
     m1_number.style.display = 'flex';
     scoreElement.classList.remove('gone');
-    exercise_type_box.classList.remove('gone');
     max_element_box.classList.remove('gone');
     let local_score = localStorage.getItem('score');
     if (local_score == null) {

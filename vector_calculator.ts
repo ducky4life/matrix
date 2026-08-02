@@ -1,5 +1,5 @@
 import { roundNumber } from "./matrix.js";
-import { Vector3, getAnswerVector, getRandomVector3 } from "./vector.js";
+import { Plane, Vector3, getAnswerVector, getRandomVector3, volumeOfTetrahedron } from "./vector.js";
 
 function getInputVector(name: string): Vector3 {
     const a1 = Number((document.getElementById(`vector_${name}_a1`) as HTMLInputElement).value);
@@ -23,9 +23,9 @@ function setInputFromVector3(name: string, V: Vector3) {
     setInputVector(name, V.a1, V.b1, V.c1);
 }
 
-function getInputVectorHTML(name: string) {
+function getInputVectorHTML(name: string, basis: boolean = use_basis_format) {
 
-    if (use_basis_format) {
+    if (basis) {
         return `<div class="vector-basis">
                 <div><input id="vector_${name}_a1"></input> i + </div>
                 <div style="padding-left: 0.3vw;"><input id="vector_${name}_b1"></input> j + </div>
@@ -45,7 +45,7 @@ function getInputProperty(name: string): number {
     return property_id;
 }
 
-function getPropertyValue(V: Vector3, property_id: number, V2: Vector3): string | number {
+function getPropertyValue(V: Vector3, property_id: number, V2: Vector3, P: Plane = new Plane()): string | number {
 
     switch (property_id) {
         case 4:
@@ -63,6 +63,25 @@ function getPropertyValue(V: Vector3, property_id: number, V2: Vector3): string 
         case 8:
             return roundNumber(V.projectionMagnitude(V2));
 
+        case 9:
+            return V.getVectorTo(V2).displayToFormat(!use_basis_format);
+
+
+        // plane properties
+
+        case -1:
+            return P.normalVector().displayToFormat(!use_basis_format);
+        case -2:
+            return roundNumber(V.angleWithPlaneInDegrees(P), 5);
+        case -3:
+            return String(V.isCoplanarWith(P));
+        case -4:
+            return V.getNormalProjectionToPlane(P).displayToFormat(!use_basis_format);
+        case -5:
+            return V.getVectorToProjectionOnPlane(P).displayToFormat(!use_basis_format);
+        case -6:
+            return volumeOfTetrahedron(V, V2, P.V1, P.V2);
+
         default:
             return V.magnitude();
     }
@@ -70,6 +89,19 @@ function getPropertyValue(V: Vector3, property_id: number, V2: Vector3): string 
 
 function getPropertyName(property_id: number) {
     switch (property_id) {
+        case -1:
+            return "normal vector";
+        case -2:
+            return "included angle";
+        case -3:
+            return "orthogonal with normal vector";
+        case -4:
+            return "normal vector from projection";
+        case -5:
+            return "position vector to projection";
+        case -6:
+            return "volume of tetrahedron with input vectors and vectors";
+
         case 4:
             return "magnitude";
 
@@ -84,6 +116,9 @@ function getPropertyName(property_id: number) {
         
         case 8:
             return "projection magnitude";
+
+        case 9:
+            return "vector to other vector";
             
         default:
             return "magnitude";
@@ -97,9 +132,12 @@ function setInputEventListener() {
         'vector_m1_a1', 'vector_m2_a1', 
         'vector_m1_b1', 'vector_m2_b1',
         'vector_m1_c1', 'vector_m2_c1',
+        'vector_p1_a1', 'vector_p2_a1', 
+        'vector_p1_b1', 'vector_p2_b1',
+        'vector_p1_c1', 'vector_p2_c1',
         'm1_property', 'm2_property',
         'operation', 'use_basis_format',
-        'use_as_plane',
+        'use_as_plane', 'plane_property',
     ];
 
     inputElementIds.forEach((id) => {
@@ -119,8 +157,7 @@ function setBasisToggleEventListener() {
 function setPlaneToggleEventListener() {
     const operationElement = (document.getElementById('use_as_plane') as HTMLSelectElement);
     operationElement.addEventListener('input', () => {
-        setBasisToggle();
-        randomiseInput();
+        setPlaneToggle();
     })
 }
 
@@ -150,6 +187,27 @@ function setBasisToggle() {
     setInputEventListener();
 }
 
+function setPlaneToggle() {
+    const use_plane = (document.getElementById('use_as_plane') as HTMLInputElement).checked;
+    use_as_plane = use_plane;
+
+    if (use_plane) {
+        plane_vector_input.classList.remove('gone');
+        p1_box.classList.remove('gone');
+        p2_box.classList.remove('gone');
+        plane_property.classList.remove('gone');
+    }
+    else {
+        plane_vector_input.classList.add('gone');
+        p1_box.classList.add('gone');
+        p2_box.classList.add('gone');
+        plane_property.classList.add('gone');
+    }
+
+    p1_box.innerHTML = getInputVectorHTML('p1', false);
+    p2_box.innerHTML = getInputVectorHTML('p2', false);
+}
+
 function clearInput(name: string) {
 
     (document.getElementById(`vector_${name}_a1`) as HTMLInputElement).value = '';
@@ -162,6 +220,13 @@ function randomiseInput() {
     const M2 = getRandomVector3();
     setInputFromVector3('m1', M1);
     setInputFromVector3('m2', M2);
+    
+    if (use_as_plane) {
+        const P1 = getRandomVector3();
+        const P2 = getRandomVector3();
+        setInputFromVector3('p1', P1);
+        setInputFromVector3('p2', P2);  
+    }
 
     displayOutput();
 }
@@ -207,11 +272,37 @@ function displayOutput() {
                 </p>
             </div>
             <br>`
+
+
+    if (use_as_plane) {
+        const P1 = getInputVector('p1');
+        const P2 = getInputVector('p2');
+        const plane_prop = getInputProperty('plane');
+
+        const inputPlane = new Plane(P1, P2);
+
+        const plane_property_output = getPropertyValue(M1, plane_prop, M2, inputPlane);
+        const plane_property_name = getPropertyName(plane_prop);
+
+        output.innerHTML += `
+                <div style="justify-content: center;">
+                    <p style="justify-content: center; display: flex; padding-top: 0;">
+                        ${plane_property_name} of plane: ${plane_property_output}
+                    </p>
+                </div>
+                <br>`
+    }
 }
 
 let use_basis_format: boolean = false;
+let use_as_plane: boolean = false;
 const m1_box = document.getElementById('m1_box')!;
 const m2_box = document.getElementById('m2_box')!;
+const p1_box = document.getElementById('p1_box')!;
+const p2_box = document.getElementById('p2_box')!;
+const exercise_box = document.getElementById('exercise')!;
+const plane_vector_input = document.getElementById('plane-vector-input')!;
+const plane_property = document.getElementById('plane_property')!;
 
 export function setupCalculator() {
     
@@ -222,7 +313,6 @@ export function setupCalculator() {
     });
     
     const m1_number = document.getElementById('m1_frac')!;
-    const exercise_box = document.getElementById('exercise')!;
     const output_box = document.getElementById('output-div')!;
     const operation_box = document.getElementById('operation_box')!;
     
@@ -255,7 +345,8 @@ export function setupCalculator() {
     max_element_box.classList.add('gone');
     solution_amount_box.classList.remove('gone');
     
+    setPlaneToggle();
     setBasisToggle();
-    setInputEventListener();
     setBasisToggleEventListener();
+    setPlaneToggleEventListener();
 }

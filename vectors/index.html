@@ -99,6 +99,7 @@
                         <option value="6">inc. angle w/ v2</option>
                         <option value="7">projection vector on v2</option>
                         <option value="8">projection magnitude on v2</option>
+                        <option value="9">get vector to v2</option>
                     </select>
                 </div>
                 </div>
@@ -119,6 +120,7 @@
                         <option value="6">inc. angle w/ v1</option>
                         <option value="7">projection vector on v1</option>
                         <option value="8">projection magnitude on v1</option>
+                        <option value="9">get vector to v1</option>
                     </select>
                 </div>
                 </div>
@@ -126,6 +128,21 @@
             </div>
 
             </div><br><br><br><br>
+
+            <div id="plane-vector-input" class="gone" style="display: flex; align-items: center;">
+                <div style="display: flex; height: min-content;">
+                    <select id="plane_property" class="button unblur gone">
+                        <option value="-1">normal vector to plane</option>
+                        <option value="-2">v1: inc. angle with plane</option>
+                        <option value="-3">v1: coplanar with p1, p2</option>
+                        <option value="-4">normal vector from v1 proj. on plane</option>
+                        <option value="-5">position vector to v1 projection</option>
+                        <option value="-6">volume of tetrahedron with v1, v2</option>
+                    </select>
+                </div>
+                <div id="p1_box" class="matrix-container vector-container gone"></div>
+                <div id="p2_box" class="matrix-container vector-container gone"></div>
+            </div>
             
             <div>
             <input type="button" id="randomise" value="Randomise" class="button button3" style="margin-top: 30px;">

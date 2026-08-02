@@ -504,6 +504,19 @@ mn input, .vector-basis input {
   .matrix-input-box[id="matrix-input-box"] {
     align-items: stretch !important;
   }
+
+  [id="plane-vector-input"] {
+    padding: 4vw;
+    max-width: 90vw;
+  }
+
+  [id="plane_property"] {
+    max-width: 40vw;
+  }
+
+  [id="plane-vector-input"] p {
+    min-width: fit-content;
+  }
 }
 
 .matrix-answer {

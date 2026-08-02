@@ -16,9 +16,9 @@ function setInputFromVector3(name, V) {
 function getInputVectorHTML(name) {
     if (use_basis_format) {
         return `<div class="vector-basis">
-                <input id="vector_${name}_a1"></input> i +
-                <input id="vector_${name}_b1"></input> j +
-                <input id="vector_${name}_c1"></input> k
+                <div><input id="vector_${name}_a1"></input> i + </div>
+                <div style="padding-left: 0.3vw;"><input id="vector_${name}_b1"></input> j + </div>
+                <div style="padding-left: 0.3vw;"><input id="vector_${name}_c1"></input> k</div>
             </div>`;
     }
     return `<div class="vector">
@@ -33,7 +33,7 @@ function setInputEventListener() {
         'vector_m1_a1', 'vector_m2_a1',
         'vector_m1_b1', 'vector_m2_b1',
         'vector_m1_c1', 'vector_m2_c1',
-        'operation'
+        'operation', 'use_basis_format'
     ];
     inputElementIds.forEach((id) => {
         const element = document.getElementById(id);
@@ -44,6 +44,7 @@ function setBasisToggleEventListener() {
     const operationElement = document.getElementById('use_basis_format');
     operationElement.addEventListener('input', () => {
         setBasisToggle();
+        randomiseInput();
     });
 }
 function setBasisToggle() {
@@ -84,7 +85,12 @@ function displayOutput() {
     const operation = Number(document.getElementById('operation').value);
     let answer = getAnswerVector(M1, M2, operation);
     if (operation != 2) {
-        output.innerHTML = answer.displayToBasisComponent();
+        if (use_basis_format) {
+            output.innerHTML = answer.displayToBasisComponent();
+        }
+        else {
+            output.innerHTML = answer.displayToHTML();
+        }
     }
     else {
         output.innerHTML = M1.dotProduct(M2).toString();

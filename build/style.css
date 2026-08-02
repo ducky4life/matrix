@@ -430,6 +430,9 @@ math, mfrac, mn {
     gap: 0.5em 1em;
     padding-top: 0.5em;
 }
+.vector-basis {
+  display: flex;
+}
 .matrix-3 {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -466,6 +469,15 @@ mn input, .vector-basis input {
 
   [id="calc-box"] {
     flex-direction: column;
+  }
+
+  .vector-basis {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .vector-basis div {
+    padding-bottom: 0.3vh;
   }
 }
 

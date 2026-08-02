@@ -432,6 +432,7 @@ math, mfrac, mn {
 }
 .vector-basis {
   display: flex;
+  justify-content: center;
 }
 .matrix-3 {
     display: grid;

@@ -96,6 +96,11 @@ export class Vector2 {
     }
 
     includedAngleInRadians(V: Vector2): number {
+
+        if (this.magnitude() == 0 || V.magnitude() == 0) {
+            return 0;
+        }
+
         const cos_theta = this.dotProduct(V)/(this.magnitude()*V.magnitude());
         return Math.acos(cos_theta);
     }
@@ -110,11 +115,19 @@ export class Vector2 {
     }
 
     projectOnto(V: Vector2): Vector2 {
+
+        if (V.magnitude() == 0) {
+            return new Vector2();
+        }
+
         const mag = this.dotProduct(V)/V.magnitude();
         return V.getUnitVector().scale(mag);
     }
 
     projectionMagnitude(project_onto: Vector2): number {
+        if (project_onto.magnitude() == 0) {
+            return 0;
+        }
         return Math.abs(this.dotProduct(project_onto)/project_onto.magnitude());
     }
 
@@ -243,6 +256,11 @@ export class Vector3 {
     }
 
     includedAngleInRadians(V: Vector3): number {
+
+        if (this.magnitude() == 0 || V.magnitude() == 0) {
+            return 0;
+        }
+
         const cos_theta = this.dotProduct(V)/(this.magnitude()*V.magnitude());
         return Math.acos(cos_theta);
     }
@@ -257,11 +275,19 @@ export class Vector3 {
     }
 
     projectOnto(V: Vector3): Vector3 {
+
+        if (V.magnitude() == 0) {
+            return new Vector3();
+        }
+
         const mag = this.dotProduct(V)/V.magnitude();
         return V.getUnitVector().scale(mag);
     }
 
     projectionMagnitude(project_onto: Vector3): number {
+        if (project_onto.magnitude() == 0) {
+            return 0;
+        }
         return Math.abs(this.dotProduct(project_onto)/project_onto.magnitude());
     }
 

@@ -98,7 +98,8 @@ function setInputEventListener() {
         'vector_m1_b1', 'vector_m2_b1',
         'vector_m1_c1', 'vector_m2_c1',
         'm1_property', 'm2_property',
-        'operation', 'use_basis_format'
+        'operation', 'use_basis_format',
+        'use_as_plane',
     ];
 
     inputElementIds.forEach((id) => {
@@ -109,6 +110,14 @@ function setInputEventListener() {
 
 function setBasisToggleEventListener() {
     const operationElement = (document.getElementById('use_basis_format') as HTMLSelectElement);
+    operationElement.addEventListener('input', () => {
+        setBasisToggle();
+        randomiseInput();
+    })
+}
+
+function setPlaneToggleEventListener() {
+    const operationElement = (document.getElementById('use_as_plane') as HTMLSelectElement);
     operationElement.addEventListener('input', () => {
         setBasisToggle();
         randomiseInput();

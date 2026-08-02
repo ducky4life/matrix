@@ -11,7 +11,6 @@ const output_box = document.getElementById('output-div');
 const scoreElement = (document.getElementById('score-div'));
 const exercise_type_box = document.getElementById('exercise_type_box');
 const max_element_box = document.getElementById('max_element_box');
-const solution_amount_box = document.getElementById('solution_amount_box');
 let exercise_type = 1;
 export function setupGame() {
     // (document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => {
@@ -29,7 +28,6 @@ export function setupGame() {
     scoreElement.classList.remove('gone');
     exercise_type_box.classList.remove('gone');
     max_element_box.classList.remove('gone');
-    solution_amount_box.classList.add('gone');
     let local_score = localStorage.getItem('score');
     if (local_score == null) {
         local_score = '0';

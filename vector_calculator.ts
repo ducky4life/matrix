@@ -326,7 +326,6 @@ export function setupCalculator() {
 
     const exercise_type_box = document.getElementById('exercise_type_box')!;
     const max_element_box = document.getElementById('max_element_box')!;
-    const solution_amount_box = document.getElementById('solution_amount_box')!;
 
     m1_box.classList.remove('gone');
     m2_box.classList.remove('gone');
@@ -346,7 +345,6 @@ export function setupCalculator() {
     scoreElement.classList.add('gone');
     exercise_type_box.classList.add('gone');
     max_element_box.classList.add('gone');
-    solution_amount_box.classList.remove('gone');
     
     setPlaneToggle();
     setBasisToggle();

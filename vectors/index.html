@@ -75,7 +75,7 @@
                     </label>
                 </div>
                 <div class="toggles" style="padding-left: 30px; width: stretch;">
-                    <p class="toggles-padding-right">use input vectors as plane</p>
+                    <p class="toggles-padding-right">input vectors as plane</p>
                     <label class="switch">
                         <input type="checkbox" id="use_as_plane">
                         <span class="slider round"></span>
@@ -129,9 +129,9 @@
 
             </div><br><br><br><br>
 
-            <div id="plane-vector-input" class="gone" style="display: flex; align-items: center;">
+            <div id="plane-vector-input" style="align-items: center;">
                 <div style="display: flex; height: min-content;">
-                    <select id="plane_property" class="button unblur gone">
+                    <select id="plane_property" class="button unblur">
                         <option value="-1">normal vector to plane</option>
                         <option value="-2">v1: inc. angle with plane</option>
                         <option value="-3">v1: coplanar with p1, p2</option>
@@ -140,8 +140,10 @@
                         <option value="-6">volume of tetrahedron with v1, v2</option>
                     </select>
                 </div>
-                <div id="p1_box" class="matrix-container vector-container gone"></div>
-                <div id="p2_box" class="matrix-container vector-container gone"></div>
+                <p style="padding-left: 20px; padding-top: 0;">p1:</p>
+                <div id="p1_box" style="padding-left: 10px;"></div>
+                <p style="padding-left: 20px; padding-top: 0;">p2:</p>
+                <div id="p2_box" style="padding-left: 10px;"></div>
             </div>
             
             <div>

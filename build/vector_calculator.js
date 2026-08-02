@@ -58,7 +58,7 @@ function getPropertyValue(V, property_id, V2, P = new Plane()) {
         case -5:
             return V.getVectorToProjectionOnPlane(P).displayToFormat(!use_basis_format);
         case -6:
-            return volumeOfTetrahedron(V, V2, P.V1, P.V2);
+            return roundNumber(volumeOfTetrahedron(V, V2, P.V1, P.V2));
         default:
             return V.magnitude();
     }
@@ -115,6 +115,7 @@ function setBasisToggleEventListener() {
     const operationElement = document.getElementById('use_basis_format');
     operationElement.addEventListener('input', () => {
         setBasisToggle();
+        setPlaneToggle();
         randomiseInput();
     });
 }
@@ -122,6 +123,7 @@ function setPlaneToggleEventListener() {
     const operationElement = document.getElementById('use_as_plane');
     operationElement.addEventListener('input', () => {
         setPlaneToggle();
+        randomiseInput();
     });
 }
 function setBasisToggle() {
@@ -133,6 +135,10 @@ function setBasisToggle() {
         m1_box.classList.remove('matrix-container');
         m2_box.classList.remove('vector-container');
         m2_box.classList.remove('matrix-container');
+        p1_box.classList.remove('vector-container');
+        p1_box.classList.remove('matrix-container');
+        p2_box.classList.remove('vector-container');
+        p2_box.classList.remove('matrix-container');
         matrix_input_box.style.alignItems = 'baseline';
     }
     else {
@@ -140,6 +146,10 @@ function setBasisToggle() {
         m1_box.classList.add('matrix-container');
         m2_box.classList.add('vector-container');
         m2_box.classList.add('matrix-container');
+        p1_box.classList.add('vector-container');
+        p1_box.classList.add('matrix-container');
+        p2_box.classList.add('vector-container');
+        p2_box.classList.add('matrix-container');
         matrix_input_box.style.alignItems = 'stretch';
     }
     m1_box.innerHTML = getInputVectorHTML('m1');
@@ -150,19 +160,13 @@ function setPlaneToggle() {
     const use_plane = document.getElementById('use_as_plane').checked;
     use_as_plane = use_plane;
     if (use_plane) {
-        plane_vector_input.classList.remove('gone');
-        p1_box.classList.remove('gone');
-        p2_box.classList.remove('gone');
-        plane_property.classList.remove('gone');
+        plane_vector_input.style.display = 'flex';
     }
     else {
-        plane_vector_input.classList.add('gone');
-        p1_box.classList.add('gone');
-        p2_box.classList.add('gone');
-        plane_property.classList.add('gone');
+        plane_vector_input.style.display = 'none';
     }
-    p1_box.innerHTML = getInputVectorHTML('p1', false);
-    p2_box.innerHTML = getInputVectorHTML('p2', false);
+    p1_box.innerHTML = getInputVectorHTML('p1');
+    p2_box.innerHTML = getInputVectorHTML('p2');
 }
 function clearInput(name) {
     document.getElementById(`vector_${name}_a1`).value = '';
@@ -240,7 +244,6 @@ const p1_box = document.getElementById('p1_box');
 const p2_box = document.getElementById('p2_box');
 const exercise_box = document.getElementById('exercise');
 const plane_vector_input = document.getElementById('plane-vector-input');
-const plane_property = document.getElementById('plane_property');
 export function setupCalculator() {
     document.querySelector('#randomise').addEventListener('click', () => randomiseInput());
     document.querySelector('#clear').addEventListener('click', () => {

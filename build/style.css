@@ -461,6 +461,12 @@ mn input, .vector-basis input {
   place-self: center;
 }
 
+[id="plane-vector-input"] {
+  background-color: var(--main-color);
+  padding: 50px;
+  padding-top: 40px;
+}
+
 @media all and (orientation: portrait) {
   .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
     width: 1.7vw;

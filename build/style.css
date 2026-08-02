@@ -489,10 +489,20 @@ mn input, .vector-basis input {
   .vector-basis {
     flex-direction: column;
     align-items: flex-start;
+    font-size: 5vw;
+  }
+
+  .vector-basis input {
+      width: 6vw;
+      height: 5.5vw;
   }
 
   .vector-basis div {
     padding-bottom: 0.3vh;
+  }
+
+  .matrix-input-box[id="matrix-input-box"] {
+    align-items: stretch;
   }
 }
 
@@ -704,7 +714,7 @@ select[id$="_property"] {
   }
 
   .calculator-input-box {
-    /* max-width: 50vw; */
+    max-width: 90vw;
     transform: scale(1.2);
   }
 

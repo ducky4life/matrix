@@ -54,9 +54,9 @@ function getPropertyValue(V, property_id, V2, P = new Plane()) {
         case -3:
             return String(V.isCoplanarWith(P));
         case -4:
-            return V.getNormalProjectionToPlane(P).displayToFormat(!use_basis_format);
+            return V.getNormalProjectionToPlane(P).roundElements().displayToFormat(!use_basis_format);
         case -5:
-            return V.getVectorToProjectionOnPlane(P).displayToFormat(!use_basis_format);
+            return V.getVectorToProjectionOnPlane(P).roundElements().displayToFormat(!use_basis_format);
         case -6:
             return roundNumber(volumeOfTetrahedron(V, V2, P.V1, P.V2));
         default:

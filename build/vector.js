@@ -1,4 +1,4 @@
-import { Matrix2, Matrix3, roundNumber } from "./matrix.js";
+import { getRandomNumber, Matrix2, Matrix3, roundNumber } from "./matrix.js";
 export class Vector2 {
     constructor(a = 0, b = 0) {
         this.a1 = a;
@@ -262,6 +262,31 @@ export function vectorToMatrix3(V1, V2, V3) {
 }
 export function getCrossProductMatrix(V1, V2) {
     return new Matrix3(1, 1, 1, V1.a1, V1.b1, V1.c1, V2.a1, V2.b1, V2.c1);
+}
+export function getRandomVector2(max = 10) {
+    const a1 = getRandomNumber(max);
+    const b1 = getRandomNumber(max);
+    const V = new Vector2(a1, b1);
+    return V;
+}
+export function getRandomVector3(max = 10) {
+    const a1 = getRandomNumber(max);
+    const b1 = getRandomNumber(max);
+    const c1 = getRandomNumber(max);
+    const V = new Vector3(a1, b1, c1);
+    return V;
+}
+export function getAnswerVector(V1, V2, operation) {
+    switch (operation) {
+        case 0:
+            return V1.add(V2);
+        case 1:
+            return V1.minus(V2);
+        case 3:
+            return V1.crossProduct(V2);
+        default:
+            return V1.add(V2);
+    }
 }
 export function volumeOfIncludedTetrahedron(V1, V2, V3) {
     const VA = V1;

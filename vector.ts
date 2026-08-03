@@ -411,7 +411,19 @@ export function getRandomVector3(max: number = 10) {
     return V;
 }
 
-export function getAnswerVector(V1: Vector3, V2: Vector3, operation: number) {
+export function getRandomPlane(max: number = 10) {
+    
+    const V1 = getRandomVector3(max);
+    let V2 = getRandomVector3(max);
+
+    while (V1.isParallel(V2)) {
+        V2 = getRandomVector3(max);
+    }
+
+    return new Plane(V1, V2);
+}
+
+export function getAnswerVector(V1: Vector3, V2: Vector3, operation: number, P: Plane = new Plane()): Vector3 {
     switch (operation) {
         case 0:
             return V1.add(V2);
@@ -422,8 +434,48 @@ export function getAnswerVector(V1: Vector3, V2: Vector3, operation: number) {
         case 3:
             return V1.crossProduct(V2);
 
+        case 5:
+            return V1.getUnitVector();
+
+        case 7:
+            return V1.projectOnto(V2);
+
+        case 12:
+            return V1.getNormalProjectionToPlane(P);
+
+        case 13:
+            return V1.getVectorToProjectionOnPlane(P);
+
         default:
             return V1.add(V2);
+    }
+}
+
+export function getAnswerNumber(V1: Vector3, V2: Vector3, operation: number, P: Plane = new Plane()): number {
+    switch (operation) {
+        case 2:
+            return V1.dotProduct(V2);
+
+        case 4:
+            return V1.magnitude();
+
+        case 6:
+            return V1.includedAngleInDegrees(V2);
+
+        case 8:
+            return V1.projectionMagnitude(V2);
+
+        case 9:
+            return volumeOfTetrahedron(V1, V2, P.V1, P.V2);
+
+        case 10:
+            return V1.angleWithPlaneInDegrees(P);
+
+        case 11:
+            return V1.isCoplanarWith(P) ? 1 : 0;
+
+        default:
+            return V1.dotProduct(V2);
     }
 }
 
@@ -453,6 +505,44 @@ export function volumeOfTetrahedron(V1: Vector3, V2: Vector3, V3: Vector3, V4: V
     const VC = V.getVectorTo(C)
 
     return volumeOfIncludedTetrahedron(VA, VB, VC);
+}
+
+export function generateVectorExercise(exercise_type: number, max: number = 10) {
+
+    let V1 = getRandomVector3(max);
+    let V2 = getRandomVector3(max);
+
+    let P = getRandomPlane(max);
+
+    let answerVector = getAnswerVector(V1, V2, exercise_type, P);
+
+    const generated_exercise: { V1: Vector3; V2: Vector3; P: Plane; answer: Vector3 } = {
+        V1: V1,
+        V2: V2,
+        P: P,
+        answer: answerVector
+    }
+
+    return generated_exercise;
+}
+
+export function generateNumberExercise(exercise_type: number, max: number = 10) {
+
+    let V1 = getRandomVector3(max);
+    let V2 = getRandomVector3(max);
+
+    let P = getRandomPlane(max);
+
+    let answer = getAnswerNumber(V1, V2, exercise_type, P);
+
+    const generated_exercise: { V1: Vector3; V2: Vector3; P: Plane; answer: number } = {
+        V1: V1,
+        V2: V2,
+        P: P,
+        answer: answer
+    }
+
+    return generated_exercise;
 }
 
 // const testVector1 = new Vector3(2, 3, 1)

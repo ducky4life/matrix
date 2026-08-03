@@ -1,5 +1,6 @@
 import { getRandomNumberFromArray } from "./matrix.js";
-import { setScore } from "./matrix_web.js";
+import { incrementScore, setScore } from "./matrix_web.js";
+import { generateNumberExercise, generateVectorExercise, Plane, Vector3 } from "./vector.js";
 import { setBasisToggle, use_basis_format } from "./vector_calculator.js";
 
 function setBasisToggleEventListener() {
@@ -40,6 +41,14 @@ function getInputExerciseType(): number {
     return operation;
 }
 
+function checkVectorAnswer(answerVector: Vector3) {
+    return true;
+}
+
+function checkNumberAnswer(answer: number) {
+    return true;
+}
+
 const m1_box = document.getElementById('m1_box')!;
 const m2_box = document.getElementById('m2_box')!;
 const m1_number = document.getElementById('m1_frac')!;
@@ -72,10 +81,36 @@ function displayExercise() {
     }
 
     let finished: boolean = false;
+    let exercise: Record<string, Vector3|Plane|number> = {};
 
     if (vectorOutputArray.includes(exercise_type)) {
-
+        exercise = generateVectorExercise(exercise_type, max_element);
     }
+    else {
+        exercise = generateNumberExercise(exercise_type, max_element);
+    }
+
+    const V1 = exercise['V1'] as Vector3;
+    const V2 = exercise['V2'] as Vector3;
+    const P = exercise['P'] as Plane;
+    const answer = exercise['answer'];
+
+    const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
+    submitButton.addEventListener('click', () => {
+
+        if (vectorOutputArray.includes(exercise_type)) {
+            if (checkVectorAnswer(answer as Vector3) && !finished) {
+                incrementScore();
+                finished = true;
+            }
+        }
+        else if (exercise_type == 1) {
+            if (checkNumberAnswer(answer as number) && !finished) {
+                incrementScore();
+                finished = true;
+            }
+        }
+    });
 }
 
 export function setupGame() {

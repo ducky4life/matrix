@@ -3,7 +3,6 @@ import { setScore } from "./matrix_web.js";
 const m1_box = document.getElementById('m1_box')!;
 const m2_box = document.getElementById('m2_box')!;
 const m1_number = document.getElementById('m1_frac')!;
-const exercise_box = document.getElementById('exercise')!;
 const operation_box = document.getElementById('operation_box')!;
 
 const generateButton = document.getElementById('generate')!;
@@ -13,6 +12,9 @@ const output_box = document.getElementById('output-div')!;
 const scoreElement = (document.getElementById('score-div'))!;
 
 const max_element_box = document.getElementById('max_element_box')!;
+const plane_toggle = document.getElementById('plane-toggle')!;
+const m1_property = document.getElementById('m1_property')!;
+const m2_property = document.getElementById('m2_property')!;
 
 let exercise_type = 1;
 
@@ -34,6 +36,9 @@ export function setupGame() {
     scoreElement.classList.remove('gone');
 
     max_element_box.classList.remove('gone');
+    plane_toggle.classList.add('gone');
+    m1_property.classList.add('gone');
+    m2_property.classList.add('gone');
 
     let local_score = localStorage.getItem('score');
     if (local_score == null) {

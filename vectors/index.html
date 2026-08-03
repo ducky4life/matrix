@@ -46,14 +46,14 @@
             </div>
 
             <div class="toggles" style="flex-direction: column; align-items: flex-start;" id="toggles-box">
-                <div class="toggles" style="padding-left: 30px; padding-bottom: 10px; width: stretch;">
+                <div class="toggles" style="padding-left: 30px; width: stretch; padding-top: 20px;">
                     <p class="toggles-padding-right">use basis vectors format</p>
                     <label class="switch">
                         <input type="checkbox" id="use_basis_format">
                         <span class="slider round"></span>
                     </label>
                 </div>
-                <div class="toggles" style="padding-left: 30px; width: stretch;">
+                <div class="toggles" style="padding-left: 30px; padding-top: 10px; width: stretch;" id="plane-toggle">
                     <p class="toggles-padding-right">input vectors as plane</p>
                     <label class="switch">
                         <input type="checkbox" id="use_as_plane">
@@ -114,7 +114,7 @@
                         <option value="-1">normal vector to plane</option>
                         <option value="-2">v1: inc. angle with plane</option>
                         <option value="-3">v1: coplanar with p1, p2</option>
-                        <option value="-4">normal vector from v1 proj. on plane</option>
+                        <option value="-4">normal vector from proj. to v1</option>
                         <option value="-5">position vector to v1 projection</option>
                         <option value="-6">volume of tetrahedron with v1, v2</option>
                     </select>

@@ -325,6 +325,9 @@ export function setupCalculator() {
     const scoreElement = (document.getElementById('score-div'))!;
 
     const max_element_box = document.getElementById('max_element_box')!;
+    const plane_toggle = document.getElementById('plane-toggle')!;
+    const m1_property = document.getElementById('m1_property')!;
+    const m2_property = document.getElementById('m2_property')!;
 
     m1_box.classList.remove('gone');
     m2_box.classList.remove('gone');
@@ -343,6 +346,10 @@ export function setupCalculator() {
 
     scoreElement.classList.add('gone');
     max_element_box.classList.add('gone');
+    plane_toggle.classList.remove('gone');
+
+    m1_property.classList.remove('gone');
+    m2_property.classList.remove('gone');
     
     setPlaneToggle();
     setBasisToggle();

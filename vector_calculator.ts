@@ -142,7 +142,9 @@ function setInputEventListener() {
 
     inputElementIds.forEach((id) => {
         const element = (document.getElementById(id) as HTMLInputElement);
-        element.addEventListener('input', () => displayOutput());
+        if (element) {
+            element.addEventListener('input', () => displayOutput());
+        }
     })
 }
 
@@ -163,7 +165,7 @@ function setPlaneToggleEventListener() {
     })
 }
 
-function setBasisToggle() {
+export function setBasisToggle() {
     const use_basis = (document.getElementById('use_basis_format') as HTMLInputElement).checked;
     use_basis_format = use_basis;
     const matrix_input_box = (document.getElementById('matrix-input-box') as HTMLSelectElement);
@@ -298,7 +300,7 @@ function displayOutput() {
     }
 }
 
-let use_basis_format: boolean = false;
+export let use_basis_format: boolean = false;
 let use_as_plane: boolean = false;
 const m1_box = document.getElementById('m1_box')!;
 const m2_box = document.getElementById('m2_box')!;
@@ -318,6 +320,7 @@ export function setupCalculator() {
     const m1_number = document.getElementById('m1_frac')!;
     const output_box = document.getElementById('output-div')!;
     const operation_box = document.getElementById('operation_box')!;
+    const exercise_type_box = document.getElementById('exercise_type_box')!;
     
     const generateButton = document.getElementById('generate')!;
     const randomiseButton = document.getElementById('randomise')!;
@@ -339,6 +342,7 @@ export function setupCalculator() {
     exercise_box.classList.add('gone');
 
     output_box.classList.remove('gone');
+    exercise_type_box.classList.add('gone')!;
 
     generateButton.classList.add('gone');
     submitButton.classList.add('gone');

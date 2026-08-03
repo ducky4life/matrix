@@ -449,7 +449,7 @@ math, mfrac, mn {
     height: 1.5vw;
 }
 
-mn input, .vector-basis input {
+mn input, .vector-basis input, .vector-basis[id$="number"] {
     width: 3vw;
     height: 1.5vw;
 }

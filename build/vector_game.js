@@ -1,16 +1,38 @@
 import { getRandomNumberFromArray } from "./matrix.js";
-import { incrementScore, setScore } from "./matrix_web.js";
+import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { generateNumberExercise, generateVectorExercise } from "./vector.js";
-import { setBasisToggle } from "./vector_calculator.js";
+import { getInputVector, setBasisToggle } from "./vector_calculator.js";
+function setNumberInputEventListener() {
+    m1_number.addEventListener('input', () => {
+        if (!m1_number.value) {
+            clearInputBoxColor('m1_number');
+        }
+    });
+}
+function setNumberInput() {
+    m1_box.classList.add('gone');
+    m1_number.classList.remove('gone');
+    setNumberInputEventListener();
+}
+function setVectorInput() {
+    m1_box.classList.remove('gone');
+    m1_number.classList.add('gone');
+}
+function setGameBasisToggle() {
+    setBasisToggle();
+    const matrix_input_box = document.getElementById('matrix-input-box');
+    matrix_input_box.style.alignItems = 'center';
+}
 function setBasisToggleEventListener() {
     const operationElement = document.getElementById('use_basis_format');
     operationElement.addEventListener('input', () => {
-        setBasisToggle();
+        setGameBasisToggle();
     });
 }
 function setOperationEventListener() {
     const operationElement = document.getElementById('type');
     operationElement.addEventListener('input', () => {
+        setGameBasisToggle();
         displayExercise();
     });
 }
@@ -33,14 +55,51 @@ function getInputExerciseType() {
     return operation;
 }
 function checkVectorAnswer(answerVector) {
-    return true;
+    let all_correct = true;
+    const inputVector = getInputVector('m1');
+    const elementId_a1 = document.getElementById("vector_m1_a1");
+    const elementId_b1 = document.getElementById("vector_m1_b1");
+    const elementId_c1 = document.getElementById("vector_m1_c1");
+    if (elementId_a1.value && elementId_b1.value && elementId_c1.value) {
+        if (inputVector.equals(answerVector)) {
+            setInputBoxColor("vector_m1_a1", 'limegreen');
+            setInputBoxColor("vector_m1_b1", 'limegreen');
+            setInputBoxColor("vector_m1_c1", 'limegreen');
+        }
+        else {
+            all_correct = false;
+            setInputBoxColor("vector_m1_a1", 'red');
+            setInputBoxColor("vector_m1_b1", 'red');
+            setInputBoxColor("vector_m1_c1", 'red');
+        }
+    }
+    else {
+        all_correct = false;
+    }
+    return all_correct;
 }
 function checkNumberAnswer(answer) {
-    return true;
+    let all_correct = true;
+    const inputNumber = getInputNumber('m1');
+    const elementId = "m1_number";
+    if (document.getElementById(elementId).value) {
+        if (inputNumber == answer) {
+            setInputBoxColor(elementId, 'limegreen');
+        }
+        else {
+            all_correct = false;
+            setInputBoxColor(elementId, 'red');
+        }
+    }
+    else {
+        all_correct = false;
+    }
+    return all_correct;
 }
 const m1_box = document.getElementById('m1_box');
 const m2_box = document.getElementById('m2_box');
-const m1_number = document.getElementById('m1_frac');
+const m1_number = document.getElementById('m1_number');
+const exercise_box = document.getElementById('exercise');
 const operation_box = document.getElementById('operation_box');
 const generateButton = document.getElementById('generate');
 const randomiseButton = document.getElementById('randomise');
@@ -67,14 +126,24 @@ function displayExercise() {
     let exercise = {};
     if (vectorOutputArray.includes(exercise_type)) {
         exercise = generateVectorExercise(exercise_type, max_element);
+        setVectorInput();
     }
     else {
         exercise = generateNumberExercise(exercise_type, max_element);
+        setNumberInput();
     }
     const V1 = exercise['V1'];
     const V2 = exercise['V2'];
     const P = exercise['P'];
     const answer = exercise['answer'];
+    if (exercise_type == 9) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0;">adj</span>
+                ${V1.displayToHTML()}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
         if (vectorOutputArray.includes(exercise_type)) {
@@ -99,11 +168,9 @@ export function setupGame() {
     submitButton.classList.remove('gone');
     randomiseButton.classList.add('gone');
     output_box.classList.add('gone');
-    m1_box.classList.add('gone');
     m2_box.classList.add('gone');
     operation_box.classList.add('gone');
-    m1_number.classList.remove('gone');
-    m1_number.style.display = 'flex';
+    exercise_box.classList.remove('gone');
     scoreElement.classList.remove('gone');
     max_element_box.classList.remove('gone');
     plane_toggle.classList.add('gone');
@@ -116,11 +183,11 @@ export function setupGame() {
         local_score = '0';
     }
     setScore(local_score);
-    // generateButton.addEventListener('click', () => {
-    //     displayExercise();
-    // });
-    // setOperationEventListener();
-    // displayExercise();
-    setBasisToggle();
+    generateButton.addEventListener('click', () => {
+        displayExercise();
+    });
+    setOperationEventListener();
+    displayExercise();
+    setGameBasisToggle();
     setBasisToggleEventListener();
 }

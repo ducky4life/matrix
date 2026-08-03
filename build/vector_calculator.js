@@ -1,6 +1,6 @@
 import { roundNumber } from "./matrix.js";
 import { Plane, Vector3, getAnswerVector, getRandomVector3, volumeOfTetrahedron } from "./vector.js";
-function getInputVector(name) {
+export function getInputVector(name) {
     const a1 = Number(document.getElementById(`vector_${name}_a1`).value);
     const b1 = Number(document.getElementById(`vector_${name}_b1`).value);
     const c1 = Number(document.getElementById(`vector_${name}_c1`).value);
@@ -14,7 +14,7 @@ function setInputVector(name, a1, b1, c1) {
 function setInputFromVector3(name, V) {
     setInputVector(name, V.a1, V.b1, V.c1);
 }
-function getInputVectorHTML(name, basis = use_basis_format) {
+export function getInputVectorHTML(name, basis = use_basis_format) {
     if (basis) {
         return `<div class="vector-basis">
                 <div><input id="vector_${name}_a1"></input> i + </div>
@@ -93,7 +93,7 @@ function getPropertyName(property_id) {
             return "magnitude";
     }
 }
-function setInputEventListener() {
+export function setInputEventListener() {
     let inputElementIds = [];
     inputElementIds = [
         'vector_m1_a1', 'vector_m2_a1',
@@ -252,7 +252,6 @@ export function setupCalculator() {
         clearInput('m1');
         clearInput('m2');
     });
-    const m1_number = document.getElementById('m1_frac');
     const output_box = document.getElementById('output-div');
     const operation_box = document.getElementById('operation_box');
     const exercise_type_box = document.getElementById('exercise_type_box');
@@ -264,11 +263,10 @@ export function setupCalculator() {
     const plane_toggle = document.getElementById('plane-toggle');
     const m1_property = document.getElementById('m1_property');
     const m2_property = document.getElementById('m2_property');
+    const m1_number = document.getElementById('m1_number');
     m1_box.classList.remove('gone');
     m2_box.classList.remove('gone');
     operation_box.classList.remove('gone');
-    m1_number.classList.add('gone');
-    m1_number.style.display = 'none';
     exercise_box.innerHTML = '';
     exercise_box.classList.add('gone');
     output_box.classList.remove('gone');
@@ -281,6 +279,7 @@ export function setupCalculator() {
     plane_toggle.classList.remove('gone');
     m1_property.classList.remove('gone');
     m2_property.classList.remove('gone');
+    m1_number.classList.add('gone');
     setPlaneToggle();
     setBasisToggle();
     setBasisToggleEventListener();

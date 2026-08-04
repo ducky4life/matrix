@@ -313,6 +313,37 @@ function displayExercise() {
                 <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
+    else if (exercise_type == 11) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">is</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">coplanar (1) or not (0) with</span>
+                <div id="plane-vectors">${P.displayToHTML(!use_basis_format)}</div>
+                <span style="margin: 0 20px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 12) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">vector from proj. of point</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">on plane</span>
+                <div id="plane-vectors">${P.displayToHTML(!use_basis_format)}</div>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">to point</span>
+                <span style="margin: 0 20px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 13) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">position vector of point</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">projected on plane</span>
+                <div id="plane-vectors">${P.displayToHTML(!use_basis_format)}</div>
+                <span style="margin: 0 20px;">= </span>
+            </div><br>`;
+    }
 
     const submitButton = (document.getElementById('submit') as HTMLButtonElement)!;
     submitButton.addEventListener('click', () => {

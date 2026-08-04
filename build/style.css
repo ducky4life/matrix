@@ -526,6 +526,11 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   font-size: 2vw;
 }
 
+.mobile-column {
+  display: flex;
+  align-items: center;
+}
+
 @media all and (orientation: portrait) {
 
   .matrix-container::before,
@@ -623,6 +628,10 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
 
   [id="plane-vector-input"] p {
     min-width: fit-content;
+  }
+
+  .mobile-column {
+    flex-direction: column;
   }
 }
 

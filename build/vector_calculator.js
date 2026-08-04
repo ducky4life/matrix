@@ -131,7 +131,6 @@ function setPlaneToggleEventListener() {
 export function setBasisToggle() {
     const use_basis = document.getElementById('use_basis_format').checked;
     use_basis_format = use_basis;
-    const matrix_input_box = document.getElementById('matrix-input-box');
     if (use_basis) {
         m1_box.classList.remove('vector-container');
         m1_box.classList.remove('matrix-container');
@@ -141,7 +140,6 @@ export function setBasisToggle() {
         p1_box.classList.remove('matrix-container');
         p2_box.classList.remove('vector-container');
         p2_box.classList.remove('matrix-container');
-        matrix_input_box.style.alignItems = 'baseline';
     }
     else {
         m1_box.classList.add('vector-container');
@@ -152,7 +150,6 @@ export function setBasisToggle() {
         p1_box.classList.add('matrix-container');
         p2_box.classList.add('vector-container');
         p2_box.classList.add('matrix-container');
-        matrix_input_box.style.alignItems = 'stretch';
     }
     m1_box.innerHTML = getInputVectorHTML('m1');
     m2_box.innerHTML = getInputVectorHTML('m2');

@@ -22,23 +22,17 @@ function setVectorInput() {
     m1_number.classList.add('gone');
 }
 
-function setGameBasisToggle() {
-    setBasisToggle();
-    const matrix_input_box = (document.getElementById('matrix-input-box') as HTMLSelectElement);
-    matrix_input_box.style.alignItems = 'center';
-}
-
 function setBasisToggleEventListener() {
     const operationElement = (document.getElementById('use_basis_format') as HTMLSelectElement);
     operationElement.addEventListener('input', () => {
-        setGameBasisToggle();
+        setBasisToggle();
     })
 }
 
 function setOperationEventListener() {
     const operationElement = (document.getElementById('type') as HTMLSelectElement);
     operationElement.addEventListener('input', () => {
-        setGameBasisToggle();
+        setBasisToggle();
         displayExercise();
     })
 }
@@ -346,7 +340,7 @@ export function setupGame() {
     setOperationEventListener();
     displayExercise();
 
-    setGameBasisToggle();
+    setBasisToggle();
     setBasisToggleEventListener();
 
 }

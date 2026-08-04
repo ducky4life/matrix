@@ -481,6 +481,7 @@ math, mfrac, mn {
 mn input, .vector-basis input, .vector-basis[id$="number"] {
     width: 6vw;
     height: 3vw;
+    font-size: 2vw;
 }
 
 [id="calc-box"] {
@@ -501,11 +502,15 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
 }
 
 [id="plane-vectors"] * {
-  font-size: 10px;
+  font-size: min(20px, 3vw);
 }
 
 .vector .matrix-elements {
   font-size: 2vw;
+}
+
+.matrix-2 .matrix-elements {
+  font-size: 3vw;
 }
 
 @media all and (orientation: portrait) {
@@ -591,10 +596,6 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
 
   .vector-basis div {
     padding-bottom: 0.3vh;
-  }
-
-  .matrix-input-box[id="matrix-input-box"] {
-    align-items: stretch !important;
   }
 
   [id="plane-vector-input"] {

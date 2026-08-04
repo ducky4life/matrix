@@ -18,21 +18,16 @@ function setVectorInput() {
     m1_box.classList.remove('gone');
     m1_number.classList.add('gone');
 }
-function setGameBasisToggle() {
-    setBasisToggle();
-    const matrix_input_box = document.getElementById('matrix-input-box');
-    matrix_input_box.style.alignItems = 'center';
-}
 function setBasisToggleEventListener() {
     const operationElement = document.getElementById('use_basis_format');
     operationElement.addEventListener('input', () => {
-        setGameBasisToggle();
+        setBasisToggle();
     });
 }
 function setOperationEventListener() {
     const operationElement = document.getElementById('type');
     operationElement.addEventListener('input', () => {
-        setGameBasisToggle();
+        setBasisToggle();
         displayExercise();
     });
 }
@@ -297,6 +292,6 @@ export function setupGame() {
     });
     setOperationEventListener();
     displayExercise();
-    setGameBasisToggle();
+    setBasisToggle();
     setBasisToggleEventListener();
 }

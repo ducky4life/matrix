@@ -513,6 +513,19 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   font-size: 3vw;
 }
 
+.matrix-3 .matrix-elements {
+  font-size: 3vw;
+}
+
+.matrix-generator-output .matrix-container-3::before,
+.matrix-generator-output .matrix-container-3::after {
+  font-size: 5em;
+}
+
+.matrix-generator-output .matrix-elements {
+  font-size: 2vw;
+}
+
 @media all and (orientation: portrait) {
 
   .matrix-container::before,

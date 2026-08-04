@@ -56,7 +56,7 @@ function displayExercise() {
         }
         else {
             output.innerHTML += `
-            <div class="matrix-output" style="margin-bottom: 20px;">
+            <div class="matrix-output matrix-generator-output" style="margin-bottom: 20px;">
                 <div style="display: flex; align-items: center;">
                     ${M1.displayToHTML()}
                     <span style="margin: 0 10px;">${operator}</span>

@@ -371,7 +371,7 @@ export class Plane {
             </div>
             <div style="display: flex; align-items: center;">
                 <p style="padding-top: 0;">p2:</p>
-                <div style="padding-left: 10px;">${this.V1.displayToFormat(vectorHTMLFormat)}</div>
+                <div style="padding-left: 10px;">${this.V2.displayToFormat(vectorHTMLFormat)}</div>
             </div>
         </div>`;
     }

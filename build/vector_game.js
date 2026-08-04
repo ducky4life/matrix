@@ -9,6 +9,29 @@ function setNumberInputEventListener() {
         }
     });
 }
+function clearVectorInput(name) {
+    document.getElementById(`vector_${name}_a1`).value = '';
+    document.getElementById(`vector_${name}_b1`).value = '';
+    document.getElementById(`vector_${name}_c1`).value = '';
+}
+function clearNumberInput(name) {
+    document.getElementById(`${name}_number`).value = '';
+}
+function clearAllInputBoxColor() {
+    clearInputBoxColor('m1_number');
+    clearInputBoxColor('vector_m1_a1');
+    clearInputBoxColor('vector_m1_b1');
+    clearInputBoxColor('vector_m1_c1');
+    clearInputBoxColor('vector_m2_a1');
+    clearInputBoxColor('vector_m2_b1');
+    clearInputBoxColor('vector_m2_c1');
+}
+function clearAllInput() {
+    clearNumberInput('m1');
+    clearVectorInput('m1');
+    clearVectorInput('m2');
+    clearAllInputBoxColor();
+}
 function setNumberInput() {
     m1_box.classList.add('gone');
     m1_number.classList.remove('gone');
@@ -265,9 +288,9 @@ function displayExercise() {
     });
 }
 export function setupGame() {
-    // (document.querySelector('#clear')as HTMLButtonElement)!.addEventListener('click', () => {
-    //     clearAllInput(exercise_type);
-    // });
+    document.querySelector('#clear').addEventListener('click', () => {
+        clearAllInput();
+    });
     generateButton.classList.remove('gone');
     submitButton.classList.remove('gone');
     randomiseButton.classList.add('gone');

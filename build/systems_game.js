@@ -3,24 +3,24 @@ import { getRandomNumberFromArray } from "./matrix.js";
 import { clearInputBoxColor, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { generateInfiniteSolutionsExercise, generateUniqueSolutionExercise } from "./systems.js";
 function getInputFracHTML(name) {
-    return `<div style="display: flex; align-items: center;">
+    return `<div style="display: flex; align-items: center; margin: 0 1vw;">
         <span style="margin: 0;">${name} = </span>
         <math style="font-size: 3.5vh; padding-right: 1vw;">
             <mfrac>
-            <mn><input id="frac_${name}_a"></input></mn>
-            <mn><input id="frac_${name}_b"></input></mfrac>
+            <mn><input id="frac_${name}_a" style="font-size: 2vw;"></input></mn>
+            <mn><input id="frac_${name}_b" style="font-size: 2vw;"></input></mfrac>
         </math>
     </div>`;
 }
 function getInputBackSubFracHTML(name) {
-    return `<div style="display: flex; align-items: center;">
+    return `<div style="display: flex; align-items: center; margin: 0 1vw;">
         <span style="margin: 0;">${name} = </span>
         <math style="font-size: 3.5vh; padding-right: 1vw;">
             <mfrac>
-            <mn style="display: flex;"><input id="frac_${name}_a_t" class="num-input"></input>
-                <span style="margin: 0; display: flex; align-items: flex-end;" class="backsubinput">t+</span>
-                <input id="frac_${name}_a_c" class="num-input"></input></mn>
-            <mn><input id="frac_${name}_b"></input></mfrac>
+            <mn style="display: flex;"><input id="frac_${name}_a_t" class="num-input" style="font-size: 2vw;"></input>
+                <span style="margin: 0; display: flex; align-items: flex-end;" class="backsubinput" style="font-size: 2vw;">t+</span>
+                <input id="frac_${name}_a_c" class="num-input" style="font-size: 2vw;"></input></mn>
+            <mn><input id="frac_${name}_b" style="font-size: 2vw;"></input></mfrac>
         </math>
     </div>`;
 }

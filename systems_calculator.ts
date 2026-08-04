@@ -190,8 +190,6 @@ export function setupCalculator() {
     const solution_amount_box = document.getElementById('solution_amount_box')!;
     
     m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
-    m1_box.classList.add('matrix-container-3');
-    m1_box.classList.add('matrix-container');
     m1_box.classList.remove('gone');
     m1_number.classList.add('gone');
     m1_number.style.display = 'none';

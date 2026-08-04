@@ -31,7 +31,7 @@
             <p style="padding-top: 10px;">simplified/positive fractions are not required in the game</p>
             <div id="score-div"><p style="padding-top: 10px; padding-bottom: 0;">score:</p><p id="score" style="padding: 0;">0</p></div>
 
-            <div style="display: flex; padding-bottom: 10vh;">
+            <div style="display: flex; padding-bottom: 5vh;">
             <div>
                 <p for="toggle_mode">mode:</p><br>
                 <select id="toggle_mode" class="button" style="height: auto;">
@@ -40,7 +40,7 @@
                 </select>
             </div>
 
-            <div id="exercise_type_box" style="padding-left: 30px;">
+            <div id="exercise_type_box" class="dropdown-padding-left">
                 <p for="type">type:</p><br>
                 <select id="type" class="button button3">
                     <option value="0">unique solutions</option>
@@ -51,12 +51,12 @@
                 </select>
             </div>
 
-            <div class="small-textbox" style="margin-right: 0; width: 18vw; padding-left: 30px;" id="max_element_box">
+            <div class="small-textbox dropdown-padding-left" style="margin-right: 0; width: 18vw;" id="max_element_box">
                 <p for="max_element">max element number:</p><br>
                 <textarea id="max_element" style="width: 17vw;"></textarea>
             </div>
 
-            <div id="solution_amount_box" style="padding-left: 30px;">
+            <div id="solution_amount_box" class="dropdown-padding-left">
                 <p for="solution_amount">enforce number of solutions:</p><br>
                 <select id="solution_amount" class="button button3">
                     <option value="-1">no restriction</option>
@@ -73,12 +73,12 @@
             </div>
                 
             <div class="matrix-input-box" style="justify-content: center;">
-                <div class="matrix-container" id="m1_box">
+                <div class="matrix-container matrix-container-3 augmented-matrix-container-3" id="m1_box">
                 </div>
                 <div id="m1_frac" style="display: flex;" class="gone"></div>
             </div>
 
-            </div><br><br><br><br>
+            </div><br><br>
             
             <div>
             <input type="button" id="randomise" value="Randomise" class="button button3" style="margin-top: 30px;">

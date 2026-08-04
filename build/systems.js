@@ -103,7 +103,7 @@ export class AugmentedMatrix3 {
     }
     displayToHTML() {
         return (`
-            <div class="matrix-container matrix-container-3">
+            <div class="matrix-container matrix-container-3 augmented-matrix-container-3">
                 <div class="matrix-3 augmented-matrix-3">
                 <div class="matrix-elements">${this.a1}</div><div class="matrix-elements">${this.a2}</div><div class="matrix-elements">${this.a3}</div>|<div class="matrix-elements">${this.a4}</div>
                 <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div><div class="matrix-elements">${this.b3}</div>|<div class="matrix-elements">${this.b4}</div>

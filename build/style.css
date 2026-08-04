@@ -77,9 +77,21 @@ p {
   padding-top: 20px;
 }
 
+.calculator-input-box * {
+  font-size: 3vw;
+}
+
 @media all and (orientation: portrait) {
   p {
     font-size: 3vw;
+  }
+
+  .calculator-input-box * {
+    font-size: 2.6vw;
+  }
+
+  .systems-calculator-input-box * {
+    font-size: 5vw;
   }
 }
 
@@ -311,6 +323,14 @@ input:checked + .slider:before {
   padding-left: 50px;
 }
 
+.dropdown-padding-right {
+  padding-right: 30px;
+}
+
+.dropdown-padding-left {
+  padding-left: 30px;
+}
+
 @media all and (orientation: portrait) {
   .switch {
     transform: scale(0.9);
@@ -320,7 +340,15 @@ input:checked + .slider:before {
     padding-right: 4vw;
   }
 
+  .dropdown-padding-right {
+    padding-right: 4vw;
+  }
+
   .toggles-padding-left {
+    padding-left: 0;
+  }
+
+  .dropdown-padding-left {
     padding-left: 0;
   }
 }
@@ -384,7 +412,7 @@ math, mfrac, mn {
 .matrix-container::before,
 .matrix-container::after {
     content: "[";
-    font-size: 4em;
+    font-size: 8em;
     font-weight: 100;
     vertical-align: middle;
     padding-right: 0.1em;
@@ -399,12 +427,12 @@ math, mfrac, mn {
 .matrix-container-3::after,
 .frac-matrix-container-2::before,
 .frac-matrix-container-2::after {
-    font-size: 6em;
+    font-size: 12em;
 }
 
 .vector-container::before,
 .vector-container::after {
-  font-size: 5em;
+  font-size: 10em;
   padding: 0;
 }
 
@@ -414,7 +442,7 @@ math, mfrac, mn {
 }
 
 .matrix-property::placeholder {
-  font-size: 1vw;
+  font-size: 1.5vw;
   padding: 0;
 }
 
@@ -445,13 +473,14 @@ math, mfrac, mn {
 }
 
 .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
-    width: 1vw;
-    height: 1.5vw;
+    width: 2vw;
+    height: 3vw;
+    font-size: 2vw;
 }
 
 mn input, .vector-basis input, .vector-basis[id$="number"] {
-    width: 3vw;
-    height: 1.5vw;
+    width: 6vw;
+    height: 3vw;
 }
 
 [id="calc-box"] {
@@ -475,15 +504,73 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   font-size: 10px;
 }
 
+.vector .matrix-elements {
+  font-size: 2vw;
+}
+
 @media all and (orientation: portrait) {
+
+  .matrix-container::before,
+  .matrix-container::after {
+      font-size: 8em;
+      padding-right: 0;
+  }
+
+  .matrix-container::after {
+    padding-left: 0;
+  }
+
+  .matrix-container-3::before,
+  .matrix-container-3::after,
+  .frac-matrix-container-2::before,
+  .frac-matrix-container-2::after {
+      font-size: 10em;
+  }
+
+  .vector-container::before,
+  .vector-container::after {
+    font-size: 13em;
+  }
+
+  .augmented-matrix-container-3::before,
+  .augmented-matrix-container-3::after {
+    font-size: 15em;
+  }
+
+  [id="plane-vectors"] *::before, [id="plane-vectors"] *::after {
+    font-size: 6em;
+  }
+
+  .matrix-2, .matrix-3 {
+    font-size: 3vw;
+  }
+
+  .augmented-matrix-3 {
+    font-size: 4vw;
+  }
+
+  .matrix-2 .matrix-elements {
+    font-size: 3.5vw;
+  }
+
+  .vector {
+    font-size: 3vw;
+    min-width: fit-content;
+  }
+
+  .vector .matrix-elements {
+    font-size: 4vw;
+  }
+
   .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
-    width: 1.7vw;
-    height: 2.5vw;
-    font-size: 1.7vw;
+    width: 4vw;
+    height: 6vw;
+    font-size: 3vw;
   }
 
   [id="calc-box"] {
     flex-direction: column;
+    align-items: center;
   }
 
   [id="toggles-box"] {
@@ -497,8 +584,9 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   }
 
   .vector-basis input {
-      width: 6vw;
-      height: 5.5vw;
+      width: 12vw;
+      height: 11vw;
+      font-size: 6vw;
   }
 
   .vector-basis div {
@@ -512,6 +600,7 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   [id="plane-vector-input"] {
     padding: 4vw;
     max-width: 90vw;
+    flex-direction: column;
   }
 
   [id="plane_property"] {
@@ -605,11 +694,11 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
 
 .frac-matrix-container-3 .matrix-elements,
 .frac-matrix-container-2 .matrix-elements {
-  font-size: 2vw;
+  font-size: 4vw;
 }
 
 .backsubinput {
-  font-size: 1.5vw;
+  font-size: 3vw;
 }
 
 mn {
@@ -618,7 +707,7 @@ mn {
 
 @media all and (orientation: portrait) {
   mn, .backsubinput {
-    font-size: 2.5vw;
+    font-size: 4vw;
   }
 }
 
@@ -687,15 +776,19 @@ mn {
   }
 }
 
+.reset-font-size * {
+  font-size: initial !important;
+}
+
 input[id$="_row"],
 input[id$="_column"],
 input[id$="_power"] {
-  width: 3vw;
-  font-size: 1.5vw;
+  width: 4vw;
+  font-size: 3vw;
 }
 
 select[id$="_property"] {
-  padding: 1vh;
+  padding: 1.5vh;
 }
 
 .matrix-input-box {
@@ -709,16 +802,12 @@ select[id$="_property"] {
     font-size: 2vw;
   }
 
-.calculator-input-box {
-  transform: scale(2);
-}
-
 @media all and (orientation: portrait) {
   input[id$="_row"],
   input[id$="_column"],
   input[id$="_power"] {
-    width: 6.5vw;
-    font-size: 4vw;
+    width: 5vw;
+    font-size: 5vw;
   }
 
   textarea[id="amount"], textarea[id="max_element"] {
@@ -730,18 +819,13 @@ select[id$="_property"] {
     padding: 1vh 0;
   }
 
-  .calculator-input-box {
-    max-width: 90vw;
-    transform: scale(1.2);
-  }
-
-  .systems-calculator-input-box {
-    transform: scale(2);
-  }
-
   .matrix-output[id$="exercise"] {
     width: auto;
     margin-bottom: 1vh;
+  }
+
+  .reset-font-size * {
+    font-size: 2.7vw !important;
   }
 
   /* .matrix-input-box {

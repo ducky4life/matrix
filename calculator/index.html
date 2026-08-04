@@ -32,20 +32,20 @@
             <p style="padding-top: 10px;">idk why safari transform is so blurry, use desktop chrome</p>
             <br>
 
-            <div style="padding-bottom: 65px;">
+            <div style="padding-bottom: 30px;">
                 <select id="dimension" class="button">
                     <option value="2">2x2</option>
                     <option value="3">3x3</option>
                 </select>
             </div><br>
             
-            <div style="display: flex; justify-content: center; align-items: stretch; place-self: center;" class="calculator-input-box">
+            <div style="display: flex; justify-content: center; align-items: stretch; place-self: center; max-width: 95vw;" class="calculator-input-box">
 
             <div class="matrix-input-box">
-                <div class="matrix-container" id="m1_box">
+                <div class="matrix-container" id="m1_box" style="margin-bottom: 3vh;">
                 </div>
 
-                <div style="transform: scale(0.5); display: flex;">
+                <div style="display: flex;" class="reset-font-size">
                     <select id="m1_property" class="button unblur">
                         <option value="3">det</option>
                         <option value="4">inverse</option>
@@ -65,8 +65,8 @@
                 </div>
             </div>
 
-            <div style="transform: scale(0.5);" id="operation_box">
-                <select id="operation" class="button unblur" style="padding: 1vh;">
+            <div id="operation_box" style="display: flex; align-items: center; margin: 0 1vw; margin-top: -8vh;">
+                <select id="operation" class="button unblur" style="padding: 1vh; font-size: 1.5vw;">
                     <option value="2">*</option>
                     <option value="0">+</option>
                     <option value="1">-</option>
@@ -75,10 +75,10 @@
             
             <div class="matrix-input-box">
                 
-                <div class="matrix-container" id="m2_box">
+                <div class="matrix-container" id="m2_box" style="margin-bottom: 3vh;">
                 </div>
                 
-                <div style="transform: scale(0.5); display: flex;">
+                <div style="display: flex;" class="reset-font-size">
                     <select id="m2_property" class="button unblur">
                         <option value="3">det</option>
                         <option value="4">inverse</option>
@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-            </div><br><br><br><br>
+            </div><br><br>
             
             <div>
             <input type="button" id="randomise" value="Randomise" class="button button3" style="margin-top: 30px;">

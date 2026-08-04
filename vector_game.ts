@@ -175,81 +175,81 @@ function displayExercise() {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">+</span>
+                <span style="margin: 0 20px;">+</span>
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 1) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">-</span>
+                <span style="margin: 0 20px;">-</span>
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 2) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">•</span>
+                <span style="margin: 0 20px;">•</span>
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 3) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">×</span>
+                <span style="margin: 0 20px;">×</span>
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 4) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0 10px; font-size: 10px">magnitude of</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">magnitude of</span>
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 5) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0 10px; font-size: 10px">unit vector of</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">unit vector of</span>
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 6) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0 10px; font-size: 10px">angle between</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">angle between</span>
                 ${V1.displayToFormat(!use_basis_format, true)}, 
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 7) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0 10px; font-size: 10px">projection of</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">projection of</span>
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px; font-size: 10px">on</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">on</span>
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 8) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0 10px; font-size: 10px">magnitude of proj. of</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">magnitude of proj. of</span>
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px; font-size: 10px">on</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">on</span>
                 ${V2.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
     else if (exercise_type == 9) {
@@ -257,26 +257,26 @@ function displayExercise() {
         if (use_basis_format) {
             exercise_box.innerHTML = `
                 <div style="display: flex; align-items: center;">
-                    <span style="margin: 0 10px; font-size: 10px">volume of VABC</span>
+                    <span style="margin: 0 20px; font-size: min(20px, 3vw)">volume of VABC</span>
                     <div style="display: flex; flex-direction: column; align-items: flex-start;">
-                        <div style="padding-bottom: 10px;">V: ${V1.displayToBasisComponent()}</div>
-                        <div style="padding-bottom: 10px;">A: ${V2.displayToBasisComponent()}</div>
-                        <div style="padding-bottom: 10px;">B: ${P.V1.displayToBasisComponent()}</div>
+                        <div style="padding-bottom: 20px;">V: ${V1.displayToBasisComponent()}</div>
+                        <div style="padding-bottom: 20px;">A: ${V2.displayToBasisComponent()}</div>
+                        <div style="padding-bottom: 20px;">B: ${P.V1.displayToBasisComponent()}</div>
                         <div>C: ${P.V2.displayToBasisComponent()}</div>
                     </div>
-                    <span style="margin: 0 10px;">= </span>
+                    <span style="margin: 0 20px;">= </span>
                 </div><br>`;
         }
 
         else {
             exercise_box.innerHTML = `
                 <div style="display: flex; align-items: center;">
-                    <span style="margin: 0 10px; font-size: 10px">volume of VABC</span>
+                    <span style="margin: 0 20px; font-size: min(20px, 3vw)">volume of VABC</span>
                     V: ${V1.displayToHTML()}
                     A: ${V2.displayToHTML()}
                     B: ${P.V1.displayToHTML()}
                     C: ${P.V2.displayToHTML()}
-                    <span style="margin: 0 10px;">= </span>
+                    <span style="margin: 0 20px;">= </span>
                 </div><br>`;
         }
 
@@ -284,11 +284,11 @@ function displayExercise() {
     else if (exercise_type == 10) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0 10px; font-size: 10px">angle between</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">angle between</span>
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 10px; font-size: 10px">and plane</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">and plane</span>
                 <div id="plane-vectors">${P.displayToHTML(!use_basis_format)}</div>
-                <span style="margin: 0 10px;">= </span>
+                <span style="margin: 0 20px;">= </span>
             </div><br>`;
     }
 
@@ -321,7 +321,7 @@ export function setupGame() {
     randomiseButton.classList.add('gone');
     output_box.classList.add('gone');
     m2_box.classList.add('gone');
-    operation_box.classList.add('gone');
+    operation_box.style.display = 'none';
     exercise_box.classList.remove('gone');
     scoreElement.classList.remove('gone');
 

@@ -17,9 +17,9 @@ function setInputFromVector3(name, V) {
 export function getInputVectorHTML(name, basis = use_basis_format) {
     if (basis) {
         return `<div class="vector-basis">
-                <div><input id="vector_${name}_a1"></input> i + </div>
-                <div style="padding-left: 0.3vw;"><input id="vector_${name}_b1"></input> j + </div>
-                <div style="padding-left: 0.3vw;"><input id="vector_${name}_c1"></input> k</div>
+                <div style="font-size: inherit;"><input id="vector_${name}_a1"></input> i + </div>
+                <div style="padding-left: 0.3vw; font-size: inherit;"><input id="vector_${name}_b1"></input> j + </div>
+                <div style="padding-left: 0.3vw; font-size: inherit;"><input id="vector_${name}_c1"></input> k</div>
             </div>`;
     }
     return `<div class="vector">
@@ -268,7 +268,7 @@ export function setupCalculator() {
     m2_box.classList.remove('gone');
     operation_box.classList.remove('gone');
     exercise_box.innerHTML = '';
-    exercise_box.classList.add('gone');
+    exercise_box.style.display = 'flex';
     output_box.classList.remove('gone');
     exercise_type_box.classList.add('gone');
     generateButton.classList.add('gone');

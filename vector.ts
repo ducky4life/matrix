@@ -182,7 +182,7 @@ export class Vector3 {
 
     displayToHTML(): string{
         return(`
-            <div class="matrix-container">
+            <div class="matrix-container vector-container">
                 <div class="vector">
                     <div class="matrix-elements">${this.a1}</div>
                     <div class="matrix-elements">${this.b1}</div>

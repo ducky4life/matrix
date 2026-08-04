@@ -32,8 +32,8 @@
             <!-- <p style="padding-top: 10px;"></p> -->
             <br>
 
-            <div style="display: flex; padding-bottom: 10vh;">
-            <div style="padding-right: 30px;">
+            <div style="display: flex; padding-bottom: 5vh; max-width: 90vw;">
+            <div class="dropdown-padding-right">
                 <p for="dimension">dimension:</p><br>
                 <select id="dimension" class="button">
                     <option value="2">2x2</option>
@@ -59,7 +59,7 @@
                 </select>
             </div>
 
-            <div class="small-textbox" style="margin-right: 0; width: 18vw; padding-left: 30px;">
+            <div class="small-textbox dropdown-padding-left" style="margin-right: 0; width: 18vw;">
                 <p for="max_element">max element number:</p><br>
                 <textarea id="max_element" style="width: 17vw;"></textarea>
             </div>
@@ -67,7 +67,7 @@
             
             <div style="display: flex; justify-content: center; align-items: stretch; place-self: center;" class="calculator-input-box">
 
-            <div class="matrix-output" id="exercise" style="margin-left: 0;">
+            <div class="matrix-output" id="exercise" style="margin-left: 0; margin-bottom: 0;">
             </div>
 
             <div class="matrix-input-box" style="justify-content: center;">
@@ -76,7 +76,7 @@
                 <div><input id="m1_number" class="gone"></input></div>
             </div>
 
-            </div><br><br><br><br>
+            </div><br><br>
             
             <div>
             <input type="button" id="generate" value="Generate new exercise" class="button button3" style="margin-top: 30px;">

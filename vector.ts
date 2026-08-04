@@ -388,10 +388,16 @@ export class Plane {
     }
 }
 
-export function getCoeff(num: number, with_sign: boolean = false): string {
+export function getCoeff(num: number, with_sign: boolean = false, with_space: boolean = true): string {
 
     let coeff = Math.abs(num).toString();
     let sign = "-";
+
+    let space = " ";
+    if (!with_space) {
+        space = "";
+    }
+
     if (num >= 0 && with_sign) {
         sign = "+";
     }
@@ -403,7 +409,7 @@ export function getCoeff(num: number, with_sign: boolean = false): string {
         coeff = "";
     }
 
-    return sign+" "+coeff;
+    return sign+space+coeff;
 }
 
 export function numberRoughlyEquals(num1: number, num2: number, digits: number = 1) {

@@ -1,6 +1,6 @@
 import { Frac, numberToFrac } from "./frac_matrix.js";
 import { Matrix2, Matrix3, getRowName, getColumnName, getRandomMatrix3, getRandomNumber, arrayToMatrix3 } from "./matrix.js";
-import { Vector3, vectorToMatrix3 } from "./vector.js";
+import { getCoeff, Vector3, vectorToMatrix3 } from "./vector.js";
 
 export class AugmentedRow3 {
     // a1 a2 a3 | a4
@@ -505,7 +505,7 @@ export class AugmentedMatrix3 {
                     x_solution = "0";
                 }
                 else {
-                    x_solution = `${coeffFrac.a}t` + `/${coeffFrac.b}`;
+                    x_solution = `${getCoeff(coeffFrac.a, false, false)}t` + `/${coeffFrac.b}`;
                 }
             }
             else if (t_coeff == 1) {

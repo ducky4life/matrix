@@ -297,9 +297,13 @@ export class Plane {
         return this.V1.crossProduct(this.V2);
     }
 }
-export function getCoeff(num, with_sign = false) {
+export function getCoeff(num, with_sign = false, with_space = true) {
     let coeff = Math.abs(num).toString();
     let sign = "-";
+    let space = " ";
+    if (!with_space) {
+        space = "";
+    }
     if (num >= 0 && with_sign) {
         sign = "+";
     }
@@ -309,7 +313,7 @@ export function getCoeff(num, with_sign = false) {
     if (Math.abs(num) == 1) {
         coeff = "";
     }
-    return sign + " " + coeff;
+    return sign + space + coeff;
 }
 export function numberRoughlyEquals(num1, num2, digits = 1) {
     return roundNumber(num1, digits) == roundNumber(num2, digits);

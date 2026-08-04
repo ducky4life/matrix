@@ -263,7 +263,7 @@ export function setupCalculator() {
     const m1_number = document.getElementById('m1_number');
     m1_box.classList.remove('gone');
     m2_box.classList.remove('gone');
-    operation_box.classList.remove('gone');
+    operation_box.style.display = 'flex';
     exercise_box.innerHTML = '';
     exercise_box.style.display = 'flex';
     output_box.classList.remove('gone');

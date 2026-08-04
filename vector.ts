@@ -41,10 +41,24 @@ export class Vector2 {
     }
 
     roundElements(digits: number = 2): Vector2 {
-        const a1 = Number(this.a1.toFixed(digits));
-        const b1 = Number(this.b1.toFixed(digits));
+        const a1 = roundNumber(this.a1, digits);
+        const b1 = roundNumber(this.b1, digits);
 
         return new Vector2(a1, b1);
+    }
+
+    getElement(row: number): number {
+        if (row == 1) {
+            return this.a1;
+        }
+        return this.b1;
+    }
+
+    getElementName(row: number): string {
+        if (row == 1) {
+            return "a1";
+        }
+        return "b1";
     }
 
     isIntegerVector(): boolean {
@@ -211,11 +225,31 @@ export class Vector3 {
     }
 
     roundElements(digits: number = 2): Vector3 {
-        const a1 = Number(this.a1.toFixed(digits));
-        const b1 = Number(this.b1.toFixed(digits));
-        const c1 = Number(this.c1.toFixed(digits));
+        const a1 = roundNumber(this.a1, digits);
+        const b1 = roundNumber(this.b1, digits);
+        const c1 = roundNumber(this.c1, digits);
 
         return new Vector3(a1, b1, c1);
+    }
+
+    getElement(row: number): number {
+        if (row == 1) {
+            return this.a1;
+        }
+        else if (row == 2) {
+            return this.b1;
+        }
+        return this.c1;
+    }
+
+    getElementName(row: number): string {
+        if (row == 1) {
+            return "a1";
+        }
+        else if (row == 2) {
+            return "b1";
+        }
+        return "c1";
     }
 
     isIntegerVector(): boolean {
@@ -412,7 +446,7 @@ export function getCoeff(num: number, with_sign: boolean = false, with_space: bo
     return sign+space+coeff;
 }
 
-export function numberRoughlyEquals(num1: number, num2: number, digits: number = 1) {
+export function numberRoughlyEquals(num1: number, num2: number, digits: number = 2) {
     return roundNumber(num1, digits) == roundNumber(num2, digits);
 }
 

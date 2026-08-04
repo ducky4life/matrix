@@ -85,7 +85,7 @@ export class Matrix2 {
         const roundedMatrixArray: Array<number> = [];
 
         matrixArray.forEach((matrixElement) => {
-            roundedMatrixArray.push(Number(matrixElement.toFixed(digits)));
+            roundedMatrixArray.push(roundNumber(matrixElement, digits));
         })
 
         return arrayToMatrix2(roundedMatrixArray);
@@ -435,7 +435,7 @@ export class Matrix3 {
         const roundedMatrixArray: Array<number> = [];
 
         matrixArray.forEach((matrixElement) => {
-            roundedMatrixArray.push(Number(matrixElement.toFixed(digits)));
+            roundedMatrixArray.push(roundNumber(matrixElement, digits));
         })
 
         return arrayToMatrix3(roundedMatrixArray);
@@ -606,7 +606,7 @@ export function eigenvaluesToString(eigenvalues: Array<number>): string {
     let eigenvalueString = "";
 
     eigenvalues.forEach((eigenvalue) => {
-        eigenvalueString += eigenvalue.toFixed(2);
+        eigenvalueString += roundNumber(eigenvalue, 2);
         eigenvalueString += ", ";
     })
 
@@ -655,8 +655,13 @@ export function simplifyEigenvector(eigenvector: Vector2): Vector2 {
     return new Vector2(a, b);
 }
 
+export function safeToFixed(num: number, digits: number = 3) {
+    const sciNotation = Number(num.toString() + 'e' + digits);
+    return Number(Math.round(sciNotation) + 'e-' + digits);
+}
+
 export function roundNumber(num: number, digits: number = 3): number {
-    return Number(num.toFixed(digits));
+    return safeToFixed(num, digits);
 }
 
 export function scalarToMatrix2(scalar: number): Matrix2 {
@@ -804,9 +809,9 @@ export function generateMatrixExercise2(operation: number = 2, max: number = 10)
     let M1 = getRandomMatrix2(max);
     let M2 = getRandomMatrix2(max);
 
-    if (operation == 4) {
-        M1 = ensureInverseIsIntegerMatrix2();
-    }
+    // if (operation == 4) {
+    //     M1 = ensureInverseIsIntegerMatrix2();
+    // }
 
     const answer = getAnswerMatrix(M1, M2, operation) as Matrix2;
 
@@ -823,9 +828,9 @@ export function generateMatrixExercise3(operation: number = 2, max: number = 10)
     let M1 = getRandomMatrix3(max);
     let M2 = getRandomMatrix3(max);
 
-    if (operation == 4) {
-        M1 = ensureInverseIsIntegerMatrix3();
-    }
+    // if (operation == 4) {
+    //     M1 = ensureInverseIsIntegerMatrix3();
+    // }
 
     const answer = getAnswerMatrix(M1, M2, operation) as Matrix3;
 

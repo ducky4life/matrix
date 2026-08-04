@@ -1,5 +1,6 @@
 import { Matrix2, Matrix3, generateMatrixExercise, getRandomNumberFromArray, generateNumberExercise } from "./matrix.js";
 import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3, getInputNumber, setInputBoxColor, incrementScore, clearInputBoxColor, setScore } from "./matrix_web.js";
+import { numberRoughlyEquals } from "./vector.js";
 
 function setInputEventListener() {
     let inputElementIds: string[] = [];
@@ -123,7 +124,7 @@ function checkNumberAnswer(answer: number) {
     const elementId = "m1_number";
 
     if ((document.getElementById(elementId) as HTMLInputElement).value) {
-        if (inputNumber == answer) {
+        if (numberRoughlyEquals(inputNumber, answer)) {
             setInputBoxColor(elementId, 'limegreen');
         }
 
@@ -152,7 +153,7 @@ function checkMatrixAnswer2(answer: Matrix2) {
 
             if ((document.getElementById(elementId) as HTMLInputElement).value) {
 
-                if (inputElement == answerElement) {
+                if (numberRoughlyEquals(inputElement, answerElement)) {
                     setInputBoxColor(`2x2_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
                 }
                 
@@ -184,7 +185,7 @@ function checkMatrixAnswer3(answer: Matrix3) {
 
             if ((document.getElementById(elementId) as HTMLInputElement).value) {
 
-                if (inputElement == answerElement) {
+                if (numberRoughlyEquals(inputElement, answerElement)) {
                     setInputBoxColor(`3x3_m1_${inputMatrix.getElementName(row, column)}`, 'limegreen');
                 }
                 

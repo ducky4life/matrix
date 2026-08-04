@@ -29,9 +29,21 @@ export class Vector2 {
             </div>`);
     }
     roundElements(digits = 2) {
-        const a1 = Number(this.a1.toFixed(digits));
-        const b1 = Number(this.b1.toFixed(digits));
+        const a1 = roundNumber(this.a1, digits);
+        const b1 = roundNumber(this.b1, digits);
         return new Vector2(a1, b1);
+    }
+    getElement(row) {
+        if (row == 1) {
+            return this.a1;
+        }
+        return this.b1;
+    }
+    getElementName(row) {
+        if (row == 1) {
+            return "a1";
+        }
+        return "b1";
     }
     isIntegerVector() {
         if (Number.isInteger(this.a1) && Number.isInteger(this.b1)) {
@@ -159,10 +171,28 @@ export class Vector3 {
         return this.displayToBasisComponent(add_brackets);
     }
     roundElements(digits = 2) {
-        const a1 = Number(this.a1.toFixed(digits));
-        const b1 = Number(this.b1.toFixed(digits));
-        const c1 = Number(this.c1.toFixed(digits));
+        const a1 = roundNumber(this.a1, digits);
+        const b1 = roundNumber(this.b1, digits);
+        const c1 = roundNumber(this.c1, digits);
         return new Vector3(a1, b1, c1);
+    }
+    getElement(row) {
+        if (row == 1) {
+            return this.a1;
+        }
+        else if (row == 2) {
+            return this.b1;
+        }
+        return this.c1;
+    }
+    getElementName(row) {
+        if (row == 1) {
+            return "a1";
+        }
+        else if (row == 2) {
+            return "b1";
+        }
+        return "c1";
     }
     isIntegerVector() {
         if (Number.isInteger(this.a1) && Number.isInteger(this.b1) && Number.isInteger(this.c1)) {
@@ -315,7 +345,7 @@ export function getCoeff(num, with_sign = false, with_space = true) {
     }
     return sign + space + coeff;
 }
-export function numberRoughlyEquals(num1, num2, digits = 1) {
+export function numberRoughlyEquals(num1, num2, digits = 2) {
     return roundNumber(num1, digits) == roundNumber(num2, digits);
 }
 export function vectorToMatrix2(V1, V2) {

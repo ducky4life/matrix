@@ -75,24 +75,22 @@ function getInputExerciseType() {
 function checkVectorAnswer(answerVector) {
     let all_correct = true;
     const inputVector = getInputVector('m1');
-    const elementId_a1 = document.getElementById("vector_m1_a1");
-    const elementId_b1 = document.getElementById("vector_m1_b1");
-    const elementId_c1 = document.getElementById("vector_m1_c1");
-    if (elementId_a1.value && elementId_b1.value && elementId_c1.value) {
-        if (inputVector.equals(answerVector, true)) {
-            setInputBoxColor("vector_m1_a1", 'limegreen');
-            setInputBoxColor("vector_m1_b1", 'limegreen');
-            setInputBoxColor("vector_m1_c1", 'limegreen');
+    for (let row = 1; row <= 3; row++) {
+        const inputElement = inputVector.getElement(row);
+        const answerElement = answerVector.getElement(row);
+        const elementId = `vector_m1_${inputVector.getElementName(row)}`;
+        if (document.getElementById(elementId).value) {
+            if (numberRoughlyEquals(inputElement, answerElement)) {
+                setInputBoxColor(`vector_m1_${inputVector.getElementName(row)}`, 'limegreen');
+            }
+            else {
+                all_correct = false;
+                setInputBoxColor(`vector_m1_${inputVector.getElementName(row)}`, 'red');
+            }
         }
         else {
             all_correct = false;
-            setInputBoxColor("vector_m1_a1", 'red');
-            setInputBoxColor("vector_m1_b1", 'red');
-            setInputBoxColor("vector_m1_c1", 'red');
         }
-    }
-    else {
-        all_correct = false;
     }
     return all_correct;
 }

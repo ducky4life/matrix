@@ -55,7 +55,7 @@ export class Matrix2 {
         const matrixArray = this.display();
         const roundedMatrixArray = [];
         matrixArray.forEach((matrixElement) => {
-            roundedMatrixArray.push(Number(matrixElement.toFixed(digits)));
+            roundedMatrixArray.push(roundNumber(matrixElement, digits));
         });
         return arrayToMatrix2(roundedMatrixArray);
     }
@@ -301,7 +301,7 @@ export class Matrix3 {
         const matrixArray = this.display();
         const roundedMatrixArray = [];
         matrixArray.forEach((matrixElement) => {
-            roundedMatrixArray.push(Number(matrixElement.toFixed(digits)));
+            roundedMatrixArray.push(roundNumber(matrixElement, digits));
         });
         return arrayToMatrix3(roundedMatrixArray);
     }
@@ -414,7 +414,7 @@ export class Matrix3 {
 export function eigenvaluesToString(eigenvalues) {
     let eigenvalueString = "";
     eigenvalues.forEach((eigenvalue) => {
-        eigenvalueString += eigenvalue.toFixed(2);
+        eigenvalueString += roundNumber(eigenvalue, 2);
         eigenvalueString += ", ";
     });
     return eigenvalueString.slice(0, -2);
@@ -450,8 +450,12 @@ export function simplifyEigenvector(eigenvector) {
     }
     return new Vector2(a, b);
 }
+export function safeToFixed(num, digits = 3) {
+    const sciNotation = Number(num.toString() + 'e' + digits);
+    return Number(Math.round(sciNotation) + 'e-' + digits);
+}
 export function roundNumber(num, digits = 3) {
-    return Number(num.toFixed(digits));
+    return safeToFixed(num, digits);
 }
 export function scalarToMatrix2(scalar) {
     return new Matrix2(scalar, 0, 0, scalar);
@@ -561,9 +565,9 @@ export function generateMatrixExercise(matrix_dimension, operation, max) {
 export function generateMatrixExercise2(operation = 2, max = 10) {
     let M1 = getRandomMatrix2(max);
     let M2 = getRandomMatrix2(max);
-    if (operation == 4) {
-        M1 = ensureInverseIsIntegerMatrix2();
-    }
+    // if (operation == 4) {
+    //     M1 = ensureInverseIsIntegerMatrix2();
+    // }
     const answer = getAnswerMatrix(M1, M2, operation);
     const generated_exercise = {
         M1: M1,
@@ -576,9 +580,9 @@ export function generateMatrixExercise2(operation = 2, max = 10) {
 export function generateMatrixExercise3(operation = 2, max = 10) {
     let M1 = getRandomMatrix3(max);
     let M2 = getRandomMatrix3(max);
-    if (operation == 4) {
-        M1 = ensureInverseIsIntegerMatrix3();
-    }
+    // if (operation == 4) {
+    //     M1 = ensureInverseIsIntegerMatrix3();
+    // }
     const answer = getAnswerMatrix(M1, M2, operation);
     const generated_exercise = {
         M1: M1,

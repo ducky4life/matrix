@@ -331,7 +331,7 @@ export function setupCalculator() {
 
     m1_box.classList.remove('gone');
     m2_box.classList.remove('gone');
-    operation_box.classList.remove('gone');
+    operation_box.style.display = 'flex';
 
     exercise_box.innerHTML = '';
     exercise_box.style.display = 'flex';

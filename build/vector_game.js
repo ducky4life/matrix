@@ -1,6 +1,6 @@
-import { getRandomNumberFromArray, roundNumber } from "./matrix.js";
+import { getRandomNumberFromArray } from "./matrix.js";
 import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
-import { generateNumberExercise, generateVectorExercise } from "./vector.js";
+import { generateNumberExercise, generateVectorExercise, numberRoughlyEquals } from "./vector.js";
 import { getInputVector, setBasisToggle, use_basis_format } from "./vector_calculator.js";
 function setNumberInputEventListener() {
     m1_number.addEventListener('input', () => {
@@ -61,7 +61,7 @@ function checkVectorAnswer(answerVector) {
     const elementId_b1 = document.getElementById("vector_m1_b1");
     const elementId_c1 = document.getElementById("vector_m1_c1");
     if (elementId_a1.value && elementId_b1.value && elementId_c1.value) {
-        if (inputVector.equals(answerVector)) {
+        if (inputVector.equals(answerVector, true)) {
             setInputBoxColor("vector_m1_a1", 'limegreen');
             setInputBoxColor("vector_m1_b1", 'limegreen');
             setInputBoxColor("vector_m1_c1", 'limegreen');
@@ -83,7 +83,7 @@ function checkNumberAnswer(answer) {
     const inputNumber = getInputNumber('m1');
     const elementId = "m1_number";
     if (document.getElementById(elementId).value) {
-        if (roundNumber(inputNumber, 1) == roundNumber(answer, 1)) {
+        if (numberRoughlyEquals(inputNumber, answer)) {
             setInputBoxColor(elementId, 'limegreen');
         }
         else {
@@ -197,6 +197,26 @@ function displayExercise() {
                 <span style="margin: 0 10px;">= </span>
             </div><br>`;
     }
+    else if (exercise_type == 7) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 10px; font-size: 10px">projection of</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px; font-size: 10px">on</span>
+                ${V2.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 8) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 10px; font-size: 10px">magnitude of proj. of</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px; font-size: 10px">on</span>
+                ${V2.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
     else if (exercise_type == 9) {
         if (use_basis_format) {
             exercise_box.innerHTML = `
@@ -222,6 +242,16 @@ function displayExercise() {
                     <span style="margin: 0 10px;">= </span>
                 </div><br>`;
         }
+    }
+    else if (exercise_type == 10) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 10px; font-size: 10px">angle between</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px; font-size: 10px">and plane</span>
+                <div id="plane-vectors">${P.displayToHTML(!use_basis_format)}</div>
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
     }
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {

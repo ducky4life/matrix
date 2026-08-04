@@ -276,6 +276,18 @@ export class Plane {
         this.V1 = V1;
         this.V2 = V2;
     }
+    displayToHTML(vectorHTMLFormat = true) {
+        return `<div style="display: flex; align-items: center; flex-direction: column;">
+            <div style="display: flex; align-items: center;">
+                <p style="padding-top: 0;">p1:</p>
+                <div style="padding-left: 10px;">${this.V1.displayToFormat(vectorHTMLFormat)}</div>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p style="padding-top: 0;">p2:</p>
+                <div style="padding-left: 10px;">${this.V1.displayToFormat(vectorHTMLFormat)}</div>
+            </div>
+        </div>`;
+    }
     equals(P) {
         const cross1 = this.normalVector();
         const cross2 = P.normalVector();

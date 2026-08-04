@@ -471,6 +471,10 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   width: min(30vw, 380px);
 }
 
+[id="plane-vectors"] * {
+  font-size: 10px;
+}
+
 @media all and (orientation: portrait) {
   .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {
     width: 1.7vw;

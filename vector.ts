@@ -363,6 +363,19 @@ export class Plane {
         this.V2 = V2;
     }
 
+    displayToHTML(vectorHTMLFormat: boolean = true) {
+        return `<div style="display: flex; align-items: center; flex-direction: column;">
+            <div style="display: flex; align-items: center;">
+                <p style="padding-top: 0;">p1:</p>
+                <div style="padding-left: 10px;">${this.V1.displayToFormat(vectorHTMLFormat)}</div>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p style="padding-top: 0;">p2:</p>
+                <div style="padding-left: 10px;">${this.V1.displayToFormat(vectorHTMLFormat)}</div>
+            </div>
+        </div>`;
+    }
+
     equals(P: Plane): boolean {
         const cross1 = this.normalVector()
         const cross2 = P.normalVector();

@@ -12,8 +12,11 @@ export class Vector2 {
         this.b1 = b;
     }
 
-    equals(V: Vector2): boolean {
+    equals(V: Vector2, allow_error: boolean = false): boolean {
         if (this.a1 == V.a1 && this.b1 == V.b1) {
+            return true;
+        }
+        else if (allow_error && numberRoughlyEquals(this.a1, V.a1) && numberRoughlyEquals(this.b1, V.b1)) {
             return true;
         }
         return false;
@@ -42,6 +45,13 @@ export class Vector2 {
         const b1 = Number(this.b1.toFixed(digits));
 
         return new Vector2(a1, b1);
+    }
+
+    isIntegerVector(): boolean {
+        if (Number.isInteger(this.a1) && Number.isInteger(this.b1)) {
+            return true;
+        }
+        return false;
     }
 
     add(V: Vector2): Vector2 {
@@ -152,8 +162,11 @@ export class Vector3 {
         this.c1 = c;
     }
 
-    equals(V: Vector3): boolean {
+    equals(V: Vector3, allow_error: boolean = false): boolean {
         if (this.a1 == V.a1 && this.b1 == V.b1 && this.c1 == V.c1) {
+            return true;
+        }
+        else if (allow_error && numberRoughlyEquals(this.a1, V.a1) && numberRoughlyEquals(this.b1, V.b1) && numberRoughlyEquals(this.c1, V.c1)) {
             return true;
         }
         return false;
@@ -203,6 +216,13 @@ export class Vector3 {
         const c1 = Number(this.c1.toFixed(digits));
 
         return new Vector3(a1, b1, c1);
+    }
+
+    isIntegerVector(): boolean {
+        if (Number.isInteger(this.a1) && Number.isInteger(this.b1) && Number.isInteger(this.c1)) {
+            return true;
+        }
+        return false;
     }
 
     add(V: Vector3): Vector3 {
@@ -373,6 +393,10 @@ export function getCoeff(num: number, with_sign: boolean = false): string {
     return sign+" "+coeff;
 }
 
+export function numberRoughlyEquals(num1: number, num2: number, digits: number = 1) {
+    return roundNumber(num1, digits) == roundNumber(num2, digits);
+}
+
 export function vectorToMatrix2(V1: Vector2, V2: Vector2) {
     return new Matrix2(
         V1.a1, V2.a1,
@@ -519,6 +543,15 @@ export function generateVectorExercise(exercise_type: number, max: number = 10) 
     let P = getRandomPlane(max);
 
     let answerVector = getAnswerVector(V1, V2, exercise_type, P);
+
+    // while (!answerVector.isIntegerVector()) {
+    //     V1 = getRandomVector3(max);
+    //     V2 = getRandomVector3(max);
+
+    //     P = getRandomPlane(max);
+
+    //     answerVector = getAnswerVector(V1, V2, exercise_type, P);
+    // }
 
     const generated_exercise: { V1: Vector3; V2: Vector3; P: Plane; answer: Vector3 } = {
         V1: V1,

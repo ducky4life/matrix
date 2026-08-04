@@ -1,4 +1,4 @@
-import { getRandomNumberFromArray } from "./matrix.js";
+import { getRandomNumberFromArray, roundNumber } from "./matrix.js";
 import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { generateNumberExercise, generateVectorExercise, Plane, Vector3 } from "./vector.js";
 import { getInputVector, setBasisToggle, use_basis_format } from "./vector_calculator.js";
@@ -77,7 +77,7 @@ function checkVectorAnswer(answerVector: Vector3) {
 
     if (elementId_a1.value && elementId_b1.value && elementId_c1.value) {
 
-        if (inputVector.equals(answerVector)) {
+        if (inputVector.equals(answerVector, true)) {
             setInputBoxColor("vector_m1_a1", 'limegreen');
             setInputBoxColor("vector_m1_b1", 'limegreen');
             setInputBoxColor("vector_m1_c1", 'limegreen');
@@ -104,7 +104,7 @@ function checkNumberAnswer(answer: number) {
     const elementId = "m1_number";
 
     if ((document.getElementById(elementId) as HTMLInputElement).value) {
-        if (inputNumber == answer) {
+        if (roundNumber(inputNumber, 1) == roundNumber(answer, 1)) {
             setInputBoxColor(elementId, 'limegreen');
         }
 

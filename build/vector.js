@@ -4,8 +4,11 @@ export class Vector2 {
         this.a1 = a;
         this.b1 = b;
     }
-    equals(V) {
+    equals(V, allow_error = false) {
         if (this.a1 == V.a1 && this.b1 == V.b1) {
+            return true;
+        }
+        else if (allow_error && numberRoughlyEquals(this.a1, V.a1) && numberRoughlyEquals(this.b1, V.b1)) {
             return true;
         }
         return false;
@@ -29,6 +32,12 @@ export class Vector2 {
         const a1 = Number(this.a1.toFixed(digits));
         const b1 = Number(this.b1.toFixed(digits));
         return new Vector2(a1, b1);
+    }
+    isIntegerVector() {
+        if (Number.isInteger(this.a1) && Number.isInteger(this.b1)) {
+            return true;
+        }
+        return false;
     }
     add(V) {
         return new Vector2(this.a1 + V.a1, this.b1 + V.b1);
@@ -109,8 +118,11 @@ export class Vector3 {
         this.b1 = b;
         this.c1 = c;
     }
-    equals(V) {
+    equals(V, allow_error = false) {
         if (this.a1 == V.a1 && this.b1 == V.b1 && this.c1 == V.c1) {
+            return true;
+        }
+        else if (allow_error && numberRoughlyEquals(this.a1, V.a1) && numberRoughlyEquals(this.b1, V.b1) && numberRoughlyEquals(this.c1, V.c1)) {
             return true;
         }
         return false;
@@ -151,6 +163,12 @@ export class Vector3 {
         const b1 = Number(this.b1.toFixed(digits));
         const c1 = Number(this.c1.toFixed(digits));
         return new Vector3(a1, b1, c1);
+    }
+    isIntegerVector() {
+        if (Number.isInteger(this.a1) && Number.isInteger(this.b1) && Number.isInteger(this.c1)) {
+            return true;
+        }
+        return false;
     }
     add(V) {
         return new Vector3(this.a1 + V.a1, this.b1 + V.b1, this.c1 + V.c1);
@@ -281,6 +299,9 @@ export function getCoeff(num, with_sign = false) {
     }
     return sign + " " + coeff;
 }
+export function numberRoughlyEquals(num1, num2, digits = 1) {
+    return roundNumber(num1, digits) == roundNumber(num2, digits);
+}
 export function vectorToMatrix2(V1, V2) {
     return new Matrix2(V1.a1, V2.a1, V1.b1, V2.b1);
 }
@@ -377,6 +398,12 @@ export function generateVectorExercise(exercise_type, max = 10) {
     let V2 = getRandomVector3(max);
     let P = getRandomPlane(max);
     let answerVector = getAnswerVector(V1, V2, exercise_type, P);
+    // while (!answerVector.isIntegerVector()) {
+    //     V1 = getRandomVector3(max);
+    //     V2 = getRandomVector3(max);
+    //     P = getRandomPlane(max);
+    //     answerVector = getAnswerVector(V1, V2, exercise_type, P);
+    // }
     const generated_exercise = {
         V1: V1,
         V2: V2,

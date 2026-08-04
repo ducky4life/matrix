@@ -1,7 +1,7 @@
 import { getRandomNumberFromArray } from "./matrix.js";
 import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { generateNumberExercise, generateVectorExercise } from "./vector.js";
-import { getInputVector, setBasisToggle } from "./vector_calculator.js";
+import { getInputVector, setBasisToggle, use_basis_format } from "./vector_calculator.js";
 function setNumberInputEventListener() {
     m1_number.addEventListener('input', () => {
         if (!m1_number.value) {
@@ -136,13 +136,92 @@ function displayExercise() {
     const V2 = exercise['V2'];
     const P = exercise['P'];
     const answer = exercise['answer'];
-    if (exercise_type == 9) {
+    if (exercise_type == 0) {
         exercise_box.innerHTML = `
             <div style="display: flex; align-items: center;">
-                <span style="margin: 0;">adj</span>
-                ${V1.displayToHTML()}
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">+</span>
+                ${V2.displayToFormat(!use_basis_format, true)}
                 <span style="margin: 0 10px;">= </span>
             </div><br>`;
+    }
+    else if (exercise_type == 1) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">-</span>
+                ${V2.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 2) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">•</span>
+                ${V2.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 3) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">×</span>
+                ${V2.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 4) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 10px; font-size: 10px">magnitude of</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 5) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 10px; font-size: 10px">unit vector of</span>
+                ${V1.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 6) {
+        exercise_box.innerHTML = `
+            <div style="display: flex; align-items: center;">
+                <span style="margin: 0 10px; font-size: 10px">angle between</span>
+                ${V1.displayToFormat(!use_basis_format, true)}, 
+                ${V2.displayToFormat(!use_basis_format, true)}
+                <span style="margin: 0 10px;">= </span>
+            </div><br>`;
+    }
+    else if (exercise_type == 9) {
+        if (use_basis_format) {
+            exercise_box.innerHTML = `
+                <div style="display: flex; align-items: center;">
+                    <span style="margin: 0 10px; font-size: 10px">volume of VABC</span>
+                    <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                        <div style="padding-bottom: 10px;">V: ${V1.displayToBasisComponent()}</div>
+                        <div style="padding-bottom: 10px;">A: ${V2.displayToBasisComponent()}</div>
+                        <div style="padding-bottom: 10px;">B: ${P.V1.displayToBasisComponent()}</div>
+                        <div>C: ${P.V2.displayToBasisComponent()}</div>
+                    </div>
+                    <span style="margin: 0 10px;">= </span>
+                </div><br>`;
+        }
+        else {
+            exercise_box.innerHTML = `
+                <div style="display: flex; align-items: center;">
+                    <span style="margin: 0 10px; font-size: 10px">volume of VABC</span>
+                    V: ${V1.displayToHTML()}
+                    A: ${V2.displayToHTML()}
+                    B: ${P.V1.displayToHTML()}
+                    C: ${P.V2.displayToHTML()}
+                    <span style="margin: 0 10px;">= </span>
+                </div><br>`;
+        }
     }
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
@@ -152,7 +231,7 @@ function displayExercise() {
                 finished = true;
             }
         }
-        else if (exercise_type == 1) {
+        else {
             if (checkNumberAnswer(answer) && !finished) {
                 incrementScore();
                 finished = true;

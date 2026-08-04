@@ -178,19 +178,23 @@ export class Vector3 {
             </div>`)
     }
 
-    displayToBasisComponent(): string {
+    displayToBasisComponent(add_brackets: boolean = false): string {
         const i_coeff = getCoeff(this.a1, false);
         const j_coeff = getCoeff(this.b1, true);
         const k_coeff = getCoeff(this.c1, true);
-        return `${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k`
+
+        if (add_brackets) {
+            return `(${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k)`;
+        }
+        return `${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k`;
     }
 
-    displayToFormat(HTML: boolean = true) {
+    displayToFormat(HTML: boolean = true, add_brackets: boolean = false) {
         if (HTML) {
             return this.displayToHTML();
         }
         
-        return this.displayToBasisComponent();
+        return this.displayToBasisComponent(add_brackets);
     }
 
     roundElements(digits: number = 2): Vector3 {

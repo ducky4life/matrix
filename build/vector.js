@@ -131,17 +131,20 @@ export class Vector3 {
                 </div>
             </div>`);
     }
-    displayToBasisComponent() {
+    displayToBasisComponent(add_brackets = false) {
         const i_coeff = getCoeff(this.a1, false);
         const j_coeff = getCoeff(this.b1, true);
         const k_coeff = getCoeff(this.c1, true);
+        if (add_brackets) {
+            return `(${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k)`;
+        }
         return `${i_coeff}i` + ` ${j_coeff}j` + ` ${k_coeff}k`;
     }
-    displayToFormat(HTML = true) {
+    displayToFormat(HTML = true, add_brackets = false) {
         if (HTML) {
             return this.displayToHTML();
         }
-        return this.displayToBasisComponent();
+        return this.displayToBasisComponent(add_brackets);
     }
     roundElements(digits = 2) {
         const a1 = Number(this.a1.toFixed(digits));

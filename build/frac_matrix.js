@@ -240,7 +240,7 @@ export function scalarToFracMatrix3(scalar) {
     return new FracMatrix3(scalar, numberToFrac(0), numberToFrac(0), numberToFrac(0), scalar, numberToFrac(0), numberToFrac(0), numberToFrac(0), scalar);
 }
 export function getMatrixFracHTML(M1, M2) {
-    return new TextFrac(M1.displayToHTML(true), M2.displayToHTML(true)).displayToHTML(true);
+    return new TextFrac(M1.displayToHTML(true), M2.determinant().toString()).displayToHTML(true);
 }
 // const testFrac = new Frac(2,4);
 // const testFrac2 = new Frac(2,4);

@@ -338,7 +338,7 @@ export function scalarToFracMatrix3(scalar: Frac) {
 
 export function getMatrixFracHTML(M1: Matrix3, M2: Matrix3) {
     return new TextFrac(
-        M1.displayToHTML(true), M2.displayToHTML(true)
+        M1.displayToHTML(true), M2.determinant().toString()
     ).displayToHTML(true);
 }
 

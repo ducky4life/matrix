@@ -646,6 +646,14 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
   .mobile-column {
     flex-direction: column;
   }
+
+  .matrix-frac .matrix-det-container {
+    font-size: 1.5vw;
+  }
+
+  .matrix-frac .matrix-3 .matrix-elements {
+    font-size: 2.5vw;
+  }
 }
 
 .matrix-answer {

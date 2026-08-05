@@ -423,6 +423,11 @@ math, mfrac, mn {
     padding-left: 0.1em;
 }
 
+.matrix-det-container::before,
+.matrix-det-container::after {
+    content: "|";
+}
+
 .matrix-container-3::before,
 .matrix-container-3::after,
 .frac-matrix-container-2::before,
@@ -529,6 +534,14 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
 .mobile-column {
   display: flex;
   align-items: center;
+}
+
+.matrix-frac * {
+  font-size: 0.5vw;
+}
+
+.matrix-frac .matrix-3 .matrix-elements {
+  font-size: 1.3vw;
 }
 
 @media all and (orientation: portrait) {

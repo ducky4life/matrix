@@ -143,7 +143,8 @@ function displayOutput() {
     
     if (M1.hasUniqueSolution()) {
         const solution = M1.getFracSolution();
-        solutionText = `x = ${solution[0].displayToHTML()}, y = ${solution[1].displayToHTML()}, z = ${solution[2].displayToHTML()}`;
+        const cramersRuleMatricesFracHTML = M1.getCramersRuleMatricesFracHTML();
+        solutionText = `x = ${cramersRuleMatricesFracHTML[0]} = ${solution[0].displayToHTML()}, y = ${cramersRuleMatricesFracHTML[1]} = ${solution[1].displayToHTML()}, z = ${cramersRuleMatricesFracHTML[2]} = ${solution[2].displayToHTML()}`;
         output.innerHTML += `<div style="margin-bottom: 1vh; margin-top: 2vh; overflow-y: hidden;">${solutionText}</div>`;
     }
     else if (M1.hasNoSolutions()) {

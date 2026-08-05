@@ -1,3 +1,5 @@
+import { Matrix3 } from "./matrix";
+
 export class Frac {
     // a/b
 
@@ -135,7 +137,7 @@ export class TextFrac {
         return `${this.a}/${this.b}`;
     }
 
-    displayToHTML(): string {
+    displayToHTML(matrixInput: boolean = false): string {
 
         if (this.a == '0') {
             return `0`;
@@ -143,6 +145,14 @@ export class TextFrac {
 
         else if (this.b == '1') {
             return this.a.toString();
+        }
+
+        if (matrixInput) {
+            return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;" class="matrix-frac">
+                <mfrac>
+                <mn>${this.a}</mn>
+                <mn>${this.b}</mfrac>
+            </math>`
         }
 
         return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
@@ -324,6 +334,12 @@ export function scalarToFracMatrix3(scalar: Frac) {
         numberToFrac(0), scalar, numberToFrac(0),
         numberToFrac(0), numberToFrac(0), scalar
     );
+}
+
+export function getMatrixFracHTML(M1: Matrix3, M2: Matrix3) {
+    return new TextFrac(
+        M1.displayToHTML(true), M2.displayToHTML(true)
+    ).displayToHTML(true);
 }
 
 // const testFrac = new Frac(2,4);

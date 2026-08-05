@@ -1,4 +1,4 @@
-import { Frac, numberToFrac } from "./frac_matrix.js";
+import { Frac, getMatrixFracHTML, numberToFrac } from "./frac_matrix.js";
 import { Matrix2, Matrix3, getRowName, getColumnName, getRandomMatrix3, getRandomNumber, arrayToMatrix3 } from "./matrix.js";
 import { getCoeff, Vector3, vectorToMatrix3 } from "./vector.js";
 
@@ -305,6 +305,42 @@ export class AugmentedMatrix3 {
         coeffVectorArray[column-1] = constantColumnVector; // 0-idx
 
         return vectorToMatrix3(coeffVectorArray[0], coeffVectorArray[1], coeffVectorArray[2]);
+    }
+
+    getCramersRuleMatrices(): Array<Matrix3> {
+        const cramersRuleMatrixArray: Array<Matrix3> = [];
+        for (let column=1; column<=3; column++) {
+            cramersRuleMatrixArray.push(this.getCramersRuleMatrix3(column));
+        }
+        return cramersRuleMatrixArray;
+    }
+
+    getCramersRuleMatricesFracHTML(): Array<string> {
+        const cramersRuleMatrixArray = this.getCramersRuleMatrices();
+        const coeffMatrix = this.getCoefficientMatrix();
+        const cramersRuleMatricesFracHTML: Array<string> = [];
+
+        for (let i=0; i<3; i++) {
+            cramersRuleMatricesFracHTML.push(
+                getMatrixFracHTML(cramersRuleMatrixArray[i], coeffMatrix)
+            );
+        }
+
+        return cramersRuleMatricesFracHTML;
+    }
+
+    getCramersRuleFrac(): Array<Frac> {
+        const coeffDet = this.getCoefficientMatrix().determinant();
+        const cramersRuleFracArray: Array<Frac> = [];
+
+        for (let column=1; column<=3; column++) {
+            const cramersRuleMatrix = this.getCramersRuleMatrix3(column);
+            cramersRuleFracArray.push(
+                new Frac(cramersRuleMatrix.determinant(), coeffDet)
+            );
+        }
+        
+        return cramersRuleFracArray;
     }
 
     getSolutionSetArraysByBackSubstitution(): { text_solution: Array<string>; coeff_solution: Array<Record<string, Frac>> } {

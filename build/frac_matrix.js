@@ -95,12 +95,19 @@ export class TextFrac {
     displayToString() {
         return `${this.a}/${this.b}`;
     }
-    displayToHTML() {
+    displayToHTML(matrixInput = false) {
         if (this.a == '0') {
             return `0`;
         }
         else if (this.b == '1') {
             return this.a.toString();
+        }
+        if (matrixInput) {
+            return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;" class="matrix-frac">
+                <mfrac>
+                <mn>${this.a}</mn>
+                <mn>${this.b}</mfrac>
+            </math>`;
         }
         return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
             <mfrac>
@@ -231,6 +238,9 @@ export function scalarToFracMatrix2(scalar) {
 }
 export function scalarToFracMatrix3(scalar) {
     return new FracMatrix3(scalar, numberToFrac(0), numberToFrac(0), numberToFrac(0), scalar, numberToFrac(0), numberToFrac(0), numberToFrac(0), scalar);
+}
+export function getMatrixFracHTML(M1, M2) {
+    return new TextFrac(M1.displayToHTML(true), M2.displayToHTML(true)).displayToHTML(true);
 }
 // const testFrac = new Frac(2,4);
 // const testFrac2 = new Frac(2,4);

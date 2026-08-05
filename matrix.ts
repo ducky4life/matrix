@@ -399,7 +399,19 @@ export class Matrix3 {
         return(`\\begin{pmatrix}${this.a1} & ${this.a2} & ${this.a3} \\\\ ${this.b1} & ${this.b2} & ${this.b3} \\\\ ${this.c1} & ${this.c2} & ${this.c3} \\end{pmatrix}`);
     }
     
-    displayToHTML(): string {
+    displayToHTML(detFormat: boolean = false): string {
+
+        if (detFormat) {
+            return(`
+                <div class="matrix-container matrix-container-3 matrix-det-container">
+                    <div class="matrix-3">
+                    <div class="matrix-elements">${this.a1}</div><div class="matrix-elements">${this.a2}</div><div class="matrix-elements">${this.a3}</div>
+                    <div class="matrix-elements">${this.b1}</div><div class="matrix-elements">${this.b2}</div><div class="matrix-elements">${this.b3}</div>
+                    <div class="matrix-elements">${this.c1}</div><div class="matrix-elements">${this.c2}</div><div class="matrix-elements">${this.c3}</div>
+                    </div>
+                </div>`);
+        }
+
         return(`
             <div class="matrix-container matrix-container-3">
                 <div class="matrix-3">

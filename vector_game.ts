@@ -327,7 +327,7 @@ function displayExercise() {
             <div class="mobile-column">
                 <span style="margin: 0 20px; font-size: min(20px, 3vw)">is</span>
                 ${V1.displayToFormat(!use_basis_format, true)}
-                <span style="margin: 0 20px; font-size: min(20px, 3vw)">coplanar (1) or not (0) with</span>
+                <span style="margin: 0 20px; font-size: min(20px, 3vw)">on plane (1) or not (0)</span>
                 <div id="plane-vectors">${P.displayToHTML(!use_basis_format)}</div>
             </div>
                 <span style="margin: 0 20px;">= </span>

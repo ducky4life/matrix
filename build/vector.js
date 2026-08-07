@@ -487,7 +487,7 @@ export function generateNumberExercise(exercise_type, max = 10) {
 // const AC = testVector1.getVectorTo(testVector3);
 // const V = new Vector3(4, 0, 8)
 // const AV = testVector1.getVectorTo(V);
-// const ABC = new Plane(AB, AC)
+// const ABC = new Plane(A, B, C);
 // console.log(AB.crossProduct(AC))
 // console.log(AV.angleWithPlaneInDegrees(ABC));
 // const A = new Vector3(-2, -5, 0)
@@ -497,7 +497,7 @@ export function generateNumberExercise(exercise_type, max = 10) {
 // const AB = A.getVectorTo(B);
 // const BC = B.getVectorTo(C);
 // const AD = A.getVectorTo(D);
-// const ABC = new Plane(AB, BC)
+// const ABC = new Plane(A, B, C)
 // console.log(AB.crossProduct(BC).getUnitVector())
 // console.log(AB.crossProduct(AD).getUnitVector())
 // console.log(AD.isCoplanarWith(ABC));
@@ -510,10 +510,22 @@ export function generateNumberExercise(exercise_type, max = 10) {
 // const AC = A.getVectorTo(C);
 // const AD = A.getVectorTo(D);
 // const BD = B.getVectorTo(D);
-// const ABC = new Plane(AB, AC);
+// const ABC = new Plane(A, B, C);
 // console.log(AB.crossProduct(AC).getUnitVector())
-// console.log(BD.getNormalProjectionToPlane(ABC).roundElements())
+// console.log(D.getNormalProjectionToPlane(ABC).roundElements())
 // console.log(D.getVectorToProjectionOnPlane(ABC).roundElements())
+// const A1 = new Vector3(2,1,-12);
+// const B1 = new Vector3(8,-5,12);
+// const C1 = new Vector3(-5,-4,2);
+// const D1 = new Vector3(-4,-17,12);
+// const P = new Plane(A1, B1, D1)
+// const DA = D1.getVectorTo(A1)
+// const DB = D1.getVectorTo(B1);
+// const CA = C1.getVectorTo(A1);
+// console.log(DA.crossProduct(DB))
+// console.log(DA.crossProduct(DB).getUnitVector())
+// console.log(CA.dotProduct(DA.crossProduct(DB).getUnitVector()))
+// console.log(C1.getNormalProjectionToPlane(P));
 // const A1 = new Vector3(1,-3,3);
 // const B1 = new Vector3(-2,-7,2);
 // const C1 = new Vector3(0,1,2);

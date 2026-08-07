@@ -1,7 +1,7 @@
 import { setupCalculator } from "./vector_calculator.js";
 import { setupGame } from "./vector_game.js";
 const toggle = document.getElementById('toggle_mode');
-let currMode = 'calculator';
+export let currMode = 'calculator';
 function toggleMode() {
     if (currMode == 'calculator') {
         currMode = 'game';

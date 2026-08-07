@@ -1,9 +1,10 @@
 import { AugmentedMatrix3 } from "./systems.js";
+import { Plane, Vector3 } from "./vector.js";
 import { setupCalculator } from "./vector_calculator.js";
 import { setupGame } from "./vector_game.js";
 
 const toggle = (document.getElementById('toggle_mode') as HTMLSelectElement);
-let currMode = 'calculator';
+export let currMode = 'calculator';
 
 function toggleMode() {
     

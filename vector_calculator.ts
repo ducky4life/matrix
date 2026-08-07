@@ -1,5 +1,6 @@
 import { roundNumber } from "./matrix.js";
 import { Plane, Vector3, getAnswerVector, getRandomVector3, volumeOfTetrahedron } from "./vector.js";
+import { currMode } from "./vector_switch.js";
 
 export function getInputVector(name: string): Vector3 {
     const a1 = Number((document.getElementById(`vector_${name}_a1`) as HTMLInputElement).value);
@@ -204,7 +205,7 @@ function setPlaneToggle() {
     const use_plane = (document.getElementById('use_as_plane') as HTMLInputElement).checked;
     use_as_plane = use_plane;
 
-    if (use_plane) {
+    if (use_plane && currMode == 'calculator') {
         plane_vector_input.style.display = 'flex';
     }
     else {

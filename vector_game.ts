@@ -287,8 +287,8 @@ function displayExercise() {
                     <div style="display: flex; flex-direction: column; align-items: flex-start;">
                         <div style="padding-bottom: 20px;">V: ${V1.displayToBasisComponent()}</div>
                         <div style="padding-bottom: 20px;">A: ${V2.displayToBasisComponent()}</div>
-                        <div style="padding-bottom: 20px;">B: ${P.V1.displayToBasisComponent()}</div>
-                        <div>C: ${P.V2.displayToBasisComponent()}</div>
+                        <div style="padding-bottom: 20px;">B: ${P.p1.displayToBasisComponent()}</div>
+                        <div>C: ${P.p2.displayToBasisComponent()}</div>
                     </div>
                     <span style="margin: 0 20px;">= </span>
                 </div><br>`;
@@ -301,8 +301,8 @@ function displayExercise() {
                     <span style="margin: 0 20px; font-size: min(20px, 3vw)">volume of VABC</span>
                     V: ${V1.displayToHTML()}
                     A: ${V2.displayToHTML()}
-                    B: ${P.V1.displayToHTML()}
-                    C: ${P.V2.displayToHTML()}
+                    B: ${P.p1.displayToHTML()}
+                    C: ${P.p2.displayToHTML()}
                 </div>
                     <span style="margin: 0 20px;">= </span>
                 </div><br>`;

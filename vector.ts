@@ -377,7 +377,8 @@ export class Vector3 {
 
     getNormalProjectionToPlane(P: Plane): Vector3 {
         const unitNormalVector = P.normalVector().getUnitVector();
-        const mag = this.dotProduct(unitNormalVector);
+        const vectorFromPlane = P.p1.getVectorTo(this);
+        const mag = vectorFromPlane.dotProduct(unitNormalVector);
         return unitNormalVector.scale(mag);
     }
 
@@ -389,23 +390,29 @@ export class Vector3 {
 
 export class Plane {
 
-    V1: Vector3;
-    V2: Vector3;
+    p1: Vector3;
+    p2: Vector3;
+    p3: Vector3;
 
-    constructor(V1=new Vector3(), V2=new Vector3()) {
-        this.V1 = V1;
-        this.V2 = V2;
+    constructor(p1=new Vector3(), p2=new Vector3(), p3=new Vector3()) {
+        this.p1 = p1;
+        this.p2 = p2;
+        this.p3 = p3;
     }
 
     displayToHTML(vectorHTMLFormat: boolean = true) {
         return `<div style="display: flex; align-items: center; flex-direction: column;">
             <div style="display: flex; align-items: center;">
                 <p style="padding-top: 0;">p1:</p>
-                <div style="padding-left: 10px;">${this.V1.displayToFormat(vectorHTMLFormat)}</div>
+                <div style="padding-left: 10px;">${this.p1.displayToFormat(vectorHTMLFormat)}</div>
             </div>
             <div style="display: flex; align-items: center;">
                 <p style="padding-top: 0;">p2:</p>
-                <div style="padding-left: 10px;">${this.V2.displayToFormat(vectorHTMLFormat)}</div>
+                <div style="padding-left: 10px;">${this.p2.displayToFormat(vectorHTMLFormat)}</div>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <p style="padding-top: 0;">p3:</p>
+                <div style="padding-left: 10px;">${this.p3.displayToFormat(vectorHTMLFormat)}</div>
             </div>
         </div>`;
     }
@@ -418,7 +425,12 @@ export class Plane {
     }
 
     normalVector(): Vector3 {
-        return this.V1.crossProduct(this.V2);
+        const p1 = this.p1;
+        const p2 = this.p2;
+        const p3 = this.p3;
+        const V1 = p1.getVectorTo(p2);
+        const V2 = p1.getVectorTo(p3);
+        return V1.crossProduct(V2);
     }
 }
 
@@ -494,14 +506,20 @@ export function getRandomVector3(max: number = 10) {
 
 export function getRandomPlane(max: number = 10) {
     
-    const V1 = getRandomVector3(max);
-    let V2 = getRandomVector3(max);
+    let p1 = getRandomVector3(max);
+    let p2 = getRandomVector3(max);
+    let p3 = getRandomVector3(max);
+
+    let V1 = p1.getVectorTo(p2);
+    let V2 = p1.getVectorTo(p3);
 
     while (V1.isParallel(V2)) {
-        V2 = getRandomVector3(max);
+        p1 = getRandomVector3(max);
+        V1 = p1.getVectorTo(p2);
+        V2 = p1.getVectorTo(p3);
     }
 
-    return new Plane(V1, V2);
+    return new Plane(p1, p2, p3);
 }
 
 export function getAnswerVector(V1: Vector3, V2: Vector3, operation: number, P: Plane = new Plane()): Vector3 {
@@ -547,7 +565,7 @@ export function getAnswerNumber(V1: Vector3, V2: Vector3, operation: number, P: 
             return V1.projectionMagnitude(V2);
 
         case 9:
-            return volumeOfTetrahedron(V1, V2, P.V1, P.V2);
+            return volumeOfTetrahedron(V1, V2, P.p1, P.p2);
 
         case 10:
             return V1.angleWithPlaneInDegrees(P);
@@ -560,32 +578,23 @@ export function getAnswerNumber(V1: Vector3, V2: Vector3, operation: number, P: 
     }
 }
 
-export function volumeOfIncludedTetrahedron(V1: Vector3, V2: Vector3, V3: Vector3): number {
-    const VA = V1;
-    const VB = V2;
-    const VC = V3;
-    const VBC = new Plane(VB, VC);
-
-    const triangleArea = 0.5*VB.crossProduct(VC).magnitude();
-    const height = VA.getNormalProjectionToPlane(VBC).magnitude();
-
-    console.log(triangleArea)
-    console.log(height)
-
-    return height*triangleArea/3;
-}
-
 export function volumeOfTetrahedron(V1: Vector3, V2: Vector3, V3: Vector3, V4: Vector3): number {
     const V = V1;
     const A = V2;
     const B = V3;
     const C = V4;
 
-    const VA = V.getVectorTo(A)
-    const VB = V.getVectorTo(B)
-    const VC = V.getVectorTo(C)
+    const ABC = new Plane(A, B, C);
+    const AB = A.getVectorTo(B);
+    const AC = A.getVectorTo(C);
 
-    return volumeOfIncludedTetrahedron(VA, VB, VC);
+    const triangleArea = 0.5*AB.crossProduct(AC).magnitude();
+    const height = V.getNormalProjectionToPlane(ABC).magnitude();
+
+    console.log(triangleArea)
+    console.log(height)
+
+    return height*triangleArea/3;
 }
 
 export function generateVectorExercise(exercise_type: number, max: number = 10) {
@@ -675,8 +684,8 @@ export function generateNumberExercise(exercise_type: number, max: number = 10) 
 // console.log(BD.getNormalProjectionToPlane(ABC).roundElements())
 // console.log(D.getVectorToProjectionOnPlane(ABC).roundElements())
 
-// const A1 = new Vector3(3, -4, 5);
-// const B1 = new Vector3(5, -8, -7);
-// const C1 = new Vector3(7, 0, -1);
-// const V1 = new Vector3(24, -13, 2);
+// const A1 = new Vector3(1,-3,3);
+// const B1 = new Vector3(-2,-7,2);
+// const C1 = new Vector3(0,1,2);
+// const V1 = new Vector3(10,8,-4);
 // console.log(volumeOfTetrahedron(V1, A1, B1, C1));

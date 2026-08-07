@@ -58,7 +58,7 @@ function getPropertyValue(V, property_id, V2, P = new Plane()) {
         case -5:
             return V.getVectorToProjectionOnPlane(P).roundElements().displayToFormat(!use_basis_format);
         case -6:
-            return roundNumber(volumeOfTetrahedron(V, V2, P.V1, P.V2));
+            return roundNumber(volumeOfTetrahedron(V, V2, P.p1, P.p2));
         default:
             return V.magnitude();
     }
@@ -99,9 +99,9 @@ export function setInputEventListener() {
         'vector_m1_a1', 'vector_m2_a1',
         'vector_m1_b1', 'vector_m2_b1',
         'vector_m1_c1', 'vector_m2_c1',
-        'vector_p1_a1', 'vector_p2_a1',
-        'vector_p1_b1', 'vector_p2_b1',
-        'vector_p1_c1', 'vector_p2_c1',
+        'vector_p1_a1', 'vector_p2_a1', 'vector_p3_a1',
+        'vector_p1_b1', 'vector_p2_b1', 'vector_p3_a1',
+        'vector_p1_c1', 'vector_p2_c1', 'vector_p3_a1',
         'm1_property', 'm2_property',
         'operation', 'use_basis_format',
         'use_as_plane', 'plane_property',
@@ -140,6 +140,8 @@ export function setBasisToggle() {
         p1_box.classList.remove('matrix-container');
         p2_box.classList.remove('vector-container');
         p2_box.classList.remove('matrix-container');
+        p3_box.classList.remove('vector-container');
+        p3_box.classList.remove('matrix-container');
     }
     else {
         m1_box.classList.add('vector-container');
@@ -150,6 +152,8 @@ export function setBasisToggle() {
         p1_box.classList.add('matrix-container');
         p2_box.classList.add('vector-container');
         p2_box.classList.add('matrix-container');
+        p3_box.classList.add('vector-container');
+        p3_box.classList.add('matrix-container');
     }
     m1_box.innerHTML = getInputVectorHTML('m1');
     m2_box.innerHTML = getInputVectorHTML('m2');
@@ -166,6 +170,7 @@ function setPlaneToggle() {
     }
     p1_box.innerHTML = getInputVectorHTML('p1');
     p2_box.innerHTML = getInputVectorHTML('p2');
+    p3_box.innerHTML = getInputVectorHTML('p3');
 }
 function clearInput(name) {
     document.getElementById(`vector_${name}_a1`).value = '';
@@ -180,8 +185,10 @@ function randomiseInput() {
     if (use_as_plane) {
         const P1 = getRandomVector3();
         const P2 = getRandomVector3();
+        const P3 = getRandomVector3();
         setInputFromVector3('p1', P1);
         setInputFromVector3('p2', P2);
+        setInputFromVector3('p3', P3);
     }
     displayOutput();
 }
@@ -222,8 +229,9 @@ function displayOutput() {
     if (use_as_plane) {
         const P1 = getInputVector('p1');
         const P2 = getInputVector('p2');
+        const P3 = getInputVector('p3');
         const plane_prop = getInputProperty('plane');
-        const inputPlane = new Plane(P1, P2);
+        const inputPlane = new Plane(P1, P2, P3);
         const plane_property_output = getPropertyValue(M1, plane_prop, M2, inputPlane);
         const plane_property_name = getPropertyName(plane_prop);
         output.innerHTML += `
@@ -241,6 +249,7 @@ const m1_box = document.getElementById('m1_box');
 const m2_box = document.getElementById('m2_box');
 const p1_box = document.getElementById('p1_box');
 const p2_box = document.getElementById('p2_box');
+const p3_box = document.getElementById('p3_box');
 const exercise_box = document.getElementById('exercise');
 const plane_vector_input = document.getElementById('plane-vector-input');
 export function setupCalculator() {

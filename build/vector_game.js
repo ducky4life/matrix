@@ -129,6 +129,7 @@ const m2_property = document.getElementById('m2_property');
 const exercise_type_box = document.getElementById('exercise_type_box');
 const plane_vector_input = document.getElementById('plane-vector-input');
 let exercise_type = 1;
+let exercise_id = 0;
 const vectorOperationArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]; // 9: volume of tetrahedron needs 4 vectors
 const planeOperationArray = [10, 11, 12, 13];
 const vectorOutputArray = [0, 1, 3, 5, 7, 12, 13];
@@ -139,6 +140,8 @@ function displayExercise() {
         max_element = 10;
     }
     let finished = false;
+    exercise_id++;
+    let curr_exercise_id = exercise_id;
     let exercise = {};
     if (vectorOutputArray.includes(exercise_type)) {
         exercise = generateVectorExercise(exercise_type, max_element);
@@ -316,7 +319,11 @@ function displayExercise() {
     }
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
-        if (vectorOutputArray.includes(exercise_type)) {
+        console.log(exercise_id, curr_exercise_id);
+        if (exercise_id != curr_exercise_id) {
+            return;
+        }
+        else if (vectorOutputArray.includes(exercise_type)) {
             if (checkVectorAnswer(answer) && !finished) {
                 incrementScore();
                 finished = true;

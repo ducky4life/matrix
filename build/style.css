@@ -467,6 +467,9 @@ math, mfrac, mn {
   display: flex;
   justify-content: center;
 }
+.vector-basis-padding {
+  padding-left: 0.3vw;
+}
 .matrix-3 {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -627,6 +630,7 @@ mn input, .vector-basis input, .vector-basis[id$="number"] {
 
   .vector-basis div {
     padding-bottom: 0.3vh;
+    padding-left: 0;
   }
 
   [id="plane-vector-input"] {

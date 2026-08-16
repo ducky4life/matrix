@@ -29,8 +29,8 @@ export function getInputVectorHTML(name: string, basis: boolean = use_basis_form
     if (basis) {
         return `<div class="vector-basis">
                 <div style="font-size: inherit;"><input id="vector_${name}_a1"></input> i + </div>
-                <div style="padding-left: 0.3vw; font-size: inherit;"><input id="vector_${name}_b1"></input> j + </div>
-                <div style="padding-left: 0.3vw; font-size: inherit;"><input id="vector_${name}_c1"></input> k</div>
+                <div style="font-size: inherit;" class="vector-basis-padding"><input id="vector_${name}_b1"></input> j + </div>
+                <div style="font-size: inherit;" class="vector-basis-padding"><input id="vector_${name}_c1"></input> k</div>
             </div>`;
     }
 
@@ -181,6 +181,7 @@ export function setBasisToggle() {
         p2_box.classList.remove('matrix-container');
         p3_box.classList.remove('vector-container');
         p3_box.classList.remove('matrix-container');
+        plane_vector_box.style.flexDirection = 'column';
     }
     else {
         m1_box.classList.add('vector-container');
@@ -193,6 +194,7 @@ export function setBasisToggle() {
         p2_box.classList.add('matrix-container');
         p3_box.classList.add('vector-container');
         p3_box.classList.add('matrix-container');
+        plane_vector_box.style.flexDirection = 'row';
     }
 
     m1_box.innerHTML = getInputVectorHTML('m1');
@@ -315,6 +317,7 @@ const p2_box = document.getElementById('p2_box')!;
 const p3_box = document.getElementById('p3_box')!;
 const exercise_box = document.getElementById('exercise')!;
 const plane_vector_input = document.getElementById('plane-vector-input')!;
+const plane_vector_box = document.getElementById('plane-vector-box')!;
 
 export function setupCalculator() {
     

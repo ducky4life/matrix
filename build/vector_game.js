@@ -319,11 +319,10 @@ function displayExercise() {
     }
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
-        console.log(exercise_id, curr_exercise_id);
-        if (exercise_id != curr_exercise_id) {
+        if (exercise_id != curr_exercise_id) { // only add score for current exercise
             return;
         }
-        else if (vectorOutputArray.includes(exercise_type)) {
+        if (vectorOutputArray.includes(exercise_type)) {
             if (checkVectorAnswer(answer) && !finished) {
                 incrementScore();
                 finished = true;

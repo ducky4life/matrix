@@ -341,10 +341,6 @@ export class Plane {
 export function getCoeff(num, with_sign = false, with_space = true) {
     let coeff = Math.abs(num).toString();
     let sign = "-";
-    let space = " ";
-    if (!with_space) {
-        space = "";
-    }
     if (num >= 0 && with_sign) {
         sign = "+";
     }
@@ -353,6 +349,10 @@ export function getCoeff(num, with_sign = false, with_space = true) {
     }
     if (Math.abs(num) == 1) {
         coeff = "";
+    }
+    let space = " ";
+    if (!with_space || num >= 0) {
+        space = "";
     }
     return sign + space + coeff;
 }

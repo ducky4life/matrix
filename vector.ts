@@ -439,11 +439,6 @@ export function getCoeff(num: number, with_sign: boolean = false, with_space: bo
     let coeff = Math.abs(num).toString();
     let sign = "-";
 
-    let space = " ";
-    if (!with_space) {
-        space = "";
-    }
-
     if (num >= 0 && with_sign) {
         sign = "+";
     }
@@ -453,6 +448,11 @@ export function getCoeff(num: number, with_sign: boolean = false, with_space: bo
 
     if (Math.abs(num) == 1) {
         coeff = "";
+    }
+
+    let space = " ";
+    if (!with_space || num>=0) {
+        space = "";
     }
 
     return sign+space+coeff;

@@ -451,7 +451,7 @@ export function getCoeff(num: number, with_sign: boolean = false, with_space: bo
     }
 
     let space = " ";
-    if (!with_space || num>=0) {
+    if (!with_space || (num>=0 && !with_sign)) {
         space = "";
     }
 

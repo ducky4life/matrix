@@ -1,4 +1,5 @@
 import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
+import { getColumnName, getRandomNumber, getRandomNumberFromArray, getRowName, roundNumber } from "./utils.js";
 import { Vector2, Vector3 } from "./vector.js";
 export class Matrix2 {
     constructor(a = 0, b = 0, c = 0, d = 0) {
@@ -460,13 +461,6 @@ export function simplifyEigenvector(eigenvector) {
     }
     return new Vector2(a, b);
 }
-export function safeToFixed(num, digits = 3) {
-    const sciNotation = Number(num.toString() + 'e' + digits);
-    return Number(Math.round(sciNotation) + 'e-' + digits);
-}
-export function roundNumber(num, digits = 3) {
-    return safeToFixed(num, digits);
-}
 export function scalarToMatrix2(scalar) {
     return new Matrix2(scalar, 0, 0, scalar);
 }
@@ -486,32 +480,6 @@ export function arrayToMatrix3(A) {
     }
     console.log("length of array is not 9");
     return new Matrix3();
-}
-export function getRowName(row) {
-    switch (row) {
-        case 1:
-            return "a";
-        case 2:
-            return "b";
-        case 3:
-            return "c";
-        default:
-            return "a";
-    }
-}
-export function getColumnName(column) {
-    return column.toString();
-}
-export function getRandomNumberFromArray(inputArray) {
-    const randomIndex = Math.floor(Math.random() * inputArray.length);
-    return inputArray[randomIndex];
-}
-export function getRandomSign() {
-    return getRandomNumberFromArray([-1, 1]);
-}
-export function getRandomNumber(max = 10) {
-    max = max + 1;
-    return getRandomSign() * Math.floor(Math.random() * max);
 }
 export function getRandomMatrix2(max = 10) {
     const a = getRandomNumber(max);

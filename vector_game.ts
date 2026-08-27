@@ -1,6 +1,6 @@
-import { getRandomNumberFromArray, roundNumber } from "./matrix.js";
 import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
-import { generateNumberExercise, generateVectorExercise, numberRoughlyEquals, Plane, Vector3 } from "./vector.js";
+import { getRandomNumberFromArray, numberRoughlyEquals } from "./utils.js";
+import { generateNumberExercise, generateVectorExercise, Plane, Vector3 } from "./vector.js";
 import { getInputVector, setBasisToggle, use_basis_format } from "./vector_calculator.js";
 
 function setNumberInputEventListener() {

@@ -1,6 +1,6 @@
-import { generateMatrixExercise, getRandomNumberFromArray, generateNumberExercise } from "./matrix.js";
+import { generateMatrixExercise, generateNumberExercise } from "./matrix.js";
 import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3, getInputNumber, setInputBoxColor, incrementScore, clearInputBoxColor, setScore } from "./matrix_web.js";
-import { numberRoughlyEquals } from "./vector.js";
+import { getRandomNumberFromArray, numberRoughlyEquals } from "./utils.js";
 function setInputEventListener() {
     let inputElementIds = [];
     switch (curr_dimension) {

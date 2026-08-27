@@ -1,7 +1,7 @@
 import { Frac } from "./frac_matrix.js";
-import { getRandomNumberFromArray } from "./matrix.js";
 import { clearInputBoxColor, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
 import { AugmentedMatrix3, generateInfiniteSolutionsExercise, generateUniqueSolutionExercise, getRandomAugmentedMatrix3 } from "./systems.js";
+import { getRandomNumberFromArray } from "./utils.js";
 
 function getInputFracHTML(name: string) {
     return `<div style="display: flex; align-items: center; margin: 0 1vw;">

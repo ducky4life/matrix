@@ -1,4 +1,5 @@
-import { getRandomNumber, Matrix2, Matrix3, roundNumber } from "./matrix.js";
+import { Matrix2, Matrix3 } from "./matrix.js";
+import { getCoeff, getRandomNumber, numberRoughlyEquals, roundNumber } from "./utils.js";
 
 export class Vector2 {
     // a1
@@ -432,34 +433,6 @@ export class Plane {
         const V2 = p1.getVectorTo(p3);
         return V1.crossProduct(V2);
     }
-}
-
-export function getCoeff(num: number, with_sign: boolean = false, with_space: boolean = true): string {
-
-    let coeff = Math.abs(num).toString();
-    let sign = "-";
-
-    if (num >= 0 && with_sign) {
-        sign = "+";
-    }
-    else if (num >= 0) {
-        sign = "";
-    }
-
-    if (Math.abs(num) == 1) {
-        coeff = "";
-    }
-
-    let space = " ";
-    if (!with_space || (num>=0 && !with_sign)) {
-        space = "";
-    }
-
-    return sign+space+coeff;
-}
-
-export function numberRoughlyEquals(num1: number, num2: number, digits: number = 2) {
-    return roundNumber(num1, digits) == roundNumber(num2, digits);
 }
 
 export function vectorToMatrix2(V1: Vector2, V2: Vector2) {

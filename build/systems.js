@@ -1,6 +1,7 @@
 import { Frac, getMatrixFracHTML, numberToFrac } from "./frac_matrix.js";
-import { Matrix3, getRowName, getColumnName, getRandomMatrix3, getRandomNumber } from "./matrix.js";
-import { getCoeff, Vector3, vectorToMatrix3 } from "./vector.js";
+import { Matrix3, getRandomMatrix3 } from "./matrix.js";
+import { commonHCF, getCoeff, getColumnName, getRandomNumber, getRowName, LCM } from "./utils.js";
+import { Vector3, vectorToMatrix3 } from "./vector.js";
 export class AugmentedRow3 {
     constructor(a1 = 0, a2 = 0, a3 = 0, a4 = 0) {
         this.a1 = a1;
@@ -496,28 +497,6 @@ export class AugmentedMatrix3 {
     gaussianElimination() {
         return this.firstGaussianElimination().secondGaussianElimination();
     }
-}
-export function HCF(num1, num2) {
-    if (num2 == 0) {
-        return num1;
-    }
-    return HCF(num2, num1 % num2);
-}
-export function LCM(num1, num2) {
-    if (num1 != 0 && num2 != 0) {
-        return Math.abs(Math.abs(num1 * num2) / HCF(num1, num2));
-    }
-    return 0;
-}
-export function commonHCF(numArray) {
-    let hcf = numArray[0];
-    for (let i = 1; i < numArray.length; i++) {
-        hcf = HCF(hcf, numArray[i]);
-        if (hcf == 1) {
-            return 1;
-        }
-    }
-    return Math.abs(hcf);
 }
 export function getRandomAugmentedMatrix3(max = 10, ensure_unique_solution = false) {
     let coefficientMatrix = getRandomMatrix3(max);

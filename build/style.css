@@ -479,6 +479,7 @@ math, mfrac, mn {
 }
 .augmented-matrix-3 {
     grid-template-columns: auto auto auto auto auto;
+    align-items: center;
 }
 
 .matrix-2 input, .matrix-3 input, .vector input, [id$="_number"], .num-input {

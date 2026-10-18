@@ -94,15 +94,26 @@ function getPropertyName(property_id) {
             return "magnitude";
     }
 }
+export function setPlaneVectorsEventListener() {
+    let inputElementIds = [];
+    inputElementIds = [
+        'vector_p1_a1', 'vector_p2_a1', 'vector_p3_a1',
+        'vector_p1_b1', 'vector_p2_b1', 'vector_p3_b1',
+        'vector_p1_c1', 'vector_p2_c1', 'vector_p3_c1',
+    ];
+    inputElementIds.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.addEventListener('input', () => displayOutput());
+        }
+    });
+}
 export function setInputEventListener() {
     let inputElementIds = [];
     inputElementIds = [
         'vector_m1_a1', 'vector_m2_a1',
         'vector_m1_b1', 'vector_m2_b1',
         'vector_m1_c1', 'vector_m2_c1',
-        'vector_p1_a1', 'vector_p2_a1', 'vector_p3_a1',
-        'vector_p1_b1', 'vector_p2_b1', 'vector_p3_a1',
-        'vector_p1_c1', 'vector_p2_c1', 'vector_p3_a1',
         'm1_property', 'm2_property',
         'operation', 'use_basis_format',
         'use_as_plane', 'plane_property',
@@ -113,6 +124,7 @@ export function setInputEventListener() {
             element.addEventListener('input', () => displayOutput());
         }
     });
+    setPlaneVectorsEventListener();
 }
 function setBasisToggleEventListener() {
     const operationElement = document.getElementById('use_basis_format');
@@ -174,6 +186,7 @@ function setPlaneToggle() {
     p1_box.innerHTML = getInputVectorHTML('p1');
     p2_box.innerHTML = getInputVectorHTML('p2');
     p3_box.innerHTML = getInputVectorHTML('p3');
+    setPlaneVectorsEventListener();
 }
 function clearInput(name) {
     document.getElementById(`vector_${name}_a1`).value = '';
@@ -261,6 +274,9 @@ export function setupCalculator() {
     document.querySelector('#clear').addEventListener('click', () => {
         clearInput('m1');
         clearInput('m2');
+        clearInput('p1');
+        clearInput('p2');
+        clearInput('p3');
     });
     const output_box = document.getElementById('output-div');
     const operation_box = document.getElementById('operation_box');

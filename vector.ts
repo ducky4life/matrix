@@ -373,7 +373,8 @@ export class Vector3 {
 
     isCoplanarWith(P: Plane): boolean {
         const normalVector = P.normalVector();
-        return (this.isPerpendicularTo(normalVector));
+        const vectorFromPlane = P.p1.getVectorTo(this);
+        return (vectorFromPlane.isPerpendicularTo(normalVector));
     }
 
     getNormalProjectionToPlane(P: Plane): Vector3 {

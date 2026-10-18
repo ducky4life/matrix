@@ -94,7 +94,12 @@ function getPropertyValue(M: Matrix2 | Matrix3, property_id: number, row: number
             switch (property_id) {
                 case -1:
                     if (M.numberOfEigenvalues() > 0) {
-                        return eigenvaluesToString(M.eigenvalues());
+                        // return eigenvaluesToString(M.eigenvalues());
+                        let output: string = "";
+                        M.eigenvaluesInSurdForm().forEach((eigenvalue) => {
+                            output = output + eigenvalue.displayToHTML();
+                        });
+                        return output;
                     }
                     return "no eigenvalues";
                 case -2:

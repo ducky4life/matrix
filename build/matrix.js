@@ -1,6 +1,7 @@
 import { Frac, FracMatrix2, FracMatrix3, numberToFrac, scalarToFracMatrix2, scalarToFracMatrix3 } from "./frac_matrix.js";
 import { getColumnName, getRandomNumber, getRandomNumberFromArray, getRowName, roundNumber } from "./utils.js";
 import { Vector2, Vector3 } from "./vector.js";
+import { Surd } from "./surds.js";
 export class Matrix2 {
     constructor(a = 0, b = 0, c = 0, d = 0) {
         this.a1 = a;
@@ -143,6 +144,23 @@ export class Matrix2 {
             ];
         }
         return eigenvalueArray;
+    }
+    eigenvaluesInSurdForm() {
+        const discriminant = (this.a1 + this.b2) * (this.a1 + this.b2) - 4 * (this.determinant());
+        if (discriminant >= 0) {
+            let rational = (this.a1 + this.b2);
+            let sqrt = discriminant;
+            let denominator = 2;
+            if (sqrt % 4 == 0 && Math.abs(rational) % 2 == 0) {
+                rational = rational / 2;
+                sqrt = sqrt / 4;
+                denominator = 1;
+            }
+            const S1 = new Surd(rational, sqrt, denominator);
+            const S2 = new Surd(rational, -sqrt, denominator);
+            return [S1, S2];
+        }
+        return [];
     }
     eigenvectors(round_elements = true) {
         const eigenvaluesArray = this.eigenvalues();

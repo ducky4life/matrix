@@ -1,4 +1,4 @@
-import { Matrix2, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvaluesToString, eigenvectorsToString } from "./matrix.js";
+import { Matrix2, getRandomMatrix2, getRandomMatrix3, getAnswerMatrix, eigenvectorsToString } from "./matrix.js";
 import { getMatrixHTML, clearInput, getInputMatrix2, getInputMatrix3 } from "./matrix_web.js";
 function getInputRow(name) {
     const row = Number(document.getElementById(`${name}_row`).value);
@@ -71,7 +71,12 @@ function getPropertyValue(M, property_id, row, column, power) {
             switch (property_id) {
                 case -1:
                     if (M.numberOfEigenvalues() > 0) {
-                        return eigenvaluesToString(M.eigenvalues());
+                        // return eigenvaluesToString(M.eigenvalues());
+                        let output = "";
+                        M.eigenvaluesInSurdForm().forEach((eigenvalue) => {
+                            output = output + eigenvalue.displayToHTML();
+                        });
+                        return output;
                     }
                     return "no eigenvalues";
                 case -2:

@@ -43,7 +43,6 @@ export class Surd {
         let rational_part = this.rational;
         let denom = this.denominator;
         // simplify surd
-        console.log(surd_part);
         if (isSquareNumber(surd_part)) {
             surd_part = 0;
             coeff = coeff * Math.sqrt(surd_part);
@@ -56,7 +55,6 @@ export class Surd {
                     break;
                 }
             }
-            console.log(this.rational, coeff, this.denominator);
             // simplify denominator
             let cHCF = commonHCF([this.rational, coeff, this.denominator]);
             if (cHCF != 1) {

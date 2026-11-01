@@ -120,7 +120,7 @@ function displayOutput() {
         solutionArray.forEach((solution) => {
             const fractionArray = solution.split('/');
             const solutionTextFrac = new TextFrac(fractionArray[0], fractionArray[1]);
-            formattedSolutionArray.push(solutionTextFrac.displayToHTML());
+            formattedSolutionArray.push(solutionTextFrac.displayToHTML(false, false));
         });
         solutionText = `The solution set is {(${formattedSolutionArray[0]}, ${formattedSolutionArray[1]}, ${formattedSolutionArray[2]}) : t&isin;&reals;}`;
         console.log(solutionText);

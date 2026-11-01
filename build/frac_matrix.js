@@ -95,7 +95,11 @@ export class TextFrac {
     displayToString() {
         return `${this.a}/${this.b}`;
     }
-    displayToHTML(matrixInput = false) {
+    displayToHTML(matrixInput = false, padding_right = true) {
+        let padding = " padding-right: 1vw;";
+        if (!padding_right) {
+            padding = "";
+        }
         if (this.a == '0') {
             return `0`;
         }
@@ -103,13 +107,13 @@ export class TextFrac {
             return this.a.toString();
         }
         if (matrixInput) {
-            return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;" class="matrix-frac">
+            return `<math style="font-size: 3.5vh;${padding} margin-top: 1vh;" class="matrix-frac">
                 <mfrac>
                 <mn>${this.a}</mn>
                 <mn>${this.b}</mfrac>
             </math>`;
         }
-        return `<math style="font-size: 3.5vh; padding-right: 1vw; margin-top: 1vh;">
+        return `<math style="font-size: 3.5vh;${padding} margin-top: 1vh;">
             <mfrac>
             <mn>${this.a}</mn>
             <mn>${this.b}</mfrac>

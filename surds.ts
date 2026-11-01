@@ -48,7 +48,7 @@ export class Surd {
             let F = new Frac(this.rational, this.denominator).simplify();
             return F.displayToHTML();
         }
-        
+
         let T: TextFrac = new TextFrac(this.displayNumeratorToString(), this.denominator.toString());
         return T.displayToHTML();
     }
@@ -61,7 +61,6 @@ export class Surd {
 
         // simplify surd
 
-        console.log(surd_part)
         if (isSquareNumber(surd_part)) {
             surd_part = 0;
             coeff = coeff * Math.sqrt(surd_part);
@@ -75,7 +74,6 @@ export class Surd {
                 }
             }
 
-            console.log(this.rational, coeff, this.denominator);
             // simplify denominator
             let cHCF = commonHCF([this.rational, coeff, this.denominator]);
             if (cHCF != 1) {

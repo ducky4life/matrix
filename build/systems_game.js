@@ -213,6 +213,12 @@ function displayExercise() {
     exercise_box.innerHTML = M1.displayToHTML();
     const solution_frac_input = getInputHTML();
     m1_number.innerHTML = solution_frac_input;
+    if (exercise_type == 2) {
+        determine_sol_inst.classList.remove("gone");
+    }
+    else {
+        determine_sol_inst.classList.add("gone");
+    }
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
         if (exercise_type == 0) {
@@ -246,6 +252,7 @@ const scoreElement = (document.getElementById('score-div'));
 const exercise_type_box = document.getElementById('exercise_type_box');
 const max_element_box = document.getElementById('max_element_box');
 const solution_amount_box = document.getElementById('solution_amount_box');
+const determine_sol_inst = document.getElementById("determine-solutions-instructions");
 let exercise_type = 1;
 export function setupGame() {
     document.querySelector('#clear').addEventListener('click', () => {

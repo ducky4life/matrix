@@ -1,6 +1,6 @@
 import { Frac, getMatrixFracHTML, numberToFrac } from "./frac_matrix.js";
 import { Matrix2, Matrix3, getRandomMatrix3 } from "./matrix.js";
-import { commonHCF, getCoeff, getColumnName, getRandomNumber, getRowName, LCM } from "./utils.js";
+import { commonHCF, getCoeff, getColumnName, getRandomNumber, getRandomNumberFromArray, getRowName, LCM } from "./utils.js";
 import { Vector3, vectorToMatrix3 } from "./vector.js";
 
 export class AugmentedRow3 {
@@ -802,8 +802,9 @@ export function generateInfiniteSolutionsExercise(max: number = 10) {
 export function generateDetermineSolutionExercise(max: number = 10) {
 
     let M1 = getRandomAugmentedMatrix3(max);
+    let num = getRandomNumberFromArray([0, 1, 2]);
 
-    while (M1.hasZeroRow()) {
+    while (M1.hasZeroRow() || M1.numberOfSolutions() != num) {
         M1 = getRandomAugmentedMatrix3(max);
     }
 

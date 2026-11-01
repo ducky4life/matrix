@@ -143,6 +143,7 @@ export function setupCalculator() {
     const exercise_type_box = document.getElementById('exercise_type_box');
     const max_element_box = document.getElementById('max_element_box');
     const solution_amount_box = document.getElementById('solution_amount_box');
+    const determine_sol_inst = document.getElementById("determine-solutions-instructions");
     m1_box.innerHTML = getInputAugmentedMatrixHTML('m1');
     m1_box.classList.remove('gone');
     m1_number.classList.add('gone');
@@ -157,6 +158,7 @@ export function setupCalculator() {
     exercise_type_box.classList.add('gone');
     max_element_box.classList.add('gone');
     solution_amount_box.classList.remove('gone');
+    determine_sol_inst.classList.add('gone');
     setInputEventListener();
     setSolutionAmountEventListener();
 }

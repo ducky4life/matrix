@@ -72,10 +72,11 @@ function getPropertyValue(M, property_id, row, column, power) {
                 case -1:
                     if (M.numberOfEigenvalues() > 0) {
                         // return eigenvaluesToString(M.eigenvalues());
-                        let output = "";
+                        let eigenValueStrings = [];
                         M.eigenvaluesInSurdForm().forEach((eigenvalue) => {
-                            output = output + eigenvalue.displayToHTML();
+                            eigenValueStrings.push(eigenvalue.displayToHTML());
                         });
+                        let output = eigenValueStrings.join(", ");
                         return output;
                     }
                     return "no eigenvalues";
@@ -276,10 +277,10 @@ function displayOutput(matrix_dimension = 2) {
             </div><br>`;
     output.innerHTML += `
             <div style="justify-content: center;">
-                <p style="justify-content: center; display: flex; padding-top: 0;">
+                <p style="justify-content: center; display: flex; align-items: center; padding-top: 0;">
                     ${m1_property_name} of M1: ${m1_property_output}
                 </p>
-                <p style="justify-content: center; display: flex; padding-top: 0;">
+                <p style="justify-content: center; display: flex; align-items: center; padding-top: 0;">
                     ${m2_property_name} of M2: ${m2_property_output}
                 </p>
             </div>

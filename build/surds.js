@@ -15,14 +15,26 @@ export class Surd {
         return (this.rational + this.getSurdSign() * Math.sqrt(this.getInsideSurd())) / this.denominator;
     }
     displayNumeratorToString() {
+        let rational_part = this.rational.toString();
         let surd_part = "";
-        if (this.sqrt > 0) {
-            surd_part = " + &#8730;" + this.getInsideSurd();
+        if (this.rational == 0) {
+            rational_part = "";
+            if (this.sqrt > 0) {
+                surd_part = "&#8730;" + this.getInsideSurd();
+            }
+            else if (this.sqrt < 0) {
+                surd_part = "-&#8730;" + this.getInsideSurd();
+            }
         }
-        else if (this.sqrt < 0) {
-            surd_part = " - &#8730;" + this.getInsideSurd();
+        else {
+            if (this.sqrt > 0) {
+                surd_part = " + &#8730;" + this.getInsideSurd();
+            }
+            else if (this.sqrt < 0) {
+                surd_part = " - &#8730;" + this.getInsideSurd();
+            }
         }
-        return `${this.rational}${surd_part}`;
+        return `${rational_part}${surd_part}`;
     }
     displaySurdPartToHTML() {
         return `<math>

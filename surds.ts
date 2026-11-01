@@ -26,16 +26,31 @@ export class Surd {
     }
 
     displayNumeratorToString(): string {
+        let rational_part: string = this.rational.toString();
         let surd_part: string = "";
 
-        if (this.sqrt > 0) {
-            surd_part = " + &#8730;" + this.getInsideSurd();
-        }
-        else if (this.sqrt < 0) {
-            surd_part = " - &#8730;" + this.getInsideSurd();
+        if (this.rational == 0) {
+            rational_part = "";
+
+            if (this.sqrt > 0) {
+                surd_part = "&#8730;" + this.getInsideSurd();
+            }
+            else if (this.sqrt < 0) {
+                surd_part = "-&#8730;" + this.getInsideSurd();
+            }
         }
 
-        return `${this.rational}${surd_part}`;
+        else {
+            if (this.sqrt > 0) {
+                surd_part = " + &#8730;" + this.getInsideSurd();
+            }
+            else if (this.sqrt < 0) {
+                surd_part = " - &#8730;" + this.getInsideSurd();
+            }
+        }
+
+
+        return `${rational_part}${surd_part}`;
     }
 
     displaySurdPartToHTML(): string {

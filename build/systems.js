@@ -564,13 +564,25 @@ export function generateUniqueSolutionExercise(max = 10) {
 }
 export function generateInfiniteSolutionsExercise(max = 10) {
     let M1 = getRandomAugmentedMatrix3(max);
-    while (!M1.hasInfiniteSolutions()) {
+    while (!M1.hasInfiniteSolutions() || M1.hasZeroRow()) {
         M1 = getRandomAugmentedMatrix3(max);
     }
     const answerArray = M1.getSolutionCoeffSetByBackSubstitution();
     const generated_exercise = {
         M1: M1,
         answer: answerArray
+    };
+    return generated_exercise;
+}
+export function generateDetermineSolutionExercise(max = 10) {
+    let M1 = getRandomAugmentedMatrix3(max);
+    while (M1.hasZeroRow()) {
+        M1 = getRandomAugmentedMatrix3(max);
+    }
+    const answer = M1.numberOfSolutions();
+    const generated_exercise = {
+        M1: M1,
+        answer: answer
     };
     return generated_exercise;
 }

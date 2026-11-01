@@ -1,6 +1,6 @@
 import { Frac } from "./frac_matrix.js";
-import { clearInputBoxColor, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
-import { AugmentedMatrix3, generateInfiniteSolutionsExercise, generateUniqueSolutionExercise, getRandomAugmentedMatrix3 } from "./systems.js";
+import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
+import { AugmentedMatrix3, generateDetermineSolutionExercise, generateInfiniteSolutionsExercise, generateUniqueSolutionExercise, getRandomAugmentedMatrix3 } from "./systems.js";
 import { getRandomNumberFromArray } from "./utils.js";
 
 function getInputFracHTML(name: string) {
@@ -27,6 +27,10 @@ function getInputBackSubFracHTML(name: string) {
     </div>`;
 }
 
+function getInputNumberHTML(name: string) {
+    return `<div><input id="${name}_number"></input></div>`;
+}
+
 function getInputHTML() {
 
     if (exercise_type == 0) {
@@ -35,8 +39,9 @@ function getInputHTML() {
     else if (exercise_type == 1) {
         return (getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z'));
     }
-
-    return "";
+    else {
+        return getInputNumberHTML('m1');
+    }
 }
 
 function clearInput(name: string, exercise_type: number) {
@@ -160,6 +165,27 @@ function checkBackSubFracAnswer(answer_array: Array<Record<string, Frac>>) {
     return all_correct;
 }
 
+function checkSolutionNoOfAnswer(answer: number) {
+    let all_correct: boolean = true;
+    const input_id = "m1_number";
+    const input_number = getInputNumber("m1");
+
+    if ((document.getElementById(input_id) as HTMLInputElement).value) {
+        if (input_number == answer) {
+            setInputBoxColor(input_id, 'limegreen');
+        }
+        else {
+            all_correct = false;
+            setInputBoxColor(input_id, 'red');
+        }
+    }
+    else {
+        all_correct = false;
+    }
+
+    return all_correct;
+}
+
 function clearAllInputBoxColor() {
 
     if (exercise_type == 0) {
@@ -217,19 +243,22 @@ function displayExercise() {
     }
 
     let finished: boolean = false;
-    let exercise: Record<string, Array<Frac>|Array<Record<string, Frac>>|AugmentedMatrix3> = {};
+    let exercise: Record<string, Array<Frac>|Array<Record<string, Frac>>|AugmentedMatrix3|number> = {};
 
     if (exercise_type == 1) {
         exercise = generateInfiniteSolutionsExercise(max_element);
     }
-    else {
+    else if (exercise_type == 0) {
         exercise = generateUniqueSolutionExercise(max_element);
+    }
+    else {
+        exercise = generateDetermineSolutionExercise(max_element);
     }
 
 
     let M1 = exercise['M1'] as AugmentedMatrix3;
-    let answer_array = exercise['answer'];
-    console.log(answer_array)
+    let answer = exercise['answer'];
+    console.log(answer)
 
     exercise_box.innerHTML = M1.displayToHTML();
 
@@ -240,13 +269,19 @@ function displayExercise() {
     submitButton.addEventListener('click', () => {
 
         if (exercise_type == 0) {
-            if (checkNumberFracAnswer(answer_array as Array<Frac>) && !finished) {
+            if (checkNumberFracAnswer(answer as Array<Frac>) && !finished) {
                 incrementScore();
                 finished = true;
             }
         }
         else if (exercise_type == 1) {
-            if (checkBackSubFracAnswer(answer_array as Array<Record<string, Frac>>) && !finished) {
+            if (checkBackSubFracAnswer(answer as Array<Record<string, Frac>>) && !finished) {
+                incrementScore();
+                finished = true;
+            }
+        }
+        else {
+            if (checkSolutionNoOfAnswer(answer as number) && !finished) {
                 incrementScore();
                 finished = true;
             }

@@ -1,6 +1,6 @@
 import { Frac } from "./frac_matrix.js";
-import { clearInputBoxColor, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
-import { generateInfiniteSolutionsExercise, generateUniqueSolutionExercise } from "./systems.js";
+import { clearInputBoxColor, getInputNumber, incrementScore, setInputBoxColor, setScore } from "./matrix_web.js";
+import { generateDetermineSolutionExercise, generateInfiniteSolutionsExercise, generateUniqueSolutionExercise } from "./systems.js";
 import { getRandomNumberFromArray } from "./utils.js";
 function getInputFracHTML(name) {
     return `<div style="display: flex; align-items: center; margin: 0 1vw;">
@@ -24,6 +24,9 @@ function getInputBackSubFracHTML(name) {
         </math>
     </div>`;
 }
+function getInputNumberHTML(name) {
+    return `<div><input id="${name}_number"></input></div>`;
+}
 function getInputHTML() {
     if (exercise_type == 0) {
         return (getInputFracHTML('x') + getInputFracHTML('y') + getInputFracHTML('z'));
@@ -31,7 +34,9 @@ function getInputHTML() {
     else if (exercise_type == 1) {
         return (getInputBackSubFracHTML('x') + getInputBackSubFracHTML('y') + getInputBackSubFracHTML('z'));
     }
-    return "";
+    else {
+        return getInputNumberHTML('m1');
+    }
 }
 function clearInput(name, exercise_type) {
     if (exercise_type == 0) {
@@ -128,6 +133,24 @@ function checkBackSubFracAnswer(answer_array) {
     }
     return all_correct;
 }
+function checkSolutionNoOfAnswer(answer) {
+    let all_correct = true;
+    const input_id = "m1_number";
+    const input_number = getInputNumber("m1");
+    if (document.getElementById(input_id).value) {
+        if (input_number == answer) {
+            setInputBoxColor(input_id, 'limegreen');
+        }
+        else {
+            all_correct = false;
+            setInputBoxColor(input_id, 'red');
+        }
+    }
+    else {
+        all_correct = false;
+    }
+    return all_correct;
+}
 function clearAllInputBoxColor() {
     if (exercise_type == 0) {
         clearInputBoxColor("frac_x_a");
@@ -178,25 +201,34 @@ function displayExercise() {
     if (exercise_type == 1) {
         exercise = generateInfiniteSolutionsExercise(max_element);
     }
-    else {
+    else if (exercise_type == 0) {
         exercise = generateUniqueSolutionExercise(max_element);
     }
+    else {
+        exercise = generateDetermineSolutionExercise(max_element);
+    }
     let M1 = exercise['M1'];
-    let answer_array = exercise['answer'];
-    console.log(answer_array);
+    let answer = exercise['answer'];
+    console.log(answer);
     exercise_box.innerHTML = M1.displayToHTML();
     const solution_frac_input = getInputHTML();
     m1_number.innerHTML = solution_frac_input;
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', () => {
         if (exercise_type == 0) {
-            if (checkNumberFracAnswer(answer_array) && !finished) {
+            if (checkNumberFracAnswer(answer) && !finished) {
                 incrementScore();
                 finished = true;
             }
         }
         else if (exercise_type == 1) {
-            if (checkBackSubFracAnswer(answer_array) && !finished) {
+            if (checkBackSubFracAnswer(answer) && !finished) {
+                incrementScore();
+                finished = true;
+            }
+        }
+        else {
+            if (checkSolutionNoOfAnswer(answer) && !finished) {
                 incrementScore();
                 finished = true;
             }

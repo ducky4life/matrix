@@ -785,7 +785,7 @@ export function generateInfiniteSolutionsExercise(max: number = 10) {
 
     let M1 = getRandomAugmentedMatrix3(max);
 
-    while (!M1.hasInfiniteSolutions()) {
+    while (!M1.hasInfiniteSolutions() || M1.hasZeroRow()) {
         M1 = getRandomAugmentedMatrix3(max);
     }
 
@@ -794,6 +794,24 @@ export function generateInfiniteSolutionsExercise(max: number = 10) {
     const generated_exercise: { M1: AugmentedMatrix3; answer: Array<Record<string, Frac>> } = {
         M1: M1,
         answer: answerArray
+    }
+
+    return generated_exercise;
+}
+
+export function generateDetermineSolutionExercise(max: number = 10) {
+
+    let M1 = getRandomAugmentedMatrix3(max);
+
+    while (M1.hasZeroRow()) {
+        M1 = getRandomAugmentedMatrix3(max);
+    }
+
+    const answer = M1.numberOfSolutions();
+
+    const generated_exercise: { M1: AugmentedMatrix3; answer: number } = {
+        M1: M1,
+        answer: answer
     }
 
     return generated_exercise;

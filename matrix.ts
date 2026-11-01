@@ -215,8 +215,8 @@ export class Matrix2 {
                 denominator = 1;
             }
 
-            const S1 = new Surd(rational, sqrt, denominator);
-            const S2 = new Surd(rational, -sqrt, denominator);
+            const S1 = new Surd(rational, 1, sqrt, denominator);
+            const S2 = new Surd(rational, -1, sqrt, denominator);
 
             return [S1, S2];
         }

@@ -74,3 +74,9 @@ export function getRandomNumber(max = 10) {
 export function numberRoughlyEquals(num1, num2, digits = 2) {
     return roundNumber(num1, digits) == roundNumber(num2, digits);
 }
+export function isSquareNumber(num) {
+    if (num >= 0) {
+        return (Number.isInteger(Math.sqrt(num)));
+    }
+    return false;
+}

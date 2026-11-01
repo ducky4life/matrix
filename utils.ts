@@ -95,3 +95,10 @@ export function getRandomNumber(max: number = 10) {
 export function numberRoughlyEquals(num1: number, num2: number, digits: number = 2) {
     return roundNumber(num1, digits) == roundNumber(num2, digits);
 }
+
+export function isSquareNumber(num: number) {
+    if (num >= 0) {
+        return (Number.isInteger(Math.sqrt(num)));
+    }
+    return false;
+}

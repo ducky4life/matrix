@@ -151,13 +151,8 @@ export class Matrix2 {
             let rational = (this.a1 + this.b2);
             let sqrt = discriminant;
             let denominator = 2;
-            if (sqrt % 4 == 0 && Math.abs(rational) % 2 == 0) {
-                rational = rational / 2;
-                sqrt = sqrt / 4;
-                denominator = 1;
-            }
-            const S1 = new Surd(rational, 1, sqrt, denominator);
-            const S2 = new Surd(rational, -1, sqrt, denominator);
+            const S1 = new Surd(rational, 1, sqrt, denominator).simplify();
+            const S2 = new Surd(rational, -1, sqrt, denominator).simplify();
             return [S1, S2];
         }
         return [];

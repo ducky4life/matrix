@@ -1,5 +1,5 @@
-import { TextFrac } from "./frac_matrix.js";
-import { getCoeff, isSquareNumber } from "./utils.js";
+import { Frac, TextFrac } from "./frac_matrix.js";
+import { commonHCF, getCoeff, isSquareNumber } from "./utils.js";
 
 export class Surd {
     rational: number;
@@ -43,22 +43,49 @@ export class Surd {
     }
 
     displayToHTML() {
+
+        if (this.sqrt_coeff == 0 || this.sqrt == 0) {
+            let F = new Frac(this.rational, this.denominator).simplify();
+            return F.displayToHTML();
+        }
+        
         let T: TextFrac = new TextFrac(this.displayNumeratorToString(), this.denominator.toString());
         return T.displayToHTML();
     }
 
     simplify() {
-        let coeff = this.getSign();
+        let coeff = this.sqrt_coeff;
         let surd_part = this.sqrt;
+        let rational_part = this.rational;
+        let denom = this.denominator;
 
-        for (let i = this.sqrt - 1; i > 3; i++) {
-            if (this.sqrt % i == 0 && isSquareNumber(i)) {
-                coeff = coeff * Math.sqrt(i);
-                surd_part = this.sqrt/i;
-                break;
+        // simplify surd
+
+        console.log(surd_part)
+        if (isSquareNumber(surd_part)) {
+            surd_part = 0;
+            coeff = coeff * Math.sqrt(surd_part);
+        }
+        else {
+            for (let i = this.sqrt - 1; i > 3; i--) {
+                if (this.sqrt % i == 0 && isSquareNumber(i)) {
+                    coeff = coeff * Math.sqrt(i);
+                    surd_part = this.sqrt/i;
+                    break;
+                }
+            }
+
+            console.log(this.rational, coeff, this.denominator);
+            // simplify denominator
+            let cHCF = commonHCF([this.rational, coeff, this.denominator]);
+            if (cHCF != 1) {
+                rational_part = rational_part / cHCF;
+                coeff = coeff / cHCF;
+                denom = denom / cHCF;
             }
         }
 
-        return new Surd(this.rational, coeff, surd_part, this.denominator);
+
+        return new Surd(rational_part, coeff, surd_part, denom);
     }
 }
